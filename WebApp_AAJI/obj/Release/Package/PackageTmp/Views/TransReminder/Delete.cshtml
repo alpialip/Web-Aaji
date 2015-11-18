@@ -1,0 +1,74 @@
+﻿@model WebApp_AAJI.Models.transReminder
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>transReminder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reminderDate)
+        </dt>
+
+        <dd>
+            @Model.reminderDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reminderTime)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.reminderTime)*@
+            @Model.reminderTime.ToString().Substring(0, 5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.repeatitionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.repeatitionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reminderID)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.reminderID)*@
+            @Model.reminderID.Replace('_', ' ')
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

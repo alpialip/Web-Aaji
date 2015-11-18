@@ -1,0 +1,10 @@
+﻿@if (ViewBag.linkCV != null)
+{
+    string linkCV = ViewBag.linkCV;
+    linkCV = linkCV.Substring(1, linkCV.Length - 1);
+    <img src="@linkCV"  />@*width="190px"*@
+}
+else
+{
+    @("No File")
+}

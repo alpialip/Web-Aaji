@@ -1,0 +1,66 @@
+﻿@model WebApp_AAJI.Models.menuValidation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>menuValidation</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.validationAccess)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.validationAccess)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedUser)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

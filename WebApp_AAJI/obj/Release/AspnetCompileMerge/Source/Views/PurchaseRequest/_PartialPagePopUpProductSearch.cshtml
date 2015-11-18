@@ -1,0 +1,76 @@
+﻿<script type="text/javascript">
+    var maxRows = 10;
+
+    function copyToFormPR(productID, productCode, productName, unit) {
+        var idx = document.getElementById('hdnIdxRowsClick').value;
+        $('#txtProductID_' + idx).val(productID);
+        $('#txtProductCode_' + idx).val(productCode);
+        $('#txtDescription_' + idx).val(productName);
+        $('#txtUnit_' + idx).val(unit);
+        //$("#dvDetail").load('@(Url.Action("LoadDetailPO", "PurchaseReceive", null, Request.Url.Scheme))?poId=' + poId);
+        $('#myModal').modal('hide');
+        $('#txtQty_' + idx).focus();
+    }
+
+    function popUpSearch() {
+        var pageStart = 1;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "a.proposalInclude") {
+            //alert($('input[name=rbProposal]:checked').val());
+            keywordSearch = $('input[name=rbProposal]:checked').val();
+        }
+        else
+            keywordSearch = document.getElementById('txtSearch').value;
+
+        $("#dvSubPopUp").load('@(Url.Action("popUpSearch", "PurchaseRequest", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+
+    function popUpPagingClick(values) {
+        var pageStart = values;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "a.proposalInclude") {
+            //alert($('input[name=rbProposal]:checked').val());
+            keywordSearch = $('input[name=rbProposal]:checked').val();
+        }
+        else
+            keywordSearch = document.getElementById('txtSearch').value;
+
+        $("#dvSubPopUp").load('@(Url.Action("popUpSearch", "PurchaseRequest", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+</script>
+
+<table>
+    <tr>
+        <td>&nbsp;Search By</td>
+        <td>
+            :
+            <select id="ddlSearchBy">
+                <option value="productCode" selected>Product Code</option>
+                <option value="productName">Description</option>
+                <option value="unit">Unit</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;Keyword</td>
+        <td>: <input type="text" id="txtSearch" />
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            &nbsp;&nbsp;<input type="button" onclick="popUpSearch()" value="Search" />
+        </td>
+    </tr>
+</table>
+<br />
+
+@if (ViewBag.ProductPopUp != null)
+{
+    <div id="dvSubPopUp">        
+        @Html.Partial("_PartialPageProductSearchSub");
+    </div>  
+}
+

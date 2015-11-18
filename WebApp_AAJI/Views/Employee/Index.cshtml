@@ -1,0 +1,146 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.employee>*@
+@model PagedList.IPagedList<WebApp_AAJI.Models.employee>
+@using PagedList.Mvc;
+@using System.Data;
+
+@if(ViewBag.lays){
+    Layout = "";
+}
+
+
+@{
+    ViewBag.Title = "Employee";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "Employee", FormMethod.Get))
+{
+    <p>
+        Find : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        @*Date :*@ @Html.TextBox("startDate", ViewBag.startDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date",style="display:none" }) @Html.TextBox("endDate", ViewBag.endDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date", style = "display:none" })
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table table-hover table-striped">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.employeeName)*@
+            @Html.ActionLink("Employee Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.employeeNIK)*@
+            @Html.ActionLink("NIK", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.email)*@
+            Email
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.npwp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ktp)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.address)*@
+            Address
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.city)*@
+            City
+        </th>
+        <th>
+            Status
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.bankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rekening)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tempatLahir)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tanggalLahir)
+        </th>*@
+        <th></th>
+    </tr>
+@{
+    DataTable dtEmployeeResign = ViewBag.EmployeeResign;
+}
+@foreach (var item in Model)
+{
+    bool isFindResign = false;
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.employeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employeeNIK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.npwp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ktp)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @if(ViewBag.EmployeeResign != null)
+            {
+                foreach(DataRow dr in dtEmployeeResign.Rows)
+                {
+                    if(dr["employeeID"].ToString() == item.employeeID.ToString())
+                    {
+                        isFindResign = true;
+                        @("Non Active")
+                        break;
+                    }
+                }
+                
+                if(isFindResign == false)
+                {
+                    @("Active")                
+                }
+            }
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.bankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rekening)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tempatLahir)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tanggalLahir)
+        </td>*@
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.employeeID }) <img src='~/img/edit.png' style="width:15px" /> |
+            @Html.ActionLink("Details", "Details", new { id = item.employeeID }) <img src='~/img/view.png' style="width:15px" /> |
+            @Html.ActionLink("Delete", "Delete", new { id = item.employeeID }) <img src='~/img/delete.png' style="width:15px" />*@ 
+            <a href="@Url.Action("Edit")/@item.employeeID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.employeeID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            @if(isFindResign == false)
+            { 
+                <a href="@Url.Action("Delete")/@item.employeeID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>
+            }
+        </td>
+    </tr>
+}
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, startDateFilter = ViewBag.startDateFilter, endDateFilter = ViewBag.endDateFilter }))

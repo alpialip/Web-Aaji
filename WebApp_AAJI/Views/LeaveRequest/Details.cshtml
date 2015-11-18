@@ -1,0 +1,169 @@
+﻿@model WebApp_AAJI.Models.transLeaveRequest
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Leave Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </dt>
+
+        <dd>
+            @ViewBag.employeeName
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.leaveStartDate)
+        </dt>
+
+        <dd>
+            @Model.leaveStartDate.ToString("dd-MMM-yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.leaveEndDate)
+        </dt>
+
+        <dd>
+            @Model.leaveEndDate.ToString("dd-MMM-yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.category)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.leaveDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.leaveDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cutiInHoliday)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cutiInHoliday)
+        </dd>
+        
+                <dt>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </dt>
+
+        <dd>
+            @if (Model.approvedStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (Model.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (Model.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedDate)
+        </dd>
+
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.acknowledgeStatus)
+        </dt>
+
+        <dd>
+            @if (Model.acknowledgeStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (Model.acknowledgeStatus == true)
+            {
+                @("Acknowledged")
+            }
+            else if (Model.acknowledgeStatus == false)
+            {
+                @("Rejected")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.acknowledgeBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.acknowledgeBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.acknowledgeDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.acknowledgeDate)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.createdUser)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.createdUser)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.createdDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.createdDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.modifiedUser)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.modifiedUser)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.modifiedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.modifiedDate)
+            </dd>*@
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,88 @@
+﻿@model WebApp_AAJI.Models.purchaseOrderHeader
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>purchaseOrderHeader</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.poDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.topDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.topDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

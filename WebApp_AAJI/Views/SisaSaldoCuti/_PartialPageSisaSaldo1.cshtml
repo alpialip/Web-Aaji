@@ -1,0 +1,84 @@
+﻿<script>
+    function saveCuti(idx, empId)
+    {
+        document.getElementById('imgSave_' + idx).style.display = '';
+        setTimeout(function () {
+        var year = document.getElementById('ddlYear').value;
+        var amount = document.getElementById('amount_' + idx).value;
+        //alert(empId+"-"+year+"-"+amount);
+        var z = year + ";" + empId + ";" + amount + "|"; 
+        $("#dvDetail").load('@(Url.Action("LoadDetailCuti", "SisaSaldoCuti", null, Request.Url.Scheme))?year=' + year + "&dataDetail=" + z);
+
+            document.getElementById('imgSave_' + idx).style.display = 'none';
+            setTimeout(function () {
+                document.getElementById('tbodyDetail').style.display = '';
+            }, 600);
+        }, 600);
+    }
+</script>
+<div style="overflow-y:auto; height:100%">
+    <table class="table" id="tbDetail" width="70%">
+        <thead>
+            <tr>
+                <th style="text-align: center; width: 20px;">
+                    No.
+                </th>
+                <th style="text-align: center; width: 110px;">
+                    Employee ID
+                </th>
+                <th style="text-align:center">
+                    Name
+                </th>
+                <th style="text-align: center; width: 150px;">
+                    Department
+                </th>
+                <th style="text-align: center; width: 120px;">
+                    Amount
+                </th>
+                <th style="width: 120px;">
+                    &nbsp;
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbodyDetail">
+            @{
+                int idx = 1;
+            }
+            @if (ViewBag.detailSaldoCuti != null)
+            {
+                foreach (var a in ViewBag.detailSaldoCuti as IEnumerable<WebApp_AAJI.Models.sisaSaldoCuti.saldoCutiDetail>)
+                {
+                    <tr>
+                        <td>
+                            @Html.Hidden("hdnEmployeeID_" + idx, a.employeeID)
+                            @idx
+                        </td>
+                        <td>
+                            @a.employeeNIK
+                        </td>
+                        <td>
+                            @a.employeeName
+                        </td>
+                        <td style="text-align:center;">
+                            @a.deptName
+                        </td>
+                        <td>
+                            @Html.TextBox("amount_" + idx, a.amount, new { @disabled = "disabled", @class = "form-control", type="number",placeholder="0", style="text-align: right; width: 100px; ", onchange = "saveCuti(" + idx + "," + a.employeeID + ")" })
+                        </td>
+                        <td>
+                            @*<img src="~/img/delete.png" width="20px" onclick="deleteAbsensi(@idx,@a.employeeID)" />&nbsp;*@
+                            <img src="~/img/save.png" width="20px" id="imgSave_@idx" style="display:none" />
+                        </td>
+                    </tr>
+                                idx++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        @*<input type="submit" value="Save" class="btn btn-primary" />*@
+    </div>
+</div>

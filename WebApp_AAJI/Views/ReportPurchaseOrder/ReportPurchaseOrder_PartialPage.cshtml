@@ -1,0 +1,78 @@
+﻿@using System.Data;
+<script>
+    function generatePDF()
+    {
+       var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+
+        //alert(period+"-"+empId);
+        if (startDate != "" && endDate != "")
+            $("#dvReport").load('@(Url.Action("GenerateReport", "ReportPurchaseOrder", null, Request.Url.Scheme))?startDate=' + startDate + "&endDate=" + endDate);
+
+    }
+</script>
+@{
+    bool hasData = false;
+}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>PO No.</th>
+            <th>PO Date</th>
+            <th>Vendor</th>
+            <th>PO Urgent</th>
+            <th>TOP Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.detail != null)
+        {
+            DataTable dt = ViewBag.detail as DataTable;
+            if (dt.Rows.Count > 0)
+            {
+                hasData = true;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    <tr>
+                        <td>@dr["poId"].ToString()</td>
+                        <td>@dr["poDate"].ToString()</td>
+                        @foreach (var vendor in ViewBag.vendor as IEnumerable<WebApp_AAJI.Models.vendor>)
+                        {
+                            @*@(vendor.vendorID.ToString()+"=="+dr["vendorId"].ToString());*@
+                            if(vendor.vendorID == dr["vendorId"].ToString())
+                            {
+                                <td>@vendor.vendorName</td>
+                                break;
+                            }
+                        }
+                        @*<td>@dr["vendorId"].ToString()</td>*@
+                        <td>@dr["poUrgent"].ToString()</td>
+                        <td>@dr["topType"].ToString()</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">No Data Result</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (hasData == true)
+{
+
+    @*<a href="@Url.Action("GenerateReport" + ViewBag.linkAction)"> Print PDF</a>*@
+    <img src="~/img/pdf.png" width="25px" onclick="generatePDF()" /> @("Print PDF")
+    <div id="dvReport" style="display:none">
+
+    </div>
+}

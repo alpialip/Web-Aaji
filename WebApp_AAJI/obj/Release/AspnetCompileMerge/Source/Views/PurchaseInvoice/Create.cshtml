@@ -1,0 +1,90 @@
+﻿@model WebApp_AAJI.Models.purchaseInvoice
+
+@{
+    ViewBag.Title = "Create";
+}
+<script>
+    function maskingCurrency() {
+        document.getElementById("totals").value = formatCurrency(document.getElementById("totals").value.replace(/\./g, ''));
+        document.getElementById("total").value = document.getElementById("totals").value.replace(/\./g, '');
+    }
+</script>
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>purchaseInvoice</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.purchaseInvoiceNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.purchaseInvoiceNo)
+                @Html.ValidationMessageFor(model => model.purchaseInvoiceNo)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.invoiceDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("invoiceDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+                @Html.ValidationMessageFor(model => model.invoiceDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dueDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("dueDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+                @Html.ValidationMessageFor(model => model.dueDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.receiveNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.receiveNo)
+                @Html.ValidationMessageFor(model => model.receiveNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.paymentInfo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.paymentInfo)
+                @Html.ValidationMessageFor(model => model.paymentInfo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.total, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("totals", "0", new { type = "text", style = "text-align:right;width:150px;padding-right:10px", onchange = "maskingCurrency()" })
+                @Html.TextBox("total", "0", new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.total)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

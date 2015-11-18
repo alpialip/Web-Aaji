@@ -1,0 +1,102 @@
+﻿<script type="text/javascript">
+    var maxRows = 10;
+
+    function copyToFormPR(prId, deptName, typeOrder, proposalInclude, specialInstruction, projectTimeDelivery) {
+        $('#prId').val(prId);
+        //$('#prFrom').val(deptName);
+        $('#prFrom').text(deptName);
+        $('#prType').text(typeOrder);
+        $('#poUrgent').val(typeOrder);
+        $('#prProposal').text(proposalInclude);
+        $('#prInstruction').text(specialInstruction);
+        $('#prDelivery').text(projectTimeDelivery);
+        $("#dvDetail").load('@(Url.Action("LoadDetailPR", "PurchaseOrder", null, Request.Url.Scheme))?prId=' + prId);
+        $('#myModal').modal('hide');
+    }
+
+    function popUpSearch()
+    {
+        var pageStart = 1;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "a.proposalInclude")
+        {
+            //alert($('input[name=rbProposal]:checked').val());
+            keywordSearch = $('input[name=rbProposal]:checked').val();
+        }
+        else
+            keywordSearch = document.getElementById('txtSearch').value;
+
+        $("#dvPRPop").load('@(Url.Action("LoadDetailPRSearch", "PurchaseOrder", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+
+    function popUpPagingClick(values) {
+        var pageStart = values;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "a.proposalInclude") {
+            //alert($('input[name=rbProposal]:checked').val());
+            keywordSearch = $('input[name=rbProposal]:checked').val();
+        }
+        else
+            keywordSearch = document.getElementById('txtSearch').value;
+
+        $("#dvPRPop").load('@(Url.Action("LoadDetailPRSearch", "PurchaseOrder", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+
+    function changeKeywordSearch(values)
+    {
+        document.getElementById('txtSearch').style.display='none';
+        document.getElementById('rbProposalYes').style.display = 'none';
+        document.getElementById('rbProposalNo').style.display = 'none';
+        document.getElementById('lblProposalYes').style.display = 'none';
+        document.getElementById('lblProposalNo').style.display = 'none';
+
+        if (values == "a.prId" || values == "b.deptName" || values == "a.typeOrder")
+        {
+            document.getElementById('txtSearch').style.display = '';
+        }
+        else if (values == "a.proposalInclude")
+        {
+            document.getElementById('rbProposalYes').style.display = '';
+            document.getElementById('rbProposalNo').style.display = '';
+            document.getElementById('lblProposalYes').style.display = '';
+            document.getElementById('lblProposalNo').style.display = '';
+        }
+
+    }
+</script>
+<table>
+    <tr>
+        <td>&nbsp;Search By</td>
+        <td>: 
+        <select id="ddlSearchBy" onchange="changeKeywordSearch(this.value)">
+            <option value="a.prId" selected>PR No.</option>
+            <option value="b.deptName">From Dept</option>
+            <option value="a.typeOrder">Order</option>
+            <option value="a.proposalInclude">Prop.Include</option>
+        </select>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;Keyword</td>
+        <td>: <input type="text" id="txtSearch" />
+            <input type="radio" id="rbProposalYes" name="rbProposal" value="1" style="display:none" /><label id="lblProposalYes" style="display:none; font-weight:100">Yes</label>
+            <input type="radio" id="rbProposalNo" name="rbProposal" value="0" style="display:none" /><label id="lblProposalNo" style="display: none; font-weight: 100">No</label>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            &nbsp;&nbsp;<input type="button" onclick="popUpSearch()" value="Search" />
+        </td>
+    </tr>
+</table>
+<br />
+
+@if (ViewBag.PRPopUp != null)
+{    
+    <div id="dvPRPop">        
+        @Html.Partial("_PartialPagePRSearchSub");
+    </div>    
+}

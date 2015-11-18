@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.level>
+
+@{
+    ViewBag.Title = "Level";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.levelName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.saldoCuti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.saldoCuti2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.saldoCuti3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.saldoCuti4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GajiTerendah)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GajiTertinggi)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.levelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.saldoCuti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.saldoCuti2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.saldoCuti3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.saldoCuti4)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.GajiTerendah)*@
+                @{
+                    int number = int.Parse(item.GajiTerendah.ToString("G29").Replace(',', '.'));
+                    string nominal = number.ToString("#,##0");
+                }
+                @nominal
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.GajiTertinggi)*@
+                @{
+                    int number2 = int.Parse(item.GajiTertinggi.ToString("G29").Replace(',', '.'));
+                    string nominal2 = number2.ToString("#,##0");
+                }
+                @nominal2
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.levelID }) <img src='~/img/edit.png' style="width:15px" /> |
+                    @Html.ActionLink("Details", "Details", new { id = item.levelID }) <img src='~/img/view.png' style="width:15px" />  |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.levelID }) <img src='~/img/delete.png' style="width:15px" />*@
+
+                <a href="@Url.Action("Edit")/@item.levelID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("Details")/@item.levelID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("Delete")/@item.levelID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+    }
+
+</table>

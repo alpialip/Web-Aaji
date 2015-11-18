@@ -1,0 +1,102 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.menu>*@
+@model PagedList.IPagedList<WebApp_AAJI.Models.menu>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index","Menu",FormMethod.Get))
+{
+    <p>
+        Find : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.menuName)*@
+            @Html.ActionLink("Menu Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.menuLink)*@
+            Link
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.menuParent)*@
+            @Html.ActionLink("Parent Menu", "Index", new { sortOrder = ViewBag.ParentSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.menuDescription)*@
+            Description
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.menuIsParent)*@
+            @Html.ActionLink("Is Parent", "Index", new { sortOrder = ViewBag.isParentSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.menuIsActive)*@
+            @Html.ActionLink("Is Active", "Index", new { sortOrder = ViewBag.isActiveSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.menuName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.menuLink)
+        </td>
+        <td>
+            @if (ViewData["parentMenuDesc"] != null)
+            {
+                foreach (var desc in ViewData["parentMenuDesc"] as List<WebApp_AAJI.Models.menu>)
+                {
+                    var parentID = item.menuParent;
+                    if(desc.menuID == parentID)
+                    {
+                        @desc.menuName
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.menuParent)
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.menuDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.menuIsParent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.menuIsActive)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.menuID }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.menuID }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.menuID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

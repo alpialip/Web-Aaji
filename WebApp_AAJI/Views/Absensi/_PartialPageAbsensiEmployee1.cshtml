@@ -1,0 +1,191 @@
+﻿<script>
+    function checkTypeAbsensi(val, idx)
+    {
+        if(val == "")
+        {
+            document.getElementById('timeIn_'+idx).removeAttribute('disabled');
+            document.getElementById('timeOut_' + idx).removeAttribute('disabled');
+            document.getElementById('remarks_' + idx).value = '';
+        }
+        else if(val != "")
+        {
+            document.getElementById('timeIn_' + idx).setAttribute('disabled', 'disabled');
+            document.getElementById('timeOut_' + idx).setAttribute('disabled', 'disabled');
+            document.getElementById('timeIn_' + idx).value = '';
+            document.getElementById('timeOut_' + idx).value = '';
+        }
+    }
+
+    function saveAbsensi(idx, empId)
+    {
+        var period = document.getElementById('dtpPeriodeDate').value;
+        var isEdit = document.getElementById('isEdit_' + idx).value;
+        var date = document.getElementById('date_' + idx).value;
+        var hourIn = document.getElementById('timeIn_' + idx).value;
+        var hourOut = document.getElementById('timeOut_' + idx).value;
+        var absensiType = document.getElementById('ddlAbsensiType_' + idx).value;
+        var remark = document.getElementById('remarks_' + idx).value;
+        //alert(period);
+        //alert(date+"-"+hourIn+"-"+hourOut+"-"+absensiType+"-"+remark);
+        
+        if ((period != "" && hourIn != "" && hourOut != "") || (period != "" && absensiType != "" && remark != "") || isEdit != 0)
+        {
+            var z = date+";"+hourIn+";"+hourOut+";"+absensiType+";"+escape(remark)+"|";
+            $("#dvDetail").load('@(Url.Action("LoadDetailAbsensi", "Absensi", null, Request.Url.Scheme))?periode=' + period + "&dataDetail=" + z + "&employeeId=" + empId);
+            document.getElementById('save_'+idx).style.display='none';
+            document.getElementById('check_'+idx).style.display='';
+            setTimeout(function(){document.getElementById('check_'+idx).style.display='none';document.getElementById('save_'+idx).style.display='';},1000)
+        }
+        else
+        {
+            var msg = ""
+            if (period == "")
+                msg += "- Period Required \r";
+
+            if (absensiType != "" || remark != "") {
+                if (absensiType == "")
+                    msg += "- Absensi Required \r";
+                if (remark == "")
+                    msg += "- Explanation Required \r";
+            }
+            else if (hourIn != "" || hourOut != "") {
+                if (hourIn == "")
+                    msg += "- In Required \r";
+                if (hourOut == "")
+                    msg += "- Out Required \r";
+            }
+            alert(msg);
+        }
+    }
+</script>
+<div style="overflow-y:auto; height:100%">
+    <table class="table table-striped table-hover" id="tbDetail" width="80%">
+        <thead>
+            <tr>
+                <th style="text-align:center">
+                    Date
+                </th>
+                <th style="text-align:center">
+                    Day
+                </th>
+                <th style="text-align:center">
+                    In
+                </th>
+                <th style="text-align:center">
+                    Out
+                </th>
+                <th style="text-align:center">
+                    Absensi
+                </th>
+                <th style="text-align:center">
+                    Explanation
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbodyDetail">
+            @{
+                int idx = 1;
+                string periodSeq = string.Empty;
+
+            }
+            @if (ViewBag.maxDate != null)
+            {
+                int maxDate = ViewBag.maxDate;
+                
+                for (int i = 1; i <= maxDate; i++)
+                {
+                    string period = ViewBag.period;
+                    int employeeID = int.Parse(ViewBag.employeeID);
+                    TimeSpan? valTimeIn = null;
+                    TimeSpan? valTimeOut = null;
+                    int? valTypeAbsensi = null;
+                    string dis = string.Empty;
+                    int valIDAbsensi = 0;
+                    
+                    string valRemark = null;
+                    if (i < 10)
+                    {
+                        periodSeq = (period + "-0" + i.ToString());
+                    }
+                    else
+                    {
+                        periodSeq = (period + "-" + i.ToString());
+                    }
+                    DateTime dt = Convert.ToDateTime(periodSeq);
+                    
+                    if(ViewBag.detailAbsensiEmployee != null)
+                    {
+                        foreach(var a in ViewBag.detailAbsensiEmployee as IEnumerable<WebApp_AAJI.Models.absensiEmployee.absensiEmployeeDetail>)
+                        {
+                            if(a.date.Date == dt.Date)
+                            {
+                                valIDAbsensi = a.id;
+                                valTimeIn = a.checkIn;
+                                valTimeOut = a.checkOut;
+                                valTypeAbsensi = a.typeAbsensiID;
+                                valRemark = a.remarks;
+
+                                if (valTypeAbsensi != null)
+                                {
+                                    dis = "disabled='disabled'";
+                                }                                
+                                break;
+                            }
+                        }
+                    }
+                    
+                    <tr>
+                        <td>
+                            <input type="hidden" id="isEdit_@idx" name="isEdit_@idx" value="@valIDAbsensi" />
+                            <input type="hidden" id="date_@idx" name="date_@idx" value="@periodSeq" />
+                            @Convert.ToDateTime(periodSeq).ToString("dd-MMM-yyyy")
+                        </td>
+                        <td>
+                            @dt.DayOfWeek
+                        </td>
+                        <td>
+                            <input type="time" id="timeIn_@idx" name="timeIn_@idx" value="@valTimeIn" @dis>
+                        </td>
+                        <td>
+                            <input type="time" id="timeOut_@idx" name="timeOut_@idx" value="@valTimeOut" @dis>
+                        </td>
+                        <td>
+                            <select id="ddlAbsensiType_@idx" name="ddlAbsensiType_@idx" class="form-control" onchange="checkTypeAbsensi(this.value, @idx)">
+                                <option value="">- Select -</option>
+                                @foreach (var z in ViewBag.ddlTypeAbsensi as SelectList)
+                                {
+                                    if (z.Value == valTypeAbsensi.ToString())
+                                    {
+                                        <option value="@z.Value" selected="selected">@z.Text</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@z.Value">@z.Text</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            @Html.TextBox("remarks_" + idx, valRemark, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <img src="~/img/save.png" id="save_@idx" onclick="saveAbsensi(@idx,@employeeID)" width="25px" title="Save" />
+                            <img src="~/img/check.png" id="check_@idx" width="25px" style="display:none" title="Save Succeed" />
+                        </td>
+                    </tr>
+                                idx++;
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        @*<input type="submit" value="Save" class="btn btn-primary" />*@
+    </div>
+</div>

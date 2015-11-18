@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest>
+
+@{
+    ViewBag.Title = "Cash On Hand And Advance Request";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reqFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reqIsCashOnHand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.includeProposal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isReimbursement)
+        </th>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.date.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @if (ViewBag.user != null)
+            { 
+                foreach(var a in ViewBag.user as IEnumerable<WebApp_AAJI.Models.user>)
+                {
+                    if(item.reqFrom == a.employeeNIK)
+                    {
+                        @a.userName
+                        break;
+                    }
+                }
+            }
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.activity)*@
+            @item.activity.Replace("_", " ")
+        </td>
+        <td>
+            @if (item.reqIsCashOnHand == true)
+            {
+                @("Cash On Hand")
+            }
+            else
+            {
+                @("Advance Payment")                
+            }
+            @*@Html.DisplayFor(modelItem => item.reqIsCashOnHand)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.includeProposal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isReimbursement)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.reqNo }) <img src='~/img/edit.png' style="width:15px" /> |
+            @Html.ActionLink("Details", "Details", new { id = item.reqNo }) <img src='~/img/view.png' style="width:15px" /> |
+            @Html.ActionLink("Delete", "Delete", new { id = item.reqNo }) <img src='~/img/delete.png' style="width:15px" />*@ 
+            <a href="@Url.Action("Edit")/@item.reqNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.reqNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.reqNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>

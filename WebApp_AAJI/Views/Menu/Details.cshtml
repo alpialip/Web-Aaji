@@ -1,0 +1,66 @@
+﻿@model WebApp_AAJI.Models.menu
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>menu</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.menuName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menuName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.menuLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menuLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.menuParent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menuParent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.menuDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menuDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.menuIsParent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menuIsParent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.menuIsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menuIsActive)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.menuID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

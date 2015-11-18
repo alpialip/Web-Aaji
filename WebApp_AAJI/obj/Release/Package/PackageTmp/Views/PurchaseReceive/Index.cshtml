@@ -1,0 +1,164 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.purchaseReceive>*@
+@model PagedList.IPagedList<WebApp_AAJI.Models.purchaseReceive>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Purchase Receive";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "PurchaseReceive", FormMethod.Get))
+{
+    <p>
+        Find : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Date : @Html.TextBox("startDate", ViewBag.startDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" }) - @Html.TextBox("endDate", ViewBag.endDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" })
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.receiveNo)*@
+            @Html.ActionLink("Receive No.", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.receiveDate)*@
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.poId)*@
+            PO No.
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.remarks)*@
+            Remarks
+        </th>
+        @*<th>
+        @Html.DisplayNameFor(model => model.proposedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.proposedStatus)*@
+            Proposed Status
+        </th>
+        @*<th>
+        @Html.DisplayNameFor(model => model.receivedBy)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.receivedDate)
+    </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.receivedStatus)*@
+            Received
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.receiveNo
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.receiveDate)*@
+            @item.receiveDate.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.poId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.proposedBy)
+        </td>
+        <td>
+            @item.proposedDate.ToString("dd MMM yyyy")
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.proposedStatus)
+        </td>
+        @*<td>
+        @Html.DisplayFor(modelItem => item.receivedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.receivedDate)
+    </td>*@
+        <td>
+            @*@Html.DisplayFor(modelItem => item.receivedStatus)*@
+            @if (item.receivedStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (item.receivedStatus == true)
+            {
+                @("Received")
+            }
+            else if (item.receivedStatus == false)
+            {
+                @("Not Received")
+            }
+        </td>
+        <td>
+            @if (ViewBag.invoiceWasCreated != null)
+            {
+                var isFind = false;
+                foreach (var a in ViewBag.invoiceWasCreated as List<string>)
+                {
+                    if (a == item.receiveNo)
+                    {
+                        <a data-toggle="modal" data-target="#myModal" style="cursor:hand">
+                            <img src='~/img/edit.png' style="width:15px" /></a>
+                        isFind = true;
+                        break;
+                    }
+                }
+
+                if (isFind == false)
+                {
+                    <a href="@Url.Action("Edit")/@item.receiveNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+                }
+            }
+            &nbsp;&nbsp;&nbsp;
+            @*@Html.ActionLink("Details", "Details", new { id = item.receiveNo }) <img src='~/img/view.png' style="width:15px" /> |
+            @Html.ActionLink("Delete", "Delete", new { id = item.receiveNo }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+            <a href="@Url.Action("Details")/@item.receiveNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.receiveNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+            @if (ViewBag.ApprovalAuth != null)
+            {
+                if (ViewBag.ApprovalAuth == true && item.receivedStatus == null && item.proposedStatus == true)
+                {
+                    <a href="@Url.Action("Approval")/@item.receiveNo?act=Appr"><img src='~/img/approval.png' style="width:15px" title="Approval" /></a>
+                }
+            }
+        </td>
+    </tr>
+}
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, startDateFilter = ViewBag.startDateFilter, endDateFilter = ViewBag.endDateFilter }))
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 445px;">
+            <div class="modal-header" style="background-color:#5BC0DE">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>Cannot Edit Purchase Receive, Purchase Invoice Was Created.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

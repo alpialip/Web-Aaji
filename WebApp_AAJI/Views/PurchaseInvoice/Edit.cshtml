@@ -1,0 +1,118 @@
+﻿@model WebApp_AAJI.Models.purchaseInvoice
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script>
+    function maskingCurrency() {
+        document.getElementById("totals").value = formatCurrency(document.getElementById("totals").value.replace(/\./g, ''));
+        document.getElementById("total").value = document.getElementById("totals").value.replace(/\./g, '');
+    }
+</script>
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>purchaseInvoice</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @*@Html.HiddenFor(model => model.purchaseInvoiceNo)*@
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.createdDate)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.purchaseInvoiceNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.purchaseInvoiceNo, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.purchaseInvoiceNo)
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.invoiceDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("invoiceDate", Model.invoiceDate, "{0:yyyy-MM-dd}", new { type = "date" })
+                    @Html.ValidationMessageFor(model => model.invoiceDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.dueDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("dueDate", Model.dueDate, "{0:yyyy-MM-dd}", new { type = "date" })
+                    @Html.ValidationMessageFor(model => model.dueDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.receiveNo, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (ViewBag.isReceiveFromTransPurchase == true)
+                    {
+                        @Html.TextBoxFor(model => model.receiveNo, new { @readonly="readonly"})
+                    }
+                    else
+                    { 
+                        @Html.EditorFor(model => model.receiveNo)
+                    }
+                    @Html.ValidationMessageFor(model => model.receiveNo)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.paymentInfo, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.paymentInfo)
+                    @Html.ValidationMessageFor(model => model.paymentInfo)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.invoiceReference, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.invoiceReference, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.invoiceReference)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                    @Html.ValidationMessageFor(model => model.remarks)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.total, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (ViewBag.isReceiveFromTransPurchase == true)
+                    {
+                        @Html.TextBox("totals", Model.total.ToString("G29").Replace(',', '.'), new { type = "text", style = "text-align:right;width:150px", onchange = "maskingCurrency()", @readonly = "readonly" })
+                    }
+                    else
+                    {
+                        @Html.TextBox("totals", Model.total.ToString("G29").Replace(',', '.'), new { type = "text", style = "text-align:right;width:150px", onchange = "maskingCurrency()" })
+                    }
+                    @Html.TextBoxFor(model=>model.total, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    @Html.ValidationMessageFor(model => model.total)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+<script>
+    maskingCurrency();
+</script>

@@ -1,0 +1,107 @@
+﻿@model WebApp_AAJI.Models.purchaseRequestHeader
+
+@{
+    ViewBag.Title = "Approval";
+}
+<script>
+    function sendSubmit(values)
+    {
+        var val = values.split('_');
+        //alert(val[0]);
+        //alert(val[1]);
+        $("#dvSubmit").load('@(Url.Action("ApprovalProcess", "PurchaseRequest", null, Request.Url.Scheme))?act=' + val[0] + '&id=' + val[1],
+            function () {
+                //window.history.go(-1);
+                window.location.replace('/PurchaseRequest/Index');
+        });
+    }
+</script>
+<h2>ViewBag.Title</h2>
+<div>
+    <h4>purchaseRequest</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prId)
+        </dt>
+
+        <dd>            
+            @Html.DisplayFor(model => model.prId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prDate)
+        </dt>
+
+        <dd>
+            @Model.prDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.Label("To")
+        </dt>
+
+        <dd>
+            Procurement
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.requestDeptId)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.requestDeptId)*@
+            @ViewBag.Dept
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.typeOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typeOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposalInclude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposalInclude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.specialInstruction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.specialInstruction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projectTimeDelivery)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projectTimeDelivery)
+        </dd>
+
+    </dl>
+    <div id="dvDetail">
+        @*@Html.Partial("_PartialPagePR2")*@
+        @Html.Partial("_PartialPagePR_Supplier2")
+    </div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="button" value="Approved" class="btn btn-primary" onclick="sendSubmit('approved_@Model.prId')" /> |
+        <input type="button" value="Rejected" class="btn btn-primary" onclick="sendSubmit('rejected_@Model.prId')" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div id="dvSubmit" style="display:none"></div>
+}
+</div>

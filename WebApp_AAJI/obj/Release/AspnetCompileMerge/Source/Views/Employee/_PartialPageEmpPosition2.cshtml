@@ -1,0 +1,142 @@
+﻿<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li style="padding-top: 0.6%;">
+            &nbsp;&nbsp;&nbsp;
+        </li>
+        <li class="active"><a data-toggle="tab" href="#sectionA"><b>Position</b></a></li>
+        <li><a data-toggle="tab" href="#sectionB"><b>Resign</b></a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="sectionA" class="tab-pane fade in active">
+            <table id="tblDetail">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Department</th>
+                        <th>Division</th>
+                        <th>Job Title</th>
+                        <th>Level</th>
+                        <th>Status</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idx = 0;
+                        DateTime posDate = DateTime.Now;
+                    }
+                    @if (ViewBag.detailPosition != null)
+                    {
+                        foreach (var a in ViewBag.detailPosition as IEnumerable<WebApp_AAJI.Models.employee.employeePosition>)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.TextBox("posDate_" + idx, a.positionDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;", disabled="disabled"})
+                                </td>
+                                <td>
+                                    <select id="posDept_@idx" name="posDept_@idx" class="form-control" disabled="disabled">
+                                        @foreach (var z in ViewBag.DeptList as SelectList)
+                                        {
+                                            if (z.Value == a.deptID.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="posDiv_@idx" name="posDiv_@idx" class="form-control" disabled="disabled">
+                                        @foreach (var z in ViewBag.DivList as SelectList)
+                                        {
+                                            if (z.Value == a.divisiID.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    @Html.TextBox("posTitle_" + idx, a.jobTitle, new { style = " width: 230px;", disabled="disabled" })
+                                </td>
+                                <td>
+                                    <select id="posLevel_@idx" name="posLevel_@idx" class="form-control" disabled="disabled">
+                                        @foreach (var z in ViewBag.LevelList as SelectList)
+                                        {
+                                            if (z.Value == a.levelID.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="posStatus_@idx" name="posStatus_@idx" class="form-control" disabled="disabled">
+                                        @foreach (var z in ViewBag.StatusList as SelectList)
+                                        {
+                                            if (z.Value == a.employeeStatus.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                                        idx++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Remark</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idxRes = 0;
+                        DateTime resDate = DateTime.Now;
+                    }
+                    @if (ViewBag.detailResign != null)
+                    {
+                        foreach (var a in ViewBag.detailResign as IEnumerable<WebApp_AAJI.Models.employee.employeeResign>)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBox("resDate_" + idxRes, a.resignDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" ,disabled="disabled"})
+                                </td>
+                                <td>
+                                    @Html.TextBox("resRemark_" + idxRes, a.remarks, new { style = " width: 500px;" ,disabled="disabled"})
+                                </td>
+                            </tr>
+                            idxRes++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

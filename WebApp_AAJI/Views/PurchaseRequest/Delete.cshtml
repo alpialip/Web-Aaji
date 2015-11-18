@@ -1,0 +1,86 @@
+﻿@model WebApp_AAJI.Models.purchaseRequestHeader
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>purchaseRequest</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prDate)
+        </dt>
+
+        <dd>
+            @Model.prDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.Label("To")
+        </dt>
+
+        <dd>
+            Procurement
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.requestDeptId)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.requestDeptId)*@
+            @ViewBag.Dept
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.typeOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typeOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposalInclude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposalInclude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.specialInstruction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.specialInstruction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projectTimeDelivery)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projectTimeDelivery)
+        </dd>
+
+    </dl>
+    <div id="dvDetail">
+        @*@Html.Partial("_PartialPagePR2")*@
+        @Html.Partial("_PartialPagePR_Supplier2")
+    </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

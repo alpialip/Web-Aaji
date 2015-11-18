@@ -1,0 +1,108 @@
+﻿@model WebApp_AAJI.Models.purchaseReceive
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>purchaseReceive</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.receiveNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiveNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receiveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.poId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedDate)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.proposedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receivedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receivedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receivedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receivedDate)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receivedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receivedStatus)
+        </dd>
+
+    </dl>
+
+    <div id="dvDetail">
+        @Html.Partial("_PartialPageRCV-PO2")
+    </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

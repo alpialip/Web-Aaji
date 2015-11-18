@@ -1,0 +1,163 @@
+﻿@model WebApp_AAJI.Models.employeeClaimMedical
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>employeeClaimMedical</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.klaimDate)
+        </dt>
+
+        <dd>
+            @Model.klaimDate.ToString("dd-MMM-yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </dt>
+
+        <dd>
+            @foreach (var a in ViewBag.employeeList as IEnumerable<WebApp_AAJI.Models.employee>)
+            {
+                if (a.employeeID == Model.employeeID)
+                {
+                    @a.employeeName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(model => model.employeeID)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.linkFileData)
+        </dt>
+
+        <dd>
+            @{
+                string[] filePath = Model.linkFileData.Split('\\');
+                if(filePath.Length > 1)
+                { 
+                    string fileName = filePath[1].ToString();
+                    @fileName
+                    <label>&nbsp;</label>
+                    <a href="~/Common/Download?file=@Model.linkFileData" target="_blank" title="Download File">
+                        <img src="~/img/download.png" style="width: 20px;" />
+                    </a>
+                                }
+                }
+            @*@Html.DisplayFor(model => model.linkFileData)*@
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Model.amount.ToString("#,##0")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.lab)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lab)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.medicine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.medicine)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.usage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </dt>
+
+        <dd>
+            @ViewBag.UserName
+            @*@Html.DisplayFor(model => model.proposedBy)*@
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedDate)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.approvedStatus)*@
+            @if (Model.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (Model.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+            else
+            {
+                @("Waiting")
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @if(Model.approvedStatus == null)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.klaimID }) 
+        @(" |")        
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

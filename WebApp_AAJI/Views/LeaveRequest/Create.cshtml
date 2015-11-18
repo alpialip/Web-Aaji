@@ -1,0 +1,125 @@
+﻿@model WebApp_AAJI.Models.ViewModelCuti
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>transLeaveRequest</h4>
+        <hr />
+
+        @Html.Partial("_dataPercutian", Model);
+        
+
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.level)
+            @Html.HiddenFor(model => model.saldoCuti)
+            @Html.HiddenFor(model => model.saldoCuti2)
+            @Html.HiddenFor(model => model.saldoCuti3)
+            @Html.HiddenFor(model => model.saldoCuti4)
+            @Html.HiddenFor(model => model.amount)
+            @Html.HiddenFor(model => model.amount2)
+            @Html.HiddenFor(model => model.amount3)
+            @Html.HiddenFor(model => model.amount4)
+            @Html.HiddenFor(model => model.countedApproved)
+            @Html.HiddenFor(model => model.countedApproved2)
+            @Html.HiddenFor(model => model.countedApproved3)
+            @Html.HiddenFor(model => model.countedApproved4)
+
+            @Html.LabelFor(model => model.employeeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.employeeID, new { @Value = @Model.employeeID })
+                @Html.TextBox("employeeName", Model.employeeName as string, new { @readonly = "readonly" })
+                @if (Model.employeeID != null)
+                {
+                    if (Model.employeeID.ToString() as string != string.Empty)
+                    {
+                    }
+                    else
+                    {
+                        <button data-toggle="modal" data-target="#myModal" data-url='@Url.Action("LoadPopUpVendor","Common")'>...</button>
+                    }
+                }
+                @Html.ValidationMessageFor(model => model.employeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.leaveStartDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("leaveStartDate", DateTime.Now.ToString("dd-MMM-yyyy"), new { @class = "tanggal" })
+                @Html.ValidationMessageFor(model => model.leaveStartDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.leaveEndDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("leaveEndDate", DateTime.Now.ToString("dd-MMM-yyyy"), new { @class = "tanggal" })
+                @Html.ValidationMessageFor(model => model.leaveEndDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.category, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.category, new { @class = "form-control" })*@
+                @Html.DropDownListFor(model => model.category, new SelectList(
+                  new List<Object>{
+                       new { value = "tahunan" , text = "Cuti Tahunan"  },
+                       new { value = "persalinan" , text = "Cuti Persalinan" },
+                       new { value = "kemalangan" , text = "Cuti Kemalangan"},
+                       new { value = "lain-lain" , text = "Cuti Lain-lain"},
+                    },
+                  "value",
+                  "text",
+            "tahunan"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.category)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.leaveDescription, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.leaveDescription, new { @class = "form-control", @rows = "2" })
+                @Html.ValidationMessageFor(model => model.leaveDescription)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:725px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Employee</h4>
+            </div>
+            <div class="table-responsive">
+                @Html.Partial("_PartialPageEmployeeSearch")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

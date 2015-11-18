@@ -1,0 +1,164 @@
+﻿@model WebApp_AAJI.Models.employeeLoan
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>employeePinjaman</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </dt>
+
+        <dd>
+            @ViewBag.empName
+            @*@Html.DisplayFor(model => model.employeeID)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.loanCategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.loanCategory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.amount)*@
+@{
+    int number = int.Parse(Model.amount.ToString("G29").Replace(',', '.'));
+    string nominal = number.ToString("#,##0");
+}
+@nominal
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.installment)
+        </dt>
+
+        <dd>
+            @{
+                int numberInstallment = int.Parse(Model.installment.ToString("G29").Replace(',', '.'));
+                string nominalInstallment = numberInstallment.ToString("#,##0");
+            }
+            @nominalInstallment
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.installmentDuration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.installmentDuration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.collateral)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.collateral)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.proposedDate)*@
+            @Model.proposedDate.ToString("dd MMM yyyy")
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.proposedStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.proposedStatus)
+            </dd>
+
+            <dt>
+                    @Html.DisplayNameFor(model => model.approvedBy)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.approvedBy)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.approvedDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.approvedDate)
+                </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedStatus)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.acknowledgeBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.acknowledgeBy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.acknowledgeDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.acknowledgeDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.acknowledgeStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.acknowledgeStatus)
+            </dd>*@
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

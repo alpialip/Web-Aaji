@@ -1,0 +1,135 @@
+﻿@model WebApp_AAJI.Models.bankCashPaymentVoucher
+
+@{
+    ViewBag.Title = "Approval";
+}
+<script>
+    function sendSubmit(values)
+    {
+        var val = values.split('_');
+        //alert(val[0]);
+        //alert(val[1]);
+        $("#dvSubmit").load('@(Url.Action("ApprovalProcess", "BankCashPaymentVoucher", null, Request.Url.Scheme))?act=' + val[0] + '&id=' + val[1],
+            function () {
+                //window.history.go(-1);
+                window.location.replace('/BankCashPaymentVoucher/Index');
+        });
+    }
+</script>
+<h2>@ViewBag.Title</h2>
+<div>
+    <h4>bankCashPaymentVoucher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.voucherNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.voucherNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.voucherDate)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.voucherDate)*@
+            @Model.voucherDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bankID)
+        </dt>
+
+        <dd>
+            @foreach (var a in ViewBag.Bank as SelectList)
+            {
+                if (a.Value == Model.bankID.ToString())
+                {
+                    @a.Text
+                }
+            }
+            @*@Html.DisplayFor(model => model.bankID)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.says)
+        </dt>
+
+        <dd>
+            <label style="font-weight: 100;" id="lblTerbilang"></label>
+            @*@Html.DisplayFor(model => model.says)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.preparedBy)
+        </dt>
+
+        <dd>
+            @foreach (var a in ViewBag.User as IEnumerable<WebApp_AAJI.Models.user>)
+            {
+                if (a.userID == Model.preparedBy.ToString())
+                {
+                    @a.userName
+                }
+            }
+            @*@Html.DisplayFor(model => model.preparedBy)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.preparedDate)
+        </dt>
+
+        <dd>
+            @Model.preparedDate.ToString("dd MMM yyyy HH:mm")
+            @*@Html.DisplayFor(model => model.preparedDate)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.approvedStatus)*@
+            @if (Model.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (Model.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+            else
+            {
+                @("Waiting")
+            }
+        </dd>
+
+    </dl>
+</div>
+<div id="dvDetail">
+    @Html.Partial("_PartialPageBCP2")
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="button" value="Approved" class="btn btn-primary" onclick="sendSubmit('approved_@Model.voucherNo')" /> |
+        <input type="button" value="Rejected" class="btn btn-primary" onclick="sendSubmit('rejected_@Model.voucherNo')" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div id="dvSubmit" style="display:none"></div>
+}
+</div>

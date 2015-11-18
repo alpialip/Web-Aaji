@@ -1,0 +1,209 @@
+﻿@model WebApp_AAJI.Models.employeeClaimMedical
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+<script>
+    function validateDataDetail(actFrom) {
+        //alert(indexDelete);
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length - 1);
+        //alert(rowsCount);
+        for (i = 1; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var txtSeqID_ = document.getElementById("txtSeqID_" + i);
+            var txtSeqID_Val = txtSeqID_.value;
+            var txtSeqID_Id = txtSeqID_.id;
+
+            //alert(actFrom + " == 'save' && " + productIDVal + " == '' && " + i + " == " + (rowsCount - 1));
+            if (actFrom == "save" && txtSeqID_Val == "" && i == (rowsCount - 1))
+                break;
+
+            var txtFamilyName_ = document.getElementById("txtFamilyName_" + i);
+            var txtFamilyName_Val = txtFamilyName_.value;
+            var txtFamilyName_Id = txtFamilyName_.id;
+
+            var klaimDateDetail_ = document.getElementById("klaimDateDetail_" + i);
+            var klaimDateDetail_Val = klaimDateDetail_.value;
+            var klaimDateDetail_Id = klaimDateDetail_.id;
+
+            var typeClaim_ = document.getElementById("typeClaim_" + i);
+            var typeClaim_Val = typeClaim_.value;
+            var typeClaim_Id = typeClaim_.id;
+
+            var amountClaims_ = document.getElementById("amountClaim_" + i);
+            var amountClaims_Val = amountClaims_.value;
+            var amountClaims_Id = amountClaims_.id;
+
+            var descriptionClaim_ = document.getElementById("descriptionClaim_" + i);
+            var descriptionClaim_Val = descriptionClaim_.value;
+            var descriptionClaim_Id = descriptionClaim_.id;
+
+            //alert("idx_" + i);
+            //alert("txtSeqID_Val==" + txtSeqID_Val + " || txtFamilyName_Val==" + txtFamilyName_Val + " || klaimDateDetail_Val ==" + klaimDateDetail_Val + " || (amountClaims_Val == " + amountClaims_Val + " || typeClaim_Val == " + typeClaim_Val + " || descriptionClaim_Val==" + descriptionClaim_Val)
+            if (txtSeqID_Val == "" || txtFamilyName_Val == "" || klaimDateDetail_Val == "" || (amountClaims_Val == "" || amountClaims_Val == 0) || typeClaim_Val == "" || descriptionClaim_Val == "") {
+                alert("Please complete data detail.");
+                //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    function confirmSave() {
+        var x = validateDataDetail();
+        var amount = document.getElementById('amount').value;
+        var remarks = document.getElementById('remarks').value;
+        var employeeID = document.getElementById('employeeID').value;
+
+        if (x == true && parseInt(amount) > 0 && remarks != "" && employeeID != "") {
+            document.forms[0].submit();
+        }
+        else
+        {
+            alert("Please Complete Data")
+        }
+    }
+    function maskingCurrency(val) {
+        document.getElementById("amounts").value = formatCurrency(document.getElementById("amounts").value.replace(/\./g, ''));
+        document.getElementById("amount").value = document.getElementById("amounts").value.replace(/\./g, '');
+    }
+</script>
+@using (Html.BeginForm("Create", "EmployeeClaimMedical", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Employee Claim Medical</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @*@Html.HiddenFor(model=>model.klaimID)*@
+        @Html.Hidden("klaimIDs")
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.employeeID)
+                @Html.TextBox("empName", ViewBag.empName as string, new { @readonly="readonly"})&nbsp;
+                <button data-toggle="modal" data-target="#myModal">...</button>
+                @Html.ValidationMessageFor(model => model.employeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Department", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="empDeptName" style="font-weight:100">@ViewBag.empDeptName</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.klaimDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("klaimDate", DateTime.Now, "{0:dd-MMM-yyyy}", new { @style="width: 87px;"})@*, new { type="date"}*@
+                @Html.ValidationMessageFor(model => model.klaimDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("amounts", 0, new { type = "text", style = "text-align:right;width:150px;padding-right:10px", onchange = "maskingCurrency()" })
+                @Html.TextBox("amount", 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.linkFileData, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.linkFileData)*@
+                <input id="linkFileData" name="linkFileData" type="file" class="file" data-show-upload="false" data-show-caption="true"><!--multiple="true"-->
+                @Html.ValidationMessageFor(model => model.linkFileData)
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.lab, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.lab, new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.lab)
+            </div>
+        </div>
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.medicine, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.medicine, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.medicine)
+            </div>
+        </div>
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.usage, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.usage, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.usage)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div id="dvDetail" style="display:none">
+            @Html.Partial("_PartialPageClaimDetail")
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save'; confirmSave();" />&nbsp;
+                <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />
+                @Html.Hidden("hdnTypeSubmit", "save")
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:725px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Employee</h4>
+            </div>
+            @*<div class="modal-body">*@
+            <div class="table-responsive">
+                @Html.Partial("_PartialPagePopUpEmployee1")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#klaimDate").datepicker({ dateFormat: 'dd-M-yy' });
+        $("#klaimDateDetail_1").datepicker({ dateFormat: 'dd-M-yy' });
+    });
+</script>

@@ -1,0 +1,23 @@
+﻿@if(ViewBag.Backup != null)
+{
+    if(ViewBag.Backup == true)
+    { 
+        <script>
+            //setTimeout(function () {
+                document.getElementById('backup').style.display = 'none';
+                document.getElementById('wait').style.display = 'none';
+                document.getElementById('check').style.display = '';
+            //}, 2000);
+        </script>
+    }
+    else
+    {
+        <script>
+            //setTimeout(function () {
+                document.getElementById('backup').style.display = 'none';
+                document.getElementById('wait').style.display = 'none';
+                document.getElementById('failed').style.display = '';
+            //}, 2000);
+        </script>    
+    }
+}

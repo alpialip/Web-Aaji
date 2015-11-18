@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.transReminder>
+
+@{
+    ViewBag.Title = "Reminder";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reminderDate)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.reminderTime)*@
+            @Html.Label("Time")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.repeatitionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reminderID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.subject)
+        </td>
+        <td>
+            @if(item.email.Length > 30)
+            {
+                var a = item.email.Substring(0, 30);
+                @(a+"...")
+            }
+            @*@Html.DisplayFor(modelItem => item.email)*@
+        </td>
+        <td>
+            @item.reminderDate.ToString("dd MMM yyyy")
+            @*@Html.DisplayFor(modelItem => item.reminderDate)*@
+        </td>
+        <td>
+            @item.reminderTime.ToString().Substring(0,5)
+            @*@Html.DisplayFor(modelItem => item.reminderTime)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.repeatitionID)
+        </td>
+        <td>
+            @item.reminderID.Replace('_', ' ')
+            @*@Html.DisplayFor(modelItem => item.reminderID)*@
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) <img src='~/img/edit.png' style="width:15px" /> |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) <img src='~/img/view.png' style="width:15px" /> |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+            <a href="@Url.Action("Edit")/@item.id"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.id"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.id"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>

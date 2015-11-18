@@ -1,0 +1,746 @@
+﻿
+<script>
+    var indexDelete = 0;
+    
+    function onClickAddRowOccupation() {
+        var array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var x = validateDetailOccupation("add");
+        //alert(x);
+        if (x == true) {
+            var table = document.getElementById('tblDetailOccupation');
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            //seqId
+            var element11 = document.createElement("input");
+            element11.type = "hidden";
+            element11.value = (rowCount);
+            element11.name = "seqIdWorkExperience_" + (rowCount - 1);
+            element11.id = "seqIdWorkExperience_" + (rowCount - 1);
+            cell1.appendChild(element11);
+            //startMonth
+            var element1 = document.createElement("select");
+            element1.style.height = "26px";
+            element1.name = "periodStartMonth_" + (rowCount - 1);
+            element1.id = "periodStartMonth_" + (rowCount - 1);
+            var options = document.createElement("option");
+            options.value = "";
+            options.text = "--";
+            element1.appendChild(options);
+            for (var i = 0; i < array.length; i++) {
+                var option = document.createElement("option");
+                if ((i + 1) < 10)
+                    option.value = "0" + (i + 1);
+                else
+                    option.value = (i + 1);
+                option.text = array[i];
+                element1.appendChild(option);
+            }
+            cell1.appendChild(element1);
+            var element16 = document.createElement("span");
+            element16.textContent = " ";
+            cell1.appendChild(element16);
+            //startYear
+            var element12 = document.createElement("input");
+            element12.type = "number";
+            element12.setAttribute("placeholder","0000");
+            element12.style.width = "55px";
+            element12.name = "periodStartYear_" + (rowCount - 1);
+            element12.id = "periodStartYear_" + (rowCount - 1);
+            cell1.appendChild(element12);
+            var element15 = document.createElement("span");
+            element15.textContent = " - ";
+            cell1.appendChild(element15);
+            //endMonth
+            var element13 = document.createElement("select");
+            element13.style.height = "26px";
+            element13.name = "periodEndMonth_" + (rowCount - 1);
+            element13.id = "periodEndMonth_" + (rowCount - 1);
+            var options = document.createElement("option");
+            options.value = "";
+            options.text = "--";
+            element13.appendChild(options);
+            for (var i = 0; i < array.length; i++) {
+                var option = document.createElement("option");
+                var option = document.createElement("option");
+                if ((i + 1) < 10)
+                    option.value = "0" + (i + 1);
+                else
+                    option.value = (i + 1);
+                option.text = array[i];
+                element13.appendChild(option);
+            }
+            cell1.appendChild(element13);
+            var element17 = document.createElement("span");
+            element17.textContent = " ";
+            cell1.appendChild(element17);
+            //endYear
+            var element14 = document.createElement("input");
+            element14.type = "number";
+            element14.setAttribute("placeholder", "0000");
+            element14.style.width = "55px";
+            element14.name = "periodEndYear_" + (rowCount - 1);
+            element14.id = "periodEndYear_" + (rowCount - 1);
+            cell1.appendChild(element14);
+
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "text";
+            element2.style.width = "265px";
+            element2.name = "company_" + (rowCount - 1);
+            element2.id = "company_" + (rowCount - 1);
+            cell2.appendChild(element2);
+
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("textarea");
+            element3.style.width = "280px";
+            element3.name = "jobdesc_" + (rowCount - 1);
+            element3.id = "jobdesc_" + (rowCount - 1);
+            cell3.appendChild(element3);
+
+            var cell4 = row.insertCell(3);
+            var element4 = document.createElement("input");
+            element4.type = "button";
+            element4.setAttribute("onclick", "onClickDeleteRowOccupation(" + (rowCount - 1) + ")");
+            element4.value = "Delete";
+            element4.name = "btnDeleteOccupation_" + (rowCount - 1);
+            element4.id = "btnDeleteOccupation_" + (rowCount - 1);
+            cell4.appendChild(element4);
+        }
+    }
+
+    function onClickDeleteRowOccupation(idx) {
+        var tbl = document.getElementById("tblDetailOccupation");
+        var rowDetail = (tbl.rows.length);
+        var isData = 0;
+
+        var i = (idx + 1); //alert(i);
+        if (rowDetail > 2) {
+            var colExist = document.getElementById("seqIdWorkExperience_" + idx);
+            if (colExist == null) {
+                for (a = 1; a < 50; a++) {
+                    var seqId = document.getElementById("seqIdWorkExperience_" + a);
+                    if (seqId != null) {
+                        isData++;
+                        // alert("seqId.value:"+seqId.value+" == "+"i:"+i)
+                        if (seqId.value == i) {
+                            i = (isData + 1);
+                            //alert('masuk: ' + isData);
+                            break;
+                        }
+                    }
+                }
+                //alert('keluar');
+            }
+            else {
+                for (a = 0; a < 50; a++) {
+                    var seqId = document.getElementById("seqIdWorkExperience_" + a);
+                    var desc = document.getElementById("company_" + a);
+                    if (seqId != null) {
+                        isData++;
+                        //alert("seqId.value:" + seqId.value + " == " + "i:" + i + " desc:" + desc.value);
+                        //alert("a:" + a+" isData:"+isData);
+                        if (seqId.value == i) {
+                            i = isData;
+                            break;
+                        }
+                    }
+                }
+            }
+            //alert(i);
+            document.getElementById("tblDetailOccupation").deleteRow(i);
+            indexDelete = idx;
+            renameElementOccupation();
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function renameElementOccupation() {
+        var tbl = document.getElementById("tblDetailOccupation");
+        var rowCount = (tbl.rows.length - 1);
+        var isData = 0;
+
+        for (a = 0; a < 50; a++) {
+            var seqId = document.getElementById("seqIdWorkExperience_" + a);
+            if (seqId != null && isData <= rowCount) {
+                alert("a:"+a+"-isData:"+(isData));
+                //seqId
+                var element11 = document.getElementById("seqIdWorkExperience_" + a);
+                element11.name = "seqIdWorkExperience_" + isData;
+                element11.id = "seqIdWorkExperience_" + isData;
+                //startMonth
+                var element1 = document.getElementById("periodStartMonth_" + a);
+                element1.name = "periodStartMonth_" + isData;
+                element1.id = "periodStartMonth_" + isData;
+                //startYear
+                var element12 = document.getElementById("periodStartYear_" + a);
+                element12.name = "periodStartYear_" + isData;
+                element12.id = "periodStartYear_" + isData;
+                //endMonth
+                var element13 = document.getElementById("periodEndMonth_" + a);
+                element13.name = "periodEndMonth_" + isData;
+                element13.id = "periodEndMonth_" + isData;
+                //endYear
+                var element14 = document.getElementById("periodEndYear_" + a);
+                element14.name = "periodEndYear_" + isData;
+                element14.id = "periodEndYear_" + isData;
+
+                var element2 = document.getElementById("company_" + a);
+                element2.name = "company_" + isData;
+                element2.id = "company_" + isData;
+
+                var element3 = document.getElementById("jobdesc_" + a);
+                element3.name = "jobdesc_" + isData;
+                element3.id = "jobdesc_" + isData;
+
+                var element4 = document.getElementById("btnDeleteOccupation_" + a);
+                element4.name = "btnDeleteOccupation_" + isData;
+                element4.id = "btnDeleteOccupation_" + isData;
+                element4.setAttribute("onclick", "onClickDeleteRowOccupation(" + isData + ")");
+
+                if (isData == rowCount)
+                    break;
+
+                isData++;
+            }
+        }
+    }
+
+    function validateDetailOccupation(triggerFrom) {
+        return true;
+
+        var tblLength = document.getElementById('tblDetailOccupation').rows.length - 1;
+        stringDataDetail = "";
+        validateErr = 0;
+
+        //alert(tblLength);
+        for (i = 0; i < tblLength; i++) {
+            var company_ = document.getElementById('company_' + i).value;
+            var jobdesc_ = document.getElementById('jobdesc_' + i).value;
+
+            if (triggerFrom == "save" && escape(company_) != ""  && escape(jobdesc_) != "") {
+                stringDataDetail += escape(company_) + ";" + escape(jobdesc_) + ";" + "|";
+            }
+            else if (company_ != "" && jobdesc_ != "") {
+                stringDataDetail += escape(company_) + ";" + escape(jobdesc_) + ";" + "|";
+            }
+            else {
+                validateErr++;
+                alert("Please Complete Detail Work Experience");
+                return false;
+            }
+        }
+
+        return true;
+    }
+</script>
+
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li style="padding-top: 0.6%;">
+            <input type="button" id="btnOccupation" value="[+]" onclick="onClickAddRowOccupation()" style="display:none" />&nbsp;&nbsp;&nbsp;
+        </li>
+        <li class="active"><a data-toggle="tab" href="#sectionCV" onclick="document.getElementById('btnOccupation').style.display = 'none'"><b>CV</b></a></li>
+        <li><a data-toggle="tab" href="#sectionEducation" onclick="document.getElementById('btnOccupation').style.display = 'none'"><b>Education</b></a></li>
+        <li><a data-toggle="tab" href="#sectionOccupation" onclick="document.getElementById('btnOccupation').style.display = ''"><b>Work Experience</b></a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="sectionCV" class="tab-pane fade in active">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Upload CV</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.detailCV != null)
+                    {
+                        foreach (var a in ViewBag.detailCV as IEnumerable<WebApp_AAJI.Models.employee.employeeCV>)
+                        {
+                            <tr>
+                                <td>  
+                                    @if (!String.IsNullOrEmpty(a.linkFileCV))
+                                    {
+                                        @*<a href="@(Url.Action("previewCV", "Employee", null, Request.Url.Scheme))?employeeID=@a.employeeID"
+                                                onclick="window.open(this.href, 'previewCV','left=20,top=20,width=500,height=700,toolbar=1,resizable=0'); return false;">
+                                                <img src="~/img/view.png" style="width:18px" title="Preview" />
+                                            </a>*@
+                                        <a href="~/Common/Download?file=@a.linkFileCV" target="_blank" title="Download File" style="float:left">
+                                            <img src="~/img/download.png" style="width: 20px;" />&nbsp;
+                                        </a>
+                                    }                           
+                                    @Html.Hidden("hdnlinkFileCV_", a.linkFileCV)
+                                    <input id="linkFileCV_" name="linkFileCV_" type="file" class="file" data-show-upload="false" data-show-caption="true" style="padding-top: 5px;">                                                                        
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.Hidden("hdnlinkFileCV_", "")
+                                <input id="linkFileCV_" name="linkFileCV_" type="file" class="file" data-show-upload="false" data-show-caption="true" style="padding-top: 5px;">
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionEducation" class="tab-pane fade">
+            <table class="table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Level</th>
+                        <th style="text-align:center">Nama Sekolah</th>
+                        <th style="text-align:center">Kota</th>
+                        <th style="text-align:center">Penjurusan</th>
+                        <th style="text-align:center">Tahun Pendidikan</th>
+                        <th style="text-align:center">Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.detailEducation != null)
+                    {
+                        string[] period = null;
+                        string periodStart = string.Empty;
+                        string periodEnd = string.Empty;
+                        
+                        foreach (var a in ViewBag.detailEducation as IEnumerable<WebApp_AAJI.Models.employee.employeeEducation>)
+                        {
+                            <tr>
+                                <td>
+                                    SD<br />
+                                    <span style="font-size:10px">Elementary</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdNamaSekolah_", a.sdNamaSekolah, new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdKotaSekolah_", a.sdKotaSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdJurusanSekolah_", a.sdJurusanSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.sdPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period.Length == 2 ? period[1] : string.Empty;
+                                    }
+                                    @Html.Hidden("sdPeriod_", a.sdPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("sdPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("sdPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;"  })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdKeterangan_", a.sdKeterangan, new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SMP<br />
+                                    <span style="font-size:10px">Junior High</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpNamaSekolah_", a.smpNamaSekolah, new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpKotaSekolah_", a.smpKotaSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpJurusanSekolah_", a.smpJurusanSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.smpPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period.Length == 2 ? period[1] : string.Empty;
+                                    }
+                                    @Html.Hidden("smpPeriod_", a.smpPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("smpPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("smpPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpKeterangan_", a.smpKeterangan, new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                                            <tr>
+                                    <td>                                    
+                                        SMA<br />
+                                        <span style="font-size:10px">Senior High</span>
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaNamaSekolah_", a.smaNamaSekolah, new { type = "text", style = " width: 150px;" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaKotaSekolah_", a.smaKotaSekolah, new { style = " width: 150px;" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaJurusanSekolah_", a.smaJurusanSekolah, new { style = " width: 150px;" })
+                                    </td>
+                                    <td>
+                                        @{
+                                            period = a.smaPeriod.Split('-');
+                                            periodStart = period[0];
+                                            periodEnd = period.Length == 2 ? period[1] : string.Empty;
+                                        }
+                                        @Html.Hidden("smaPeriod_", a.smaPeriod, new { style = " width: 150px;" })
+                                        @Html.TextBox("smaPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("smaPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaKeterangan_", a.smaKeterangan, new { style = " width: 150px;" })
+                                    </td>
+                                </tr>
+                        <tr>
+                                <td>                                    
+                                    AKADEMI/ UNIVERSITAS<br />
+                                    <span style="font-size:10px">Academy/ University</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiNamaSekolah_", a.akademiNamaSekolah, new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiKotaSekolah_", a.akademiKotaSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiJurusanSekolah_", a.akademiJurusanSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.akademiPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period.Length == 2 ? period[1] : string.Empty;
+                                    }
+                                    @Html.Hidden("akademiPeriod_", a.akademiPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("akademiPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("akademiPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiKeterangan_", a.akademiKeterangan, new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>
+                                    PASCA SARJANA<br />
+                                    <span style="font-size:10px">Post Graduate</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaNamaSekolah_", a.pascaNamaSekolah, new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaKotaSekolah_", a.pascaKotaSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaJurusanSekolah_", a.pascaJurusanSekolah, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.pascaPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period.Length == 2 ? period[1] : string.Empty;
+                                    }
+                                    @Html.Hidden("pascaPeriod_", a.pascaPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("pascaPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("pascaPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaKeterangan_", a.pascaKeterangan, new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                                <td>
+                                    SD<br />
+                                    <span style="font-size:10px">Elementary</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdNamaSekolah_", "", new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdKotaSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdJurusanSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.Hidden("sdPeriod_", "", new { style = " width: 150px;" })
+                                    @Html.TextBox("sdPeriodStart_", "", new { type="number", placeholder="0000", style = " width: 55px;" })-@Html.TextBox("sdPeriodEnd_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdKeterangan_", "", new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SMP<br />
+                                    <span style="font-size:10px">Junior High</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpNamaSekolah_", "", new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpKotaSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpJurusanSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.Hidden("smpPeriod_", "", new { style = " width: 150px;" })
+                                    @Html.TextBox("smpPeriodStart_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("smpPeriodEnd_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpKeterangan_", "", new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                                            <tr>
+                                    <td>                                    
+                                        SMA<br />
+                                        <span style="font-size:10px">Senior High</span>
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaNamaSekolah_", "", new { type = "text", style = " width: 150px;" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaKotaSekolah_", "", new { style = " width: 150px;" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaJurusanSekolah_", "", new { style = " width: 150px;" })
+                                    </td>
+                                    <td>
+                                        @Html.Hidden("smaPeriod_", "", new { style = " width: 150px;" })
+                                        @Html.TextBox("smaPeriodStart_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("smaPeriodEnd_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaKeterangan_", "", new { style = " width: 150px;" })
+                                    </td>
+                                </tr>
+                        <tr>
+                                <td>                                    
+                                    AKADEMI/ UNIVERSITAS<br />
+                                    <span style="font-size:10px">Academy/ University</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiNamaSekolah_", "", new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiKotaSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiJurusanSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.Hidden("akademiPeriod_", "", new { style = " width: 150px;" })
+                                    @Html.TextBox("akademiPeriodStart_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("akademiPeriodEnd_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiKeterangan_", "", new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>
+                                    PASCA SARJANA<br />
+                                    <span style="font-size:10px">Post Graduate</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaNamaSekolah_", "", new { type = "text", style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaKotaSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaJurusanSekolah_", "", new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.Hidden("pascaPeriod_", "", new { style = " width: 150px;" })
+                                    @Html.TextBox("pascaPeriodStart_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })-@Html.TextBox("pascaPeriodEnd_", "", new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaKeterangan_", "", new { style = " width: 150px;" })
+                                </td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div id="sectionOccupation" class="tab-pane fade">
+            <table id="tblDetailOccupation" class="table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Period</th>
+                        <th style="text-align:center">Company</th>
+                        <th style="text-align:center">Job Desc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idxWorkExperience = 0;
+                        int seqIdWorkExperience = 0;
+                        string[] bln = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+                    }
+
+                    @if (ViewBag.detailOccupation != null)
+                    {
+                        foreach (var a in ViewBag.detailOccupation as IEnumerable<WebApp_AAJI.Models.employee.employeeOccupation>)
+                        {
+                            Session["idxWorkExperience"] = idxWorkExperience;
+                            <tr>
+                                <td>
+                                    @Html.Hidden("seqIdWorkExperience_" + idxWorkExperience, a.sId)
+                                    @{
+                                        DateTime dtStart = a.periodStart == null ? DateTime.MinValue : Convert.ToDateTime(a.periodStart);
+                                        int periodStartYear = dtStart.Year;                                        
+                                        string periodStartMonth = dtStart.Month < 10 ? "0"+dtStart.Month.ToString() : dtStart.Month.ToString();
+                                        
+                                        DateTime dtEnd = a.periodEnd == null ? DateTime.MinValue : Convert.ToDateTime(a.periodEnd);
+                                        int periodEndYear = dtEnd.Year;
+                                        string periodEndMonth = dtEnd.Month < 10 ? "0" + dtEnd.Month.ToString() : dtEnd.Month.ToString();
+                                    }
+                                    <select id="periodStartMonth_@idxWorkExperience" name="periodStartMonth_@idxWorkExperience" style="height: 26px;">
+                                        <option value="">--</option>
+                                        @for (int i = 0; i < bln.Length; i++)
+                                        {
+                                            if ((i + 1) < 10)
+                                            {
+                                                string valMonth = "0" + (i + 1);
+                                                if (valMonth == periodStartMonth)
+                                                {
+                                                    <option value="@valMonth" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@valMonth">@bln[i]</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if ((i + 1) == int.Parse(periodStartMonth))
+                                                {
+                                                    <option value="@(i + 1)" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@(i + 1)">@bln[i]</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    @Html.TextBox("periodStartYear_" + idxWorkExperience, periodStartYear, new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                    -
+                                    <select id="periodEndMonth_@idxWorkExperience" name="periodEndMonth_@idxWorkExperience" style="height: 26px;">
+                                        <option value="">--</option>
+                                        @for (int i = 0; i < bln.Length; i++)
+                                        {
+                                            if ((i + 1) < 10)
+                                            {
+                                                string valMonth = "0" + (i + 1);
+                                                if (valMonth == periodEndMonth)
+                                                {
+                                                    <option value="@valMonth" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@valMonth">@bln[i]</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if ((i + 1) == int.Parse(periodEndMonth))
+                                                {
+                                                    <option value="@(i + 1)" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@(i + 1)">@bln[i]</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    @Html.TextBox("periodEndYear_" + idxWorkExperience, periodEndYear, new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("company_" + idxWorkExperience, a.company, new { style = " width: 265px;" })
+                                </td>
+                                <td>
+                                    @Html.TextArea("jobdesc_" + idxWorkExperience, a.jobdesc, new { style = " width: 280px;", rows = 2 })
+                                </td>
+                                <td>
+                                    <input type="button" id="btnDeleteOccupation_@idxWorkExperience" name="btnDeleteOccupation_@idxWorkExperience" value="Delete" onclick="onClickDeleteRowOccupation(@idxWorkExperience);" />
+                                </td>
+                            </tr>
+                            idxWorkExperience++;
+                            seqIdWorkExperience = a.sId;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.Hidden("seqIdWorkExperience_" + idxWorkExperience, idxWorkExperience)
+                                <select id="periodStartMonth_@idxWorkExperience" name="periodStartMonth_@idxWorkExperience" style="height: 26px;">
+                                    <option value="">--</option>
+                                    @for (int i = 0; i < bln.Length; i++)
+                                    {
+                                        if ((i + 1) < 10)
+                                        {
+                                            string valMonth = "0" + (i + 1);
+                                            <option value="@valMonth">@bln[i]</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@(i + 1)">@bln[i]</option>
+                                        }
+                                    }
+                                </select>
+                                @Html.TextBox("periodStartYear_" + idxWorkExperience, "", new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                                -
+                                <select id="periodEndMonth_@idxWorkExperience" name="periodEndMonth_@idxWorkExperience" style="height: 26px;">
+                                    <option value="">--</option>
+                                    @for (int i = 0; i < bln.Length; i++)
+                                    {
+                                        if ((i+1) < 10)
+                                        {
+                                            string valMonth = "0" + (i + 1);
+                                            <option value="@valMonth">@bln[i]</option>
+                                        }
+                                        else
+                                        {
+                                            
+                                            <option value="@(i + 1)">@bln[i]</option>
+                                        }
+                                    }
+                                </select>
+                                @Html.TextBox("periodEndYear_" + idxWorkExperience,"", new { type = "number", placeholder = "0000", style = " width: 55px;" })
+                            </td>
+                            <td>
+                                @Html.TextBox("company_" + idxWorkExperience, "", new { style = " width: 265px;" })
+                            </td>
+                            <td>
+                                @Html.TextArea("jobdesc_" + idxWorkExperience, "", new { style = " width: 280px;", rows = 2 })
+                            </td>
+                            <td>
+                                <input type="button" id="btnDeleteOccupation_@idxWorkExperience" name="btnDeleteOccupation_@idxWorkExperience" value="Delete" onclick="onClickDeleteRowOccupation(@idxWorkExperience);" />
+                            </td>
+                        </tr>
+                        idxWorkExperience++;
+                        seqIdWorkExperience++;
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+

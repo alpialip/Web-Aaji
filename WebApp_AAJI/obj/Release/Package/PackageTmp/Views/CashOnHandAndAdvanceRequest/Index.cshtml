@@ -1,0 +1,147 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest>*@
+@model PagedList.IPagedList<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Cash On Hand"; //And Advance Request
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "CashOnHandAndAdvanceRequest", FormMethod.Get))
+{
+    <p>
+        Find : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Date : @Html.TextBox("startDate", ViewBag.startDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" }) - @Html.TextBox("endDate", ViewBag.endDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" })
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.reqNo)*@
+            @Html.ActionLink("Req. No.", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.date)*@
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.reqFrom)*@
+            From
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.activity)*@
+            Activity
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.reqIsCashOnHand)*@
+            is Cash On Hand
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.includeProposal)*@
+            incl.Proposal
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.isReimbursement)*@
+            is Reimbursement
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.approvedStatus)*@
+            Approved
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.reqNo
+        </td>
+        <td>
+            @item.date.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @if (ViewBag.user != null)
+            { 
+                foreach(var a in ViewBag.user as IEnumerable<WebApp_AAJI.Models.user>)
+                {
+                    if(item.reqFrom == a.employeeNIK)
+                    {
+                        @a.userName
+                        break;
+                    }
+                }
+            }
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.activity)*@
+            @item.activity.Replace("_", " ")
+        </td>
+        <td>
+            @if (item.reqIsCashOnHand == true)
+            {
+                @("Cash On Hand")
+            }
+            else
+            {
+                @("Advance Payment")                
+            }
+            @*@Html.DisplayFor(modelItem => item.reqIsCashOnHand)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.includeProposal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isReimbursement)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.approvedStatus)*@
+            @if (item.approvedStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (item.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (item.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+        </td>
+        <td>
+            @if (item.approvedStatus != null)
+            {
+            }
+            else
+            {
+                <a href="@Url.Action("Edit")/@item.reqNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+                <label>&nbsp;&nbsp;&nbsp;</label>
+            }
+            <a href="@Url.Action("Details")/@item.reqNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            @if (item.approvedStatus != null)
+            {
+            }
+            else
+            {
+                <a href="@Url.Action("Delete")/@item.reqNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>
+            }
+            &nbsp;&nbsp;&nbsp;
+            @if (ViewBag.ApprovalAuth != null)
+            {
+                if (ViewBag.ApprovalAuth == true && item.approvedStatus == null)
+                {
+                    <a href="@Url.Action("Approval")/@item.reqNo?act=Appr"><img src='~/img/approval.png' style="width:15px" title="Approval" /></a>
+                }
+            }
+        </td>
+
+
+    </tr>
+}
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, startDateFilter = ViewBag.startDateFilter, endDateFilter = ViewBag.endDateFilter }))

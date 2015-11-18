@@ -1,0 +1,91 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.fixedAsset>
+
+@{
+    ViewBag.Title = "Fixed Asset";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.purchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.salesDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fixedAssetType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fixedAssetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fixedAssetCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fixedAssetStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    var dtPurchase = (DateTime)item.purchaseDate;
+    var dtSales = (DateTime)item.salesDate;
+    <tr>
+        <td>
+            @if(item.purchaseDate != null)
+            {
+                @dtPurchase.ToString("dd MMM yyyy")
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.purchaseDate)                
+            }
+        </td>
+        <td>            
+            @if (item.salesDate != null)
+            {
+                @dtSales.ToString("dd MMM yyyy")
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.salesDate)
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fixedAssetType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fixedAssetName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fixedAssetCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fixedAssetStatus)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.amount)*@
+            @item.amount.ToString("#,##0")
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.fixedAssetID }) <img src='~/img/edit.png' style="width:15px" /> |
+            @Html.ActionLink("Details", "Details", new { id = item.fixedAssetID }) <img src='~/img/view.png' style="width:15px" /> |
+            @Html.ActionLink("Delete", "Delete", new { id = item.fixedAssetID }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+            <a href="@Url.Action("Edit")/@item.fixedAssetID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.fixedAssetID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.fixedAssetID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,89 @@
+﻿@model WebApp_AAJI.Models.financeTransactionHeader
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>financeTransactionHeader</h4>
+	<hr />    
+    @Html.HiddenFor(model => model.id)
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.voucherDate)
+        </dt>
+        <dd>            
+            @Html.TextBoxFor(model => model.voucherDate, "{0:dd MMM yyyy}", new { @readonly = "readonly" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model=>model.transactionType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.transactionType)
+        </dd>
+
+        @if (ViewBag.tftName != null)
+        {            
+            <dt>
+                @*@Html.DisplayNameFor(model => model.tftID)*@
+            </dt>
+            <dd>
+                @ViewBag.tftName
+            </dd>
+        }
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.billingType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.billingType)
+        </dd>
+        @*@Model.billingType.ToLower()*@
+        @if(Model.billingType.ToLower() == "bank")
+        {             
+            <dt>
+                @*@Html.DisplayNameFor(model => model.billingNo)*@&nbsp;
+            </dt>
+            <dd>
+                @*@Html.DisplayFor(model => model.billingNo)*@
+                @ViewBag.billingNo
+            </dd>
+        }
+        else if (Model.billingType.ToLower() == "giro")
+        { 
+            <dt>
+                @*@Html.DisplayNameFor(model => model.clearingDate)*@
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.clearingDate, "{0:dd MMM yyyy}", new { @readonly = "readonly" })
+            </dd>
+        }
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+        <dd>
+            @Model.amount.ToString("G29").Replace(',', '.')
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+        <dd>
+            @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2, @readonly = "readonly" })
+        </dd>
+    </dl>
+    <br />
+    <div id="dvDetail">
+        @Html.Partial("_PartialPageFT2")
+    </div>
+    <br />
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.voucherNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

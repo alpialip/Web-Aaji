@@ -1,0 +1,240 @@
+﻿@model WebApp_AAJI.Models.employee
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+<script>
+    function typeCreated(fromChk) {
+        //alert(fromChk.value);
+        if (fromChk.value == "Generated") {
+            document.getElementById('NIK').disabled = "disabled";
+            document.getElementById('lblGenerated').style.display = "";
+            document.getElementById('NIK').value = "";
+            document.getElementById('employeeNIK').value = "generated";
+        }
+        else {
+            document.getElementById('NIK').disabled = "";
+            document.getElementById('NIK').focus();
+            document.getElementById('employeeNIK').value = "";
+            document.getElementById('NIK').value = "";
+            document.getElementById('lblGenerated').style.display = "none";
+        }
+    }
+
+    function checkBank(fromChk) {
+        document.getElementById('bankName').style.display = "none";
+        document.getElementById('ddlBank').style.display = "none";
+        if (fromChk.checked == false)//not existing
+        {
+            document.getElementById('bankName').style.display = ""
+        }
+        else //existing
+        {
+            document.getElementById('ddlBank').style.display = ""
+            document.getElementById('bankName').value = ""
+        }
+    }
+
+    function typeCreateUserIds(fromChk) {
+        //alert(fromChk.value);
+        document.getElementById('userID').removeAttribute("readonly");
+        if (fromChk.value == "Generated") {
+            document.getElementById('userID').setAttribute("readonly", "readonly");
+            generatedUserId();
+        }
+        else {
+            //document.getElementById('userID').disabled = "";
+            document.getElementById('userID').focus();
+            document.getElementById('userID').value = "";
+        }
+    }
+
+    function generatedUserId() {
+        var empName = document.getElementById('employeeName').value;
+        var birthDate = document.getElementById('tanggalLahir').value;
+
+        //alert(empName+" - "+birthDate);
+        if (empName != "" /*&& birthDate != ""*/) {
+            var char8Id = empName.split(' ').join('').substring(0, 8);
+            var dateBirth = birthDate.split('-');
+
+            var char4Id = ""
+            if (dateBirth[2] != undefined && dateBirth[1] != undefined) {
+                char4Id = dateBirth[2] + dateBirth[1];
+            }
+
+            document.getElementById('userID').value = char8Id + char4Id;
+        }
+    }
+
+    function save() {
+        var chkExistingBank = document.getElementById('existingBank').checked;
+        var ddlbank = document.getElementById('ddlBank').value;
+
+        if (chkExistingBank == true) {
+            if (ddlbank == "")
+                alert("Bank Required");
+            else
+                document.forms[0].submit();
+        }
+    }
+</script>
+
+@using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>employee</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("Type Create", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("typeCreate", "Generated", true, new { onchange = "typeCreated(this)" }) Generated
+                @Html.RadioButton("typeCreate", "Manual", false, new { onchange = "typeCreated(this)" }) Manual
+                <div class="photo">
+                    <div>
+                        <input id="linkFilePhoto" name="linkFilePhoto" type="file" class="file" data-show-upload="false" data-show-caption="true" style="padding-top: 150px;display:none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeNIK, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("employeeNIK", "generated")
+                @Html.TextBox("NIK", "", new { @disabled = "disabled", onchange = "javascript:document.getElementById('employeeNIK').value=this.value" })
+                <label id="lblGenerated" style="font-weight:100">(ex: yymmxxx)</label>
+                @Html.ValidationMessageFor(model => model.employeeNIK)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.employeeName, new { onchange = "generatedUserId()" })
+                @Html.ValidationMessageFor(model => model.employeeName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.npwp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.npwp)
+                @Html.ValidationMessageFor(model => model.npwp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ktp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ktp)
+                @Html.ValidationMessageFor(model => model.ktp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.address, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.city, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.city)
+                @Html.ValidationMessageFor(model => model.city)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bankName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("existingBank", false, new { onchange = "javascript:checkBank(this)" }) Existing &nbsp;
+                @Html.EditorFor(model => model.bankName)
+                @Html.DropDownList("ddlBank", ViewBag.ListBankExistingOnEmployee as SelectList, new { @class = "form-control", style = "display:none" })
+                @Html.ValidationMessageFor(model => model.bankName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.rekening, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.rekening)
+                @Html.ValidationMessageFor(model => model.rekening)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Place & Birth Of Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tempatLahir)
+                @Html.ValidationMessageFor(model => model.tempatLahir)
+                @Html.TextBox("tanggalLahir", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", onchange = "generatedUserId()" })
+                @Html.ValidationMessageFor(model => model.tanggalLahir)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("UserID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("typeCreateUserId", "Generated", true, new { onchange = "javascript:typeCreateUserIds(this)" })Generated
+                @Html.RadioButton("typeCreateUserId", "Manual", false, new { onchange = "javascript:typeCreateUserIds(this)" })Manual
+                @Html.TextBox("userID", ViewBag.userID as string, new { @readonly = "readonly" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.linkFilePhoto, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                        <img data-src="holder.js/100%x100%" alt="...">
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        @*<div class="form-group">
+                @Html.Label("Atasan", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("txtAtasan")
+                    <button data-toggle="modal" data-target="#myModal">...</button>
+                </div>
+            </div>*@
+
+        @*<div id="dvDetail">
+                @Html.Partial("_PartialPageEmpPosition1")
+            </div>*@
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" onclick="save();" />
+            </div>
+        </div>
+    </div>
+}
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>

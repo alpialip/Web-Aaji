@@ -1,0 +1,108 @@
+﻿@model WebApp_AAJI.Models.purchaseInvoice
+
+@{
+    ViewBag.Title = "Approval Document";
+}
+<h2>@ViewBag.Title</h2>
+
+<script>
+    function sendSubmit(values)
+    {
+        var val = values.split('_');
+        //alert(val[0]);
+        //alert(val[1]);
+        $("#dvSubmit").load('@(Url.Action("ApprovalCheckDocument", "PurchaseInvoice", null, Request.Url.Scheme))?act=' + val[0] + '&id=' + val[1],
+            function () {
+                //window.history.go(-1);
+                window.location.replace('/PurchaseInvoice/Index');
+        });
+    }
+</script>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>purchaseInvoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceDate)
+        </dt>
+
+        <dd>
+            @Model.invoiceDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dueDate)
+        </dt>
+
+        <dd>
+            @Model.dueDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receiveNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiveNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.paymentInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.paymentInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceReference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceReference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total)
+        </dt>
+
+        <dd>
+            @if (Model.total > -1)
+            {
+                var a = Convert.ToInt32(Model.total);
+                @a.ToString("#,##0,#0");
+            }
+            @*@Html.DisplayFor(model => model.total)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isCheckDocument)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isCheckDocument)
+        </dd>
+    </dl>
+    
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="button" value="Document Complete" class="btn btn-primary" onclick="sendSubmit('approved_@Model.purchaseInvoiceNo')" /> |
+        <input type="button" value="Document InComplete" class="btn btn-primary" onclick="sendSubmit('rejected_@Model.purchaseInvoiceNo')" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div id="dvSubmit" style="display:none"></div>
+}
+</div>

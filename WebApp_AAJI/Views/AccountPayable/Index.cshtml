@@ -1,0 +1,143 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.accountPayableHeader>*@
+@model PagedList.IPagedList<WebApp_AAJI.Models.accountPayableHeader>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Account Payable";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "AccountPayable", FormMethod.Get))
+{
+    <p>
+        Find : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Date : @Html.TextBox("startDate", ViewBag.startDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" }) - @Html.TextBox("endDate", ViewBag.endDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" })
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.ActionLink("Voucher No.", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.date)*@
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.bankId)*@
+            @*@Html.ActionLink("Menu Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            Bank
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.vendorId)
+            @Html.ActionLink("Menu Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            Vendor
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.paymentType)
+            @Html.ActionLink("Menu Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            Payment Type
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.remarks)
+            @Html.ActionLink("Menu Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            Remarks
+        </th>
+        @*<th>
+    @Html.DisplayNameFor(model => model.createdUser)
+    @Html.ActionLink("Menu Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            Created User
+        </th>*@
+        @*<th>
+    @Html.DisplayNameFor(model => model.createdDate)
+    @Html.ActionLink("Menu Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            Created Date
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.voucherNo
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.date)*@
+            @item.date.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @foreach(var bank in ViewBag.Bank as IEnumerable<WebApp_AAJI.Models.bank>)
+            {
+                if(bank.bankID == item.bankId)
+                {
+                    @bank.bankName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.bankId)*@
+        </td>
+        <td>
+            @foreach(var vendor in ViewBag.Vendor as IEnumerable<WebApp_AAJI.Models.vendor>)
+            {
+                if(vendor.vendorID == item.vendorId)
+                {
+                    @vendor.vendorName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.vendorId)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.paymentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        @*<td>
+            @foreach(var user in ViewBag.User as IEnumerable<WebApp_AAJI.Models.user>)
+            {
+                if(user.userID == item.createdUser)
+                {
+                    @user.userName
+                    break;
+                }
+            }
+        </td>
+        <td>
+            @item.createdDate.ToString("dd MMM yyyy")
+        </td>*@
+        @*<td>
+            @Html.DisplayFor(modelItem => item.modifiedUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedDate)
+        </td>*@
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.voucherNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.voucherNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.voucherNo })*@
+
+            <a href="@Url.Action("Edit")/@item.voucherNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.voucherNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.voucherNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, startDateFilter = ViewBag.startDateFilter, endDateFilter = ViewBag.endDateFilter }))

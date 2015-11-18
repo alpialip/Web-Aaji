@@ -1,0 +1,95 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.sisaSaldoCuti>
+
+@{
+    ViewBag.Title = "Leave Balance";
+}
+
+<script>
+    function showSisaSaldoCuti()
+    {
+        var year = document.getElementById('ddlYear').value;
+        //alert(year);
+        var z = escape("");
+        //alert('y');
+        $("#dvDetail").load('@(Url.Action("LoadDetailCuti", "SisaSaldoCuti", null, Request.Url.Scheme))?year=' + year + "&dataDetail=" + z);
+    }
+</script>
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employeeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.amount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+</table>*@
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("Year : ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    int currYear = DateTime.Now.Year;
+                }
+                <select id="ddlYear" name="ddlYear" class="form-control" onchange="javascript:document.getElementById('tbodyDetail').style.display = 'none';">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        if (ViewBag.yearCuti == currYear)
+                        {
+                            <option value="@currYear" selected="selected"></option>
+                        }
+                        else
+                        {
+                            <option value="@currYear">@currYear</option>
+                        }
+                        currYear = (currYear -  1);
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("_", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="button" id="btnSubmit" value="Show" onclick="showSisaSaldoCuti();" />
+            </div>
+        </div>
+        <br />
+    </div>
+    <div id="dvDetail">
+        @Html.Partial("_PartialPageSisaSaldo1")
+    </div>
+}

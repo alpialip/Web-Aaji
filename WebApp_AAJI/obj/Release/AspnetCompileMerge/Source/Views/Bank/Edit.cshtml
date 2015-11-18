@@ -1,0 +1,55 @@
+﻿@model WebApp_AAJI.Models.bank
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>bank</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.bankID)
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.createdDate)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.bankName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.bankName)
+                    @Html.ValidationMessageFor(model => model.bankName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.accountNo, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.accountNo)
+                    @Html.ValidationMessageFor(model => model.accountNo)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.coaID, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">                    
+                    @Html.DropDownList("coaID", (IEnumerable<SelectListItem>)ViewBag.coa, "- Select -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.coaID)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>

@@ -1,0 +1,166 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.advancePaymentVoucher>
+
+@{
+    ViewBag.Title = "Advance Payment Voucher";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.voucherNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.voucherDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bankID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.says)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.preparedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.preparedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.voucherNo)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.voucherDate)*@
+            @item.voucherDate.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @foreach (var a in ViewBag.Bank as IEnumerable<WebApp_AAJI.Models.bank>)
+            {
+                if(a.bankID == item.bankID)
+                {
+                    @a.bankName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.bankID)*@
+        </td>
+            @if (item.remarks != null && item.remarks.Length > 25)
+            {
+                var a = item.remarks.Substring(0, 25);
+                <td title="@item.remarks">
+                    @(a + "...")
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.remarks)
+                </td>
+            }
+
+        @*@if (item.says != null && item.says.Length > 35)
+        {
+            var a = item.says.Substring(0, 25);
+            <td title="@item.says">
+                @(a + "...")
+            </td>
+        }
+        else
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.says)
+            </td>
+        }*@
+        @{
+            bool isFindUser = false;
+        }
+            @foreach (var a in ViewBag.User as IEnumerable<WebApp_AAJI.Models.user>)
+            {
+                if (a.userID == item.preparedBy)
+                {
+                    if (a.userName.Length > 10)
+                    {
+                        <td title="@a.userName">
+                            @a.userName.Substring(0,10)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @a.userName
+                        </td>
+                    }
+                    isFindUser = true;
+                    break;
+                }
+            }
+
+            @if(isFindUser == false)
+            {
+                <td>
+                    @("-")
+                </td>
+            }
+            
+        <td>
+            @item.preparedDate.ToString("dd MMM yyyy HH:mm")
+        </td>
+        <td>
+            @if (item.approvedStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (item.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (item.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+        </td>
+        <td>
+            @if (item.approvedStatus != null)
+            {
+            }
+            else
+            {
+                <a href="@Url.Action("Edit")/@item.voucherNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+                <label>&nbsp;&nbsp;&nbsp;</label>
+            }
+            <a href="@Url.Action("Details")/@item.voucherNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            @if (item.approvedStatus != null)
+            {
+            }
+            else
+            {
+                <a href="@Url.Action("Delete")/@item.voucherNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>                
+            }
+            &nbsp;&nbsp;&nbsp;
+            @if (ViewBag.ApprovalAuth != null)
+            { 
+                if (ViewBag.ApprovalAuth == true && item.approvedStatus == null && item.preparedStatus == true)
+                {
+                    <a href="@Url.Action("Approval")/@item.voucherNo?act=Appr"><img src='~/img/approval.png' style="width:15px" title="Approval" /></a>
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,129 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.employeeLoan>
+
+@{
+    ViewBag.Title = "Employee Loan";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.proposedStatus)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.approvedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.approvedDate)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @foreach(var a in ViewBag.employeeList as IEnumerable<WebApp_AAJI.Models.employee>)
+            {
+                if(a.employeeID == item.employeeID)
+                {
+                    @a.employeeName
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.employeeID)*@
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.amount)*@
+            @{
+                int number = int.Parse(item.amount.ToString("G29").Replace(',', '.'));
+                string nominal = number.ToString("#,##0");
+            }
+            @nominal
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.proposedBy)
+        </td>*@
+        <td>
+            @item.proposedDate.ToString("dd MMM yyyy")
+            @*@Html.DisplayFor(modelItem => item.proposedDate)*@
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.proposedStatus)
+        </td>*@
+        @*<td>
+            @Html.DisplayFor(modelItem => item.approvedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.approvedDate)
+        </td>*@
+        <td>
+            @*@Html.DisplayFor(modelItem => item.approvedStatus)*@
+            @if (item.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (item.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+            else
+            {
+                @("Waiting")
+            }
+        </td>
+        <td>
+            @if (item.approvedStatus != null)
+            {
+                
+            }
+            else
+            {
+                <a href="@Url.Action("Edit")/@item.pinjamanID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+                <label>&nbsp;&nbsp;&nbsp;</label>                
+            }
+            <a href="@Url.Action("Details")/@item.pinjamanID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            @if (item.approvedStatus != null)
+            {
+
+            }
+            else
+            {                
+                <a href="@Url.Action("Delete")/@item.pinjamanID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>
+                <label>&nbsp;&nbsp;&nbsp;</label>
+            }
+            @if (ViewBag.ApprovalAuth != null)
+            {
+                if (ViewBag.ApprovalAuth == true && item.approvedStatus == null && item.proposedStatus == true)
+                {
+                    <a href="@Url.Action("Approval")/@item.pinjamanID?act=Appr"><img src='~/img/approval.png' style="width:15px" title="Approval" /></a>
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

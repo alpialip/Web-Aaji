@@ -1,0 +1,121 @@
+﻿@model WebApp_AAJI.Models.purchaseReceive
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>purchaseReceive</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.receiveNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiveNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receiveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.poId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deliveryOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deliveryOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </dt>
+
+        <dd>
+            @Model.proposedDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receivedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receivedStatus)
+        </dd>
+
+    </dl>
+</div>
+
+<div id="dvDetail">
+    @Html.Partial("_PartialPageRCV-PO2")
+</div>
+<p>
+    @if (ViewBag.invoiceWasCreated != null)
+    {
+        var isFind = false;
+        foreach (var a in ViewBag.invoiceWasCreated as List<string>)
+        {
+            if (a == Model.receiveNo)
+            {
+                <a data-toggle="modal" data-target="#myModal" style="cursor:hand">Edit</a>
+                isFind = true;
+                break;
+            }
+        }
+
+        if (isFind == false)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.receiveNo })
+        }
+    } |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 445px;">
+            <div class="modal-header" style="background-color:#5BC0DE">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>Cannot Edit Purchase Receive, Purchase Invoice Was Created.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

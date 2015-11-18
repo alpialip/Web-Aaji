@@ -1,0 +1,98 @@
+﻿@model WebApp_AAJI.Models.vendor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>vendor</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.npwp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.npwp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contactPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contactPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ppn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ppn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.top)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.top)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

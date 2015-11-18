@@ -1,0 +1,88 @@
+﻿@model WebApp_AAJI.Models.typeFinanceTransaction
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>typeFinanceTransaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tftID)
+        </dt>
+        <dd>
+            @{
+                string descVal = Model.tftID.Replace("_", " ");
+            }
+            @Html.DisplayFor(model => model.tftName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tftName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.tftName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.accountNo)
+        </dt>
+
+        <dd>
+            @if (ViewData["accountNo"] != null)
+            {
+                @ViewData["accountNo"]
+            }
+            else
+            { 
+                @Html.DisplayFor(model => model.accountNo)
+            }
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedUser)
+        </dd>*@
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

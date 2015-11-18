@@ -1,0 +1,96 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.employee>
+
+@{
+    ViewBag.Title = "Employee";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.employeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employeeNIK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.npwp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ktp)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.bankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rekening)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tempatLahir)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tanggalLahir)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.employeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employeeNIK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.npwp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ktp)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.bankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rekening)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tempatLahir)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tanggalLahir)
+        </td>*@
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.employeeID }) <img src='~/img/edit.png' style="width:15px" /> |
+            @Html.ActionLink("Details", "Details", new { id = item.employeeID }) <img src='~/img/view.png' style="width:15px" /> |
+            @Html.ActionLink("Delete", "Delete", new { id = item.employeeID }) <img src='~/img/delete.png' style="width:15px" />*@ 
+            <a href="@Url.Action("Edit")/@item.employeeID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.employeeID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.employeeID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>

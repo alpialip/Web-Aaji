@@ -1,0 +1,74 @@
+﻿@model WebApp_AAJI.Models.groupEmail
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>groupEmail</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.groupEmailName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.groupEmailName)
+                @Html.ValidationMessageFor(model => model.groupEmailName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emailAddress, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.emailAddress)
+                <div style="max-width: 510px; max-height: 150px; overflow: auto; ">
+                    @if (ViewData["emailDistributed"] != null)
+                    {
+                        var emailDistributed = ViewData["emailDistributed"] as IEnumerable<WebApp_AAJI.Models.groupEmail.SelectEmailDistributed>;
+                        for (int i = 0; i < emailDistributed.ToList().Count; i++)
+                        {
+                            <div>
+                                @Html.HiddenFor(x => emailDistributed.ToList()[i].Id)
+                                @Html.CheckBoxFor(x => emailDistributed.ToList()[i].Selected, new { @value = emailDistributed.ToList()[i].Id })
+                                @Html.LabelFor(x => emailDistributed.ToList()[i].Selected, emailDistributed.ToList()[i].Name)
+                            </div>
+                        }
+                    }
+                @Html.ValidationMessageFor(model => model.emailAddress)
+                </div>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.modifiedDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedDate)
+                @Html.ValidationMessageFor(model => model.modifiedDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modifiedUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedUser)
+                @Html.ValidationMessageFor(model => model.modifiedUser)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

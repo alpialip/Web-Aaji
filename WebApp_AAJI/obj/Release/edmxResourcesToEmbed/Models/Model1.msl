@@ -1,0 +1,802 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_AAJIModelStoreContainer" CdmEntityContainer="DB_AAJIEntities">
+    <EntitySetMapping Name="AbsensiRekaps">
+      <EntityTypeMapping TypeName="DB_AAJIModel.AbsensiRekaps">
+        <MappingFragment StoreEntitySet="AbsensiRekaps">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="absensiDate" ColumnName="absensiDate" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="typeAbsensiID" ColumnName="typeAbsensiID" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdvancePaymentVoucherDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.AdvancePaymentVoucherDetails">
+        <MappingFragment StoreEntitySet="AdvancePaymentVoucherDetails">
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="accountNo" ColumnName="accountNo" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdvancePaymentVouchers">
+      <EntityTypeMapping TypeName="DB_AAJIModel.AdvancePaymentVouchers">
+        <MappingFragment StoreEntitySet="AdvancePaymentVouchers">
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="voucherDate" ColumnName="voucherDate" />
+          <ScalarProperty Name="bankID" ColumnName="bankID" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="says" ColumnName="says" />
+          <ScalarProperty Name="preparedBy" ColumnName="preparedBy" />
+          <ScalarProperty Name="preparedDate" ColumnName="preparedDate" />
+          <ScalarProperty Name="preparedStatus" ColumnName="preparedStatus" />
+          <ScalarProperty Name="checkedBy" ColumnName="checkedBy" />
+          <ScalarProperty Name="checkedDate" ColumnName="checkedDate" />
+          <ScalarProperty Name="checkedStatus" ColumnName="checkedStatus" />
+          <ScalarProperty Name="approvedBy" ColumnName="approvedBy" />
+          <ScalarProperty Name="approvedDate" ColumnName="approvedDate" />
+          <ScalarProperty Name="approvedStatus" ColumnName="approvedStatus" />
+          <ScalarProperty Name="acknowledgeBy" ColumnName="acknowledgeBy" />
+          <ScalarProperty Name="acknowledgeDate" ColumnName="acknowledgeDate" />
+          <ScalarProperty Name="acknowledgeStatus" ColumnName="acknowledgeStatus" />
+          <ScalarProperty Name="requestDeptId" ColumnName="requestDeptId" />
+          <ScalarProperty Name="received" ColumnName="received" />
+          <ScalarProperty Name="settlement" ColumnName="settlement" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BankCashPaymentVoucherDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.BankCashPaymentVoucherDetails">
+        <MappingFragment StoreEntitySet="BankCashPaymentVoucherDetails">
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="accountNo" ColumnName="accountNo" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BankCashPaymentVouchers">
+      <EntityTypeMapping TypeName="DB_AAJIModel.BankCashPaymentVouchers">
+        <MappingFragment StoreEntitySet="BankCashPaymentVouchers">
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="voucherDate" ColumnName="voucherDate" />
+          <ScalarProperty Name="bankId" ColumnName="bankId" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="says" ColumnName="says" />
+          <ScalarProperty Name="preparedBy" ColumnName="preparedBy" />
+          <ScalarProperty Name="preparedDate" ColumnName="preparedDate" />
+          <ScalarProperty Name="preparedStatus" ColumnName="preparedStatus" />
+          <ScalarProperty Name="checkedBy" ColumnName="checkedBy" />
+          <ScalarProperty Name="checkedDate" ColumnName="checkedDate" />
+          <ScalarProperty Name="checkedStatus" ColumnName="checkedStatus" />
+          <ScalarProperty Name="approvedBy" ColumnName="approvedBy" />
+          <ScalarProperty Name="approvedDate" ColumnName="approvedDate" />
+          <ScalarProperty Name="approvedStatus" ColumnName="approvedStatus" />
+          <ScalarProperty Name="acknowledgeBy" ColumnName="acknowledgeBy" />
+          <ScalarProperty Name="acknowledgeDate" ColumnName="acknowledgeDate" />
+          <ScalarProperty Name="acknowledgeStatus" ColumnName="acknowledgeStatus" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CashOnHandAndAdvanceRequestDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.CashOnHandAndAdvanceRequestDetails">
+        <MappingFragment StoreEntitySet="CashOnHandAndAdvanceRequestDetails">
+          <ScalarProperty Name="seqId" ColumnName="seqId" />
+          <ScalarProperty Name="reqNo" ColumnName="reqNo" />
+          <ScalarProperty Name="activityDescription" ColumnName="activityDescription" />
+          <ScalarProperty Name="currency" ColumnName="currency" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="fileReimbursement" ColumnName="fileReimbursement" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CashOnHandAndAdvanceRequests">
+      <EntityTypeMapping TypeName="DB_AAJIModel.CashOnHandAndAdvanceRequests">
+        <MappingFragment StoreEntitySet="CashOnHandAndAdvanceRequests">
+          <ScalarProperty Name="reqNo" ColumnName="reqNo" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="reqFrom" ColumnName="reqFrom" />
+          <ScalarProperty Name="activity" ColumnName="activity" />
+          <ScalarProperty Name="reqIsCashOnHand" ColumnName="reqIsCashOnHand" />
+          <ScalarProperty Name="includeProposal" ColumnName="includeProposal" />
+          <ScalarProperty Name="isReimbursement" ColumnName="isReimbursement" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChartOfAccounts">
+      <EntityTypeMapping TypeName="DB_AAJIModel.ChartOfAccounts">
+        <MappingFragment StoreEntitySet="ChartOfAccounts">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="accountNo" ColumnName="accountNo" />
+          <ScalarProperty Name="accountName" ColumnName="accountName" />
+          <ScalarProperty Name="levelID" ColumnName="levelID" />
+          <ScalarProperty Name="parentCOAId" ColumnName="parentCOAId" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeClaimMedicals">
+      <EntityTypeMapping TypeName="DB_AAJIModel.EmployeeClaimMedicals">
+        <MappingFragment StoreEntitySet="EmployeeClaimMedicals">
+          <ScalarProperty Name="klaimID" ColumnName="klaimID" />
+          <ScalarProperty Name="klaimDate" ColumnName="klaimDate" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="linkFileData" ColumnName="linkFileData" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="proposedBy" ColumnName="proposedBy" />
+          <ScalarProperty Name="proposedDate" ColumnName="proposedDate" />
+          <ScalarProperty Name="proposedStatus" ColumnName="proposedStatus" />
+          <ScalarProperty Name="acknowledgeBy" ColumnName="acknowledgeBy" />
+          <ScalarProperty Name="acknowledgeDate" ColumnName="acknowledgeDate" />
+          <ScalarProperty Name="acknowledgeStatus" ColumnName="acknowledgeStatus" />
+          <ScalarProperty Name="approvedBy" ColumnName="approvedBy" />
+          <ScalarProperty Name="approvedDate" ColumnName="approvedDate" />
+          <ScalarProperty Name="approvedStatus" ColumnName="approvedStatus" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeLoans">
+      <EntityTypeMapping TypeName="DB_AAJIModel.EmployeeLoans">
+        <MappingFragment StoreEntitySet="EmployeeLoans">
+          <ScalarProperty Name="pinjamanID" ColumnName="pinjamanID" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="proposedBy" ColumnName="proposedBy" />
+          <ScalarProperty Name="proposedDate" ColumnName="proposedDate" />
+          <ScalarProperty Name="proposedStatus" ColumnName="proposedStatus" />
+          <ScalarProperty Name="acknowledgeBy" ColumnName="acknowledgeBy" />
+          <ScalarProperty Name="acknowledgeDate" ColumnName="acknowledgeDate" />
+          <ScalarProperty Name="acknowledgeStatus" ColumnName="acknowledgeStatus" />
+          <ScalarProperty Name="approvedBy" ColumnName="approvedBy" />
+          <ScalarProperty Name="approvedDate" ColumnName="approvedDate" />
+          <ScalarProperty Name="approvedStatus" ColumnName="approvedStatus" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeePositions">
+      <EntityTypeMapping TypeName="DB_AAJIModel.EmployeePositions">
+        <MappingFragment StoreEntitySet="EmployeePositions">
+          <ScalarProperty Name="positionId" ColumnName="positionId" />
+          <ScalarProperty Name="positionDate" ColumnName="positionDate" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="jobTitle" ColumnName="jobTitle" />
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="divisiID" ColumnName="divisiID" />
+          <ScalarProperty Name="levelID" ColumnName="levelID" />
+          <ScalarProperty Name="employeeStatus" ColumnName="employeeStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeResigns">
+      <EntityTypeMapping TypeName="DB_AAJIModel.EmployeeResigns">
+        <MappingFragment StoreEntitySet="EmployeeResigns">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="resignDate" ColumnName="resignDate" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Employees">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="employeeNIK" ColumnName="employeeNIK" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="npwp" ColumnName="npwp" />
+          <ScalarProperty Name="ktp" ColumnName="ktp" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="bankName" ColumnName="bankName" />
+          <ScalarProperty Name="rekening" ColumnName="rekening" />
+          <ScalarProperty Name="tempatLahir" ColumnName="tempatLahir" />
+          <ScalarProperty Name="tanggalLahir" ColumnName="tanggalLahir" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FinanceTransactionDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.FinanceTransactionDetails">
+        <MappingFragment StoreEntitySet="FinanceTransactionDetails">
+          <ScalarProperty Name="sId" ColumnName="sId" />
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="invoiceNo" ColumnName="invoiceNo" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FinanceTransactionHeaders">
+      <EntityTypeMapping TypeName="DB_AAJIModel.FinanceTransactionHeaders">
+        <MappingFragment StoreEntitySet="FinanceTransactionHeaders">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="voucherDate" ColumnName="voucherDate" />
+          <ScalarProperty Name="transactionType" ColumnName="transactionType" />
+          <ScalarProperty Name="tftID" ColumnName="tftID" />
+          <ScalarProperty Name="billingType" ColumnName="billingType" />
+          <ScalarProperty Name="billingNo" ColumnName="billingNo" />
+          <ScalarProperty Name="clearingDate" ColumnName="clearingDate" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FixedAssetMaintenances">
+      <EntityTypeMapping TypeName="DB_AAJIModel.FixedAssetMaintenances">
+        <MappingFragment StoreEntitySet="FixedAssetMaintenances">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="maintenanceDate" ColumnName="maintenanceDate" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="fixedAssetID" ColumnName="fixedAssetID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FixedAssetPersons">
+      <EntityTypeMapping TypeName="DB_AAJIModel.FixedAssetPersons">
+        <MappingFragment StoreEntitySet="FixedAssetPersons">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="fixedAssetID" ColumnName="fixedAssetID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FixedAssets">
+      <EntityTypeMapping TypeName="DB_AAJIModel.FixedAssets">
+        <MappingFragment StoreEntitySet="FixedAssets">
+          <ScalarProperty Name="fixedAssetID" ColumnName="fixedAssetID" />
+          <ScalarProperty Name="purchaseDate" ColumnName="purchaseDate" />
+          <ScalarProperty Name="salesDate" ColumnName="salesDate" />
+          <ScalarProperty Name="fixedAssetCode" ColumnName="fixedAssetCode" />
+          <ScalarProperty Name="fixedAssetType" ColumnName="fixedAssetType" />
+          <ScalarProperty Name="fixedAssetName" ColumnName="fixedAssetName" />
+          <ScalarProperty Name="fixedAssetStatus" ColumnName="fixedAssetStatus" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="journalDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.journalDetails">
+        <MappingFragment StoreEntitySet="journalDetails">
+          <ScalarProperty Name="sId" ColumnName="sId" />
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="coaId" ColumnName="coaId" />
+          <ScalarProperty Name="accountNameOther" ColumnName="accountNameOther" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="debit" ColumnName="debit" />
+          <ScalarProperty Name="credit" ColumnName="credit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="journalHeaders">
+      <EntityTypeMapping TypeName="DB_AAJIModel.journalHeaders">
+        <MappingFragment StoreEntitySet="journalHeaders">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="voucherNo" ColumnName="voucherNo" />
+          <ScalarProperty Name="voucherDate" ColumnName="voucherDate" />
+          <ScalarProperty Name="journalType" ColumnName="journalType" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Menus">
+        <MappingFragment StoreEntitySet="Menus">
+          <ScalarProperty Name="menuID" ColumnName="menuID" />
+          <ScalarProperty Name="menuName" ColumnName="menuName" />
+          <ScalarProperty Name="menuLink" ColumnName="menuLink" />
+          <ScalarProperty Name="menuParent" ColumnName="menuParent" />
+          <ScalarProperty Name="menuDescription" ColumnName="menuDescription" />
+          <ScalarProperty Name="menuIsParent" ColumnName="menuIsParent" />
+          <ScalarProperty Name="menuIsActive" ColumnName="menuIsActive" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuValidationDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.MenuValidationDetails">
+        <MappingFragment StoreEntitySet="MenuValidationDetails">
+          <ScalarProperty Name="menuValIdH" ColumnName="menuValIdH" />
+          <ScalarProperty Name="menuID" ColumnName="menuID" />
+          <ScalarProperty Name="validationAccess" ColumnName="validationAccess" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuValidations">
+      <EntityTypeMapping TypeName="DB_AAJIModel.MenuValidations">
+        <MappingFragment StoreEntitySet="MenuValidations">
+          <ScalarProperty Name="menuValId" ColumnName="menuValId" />
+          <ScalarProperty Name="validationTypeIsGeneral" ColumnName="validationTypeIsGeneral" />
+          <ScalarProperty Name="validationName" ColumnName="validationName" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrderDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseOrderDetails">
+        <MappingFragment StoreEntitySet="PurchaseOrderDetails">
+          <ScalarProperty Name="poId" ColumnName="poId" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="disc" ColumnName="disc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrderHeaders">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseOrderHeaders">
+        <MappingFragment StoreEntitySet="PurchaseOrderHeaders">
+          <ScalarProperty Name="poId" ColumnName="poId" />
+          <ScalarProperty Name="poDate" ColumnName="poDate" />
+          <ScalarProperty Name="prId" ColumnName="prId" />
+          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+          <ScalarProperty Name="poUrgent" ColumnName="poUrgent" />
+          <ScalarProperty Name="topType" ColumnName="topType" />
+          <ScalarProperty Name="topAmount" ColumnName="topAmount" />
+          <ScalarProperty Name="ppn" ColumnName="ppn" />
+          <ScalarProperty Name="disc" ColumnName="disc" />
+          <ScalarProperty Name="proposedBy" ColumnName="proposedBy" />
+          <ScalarProperty Name="proposedDate" ColumnName="proposedDate" />
+          <ScalarProperty Name="proposedStatus" ColumnName="proposedStatus" />
+          <ScalarProperty Name="approvedBy" ColumnName="approvedBy" />
+          <ScalarProperty Name="approvedDate" ColumnName="approvedDate" />
+          <ScalarProperty Name="approvedStatus" ColumnName="approvedStatus" />
+          <ScalarProperty Name="acknowledgeBy" ColumnName="acknowledgeBy" />
+          <ScalarProperty Name="acknowledgeDate" ColumnName="acknowledgeDate" />
+          <ScalarProperty Name="acknowledgeStatus" ColumnName="acknowledgeStatus" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrderTops">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseOrderTops">
+        <MappingFragment StoreEntitySet="PurchaseOrderTops">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="poId" ColumnName="poId" />
+          <ScalarProperty Name="buyDate" ColumnName="buyDate" />
+          <ScalarProperty Name="buyPercent" ColumnName="buyPercent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="purchaseReceiveDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.purchaseReceiveDetails">
+        <MappingFragment StoreEntitySet="purchaseReceiveDetails">
+          <ScalarProperty Name="receiveNo" ColumnName="receiveNo" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="purchaseReceive_receiveNo" ColumnName="purchaseReceive_receiveNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseReceives">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseReceives">
+        <MappingFragment StoreEntitySet="PurchaseReceives">
+          <ScalarProperty Name="receiveNo" ColumnName="receiveNo" />
+          <ScalarProperty Name="receiveDate" ColumnName="receiveDate" />
+          <ScalarProperty Name="poId" ColumnName="poId" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="proposedBy" ColumnName="proposedBy" />
+          <ScalarProperty Name="proposedDate" ColumnName="proposedDate" />
+          <ScalarProperty Name="proposedStatus" ColumnName="proposedStatus" />
+          <ScalarProperty Name="receivedBy" ColumnName="receivedBy" />
+          <ScalarProperty Name="receivedDate" ColumnName="receivedDate" />
+          <ScalarProperty Name="receivedStatus" ColumnName="receivedStatus" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseRequestDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseRequestDetails">
+        <MappingFragment StoreEntitySet="PurchaseRequestDetails">
+          <ScalarProperty Name="prId" ColumnName="prId" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseRequestHeaders">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseRequestHeaders">
+        <MappingFragment StoreEntitySet="PurchaseRequestHeaders">
+          <ScalarProperty Name="prId" ColumnName="prId" />
+          <ScalarProperty Name="prDate" ColumnName="prDate" />
+          <ScalarProperty Name="requestDeptId" ColumnName="requestDeptId" />
+          <ScalarProperty Name="typeOrder" ColumnName="typeOrder" />
+          <ScalarProperty Name="proposalInclude" ColumnName="proposalInclude" />
+          <ScalarProperty Name="specialInstruction" ColumnName="specialInstruction" />
+          <ScalarProperty Name="projectTimeDelivery" ColumnName="projectTimeDelivery" />
+          <ScalarProperty Name="proposedBy" ColumnName="proposedBy" />
+          <ScalarProperty Name="proposedDate" ColumnName="proposedDate" />
+          <ScalarProperty Name="proposedStatus" ColumnName="proposedStatus" />
+          <ScalarProperty Name="approvedBy" ColumnName="approvedBy" />
+          <ScalarProperty Name="approvedDate" ColumnName="approvedDate" />
+          <ScalarProperty Name="approvedStatus" ColumnName="approvedStatus" />
+          <ScalarProperty Name="acknowledgeBy" ColumnName="acknowledgeBy" />
+          <ScalarProperty Name="acknowledgeDate" ColumnName="acknowledgeDate" />
+          <ScalarProperty Name="acknowledgeStatus" ColumnName="acknowledgeStatus" />
+          <ScalarProperty Name="receivedBy" ColumnName="receivedBy" />
+          <ScalarProperty Name="receivedDate" ColumnName="receivedDate" />
+          <ScalarProperty Name="receivedStatus" ColumnName="receivedStatus" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseReturnDetails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseReturnDetails">
+        <MappingFragment StoreEntitySet="PurchaseReturnDetails">
+          <ScalarProperty Name="receiveNo" ColumnName="receiveNo" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="purchaseReceive_receiveNo" ColumnName="purchaseReceive_receiveNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SisaSaldoCutis">
+      <EntityTypeMapping TypeName="DB_AAJIModel.SisaSaldoCutis">
+        <MappingFragment StoreEntitySet="SisaSaldoCutis">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeFinanceTransactions">
+      <EntityTypeMapping TypeName="DB_AAJIModel.TypeFinanceTransactions">
+        <MappingFragment StoreEntitySet="TypeFinanceTransactions">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tftID" ColumnName="tftID" />
+          <ScalarProperty Name="tftName" ColumnName="tftName" />
+          <ScalarProperty Name="accountNo" ColumnName="accountNo" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserGroupDs">
+      <EntityTypeMapping TypeName="DB_AAJIModel.UserGroupDs">
+        <MappingFragment StoreEntitySet="UserGroupDs">
+          <ScalarProperty Name="groupHId" ColumnName="groupHId" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserGroupHs">
+      <EntityTypeMapping TypeName="DB_AAJIModel.UserGroupHs">
+        <MappingFragment StoreEntitySet="UserGroupHs">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="groupDesc" ColumnName="groupDesc" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="lastLogin" ColumnName="lastLogin" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="employeeNIK" ColumnName="employeeNIK" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AbsensiEmployees">
+      <EntityTypeMapping TypeName="DB_AAJIModel.AbsensiEmployees">
+        <MappingFragment StoreEntitySet="AbsensiEmployees">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="checkIn" ColumnName="checkIn" />
+          <ScalarProperty Name="checkOut" ColumnName="checkOut" />
+          <ScalarProperty Name="typeAbsensiID" ColumnName="typeAbsensiID" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banks">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Banks">
+        <MappingFragment StoreEntitySet="Banks">
+          <ScalarProperty Name="bankID" ColumnName="bankID" />
+          <ScalarProperty Name="bankName" ColumnName="bankName" />
+          <ScalarProperty Name="accountNo" ColumnName="accountNo" />
+          <ScalarProperty Name="coaID" ColumnName="coaID" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Departments">
+        <MappingFragment StoreEntitySet="Departments">
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="deptName" ColumnName="deptName" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Divisis">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Divisis">
+        <MappingFragment StoreEntitySet="Divisis">
+          <ScalarProperty Name="divisiID" ColumnName="divisiID" />
+          <ScalarProperty Name="deptID" ColumnName="deptID" />
+          <ScalarProperty Name="divisiName" ColumnName="divisiName" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Emails">
+        <MappingFragment StoreEntitySet="Emails">
+          <ScalarProperty Name="emailID" ColumnName="emailID" />
+          <ScalarProperty Name="emailName" ColumnName="emailName" />
+          <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FixedAssetTypes">
+      <EntityTypeMapping TypeName="DB_AAJIModel.FixedAssetTypes">
+        <MappingFragment StoreEntitySet="FixedAssetTypes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="typeName" ColumnName="typeName" />
+          <ScalarProperty Name="typeCode" ColumnName="typeCode" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupEmails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.GroupEmails">
+        <MappingFragment StoreEntitySet="GroupEmails">
+          <ScalarProperty Name="groupEmailID" ColumnName="groupEmailID" />
+          <ScalarProperty Name="groupEmailName" ColumnName="groupEmailName" />
+          <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Levels">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Levels">
+        <MappingFragment StoreEntitySet="Levels">
+          <ScalarProperty Name="levelID" ColumnName="levelID" />
+          <ScalarProperty Name="levelName" ColumnName="levelName" />
+          <ScalarProperty Name="saldoCuti" ColumnName="saldoCuti" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Penghasilans">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Penghasilans">
+        <MappingFragment StoreEntitySet="Penghasilans">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="typePenghasilan" ColumnName="typePenghasilan" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PengurangPenghasilans">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PengurangPenghasilans">
+        <MappingFragment StoreEntitySet="PengurangPenghasilans">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Potongans">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Potongans">
+        <MappingFragment StoreEntitySet="Potongans">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseInvoices">
+      <EntityTypeMapping TypeName="DB_AAJIModel.PurchaseInvoices">
+        <MappingFragment StoreEntitySet="PurchaseInvoices">
+          <ScalarProperty Name="purchaseInvoiceNo" ColumnName="purchaseInvoiceNo" />
+          <ScalarProperty Name="invoiceDate" ColumnName="invoiceDate" />
+          <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+          <ScalarProperty Name="receiveNo" ColumnName="receiveNo" />
+          <ScalarProperty Name="paymentInfo" ColumnName="paymentInfo" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SetupEmails">
+      <EntityTypeMapping TypeName="DB_AAJIModel.SetupEmails">
+        <MappingFragment StoreEntitySet="SetupEmails">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="host" ColumnName="host" />
+          <ScalarProperty Name="port" ColumnName="port" />
+          <ScalarProperty Name="emailName" ColumnName="emailName" />
+          <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransReminders">
+      <EntityTypeMapping TypeName="DB_AAJIModel.TransReminders">
+        <MappingFragment StoreEntitySet="TransReminders">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="reminderDate" ColumnName="reminderDate" />
+          <ScalarProperty Name="reminderTime" ColumnName="reminderTime" />
+          <ScalarProperty Name="repeatitionID" ColumnName="repeatitionID" />
+          <ScalarProperty Name="reminderID" ColumnName="reminderID" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeAbsensis">
+      <EntityTypeMapping TypeName="DB_AAJIModel.TypeAbsensis">
+        <MappingFragment StoreEntitySet="TypeAbsensis">
+          <ScalarProperty Name="typeAbsensiID" ColumnName="typeAbsensiID" />
+          <ScalarProperty Name="typeAbsensiName" ColumnName="typeAbsensiName" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="DB_AAJIModel.Vendors">
+        <MappingFragment StoreEntitySet="Vendors">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="vendorID" ColumnName="vendorID" />
+          <ScalarProperty Name="vendorName" ColumnName="vendorName" />
+          <ScalarProperty Name="npwp" ColumnName="npwp" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="telp" ColumnName="telp" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="contactPerson" ColumnName="contactPerson" />
+          <ScalarProperty Name="ppn" ColumnName="ppn" />
+          <ScalarProperty Name="top" ColumnName="top" />
+          <ScalarProperty Name="createdUser" ColumnName="createdUser" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifiedUser" ColumnName="modifiedUser" />
+          <ScalarProperty Name="modifiedDate" ColumnName="modifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

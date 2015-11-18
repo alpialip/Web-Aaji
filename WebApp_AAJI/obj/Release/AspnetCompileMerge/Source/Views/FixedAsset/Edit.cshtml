@@ -1,0 +1,118 @@
+﻿@model WebApp_AAJI.Models.fixedAsset
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Create</h2>
+<script>
+    function saveFixedAsset() {
+        var x = validateDataDetailMultiple("save");
+        //alert(x);
+        if (x == true) {
+            //var typeGenerateCode = document.getElementById('rbTypeCode').value;
+            //var txtCode = document.getElementById('txtCode').value;
+            //if (typeGenerateCode == "Manual" && txtCode == "")
+            //    alert('Asset Code Required')
+            //else
+                document.forms[0].submit();
+        }
+    }
+
+    function maskingCurrency(val) {
+        document.getElementById("amounts").value = formatCurrency(document.getElementById("amounts").value.replace(/\./g, ''));
+        document.getElementById("amount").value = document.getElementById("amounts").value.replace(/\./g, '');
+    }
+</script>
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Fixed Asset</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.fixedAssetID);
+        @Html.HiddenFor(model => model.createdDate);
+        @Html.HiddenFor(model => model.createdUser);
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.purchaseDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("purchaseDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                @Html.ValidationMessageFor(model => model.purchaseDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.salesDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("salesDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                @Html.ValidationMessageFor(model => model.salesDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fixedAssetType)
+                @Html.ValidationMessageFor(model => model.fixedAssetType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.TextBoxFor(model => model.fixedAssetCode, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.fixedAssetCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fixedAssetName)
+                @Html.ValidationMessageFor(model => model.fixedAssetName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("amounts", Model.amount.ToString("G29").Replace(',', '.'), new { type = "text", style = "text-align:right;width:150px;padding-right:10px", onchange = "maskingCurrency()" })
+                @Html.TextBoxFor(model => model.amount, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetStatus, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.fixedAssetStatus)*@
+                @Html.DropDownList("fixedAssetStatus", ViewBag.StatusfixedAsset as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.fixedAssetStatus)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageFixAsset1")
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript:saveFixedAsset()" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    maskingCurrency();
+</script>

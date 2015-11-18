@@ -1,0 +1,33 @@
+﻿@{
+    //int idx = int.Parse(Session["idx"].ToString());
+    //int divId = int.Parse(Session["divId"].ToString());
+    string idx = ViewBag.idx;
+}
+@if (ViewBag.DivList != null)
+{
+    @Html.DropDownList("posDiv_" + idx as string, ViewBag.DivList as SelectList, "-Select-", new { @class = "form-control" })
+    @*<select id="posDiv_@idx" name="posDiv_@idx" class="form-control">
+        @foreach (var z in ViewBag.DivList as SelectList)
+        {
+            if (z.Value == divId.ToString())
+            {
+                <option value="@z.Value" selected="selected">@z.Text</option>
+            }
+            else
+            {
+                <option value="@z.Value">@z.Text</option>
+            }
+        }
+    </select>*@
+}
+else
+{
+    <select id="posDiv_@idx" name="posDiv_@idx" class="form-control">
+            <option value="">-Select-</option>
+    </select>    
+}
+
+<script>
+    @*var deptId = document.getElementById('posDept_'+@idx).value;
+    alert(@divId);*@
+</script>

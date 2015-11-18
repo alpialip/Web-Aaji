@@ -1,0 +1,86 @@
+﻿@using System.Data;
+<script>
+    function generatePDF()
+    {
+       var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+
+        //alert(period+"-"+empId);
+        if (startDate != "" && endDate != "")
+            $("#dvReport").load('@(Url.Action("GenerateReport", "ReportEmployee", null, Request.Url.Scheme))?startDate=' + startDate + "&endDate=" + endDate);
+
+    }
+
+    function print()
+    {
+        var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+
+        if (startDate != "" && endDate != "")
+        $("#dvReport").load('@(Url.Action("GenerateReport", "ReportEmployee", null, Request.Url.Scheme))?startDate=' + startDate + "&endDate=" + endDate);
+        window.open(this.href, 'myPrint', 'left=20,top=20,width=920,height=800,toolbar=1,resizable=0'); return false;
+    }
+</script>
+@{
+    bool hasData = false;
+    string month = string.Empty;
+    string year = string.Empty;
+}
+@if (ViewBag.detail != null)
+{
+    <div style="overflow:auto; width:1000px; height:400px">
+        <table class="table-hover" style="border-collapse: collapse;" border="1">
+            <thead>
+                <tr>
+                    <th style="text-align: center">No.</th>
+                    <th style="text-align: center">NIK</th>
+                    <th style="min-width:225px;text-align:center">Employee Name</th>
+                    <th style="min-width:225px;text-align:center">Join Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.detail != null)
+                {
+                    DataTable dt = ViewBag.detail as DataTable;
+                    if (dt.Rows.Count > 0)
+                    {
+                        hasData = true;
+                        int noUrut = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            DateTime joinDate = DateTime.Parse(dr["positionDate"].ToString());
+                            <tr>
+                                <td style="padding:0 5px 0 5px;">@noUrut</td>
+                                <td style="padding:0 5px 0 5px;">@dr["employeeNIK"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["employeeName"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@joinDate.ToString("dd-MMM-yyyy")</td>
+                            </tr>
+                                noUrut++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" style="text-align:center">No Data Result</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="text-align:center"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (hasData == true)
+{
+    <div id="dvReport"></div>
+    @*<a href="@(Url.Action("printEmployee", "ReportEmployee", null, Request.Url.Scheme))?month=@month&year=@year"
+       onclick="">*@
+        <img src="~/img/printer.png" width="30px" title="Print" onclick="print()" />
+    @*</a>*@
+}

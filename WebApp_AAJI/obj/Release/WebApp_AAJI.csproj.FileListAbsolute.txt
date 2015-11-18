@@ -1,0 +1,223 @@
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\WebApp_AAJI.dll.config
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\WebApp_AAJI.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\WebApp_AAJI.pdb
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\PagedList.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\PagedList.Mvc.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Helpers.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Mvc.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Razor.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Webpages.Deployment.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Webpages.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Webpages.Razor.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\WebActivator.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\PagedList.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\PagedList.Mvc.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\WebActivator.pdb
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Razor.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Webpages.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Webpages.Deployment.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Webpages.Razor.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Helpers.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\System.Web.Mvc.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.pdb
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.csprojResolveAssemblyReference.cache
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\RdlCompile.cache
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\RdlCompile.compiled
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.csproj.GenerateResource.Cache
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\WebApp_AAJI.dll.config
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\WebApp_AAJI.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\WebApp_AAJI.pdb
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\EntityFramework.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\EntityFramework.SqlServer.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\PagedList.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\PagedList.Mvc.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Helpers.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Mvc.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Razor.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Webpages.Deployment.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Webpages.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Webpages.Razor.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\WebActivator.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\PagedList.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\PagedList.Mvc.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\WebActivator.pdb
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Razor.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Webpages.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Webpages.Deployment.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Webpages.Razor.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Helpers.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\bin\System.Web.Mvc.xml
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.csprojResolveAssemblyReference.cache
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k1.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k2.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.csproj.GenerateResource.Cache
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\RdlCompile.cache
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\RdlCompile.compiled
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.dll
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.pdb
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k1.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k2.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k3.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k4.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\EntityFramework.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\EntityFramework.SqlServer.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k5.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k6.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k3.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k4.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k5.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k6.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k7.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k8.resources
+D:\Projects_SAMPLE\Aaji\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k9.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k7.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k8.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k9.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k10.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\bin\Microsoft.Web.Infrastructure.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k11.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k12.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k13.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k14.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k15.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k16.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k17.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k18.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k19.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k20.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k21.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k22.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k23.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k24.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k25.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k26.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k27.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k28.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\WebApp_AAJI.dll.config
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\WebApp_AAJI.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\WebApp_AAJI.pdb
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\EntityFramework.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\EntityFramework.SqlServer.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\Microsoft.Web.Infrastructure.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\PagedList.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\PagedList.Mvc.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Helpers.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Mvc.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Razor.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Webpages.Deployment.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Webpages.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Webpages.Razor.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\WebActivator.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\PagedList.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\PagedList.Mvc.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\WebActivator.pdb
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Razor.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Webpages.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Webpages.Deployment.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Webpages.Razor.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Helpers.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\bin\System.Web.Mvc.xml
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.csprojResolveAssemblyReference.cache
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k1.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k2.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k3.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k4.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k5.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k6.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k7.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k8.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k9.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k10.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k11.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k12.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k13.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k14.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k15.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k16.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k17.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k18.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k19.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k20.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k21.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k22.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k23.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k24.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k25.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k26.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k27.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k28.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k29.resources
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.csproj.GenerateResource.Cache
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\RdlCompile.cache
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\RdlCompile.compiled
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.dll
+D:\Cari Tambahan\AAJI Application\WebApp_AAJI_lama - merge\WebApp_AAJI\obj\Release\WebApp_AAJI.pdb
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\WebApp_AAJI.dll.config
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\WebApp_AAJI.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\WebApp_AAJI.pdb
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\EntityFramework.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\EntityFramework.SqlServer.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\Microsoft.Web.Infrastructure.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\PagedList.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\PagedList.Mvc.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Helpers.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Mvc.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Razor.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Webpages.Deployment.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Webpages.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Webpages.Razor.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\WebActivator.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\PagedList.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\PagedList.Mvc.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\WebActivator.pdb
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Razor.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Webpages.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Webpages.Deployment.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Webpages.Razor.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Helpers.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\bin\System.Web.Mvc.xml
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.csprojResolveAssemblyReference.cache
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k1.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k2.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k3.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k4.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k5.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k6.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k7.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k8.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k9.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k10.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k11.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k12.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k13.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k14.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k15.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k16.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k17.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k18.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k19.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k20.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k21.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k22.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k23.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k24.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k25.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k26.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k27.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k28.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k29.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k30.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k31.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k32.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.csproj.GenerateResource.Cache
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\RdlCompile.cache
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\RdlCompile.compiled
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.dll
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.pdb
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k33.resources
+D:\Cari Tambahan\AAJI Application\Source_Terbaru\WebApp_AAJI\obj\Release\WebApp_AAJI.Migrations.k34.resources

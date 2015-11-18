@@ -1,0 +1,1930 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D8F6772D-89AD-4415-8CFC-D6A8664E32BB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebApp_AAJI</RootNamespace>
+    <AssemblyName>WebApp_AAJI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework">
+      <HintPath>obj\Release\AspnetCompileMerge\Source\bin\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>obj\Release\AspnetCompileMerge\Source\bin\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.0.0.0\lib\WebActivator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="! mvc project awesome readme.txt" />
+    <Content Include="App_Data\myajji-20150824121250.mdf" />
+    <Content Include="App_Data\myajji-20150824121250_log.ldf">
+      <DependentUpon>myajji-20150824121250.mdf</DependentUpon>
+    </Content>
+    <Content Include="bin\CrystalDecisions.CrystalReports.Engine.dll" />
+    <Content Include="bin\CrystalDecisions.ReportSource.dll" />
+    <Content Include="bin\CrystalDecisions.Shared.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Microsoft.ReportViewer.WebForms.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\PagedList.dll" />
+    <Content Include="bin\PagedList.Mvc.dll" />
+    <Content Include="bin\PagedList.Mvc.xml" />
+    <Content Include="bin\PagedList.xml" />
+    <Content Include="bin\stdole.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="bin\System.Web.Webpages.Deployment.xml" />
+    <Content Include="bin\System.Web.Webpages.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.xml" />
+    <Content Include="bin\WebActivator.dll" />
+    <Content Include="bin\WebActivator.pdb" />
+    <Content Include="bin\WebApp_AAJI.dll" />
+    <Content Include="bin\WebApp_AAJI.pdb" />
+    <Content Include="Content\Awesome.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datePicker.css" />
+    <Content Include="Content\dtree.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="img\acknowledge.png" />
+    <Content Include="img\bg-aaji.png" />
+    <Content Include="img\logo-aaji.jpg" />
+    <Content Include="img\no_avatar.png" />
+    <Content Include="img\pdf.png" />
+    <Content Include="img\printer.png" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="DB_AAJIDataSet.xsc">
+      <DependentUpon>DB_AAJIDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="bin\WebApp_AAJI.dll.config" />
+    <None Include="DB_AAJIDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DB_AAJIDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="DB_AAJIDataSet.xss">
+      <DependentUpon>DB_AAJIDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\packages.config" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Account\Login.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Account\test.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\ChartOfAccount\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\ChartOfAccount\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\ChartOfAccount\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\ChartOfAccount\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\ChartOfAccount\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Email\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Email\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Email\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Email\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Email\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\FinanceTransaction\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\FinanceTransaction\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\FinanceTransaction\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\FinanceTransaction\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\FinanceTransaction\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\FinanceTransaction\_PartialPageFT1.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\FinanceTransaction\_PartialPageFT2.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\GroupEmail\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\GroupEmail\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\GroupEmail\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\GroupEmail\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\GroupEmail\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\JournalAdjustment\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\JournalAdjustment\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\JournalAdjustment\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\JournalAdjustment\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\JournalAdjustment\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\JournalAdjustment\_PartialPage1.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\JournalAdjustment\_PartialPage2.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\MenuValidation\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\MenuValidation\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\MenuValidation\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\MenuValidation\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\MenuValidation\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Menu\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Menu\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Menu\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Menu\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Menu\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Nav\Menu.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseOrder\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseOrder\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseOrder\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseOrder\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPagePO1.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseRequest\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseRequest\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseRequest\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseRequest\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseRequest\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePR1.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePR2.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\SetupEmail\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\SetupEmail\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\SetupEmail\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\SetupEmail\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\SetupEmail\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\_Layout.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\UserGroup\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\UserGroup\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\UserGroup\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\UserGroup\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\UserGroup\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\User\Create.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\User\Delete.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\User\Details.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\User\Edit.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\User\Index.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\web.config" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\_ViewStart.cshtml" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Web.config" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.csdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.msl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.ssdl" />
+    <Content Include="obj\Debug\RdlCompile.cache" />
+    <Content Include="obj\Debug\RdlCompile.compiled" />
+    <Content Include="obj\Debug\WebApp_AAJI.csproj.GenerateResource.Cache" />
+    <Content Include="obj\Debug\WebApp_AAJI.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Debug\__TestProfilesForFilePreview__\Test.pubxml" />
+    <None Include="obj\Debug\__TestProfilesForFilePreview__\WebApp_AAJI_deploy.pubxml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\DB_AAJIDataSet.xsc" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\DB_AAJIDataSet.xss" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Models\Model1.edmx.diagram" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\packages.config" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery-1.10.2.min.map" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AbsensiRekap\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AbsensiRekap\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AbsensiRekap\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AbsensiRekap\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AbsensiRekap\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AbsensiRekap\_PartialPageAbsensi1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Absensi\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Absensi\_PartialPageAbsensiEmployee1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\_PartialPageAP1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\_PartialPageAP2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\_PartialPagePopUpInvoiceSearch.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\_PartialPagePopUpInvoiceSearchSub.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\_PartialPagePopUpVendorSearch1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AccountPayable\_PartialPagePopUpVendorSearchSub1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Account\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Account\Login.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Account\NotAuthorized.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Account\_PartialPageChangePassword.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\Approval.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\_PartialPageAPV1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\AdvancePaymentVoucher\_PartialPageAPV2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BackupDatabase\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BackupDatabase\_PartialPageBackupDB.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BackupDatabase\_PartialPagePop1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BackupDatabase\_PartialPagePop2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\Approval.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\_PartialPageBCP1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\BankCashPaymentVoucher\_PartialPageBCP2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Bank\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Bank\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Bank\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Bank\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Bank\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\CashOnHandAndAdvanceRequest\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\CashOnHandAndAdvanceRequest\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\CashOnHandAndAdvanceRequest\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\CashOnHandAndAdvanceRequest\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\CashOnHandAndAdvanceRequest\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\CashOnHandAndAdvanceRequest\_PartialPageDetail1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\CashOnHandAndAdvanceRequest\_PartialPageDetail2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ChartOfAccount\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ChartOfAccount\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ChartOfAccount\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ChartOfAccount\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ChartOfAccount\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Closing\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Department\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Department\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Department\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Department\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Department\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Divisi\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Divisi\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Divisi\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Divisi\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Divisi\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Email\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Email\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Email\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Email\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Email\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedicalPersonal\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedicalPersonal\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedicalPersonal\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedicalPersonal\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedicalPersonal\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedical\Approval.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedical\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedical\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedical\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedical\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedical\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeClaimMedical\_PartialPagePopUpEmployee1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoanPersonal\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoanPersonal\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoanPersonal\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoanPersonal\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoanPersonal\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoan\Approval.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoan\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoan\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoan\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoan\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoan\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\EmployeeLoan\_PartialPagePopUpEmployee.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\_PartialPageDDLDivision1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\_PartialPageEmpPosition1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Employee\_PartialPageEmpPosition2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FinanceTransaction\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FinanceTransaction\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FinanceTransaction\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FinanceTransaction\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FinanceTransaction\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FinanceTransaction\_PartialPageFT1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FinanceTransaction\_PartialPageFT2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAssetType\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAssetType\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAssetType\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAssetType\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAssetType\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\_PartialPageFixAsset1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\_PartialPageFixAsset2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\FixedAsset\_PartialPagePopUpEmployee.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\GroupEmail\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\GroupEmail\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\GroupEmail\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\GroupEmail\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\GroupEmail\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\JournalAdjustment\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\JournalAdjustment\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\JournalAdjustment\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\JournalAdjustment\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\JournalAdjustment\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\JournalAdjustment\_PartialPage1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\JournalAdjustment\_PartialPage2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Level\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Level\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Level\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Level\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Level\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\MenuValidation\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\MenuValidation\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\MenuValidation\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\MenuValidation\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\MenuValidation\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Menu\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Menu\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Menu\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Menu\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Menu\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Nav\Menu.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Penghasilan\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Penghasilan\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Penghasilan\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Penghasilan\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Penghasilan\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PengurangPenghasilan\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PengurangPenghasilan\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PengurangPenghasilan\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PengurangPenghasilan\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PengurangPenghasilan\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Potongan\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Potongan\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Potongan\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Potongan\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Potongan\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Product\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Product\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Product\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Product\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Product\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseInvoice\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseInvoice\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseInvoice\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseInvoice\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseInvoice\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\Approval.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPageMultipleTOP.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPageMultipleTOP2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPagePO1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPagePR-PO.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPagePR-PO2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPagePR.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPagePRSearch.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseOrder\_PartialPagePRSearchSub.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\Approval.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\_PartialPagePopUpPO.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\_PartialPagePopUpPOSearch.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\_PartialPagePopUpPOSearchSub.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\_PartialPageRCV-PO1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\_PartialPageRCV-PO2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseReceive\_PartialPageRCV1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\Approval.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePopUpProduct.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePopUpProductSearch.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePopUpVendor1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePopUpVendorSearch1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePopUpVendorSearchSub1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePR1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePR2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPageProductSearchSub.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePR_Supplier1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\PurchaseRequest\_PartialPagePR_Supplier2.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ReportPurchaseRequest\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ReportPurchaseRequest\ReportPurchaseRequest.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\ReportPurchaseRequest\ReportPurchaseRequest_PartialPage.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SetupEmail\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SetupEmail\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SetupEmail\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SetupEmail\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SetupEmail\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\_Layout.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\_PartialPagePopUpPO.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\_PartialPagePopUpPR.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\_PartialPageVendor.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SisaSaldoCuti\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SisaSaldoCuti\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SisaSaldoCuti\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SisaSaldoCuti\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SisaSaldoCuti\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\SisaSaldoCuti\_PartialPageSisaSaldo1.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TransReminder\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TransReminder\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TransReminder\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TransReminder\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TransReminder\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeAbsensi\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeAbsensi\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeAbsensi\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeAbsensi\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeAbsensi\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\TypeFinanceTransaction\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\UserGroup\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\UserGroup\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\UserGroup\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\UserGroup\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\UserGroup\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\User\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\User\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\User\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\User\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\User\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Vendor\Create.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Vendor\Delete.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Vendor\Details.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Vendor\Edit.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Vendor\Index.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\web.config" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\_ViewStart.cshtml" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Web.config" />
+    <Content Include="obj\Release\CSAutoParameterize\original\Views\web.config" />
+    <Content Include="obj\Release\CSAutoParameterize\original\Web.config" />
+    <Content Include="obj\Release\CSAutoParameterize\transformed\Views\web.config" />
+    <Content Include="obj\Release\CSAutoParameterize\transformed\Web.config" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\Model1.csdl" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\Model1.msl" />
+    <Content Include="obj\Release\edmxResourcesToEmbed\Models\Model1.ssdl" />
+    <Content Include="obj\Release\InsertEFCodeFirstDeploy\original\Web.config" />
+    <Content Include="obj\Release\InsertEFCodeFirstDeploy\transformed\Web.config" />
+    <Content Include="obj\Release\Package\PackageTmp\DB_AAJIDataSet.xsc" />
+    <Content Include="obj\Release\Package\PackageTmp\DB_AAJIDataSet.xss" />
+    <Content Include="obj\Release\Package\PackageTmp\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="obj\Release\Package\PackageTmp\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="obj\Release\Package\PackageTmp\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="obj\Release\Package\PackageTmp\Models\Model1.edmx.diagram" />
+    <Content Include="obj\Release\Package\PackageTmp\packages.config" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery-1.10.2.min.map" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AbsensiRekap\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AbsensiRekap\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AbsensiRekap\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AbsensiRekap\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AbsensiRekap\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AbsensiRekap\_PartialPageAbsensi1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Absensi\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Absensi\_PartialPageAbsensiEmployee1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\_PartialPageAP1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\_PartialPageAP2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\_PartialPagePopUpInvoiceSearch.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\_PartialPagePopUpInvoiceSearchSub.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\_PartialPagePopUpVendorSearch1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AccountPayable\_PartialPagePopUpVendorSearchSub1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Account\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Account\Login.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Account\NotAuthorized.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Account\popUpPreviewVirtualSign_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Account\_PartialPageChangePassword.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Account\_PartialPageVirtualSign.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\_PartialPageAPV1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvancePaymentVoucher\_PartialPageAPV2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\_PartialPageDetail1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\AdvanceRequest\_PartialPageDetail2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BackupDatabase\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BackupDatabase\_PartialPageBackupDB.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BackupDatabase\_PartialPagePop1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BackupDatabase\_PartialPagePop2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\_PartialPageBCP1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\BankCashPaymentVoucher\_PartialPageBCP2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Bank\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Bank\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Bank\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Bank\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Bank\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\_PartialPageDetail1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\CashOnHandAndAdvanceRequest\_PartialPageDetail2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ChartOfAccount\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ChartOfAccount\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ChartOfAccount\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ChartOfAccount\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ChartOfAccount\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Closing\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Closing\_PartialPagePosting.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Department\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Department\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Department\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Department\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Department\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Divisi\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Divisi\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Divisi\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Divisi\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Divisi\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Email\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Email\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Email\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Email\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Email\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedicalPersonal\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedicalPersonal\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedicalPersonal\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedicalPersonal\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedicalPersonal\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\_PartialPageClaimDetail.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\_PartialPagePopUpEmployee1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\_PartialPagePopUpFamilySearch.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeClaimMedical\_PartialPagePopUpFamilySearchSub.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoanPersonal\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoanPersonal\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoanPersonal\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoanPersonal\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoanPersonal\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoan\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoan\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoan\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoan\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoan\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoan\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\EmployeeLoan\_PartialPagePopUpEmployee.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\popUpPreviewCV_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPageDDLDivision1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPageEmpCV.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPageEmpFamily.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPageEmpPosition1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPageEmpPosition2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPagePenghasilan.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPagePenghasilan2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPagePengurangPenghasilan.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Employee\_PartialPagePengurangPenghasilan2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FinanceTransaction\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FinanceTransaction\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FinanceTransaction\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FinanceTransaction\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FinanceTransaction\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FinanceTransaction\_PartialPageFT1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FinanceTransaction\_PartialPageFT2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAssetType\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAssetType\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAssetType\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAssetType\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAssetType\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\_PartialPageFixAsset1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\_PartialPageFixAsset2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\FixedAsset\_PartialPagePopUpEmployee.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\GroupEmail\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\GroupEmail\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\GroupEmail\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\GroupEmail\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\GroupEmail\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\JournalAdjustment\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\JournalAdjustment\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\JournalAdjustment\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\JournalAdjustment\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\JournalAdjustment\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\JournalAdjustment\_PartialPage1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\JournalAdjustment\_PartialPage2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\_PartialPageEmployeeSearch.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\LeaveRequest\_PartialPageEmployeeSearchSub.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\_PartialPagePenghasilan.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\_PartialPagePenghasilan2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\_PartialPagePengurangPenghasilan.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Level\_PartialPagePengurangPenghasilan2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\MenuValidation\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\MenuValidation\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\MenuValidation\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\MenuValidation\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\MenuValidation\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Menu\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Menu\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Menu\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Menu\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Menu\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Nav\Menu.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Penghasilan\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Penghasilan\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Penghasilan\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Penghasilan\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Penghasilan\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PengurangPenghasilan\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PengurangPenghasilan\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PengurangPenghasilan\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PengurangPenghasilan\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PengurangPenghasilan\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Potongan\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Potongan\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Potongan\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Potongan\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Potongan\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Product\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Product\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Product\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Product\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Product\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseInvoice\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseInvoice\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseInvoice\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseInvoice\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseInvoice\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseInvoice\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPageMultipleTOP.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPageMultipleTOP2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPagePO1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPagePR-PO.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPagePR-PO2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPagePR.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPagePRSearch.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPagePRSearchSub.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseOrder\_PartialPageVendor.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\_PartialPagePopUpPO.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\_PartialPagePopUpPOSearch.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\_PartialPagePopUpPOSearchSub.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\_PartialPageRCV-PO1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\_PartialPageRCV-PO2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseReceive\_PartialPageRCV1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\Approval.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePopUpProduct.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePopUpProductSearch.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePopUpVendor1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePopUpVendorSearch1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePopUpVendorSearchSub1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePR1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePR2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPageProductSearchSub.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePR_Supplier1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\PurchaseRequest\_PartialPagePR_Supplier2.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportEmployeeClaimMedical\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportEmployeeClaimMedical\ReportEmployeeClaimMedical_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportEmployeeLoan\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportEmployeeLoan\ReportEmployeeLoan_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportEmployee\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportEmployee\popUpPrintReportEmployee_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportEmployee\ReportEmployee_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportFixedAsset\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportFixedAsset\ReportFixedAsset_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPaymentVoucher\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPaymentVoucher\ReportPaymentVoucher_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPayment\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPayment\printReportPayment_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPayment\ReportPayment_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseInvoice\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseInvoice\ReportPurchaseInvoice_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseOrder\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseOrder\ReportPurchaseOrder_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseReceive\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseReceive\ReportPurchaseReceive_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseRequest\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseRequest\ReportPurchaseRequest.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseRequest\ReportPurchaseRequest_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseReturn\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportPurchaseReturn\ReportPurchaseReturn_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportSummaryAttendance\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\ReportSummaryAttendance\ReportSummaryAttendance_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SetupEmail\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SetupEmail\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SetupEmail\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SetupEmail\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SetupEmail\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Shared\_Layout.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Shared\_PartialPagePopUpPO.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Shared\_PartialPagePopUpPR.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Shared\_PartialPageVendor.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SisaSaldoCuti\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SisaSaldoCuti\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SisaSaldoCuti\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SisaSaldoCuti\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SisaSaldoCuti\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\SisaSaldoCuti\_PartialPageSisaSaldo1.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TransReminder\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TransReminder\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TransReminder\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TransReminder\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TransReminder\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TrialBalance\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TrialBalance\popUpDetailTrialBalancePerAccount_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TrialBalance\popUpPrintTrialBalance_PartialPage.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TrialBalance\_PartialPageDetailTrialBalance.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeAbsensi\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeAbsensi\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeAbsensi\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeAbsensi\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeAbsensi\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeFinanceTransaction\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeFinanceTransaction\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeFinanceTransaction\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeFinanceTransaction\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\TypeFinanceTransaction\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\UserGroup\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\UserGroup\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\UserGroup\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\UserGroup\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\UserGroup\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\User\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\User\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\User\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\User\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\User\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Vendor\Create.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Vendor\Delete.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Vendor\Details.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Vendor\Edit.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Vendor\Index.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\Vendor\_PartialPageProduct.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\web.config" />
+    <Content Include="obj\Release\Package\PackageTmp\Views\_ViewStart.cshtml" />
+    <Content Include="obj\Release\Package\PackageTmp\Web.config" />
+    <Content Include="obj\Release\ProfileTransformWebConfig\assist\Web.config" />
+    <Content Include="obj\Release\ProfileTransformWebConfig\original\Web.config" />
+    <Content Include="obj\Release\ProfileTransformWebConfig\transformed\Web.config" />
+    <Content Include="obj\Release\RdlCompile.cache" />
+    <Content Include="obj\Release\RdlCompile.compiled" />
+    <Content Include="obj\Release\TransformWebConfig\assist\Web.config" />
+    <Content Include="obj\Release\TransformWebConfig\original\Web.config" />
+    <Content Include="obj\Release\TransformWebConfig\transformed\Web.config" />
+    <Content Include="obj\Release\WebApp_AAJI.csproj.GenerateResource.Cache" />
+    <Content Include="obj\Release\WebApp_AAJI.csprojResolveAssemblyReference.cache" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
+    <None Include="Properties\PublishProfiles\WebApp_AAJI_deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\webApp_AAJI_publish.pubxml" />
+    <Content Include="img\add.png" />
+    <Content Include="img\approval.png" />
+    <Content Include="img\backup.png" />
+    <Content Include="img\base.gif" />
+    <Content Include="img\cd.gif" />
+    <Content Include="img\change.png" />
+    <Content Include="img\check.png" />
+    <Content Include="img\delete.png" />
+    <Content Include="img\denied.png" />
+    <Content Include="img\download.png" />
+    <Content Include="img\edit.png" />
+    <Content Include="img\empty.gif" />
+    <Content Include="img\folder.gif" />
+    <Content Include="img\folderopen.gif" />
+    <Content Include="img\globe.gif" />
+    <Content Include="img\imgfolder.gif" />
+    <Content Include="img\join.gif" />
+    <Content Include="img\joinbottom.gif" />
+    <Content Include="img\line.gif" />
+    <Content Include="img\logout.gif" />
+    <Content Include="img\minus.gif" />
+    <Content Include="img\minusbottom.gif" />
+    <Content Include="img\musicfolder.gif" />
+    <Content Include="img\nolines_minus.gif" />
+    <Content Include="img\nolines_plus.gif" />
+    <Content Include="img\page.gif" />
+    <Content Include="img\pleasewait.gif" />
+    <Content Include="img\plus.gif" />
+    <Content Include="img\plusbottom.gif" />
+    <Content Include="img\question.gif" />
+    <Content Include="img\save.png" />
+    <Content Include="img\trash.gif" />
+    <Content Include="img\undo.png" />
+    <Content Include="img\view.png" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\! mvc project awesome readme.txt" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\EntityFramework.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\EntityFramework.SqlServer.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\PagedList.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\PagedList.Mvc.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\System.Web.Helpers.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\System.Web.Mvc.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\System.Web.Razor.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\System.Web.Webpages.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\WebActivator.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\WebActivator.pdb" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\WebApp_AAJI.dll" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\bin\WebApp_AAJI.pdb" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Content\Awesome.css" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Content\bootstrap.css" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Content\bootstrap.min.css" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Content\dtree.css" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Content\PagedList.css" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Global.asax" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\base.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\cd.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\empty.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\folder.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\folderopen.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\globe.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\imgfolder.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\join.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\joinbottom.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\line.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\logout.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\minus.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\minusbottom.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\musicfolder.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\nolines_minus.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\nolines_plus.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\page.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\plus.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\plusbottom.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\question.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\img\trash.gif" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\Awesome.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\Awesome.min.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\bootstrap.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\bootstrap.min.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\dtree.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\jquery.form.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\jquery.form.min.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\jquery.validate.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\jquery.validate.min.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\AjaxCheckBoxList.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\AjaxDropdown.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\AjaxRadioList.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\Autocomplete.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\Confirm.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\header.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\Lookup.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\LookupList.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\LookupPopup.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\MultiLookup.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\MultiLookupPopup.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\Popup.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\PopupForm.ascx" />
+    <Content Include="obj\Debug\AspnetCompileMerge\Source\Views\Shared\Awesome\SearchForm.ascx" />
+    <Content Include="obj\Debug\TempPE\Content.Reports.PurchaseRequestReport.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Content.Reports.ReportPurchaseRequest.cs.dll" />
+    <Content Include="obj\Debug\TempPE\DB_AAJIDataSet.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.Model1.Context.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.Model1.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.Model1.Designer.cs.dll" />
+    <Content Include="obj\Debug\WebApp_AAJI.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\WebApp_AAJI.dll" />
+    <Content Include="obj\Debug\WebApp_AAJI.pdb" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\! mvc project awesome readme.txt" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\EntityFramework.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\EntityFramework.SqlServer.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\PagedList.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\PagedList.Mvc.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\System.Web.Helpers.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\System.Web.Mvc.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\System.Web.Razor.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\System.Web.Webpages.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\WebActivator.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\bin\WebApp_AAJI.dll" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Content\Awesome.css" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Content\bootstrap.css" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Content\bootstrap.min.css" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Content\dtree.css" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Content\PagedList.css" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Content\Site.css" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Global.asax" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\acknowledge.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\add.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\approval.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\backup.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\base.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\cd.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\change.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\check.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\delete.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\denied.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\download.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\edit.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\empty.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\folder.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\folderopen.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\globe.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\imgfolder.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\join.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\joinbottom.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\line.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\logout.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\minus.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\minusbottom.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\musicfolder.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\nolines_minus.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\nolines_plus.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\no_avatar.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\page.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\pdf.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\pleasewait.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\plus.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\plusbottom.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\question.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\save.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\trash.gif" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\undo.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\img\view.png" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\Awesome.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\Awesome.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\bootstrap.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\bootstrap.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\commonFunction.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\dtree.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery-1.10.2.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery-1.10.2.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery.form.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery.form.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery.maskMoney.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery.validate.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery.validate.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\modernizr-2.6.2.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\respond.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Scripts\respond.min.js" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\AjaxCheckBoxList.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\AjaxDropdown.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\AjaxRadioList.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\Autocomplete.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\Confirm.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\header.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\Lookup.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\LookupList.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\LookupPopup.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\MultiLookup.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\MultiLookupPopup.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\Popup.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\PopupForm.ascx" />
+    <Content Include="obj\Release\AspnetCompileMerge\Source\Views\Shared\Awesome\SearchForm.ascx" />
+    <Content Include="obj\Release\CSAutoParameterize.parameters.xml" />
+    <Content Include="obj\Release\Package\FilePreviewParameter.xml" />
+    <Content Include="obj\Release\Package\PackageTmp\! mvc project awesome readme.txt" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\EntityFramework.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\EntityFramework.SqlServer.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\PagedList.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\PagedList.Mvc.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\System.Web.Helpers.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\System.Web.Mvc.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\System.Web.Razor.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\System.Web.Webpages.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\WebActivator.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\bin\WebApp_AAJI.dll" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\Awesome.css" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\bootstrap.css" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\bootstrap.min.css" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\dtree.css" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\jquery-ui.css" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\jquery-ui.min.css" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\PagedList.css" />
+    <Content Include="obj\Release\Package\PackageTmp\Content\Site.css" />
+    <Content Include="obj\Release\Package\PackageTmp\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="obj\Release\Package\PackageTmp\Global.asax" />
+    <Content Include="obj\Release\Package\PackageTmp\img\acknowledge.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\add.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\approval.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\backup.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\base.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\bg-aaji.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\cd.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\change.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\check.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\delete.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\denied.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\download.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\edit.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\empty.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\folder.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\folderopen.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\globe.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\imgfolder.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\join.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\joinbottom.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\line.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\logo-aaji.jpg" />
+    <Content Include="obj\Release\Package\PackageTmp\img\logout.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\minus.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\minusbottom.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\musicfolder.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\nolines_minus.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\nolines_plus.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\no_avatar.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\page.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\pdf.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\pleasewait.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\plus.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\plusbottom.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\printer.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\question.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\save.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\trash.gif" />
+    <Content Include="obj\Release\Package\PackageTmp\img\undo.png" />
+    <Content Include="obj\Release\Package\PackageTmp\img\view.png" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\Awesome.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\Awesome.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\bootstrap.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\bootstrap.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\commonFunction.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\dtree.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery-1.10.2.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery-1.10.2.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery-ui.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery-ui.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery.form.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery.form.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery.maskMoney.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery.validate.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery.validate.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\modernizr-2.6.2.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\respond.js" />
+    <Content Include="obj\Release\Package\PackageTmp\Scripts\respond.min.js" />
+    <Content Include="obj\Release\Package\WebApp_AAJI.SourceManifest.xml" />
+    <Content Include="obj\Release\TempPE\Content.Reports.PurchaseRequestReport.cs.dll" />
+    <Content Include="obj\Release\TempPE\Content.Reports.ReportPurchaseRequest.cs.dll" />
+    <Content Include="obj\Release\TempPE\DB_AAJIDataSet.Designer.cs.dll" />
+    <Content Include="obj\Release\TempPE\Models.Model1.Context.cs.dll" />
+    <Content Include="obj\Release\TempPE\Models.Model1.cs.dll" />
+    <Content Include="obj\Release\TempPE\Models.Model1.Designer.cs.dll" />
+    <Content Include="obj\Release\WebApp_AAJI.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\WebApp_AAJI.dll" />
+    <Content Include="obj\Release\WebApp_AAJI.pdb" />
+    <Content Include="obj\Release\_WPPLastBuildInfo.txt" />
+    <Content Include="Scripts\Awesome.js" />
+    <Content Include="Scripts\Awesome.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\commonFunction.js" />
+    <Content Include="Scripts\dtree.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.datePicker.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.maskMoney.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Views\EmployeeClaimMedical\Create.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\Delete.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\Details.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\Edit.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\Index.cshtml" />
+    <Content Include="Views\EmployeeLoan\_PartialPagePopUpEmployee.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Employee\Create.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Employee\Delete.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Employee\Details.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Employee\Edit.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Employee\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Employee\_PartialPageEmpPosition1.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Employee\_PartialPageEmpPosition2.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\PurchaseRequest\_PartialPagePR1.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Nav\Menu.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Menu\Create.cshtml" />
+    <Content Include="Views\Menu\Delete.cshtml" />
+    <Content Include="Views\Menu\Details.cshtml" />
+    <Content Include="Views\Menu\Edit.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePopUpProduct.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePR_Supplier1.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePopUpVendor1.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePR_Supplier2.cshtml" />
+    <Content Include="Views\AbsensiRekap\_PartialPageAbsensi1.cshtml" />
+    <Content Include="Views\SisaSaldoCuti\_PartialPageSisaSaldo1.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\_PartialPagePopUpEmployee1.cshtml" />
+    <Content Include="Views\Absensi\Index.cshtml" />
+    <Content Include="Views\Absensi\_PartialPageAbsensiEmployee1.cshtml" />
+    <Content Include="Views\EmployeeClaimMedicalPersonal\Create.cshtml" />
+    <Content Include="Views\EmployeeClaimMedicalPersonal\Delete.cshtml" />
+    <Content Include="Views\EmployeeClaimMedicalPersonal\Details.cshtml" />
+    <Content Include="Views\EmployeeClaimMedicalPersonal\Edit.cshtml" />
+    <Content Include="Views\EmployeeClaimMedicalPersonal\Index.cshtml" />
+    <Content Include="Views\EmployeeLoanPersonal\Create.cshtml" />
+    <Content Include="Views\EmployeeLoanPersonal\Delete.cshtml" />
+    <Content Include="Views\EmployeeLoanPersonal\Details.cshtml" />
+    <Content Include="Views\EmployeeLoanPersonal\Edit.cshtml" />
+    <Content Include="Views\EmployeeLoanPersonal\Index.cshtml" />
+    <Content Include="Views\Account\NotAuthorized.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Employee\_PartialPageDDLDivision1.cshtml" />
+    <Content Include="Views\Account\_PartialPageChangePassword.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\Create.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\Delete.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\Details.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\Edit.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\Index.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\_PartialPageDetail1.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\_PartialPageDetail2.cshtml" />
+    <Content Include="Views\BackupDatabase\Index.cshtml" />
+    <Content Include="Views\BackupDatabase\_PartialPageBackupDB.cshtml" />
+    <Content Include="Views\BackupDatabase\_PartialPagePop1.cshtml" />
+    <Content Include="Views\BackupDatabase\_PartialPagePop2.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPagePRSearch.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPagePRSearchSub.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePopUpProductSearch.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPageProductSearchSub.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePopUpVendorSearch1.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePopUpVendorSearchSub1.cshtml" />
+    <Content Include="Views\PurchaseReceive\_PartialPagePopUpPOSearch.cshtml" />
+    <Content Include="Views\PurchaseReceive\_PartialPagePopUpPOSearchSub.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\Approval.cshtml" />
+    <Content Include="Views\PurchaseRequest\Approval.cshtml" />
+    <Content Include="Views\PurchaseOrder\Approval.cshtml" />
+    <Content Include="Views\PurchaseReceive\Approval.cshtml" />
+    <Content Include="Views\ReportPurchaseRequest\ReportPurchaseRequest.cshtml" />
+    <Content Include="Views\ReportPurchaseRequest\Index.cshtml" />
+    <Content Include="Views\ReportPurchaseRequest\ReportPurchaseRequest_PartialPage.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\Approval.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\Approval.cshtml" />
+    <Content Include="Views\EmployeeLoan\Approval.cshtml" />
+    <Content Include="Views\AccountPayable\Create.cshtml" />
+    <Content Include="Views\AccountPayable\Delete.cshtml" />
+    <Content Include="Views\AccountPayable\Details.cshtml" />
+    <Content Include="Views\AccountPayable\Edit.cshtml" />
+    <Content Include="Views\AccountPayable\Index.cshtml" />
+    <Content Include="Views\AccountPayable\_PartialPageAP1.cshtml" />
+    <Content Include="Views\AccountPayable\_PartialPagePopUpInvoiceSearch.cshtml" />
+    <Content Include="Views\AccountPayable\_PartialPagePopUpInvoiceSearchSub.cshtml" />
+    <Content Include="Views\AccountPayable\_PartialPagePopUpVendorSearch1.cshtml" />
+    <Content Include="Views\AccountPayable\_PartialPagePopUpVendorSearchSub1.cshtml" />
+    <Content Include="Views\AccountPayable\_PartialPageAP2.cshtml" />
+    <Content Include="Views\CashOnHandAndAdvanceRequest\Approval.cshtml" />
+    <Content Include="Views\Closing\_PartialPagePosting.cshtml" />
+    <Content Include="Views\TrialBalance\Index.cshtml" />
+    <Content Include="Views\TrialBalance\_PartialPageDetailTrialBalance.cshtml" />
+    <Content Include="Views\Employee\_PartialPagePenghasilan.cshtml" />
+    <Content Include="Views\Employee\_PartialPagePengurangPenghasilan.cshtml" />
+    <Content Include="Views\Employee\_PartialPagePengurangPenghasilan2.cshtml" />
+    <Content Include="Views\Employee\_PartialPagePenghasilan2.cshtml" />
+    <Content Include="Views\ReportPurchaseOrder\Index.cshtml" />
+    <Content Include="Views\ReportPurchaseOrder\ReportPurchaseOrder_PartialPage.cshtml" />
+    <Content Include="Views\ReportPurchaseReceive\ReportPurchaseReceive_PartialPage.cshtml" />
+    <Content Include="Views\ReportPurchaseReceive\Index.cshtml" />
+    <Content Include="Views\ReportPurchaseReturn\Index.cshtml" />
+    <Content Include="Views\ReportPurchaseReturn\ReportPurchaseReturn_PartialPage.cshtml" />
+    <Content Include="Views\ReportPurchaseInvoice\ReportPurchaseInvoice_PartialPage.cshtml" />
+    <Content Include="Views\ReportPurchaseInvoice\Index.cshtml" />
+    <Content Include="Views\ReportEmployee\ReportEmployee_PartialPage.cshtml" />
+    <Content Include="Views\ReportEmployee\Index.cshtml" />
+    <Content Include="Views\ReportSummaryAttendance\Index.cshtml" />
+    <Content Include="Views\ReportSummaryAttendance\ReportSummaryAttendance_PartialPage.cshtml" />
+    <Content Include="Views\ReportEmployeeLoan\ReportEmployeeLoan_PartialPage.cshtml" />
+    <Content Include="Views\ReportEmployeeLoan\Index.cshtml" />
+    <Content Include="Views\ReportEmployeeClaimMedical\ReportEmployeeClaimMedical_PartialPage.cshtml" />
+    <Content Include="Views\ReportEmployeeClaimMedical\Index.cshtml" />
+    <Content Include="Views\ReportFixedAsset\Index.cshtml" />
+    <Content Include="Views\ReportFixedAsset\ReportFixedAsset_PartialPage.cshtml" />
+    <Content Include="Views\ReportPaymentVoucher\Index.cshtml" />
+    <Content Include="Views\ReportPaymentVoucher\ReportPaymentVoucher_PartialPage.cshtml" />
+    <Content Include="Views\TrialBalance\popUpDetailTrialBalancePerAccount_PartialPage.cshtml" />
+    <Content Include="Views\TrialBalance\popUpPrintTrialBalance_PartialPage.cshtml" />
+    <Content Include="Views\ReportEmployee\popUpPrintReportEmployee_PartialPage.cshtml" />
+    <Content Include="Views\Account\_PartialPageVirtualSign.cshtml" />
+    <Content Include="Views\Account\popUpPreviewVirtualSign_PartialPage.cshtml" />
+    <Content Include="Views\Employee\_PartialPageEmpFamily.cshtml" />
+    <Content Include="Views\Employee\_PartialPageEmpCV.cshtml" />
+    <Content Include="Views\Employee\popUpPreviewCV_PartialPage.cshtml" />
+    <Content Include="Views\ReportPayment\Index.cshtml" />
+    <Content Include="Views\ReportPayment\ReportPayment_PartialPage.cshtml" />
+    <Content Include="Views\ReportPayment\printReportPayment_PartialPage.cshtml" />
+    <Content Include="Views\Level\_PartialPagePenghasilan.cshtml" />
+    <Content Include="Views\Level\_PartialPagePengurangPenghasilan.cshtml" />
+    <Content Include="Views\Level\_PartialPagePenghasilan2.cshtml" />
+    <Content Include="Views\Level\_PartialPagePengurangPenghasilan2.cshtml" />
+    <Content Include="Views\AdvanceRequest\_PartialPageDetail1.cshtml" />
+    <Content Include="Views\AdvanceRequest\_PartialPageDetail2.cshtml" />
+    <Content Include="Views\AdvanceRequest\Approval.cshtml" />
+    <Content Include="Views\AdvanceRequest\Create.cshtml" />
+    <Content Include="Views\AdvanceRequest\Delete.cshtml" />
+    <Content Include="Views\AdvanceRequest\Details.cshtml" />
+    <Content Include="Views\AdvanceRequest\Edit.cshtml" />
+    <Content Include="Views\AdvanceRequest\Index.cshtml" />
+    <Content Include="Views\PurchaseInvoice\Approval.cshtml" />
+    <Content Include="Views\Vendor\_PartialPageProduct.cshtml" />
+    <Content Include="Views\LeaveRequest\Approval.cshtml" />
+    <Content Include="Views\LeaveRequest\Create.cshtml" />
+    <Content Include="Views\LeaveRequest\Delete.cshtml" />
+    <Content Include="Views\LeaveRequest\Details.cshtml" />
+    <Content Include="Views\LeaveRequest\Edit.cshtml" />
+    <Content Include="Views\LeaveRequest\Index.cshtml" />
+    <Content Include="Views\LeaveRequest\_PartialPageEmployeeSearch.cshtml" />
+    <Content Include="Views\LeaveRequest\_PartialPageEmployeeSearchSub.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\_PartialPageClaimDetail.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPageVendor.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\_PartialPagePopUpFamilySearch.cshtml" />
+    <Content Include="Views\EmployeeClaimMedical\_PartialPagePopUpFamilySearchSub.cshtml" />
+    <Content Include="Views\Holiday\Create.cshtml" />
+    <Content Include="Views\Holiday\Delete.cshtml" />
+    <Content Include="Views\Holiday\Details.cshtml" />
+    <Content Include="Views\Holiday\Edit.cshtml" />
+    <Content Include="Views\Holiday\Index.cshtml" />
+    <Content Include="Views\Employee\_PartialPageEmpFamily2.cshtml" />
+    <Content Include="Views\Employee\_PartialPageEmpCV2.cshtml" />
+    <Content Include="Views\LeaveRequest\_dataPercutian.cshtml" />
+    <None Include="Web.Test.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.WebApp_AAJI_deploy.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\MyDateTimeModelBinder.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Content\Reports\PurchaseRequestReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseRequestReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Content\Reports\ReportPurchaseRequest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportPurchaseRequest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AbsensiController.cs" />
+    <Compile Include="Controllers\AbsensiRekapController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountPayableController.cs" />
+    <Compile Include="Controllers\AdvancePaymentVoucherController.cs" />
+    <Compile Include="Controllers\AdvanceRequestController.cs" />
+    <Compile Include="Controllers\BackupDatabaseController.cs" />
+    <Compile Include="Controllers\BankCashPaymentVoucherController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
+    <Compile Include="Controllers\CashOnHandAndAdvanceRequestController.cs" />
+    <Compile Include="Controllers\ChartOfAccountController.cs" />
+    <Compile Include="Controllers\ClosingController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\ConnectionController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DivisiController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\EmployeeClaimMedicalController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\EmployeeClaimMedicalPersonalController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\EmployeeLoanController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\EmployeeLoanPersonalController.cs" />
+    <Compile Include="Controllers\FinanceTransactionController.cs" />
+    <Compile Include="Controllers\FixedAssetController.cs" />
+    <Compile Include="Controllers\FixedAssetTypeController.cs" />
+    <Compile Include="Controllers\GroupEmailController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
+    <Compile Include="Controllers\JournalAdjustmentController.cs" />
+    <Compile Include="Controllers\LeaveRequestController.cs" />
+    <Compile Include="Controllers\LeaveRequestPersonalController.cs" />
+    <Compile Include="Controllers\LevelController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MenuValidationController.cs" />
+    <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="Controllers\PenghasilanController.cs" />
+    <Compile Include="Controllers\PengurangPenghasilanController.cs" />
+    <Compile Include="Controllers\PotonganController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PurchaseInvoiceController.cs" />
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\PurchaseReceiveController.cs" />
+    <Compile Include="Controllers\PurchaseRequestController.cs" />
+    <Compile Include="Controllers\ReportEmployeeClaimMedicalController.cs" />
+    <Compile Include="Controllers\ReportEmployeeController.cs" />
+    <Compile Include="Controllers\ReportEmployeeLoanController.cs" />
+    <Compile Include="Controllers\ReportFixedAssetController.cs" />
+    <Compile Include="Controllers\ReportPaymentController.cs" />
+    <Compile Include="Controllers\ReportPaymentVoucherController.cs" />
+    <Compile Include="Controllers\ReportPurchaseInvoiceController.cs" />
+    <Compile Include="Controllers\ReportPurchaseOrderController.cs" />
+    <Compile Include="Controllers\ReportPurchaseReceiveController.cs" />
+    <Compile Include="Controllers\ReportPurchaseRequestController.cs" />
+    <Compile Include="Controllers\ReportSummaryAttendanceController.cs" />
+    <Compile Include="Controllers\SetupEmailController.cs" />
+    <Compile Include="Controllers\SisaSaldoCutiController.cs" />
+    <Compile Include="Controllers\TransReminderController.cs" />
+    <Compile Include="Controllers\TrialBalanceController.cs" />
+    <Compile Include="Controllers\TypeAbsensiController.cs" />
+    <Compile Include="Controllers\TypeFinanceTransactionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="DB_AAJIDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DB_AAJIDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ReportPurchaseReturnController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511170638001_kategory_cuti.cs" />
+    <Compile Include="Migrations\201511170638001_kategory_cuti.Designer.cs">
+      <DependentUpon>201511170638001_kategory_cuti.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\absensiEmployee.cs" />
+    <Compile Include="Models\absensiRekap.cs" />
+    <Compile Include="Models\accountPayable.cs" />
+    <Compile Include="Models\advancePaymentVoucher.cs" />
+    <Compile Include="Models\bank.cs" />
+    <Compile Include="Models\bankCashPaymentVoucher.cs" />
+    <Compile Include="Models\cashOnHandAndAdvanceRequest.cs" />
+    <Compile Include="Models\chartOfAccount.cs" />
+    <Compile Include="Models\department.cs" />
+    <Compile Include="Models\divisi.cs" />
+    <Compile Include="Models\email.cs" />
+    <Compile Include="Models\employee.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\employeeClaimMedical.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\employeeLoan.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\financeTransaction.cs" />
+    <Compile Include="Models\fixedAsset.cs" />
+    <Compile Include="Models\fixedAssetType.cs" />
+    <Compile Include="Models\groupEmail.cs" />
+    <Compile Include="Models\holiday.cs" />
+    <Compile Include="Models\journalHeader.cs" />
+    <Compile Include="Models\level.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\menu.cs" />
+    <Compile Include="Models\menuValidation.cs" />
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyDataAccess.cs" />
+    <Compile Include="Models\penghasilan.cs" />
+    <Compile Include="Models\pengurangPenghasilan.cs" />
+    <Compile Include="Models\potongan.cs" />
+    <Compile Include="Models\product.cs" />
+    <Compile Include="Models\purchaseInvoice.cs" />
+    <Compile Include="Models\purchaseOrder.cs" />
+    <Compile Include="Models\purchaseReceive.cs" />
+    <Compile Include="Models\purchaseRequest.cs" />
+    <Compile Include="Models\setupEmail.cs" />
+    <Compile Include="Models\sisaSaldoCuti.cs" />
+    <Compile Include="Models\transLeaveRequest.cs" />
+    <Compile Include="Models\transMasterPenghasilan.cs" />
+    <Compile Include="Models\transMasterPengurangPenghasilan.cs" />
+    <Compile Include="Models\transPenghasilan.cs" />
+    <Compile Include="Models\transPengurangPenghasilan.cs" />
+    <Compile Include="Models\transReminder.cs" />
+    <Compile Include="Models\transReportPayment.cs" />
+    <Compile Include="Models\transVendorProduct.cs" />
+    <Compile Include="Models\typeAbsensi.cs" />
+    <Compile Include="Models\typeFinanceTransaction.cs" />
+    <Compile Include="Models\user.cs" />
+    <Compile Include="Models\userGroupH.cs" />
+    <Compile Include="Models\vendor.cs" />
+    <Compile Include="Models\ViewModelCuti.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\UserGroup\Create.cshtml" />
+    <Content Include="Views\UserGroup\Delete.cshtml" />
+    <Content Include="Views\UserGroup\Details.cshtml" />
+    <Content Include="Views\UserGroup\Edit.cshtml" />
+    <Content Include="Views\UserGroup\Index.cshtml" />
+    <Content Include="Views\MenuValidation\Create.cshtml" />
+    <Content Include="Views\MenuValidation\Delete.cshtml" />
+    <Content Include="Views\MenuValidation\Details.cshtml" />
+    <Content Include="Views\MenuValidation\Edit.cshtml" />
+    <Content Include="Views\MenuValidation\Index.cshtml" />
+    <Content Include="Views\ChartOfAccount\Create.cshtml" />
+    <Content Include="Views\ChartOfAccount\Delete.cshtml" />
+    <Content Include="Views\ChartOfAccount\Details.cshtml" />
+    <Content Include="Views\ChartOfAccount\Edit.cshtml" />
+    <Content Include="Views\ChartOfAccount\Index.cshtml" />
+    <Content Include="Views\TypeFinanceTransaction\Create.cshtml" />
+    <Content Include="Views\TypeFinanceTransaction\Delete.cshtml" />
+    <Content Include="Views\TypeFinanceTransaction\Details.cshtml" />
+    <Content Include="Views\TypeFinanceTransaction\Edit.cshtml" />
+    <Content Include="Views\TypeFinanceTransaction\Index.cshtml" />
+    <Content Include="Views\SetupEmail\Create.cshtml" />
+    <Content Include="Views\SetupEmail\Delete.cshtml" />
+    <Content Include="Views\SetupEmail\Details.cshtml" />
+    <Content Include="Views\SetupEmail\Edit.cshtml" />
+    <Content Include="Views\SetupEmail\Index.cshtml" />
+    <Content Include="Views\Email\Create.cshtml" />
+    <Content Include="Views\Email\Delete.cshtml" />
+    <Content Include="Views\Email\Details.cshtml" />
+    <Content Include="Views\Email\Edit.cshtml" />
+    <Content Include="Views\Email\Index.cshtml" />
+    <Content Include="Views\GroupEmail\Create.cshtml" />
+    <Content Include="Views\GroupEmail\Delete.cshtml" />
+    <Content Include="Views\GroupEmail\Details.cshtml" />
+    <Content Include="Views\GroupEmail\Edit.cshtml" />
+    <Content Include="Views\GroupEmail\Index.cshtml" />
+    <Content Include="Views\JournalAdjustment\Create.cshtml" />
+    <Content Include="Views\JournalAdjustment\Delete.cshtml" />
+    <Content Include="Views\JournalAdjustment\Details.cshtml" />
+    <Content Include="Views\JournalAdjustment\Edit.cshtml" />
+    <Content Include="Views\JournalAdjustment\Index.cshtml" />
+    <Content Include="Views\JournalAdjustment\_PartialPage1.cshtml" />
+    <Content Include="Views\JournalAdjustment\_PartialPage2.cshtml" />
+    <Content Include="Views\FinanceTransaction\Create.cshtml" />
+    <Content Include="Views\FinanceTransaction\Delete.cshtml" />
+    <Content Include="Views\FinanceTransaction\Details.cshtml" />
+    <Content Include="Views\FinanceTransaction\Edit.cshtml" />
+    <Content Include="Views\FinanceTransaction\Index.cshtml" />
+    <Content Include="Views\FinanceTransaction\_PartialPageFT1.cshtml" />
+    <Content Include="Views\FinanceTransaction\_PartialPageFT2.cshtml" />
+    <Content Include="Views\PurchaseRequest\Create.cshtml" />
+    <Content Include="Views\PurchaseRequest\Delete.cshtml" />
+    <Content Include="Views\PurchaseRequest\Details.cshtml" />
+    <Content Include="Views\PurchaseRequest\Edit.cshtml" />
+    <Content Include="Views\PurchaseRequest\Index.cshtml" />
+    <Content Include="Views\PurchaseRequest\_PartialPagePR2.cshtml" />
+    <Content Include="Views\PurchaseOrder\Create.cshtml" />
+    <Content Include="Views\PurchaseOrder\Delete.cshtml" />
+    <Content Include="Views\PurchaseOrder\Details.cshtml" />
+    <Content Include="Views\PurchaseOrder\Edit.cshtml" />
+    <Content Include="Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPagePO1.cshtml" />
+    <Content Include="Views\Bank\Create.cshtml" />
+    <Content Include="Views\Bank\Delete.cshtml" />
+    <Content Include="Views\Bank\Details.cshtml" />
+    <Content Include="Views\Bank\Edit.cshtml" />
+    <Content Include="Views\Bank\Index.cshtml" />
+    <Content Include="Views\Vendor\Create.cshtml" />
+    <Content Include="Views\Vendor\Delete.cshtml" />
+    <Content Include="Views\Vendor\Details.cshtml" />
+    <Content Include="Views\Vendor\Edit.cshtml" />
+    <Content Include="Views\Vendor\Index.cshtml" />
+    <Content Include="Views\Penghasilan\Create.cshtml" />
+    <Content Include="Views\Penghasilan\Delete.cshtml" />
+    <Content Include="Views\Penghasilan\Details.cshtml" />
+    <Content Include="Views\Penghasilan\Edit.cshtml" />
+    <Content Include="Views\Penghasilan\Index.cshtml" />
+    <Content Include="Views\PengurangPenghasilan\Create.cshtml" />
+    <Content Include="Views\PengurangPenghasilan\Delete.cshtml" />
+    <Content Include="Views\PengurangPenghasilan\Details.cshtml" />
+    <Content Include="Views\PengurangPenghasilan\Edit.cshtml" />
+    <Content Include="Views\PengurangPenghasilan\Index.cshtml" />
+    <Content Include="Views\Potongan\Create.cshtml" />
+    <Content Include="Views\Potongan\Delete.cshtml" />
+    <Content Include="Views\Potongan\Details.cshtml" />
+    <Content Include="Views\Potongan\Edit.cshtml" />
+    <Content Include="Views\Potongan\Index.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Delete.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Divisi\Create.cshtml" />
+    <Content Include="Views\Divisi\Delete.cshtml" />
+    <Content Include="Views\Divisi\Details.cshtml" />
+    <Content Include="Views\Divisi\Edit.cshtml" />
+    <Content Include="Views\Divisi\Index.cshtml" />
+    <Content Include="Views\TypeAbsensi\Create.cshtml" />
+    <Content Include="Views\TypeAbsensi\Delete.cshtml" />
+    <Content Include="Views\TypeAbsensi\Details.cshtml" />
+    <Content Include="Views\TypeAbsensi\Edit.cshtml" />
+    <Content Include="Views\TypeAbsensi\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\FixedAssetType\Create.cshtml" />
+    <Content Include="Views\FixedAssetType\Delete.cshtml" />
+    <Content Include="Views\FixedAssetType\Details.cshtml" />
+    <Content Include="Views\FixedAssetType\Edit.cshtml" />
+    <Content Include="Views\FixedAssetType\Index.cshtml" />
+    <Content Include="Views\Level\Create.cshtml" />
+    <Content Include="Views\Level\Delete.cshtml" />
+    <Content Include="Views\Level\Details.cshtml" />
+    <Content Include="Views\Level\Edit.cshtml" />
+    <Content Include="Views\Level\Index.cshtml" />
+    <Content Include="Views\PurchaseInvoice\Create.cshtml" />
+    <Content Include="Views\PurchaseInvoice\Delete.cshtml" />
+    <Content Include="Views\PurchaseInvoice\Details.cshtml" />
+    <Content Include="Views\PurchaseInvoice\Edit.cshtml" />
+    <Content Include="Views\PurchaseInvoice\Index.cshtml" />
+    <Content Include="Views\TransReminder\Create.cshtml" />
+    <Content Include="Views\TransReminder\Delete.cshtml" />
+    <Content Include="Views\TransReminder\Details.cshtml" />
+    <Content Include="Views\TransReminder\Edit.cshtml" />
+    <Content Include="Views\TransReminder\Index.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPagePR.cshtml" />
+    <Content Include="Views\Shared\_PartialPageVendor.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPagePR-PO.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPageMultipleTOP.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\Create.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\Delete.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\Details.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\Edit.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\Index.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\Create.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\Delete.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\Details.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\Edit.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\Index.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\_PartialPageAPV1.cshtml" />
+    <Content Include="Views\AdvancePaymentVoucher\_PartialPageAPV2.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\_PartialPageBCP1.cshtml" />
+    <Content Include="Views\BankCashPaymentVoucher\_PartialPageBCP2.cshtml" />
+    <Content Include="Views\Closing\Index.cshtml" />
+    <Content Include="Views\AbsensiRekap\Create.cshtml" />
+    <Content Include="Views\AbsensiRekap\Delete.cshtml" />
+    <Content Include="Views\AbsensiRekap\Details.cshtml" />
+    <Content Include="Views\AbsensiRekap\Edit.cshtml" />
+    <Content Include="Views\AbsensiRekap\Index.cshtml" />
+    <Content Include="Views\SisaSaldoCuti\Create.cshtml" />
+    <Content Include="Views\SisaSaldoCuti\Delete.cshtml" />
+    <Content Include="Views\SisaSaldoCuti\Details.cshtml" />
+    <Content Include="Views\SisaSaldoCuti\Edit.cshtml" />
+    <Content Include="Views\SisaSaldoCuti\Index.cshtml" />
+    <Content Include="Views\FixedAsset\Create.cshtml" />
+    <Content Include="Views\FixedAsset\Delete.cshtml" />
+    <Content Include="Views\FixedAsset\Details.cshtml" />
+    <Content Include="Views\FixedAsset\Edit.cshtml" />
+    <Content Include="Views\FixedAsset\Index.cshtml" />
+    <Content Include="Views\PurchaseReceive\Create.cshtml" />
+    <Content Include="Views\PurchaseReceive\Delete.cshtml" />
+    <Content Include="Views\PurchaseReceive\Details.cshtml" />
+    <Content Include="Views\PurchaseReceive\Edit.cshtml" />
+    <Content Include="Views\PurchaseReceive\Index.cshtml" />
+    <Content Include="Views\PurchaseReceive\_PartialPageRCV1.cshtml" />
+    <Content Include="Views\Shared\_PartialPagePopUpPO.cshtml" />
+    <Content Include="Views\Shared\_PartialPagePopUpPR.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPagePR-PO2.cshtml" />
+    <Content Include="Views\PurchaseOrder\_PartialPageMultipleTOP2.cshtml" />
+    <Content Include="Views\PurchaseReceive\_PartialPagePopUpPO.cshtml" />
+    <Content Include="Views\PurchaseReceive\_PartialPageRCV-PO1.cshtml" />
+    <Content Include="Views\PurchaseReceive\_PartialPageRCV-PO2.cshtml" />
+    <Content Include="Views\EmployeeLoan\Create.cshtml" />
+    <Content Include="Views\EmployeeLoan\Delete.cshtml" />
+    <Content Include="Views\EmployeeLoan\Details.cshtml" />
+    <Content Include="Views\EmployeeLoan\Edit.cshtml" />
+    <Content Include="Views\EmployeeLoan\Index.cshtml" />
+    <Content Include="Views\FixedAsset\_PartialPageFixAsset1.cshtml" />
+    <Content Include="Views\FixedAsset\_PartialPagePopUpEmployee.cshtml" />
+    <Content Include="Views\FixedAsset\_PartialPageFixAsset2.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="backupDB\" />
+    <Folder Include="obj\Debug\AspnetCompileMerge\TempBuildDir\" />
+    <Folder Include="obj\Debug\Package\" />
+    <Folder Include="obj\Debug\__testMsDeployConnection__\" />
+    <Folder Include="obj\Release\AspnetCompileMerge\TempBuildDir\" />
+    <Folder Include="obj\Release\AutoScripts\" />
+    <Folder Include="obj\Release\Database\" />
+    <Folder Include="obj\Release\ProfileTransformWebConfig\transformed\Views\" />
+    <Folder Include="obj\Release\TransformWebConfig\transformed\Views\" />
+    <Folder Include="obj\Release\__testMsDeployConnection__\" />
+    <Folder Include="Report\" />
+    <Folder Include="uploadPhoto\" />
+    <Folder Include="uploads\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\LeaveRequestPersonal\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Reports\PurchaseRequestReport.rdlc" />
+    <EmbeddedResource Include="Content\Reports\PurchaseRequestReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PurchaseRequestReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\Reports\ReportPurchaseRequest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportPurchaseRequest.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511170638001_kategory_cuti.resx">
+      <DependentUpon>201511170638001_kategory_cuti.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\WebApp_AAJI.Migrations.kategory_cuti.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k1.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k10.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k11.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k12.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k13.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k14.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k15.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k16.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k17.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k18.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k19.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k2.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k20.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k21.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k22.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k23.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k24.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k25.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k26.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k27.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k28.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k29.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k3.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k30.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k31.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k32.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k33.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k34.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k4.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k5.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k6.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k7.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k8.resources" />
+    <EmbeddedResource Include="obj\Release\WebApp_AAJI.Migrations.k9.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3119</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3119/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

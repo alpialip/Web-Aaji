@@ -1,0 +1,369 @@
+﻿@model WebApp_AAJI.Models.employee
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+<script>
+    function typeCreated(fromChk) {
+        //alert(fromChk.value);
+        //alert(document.getElementById('typeCreate').checked);
+        if(fromChk != null)
+            if (fromChk.value == "Generated") {
+                document.getElementById('NIK').disabled = "disabled";
+                document.getElementById('lblGenerated').style.display = "";
+                document.getElementById('NIK').value = "";
+                document.getElementById('employeeNIK').value = "generated";
+            }
+            else {
+                document.getElementById('NIK').removeAttribute("disabled");
+                document.getElementById('NIK').focus();
+                document.getElementById('employeeNIK').value = "";
+                document.getElementById('NIK').value = "";
+                document.getElementById('lblGenerated').style.display = "none";
+            }
+        else
+        {
+            //alert(document.getElementById('typeCreate').checked);
+            if(document.getElementById('typeCreate').checked == true)
+            {
+                document.getElementById('NIK').disabled = "disabled";
+                document.getElementById('lblGenerated').style.display = "";
+                document.getElementById('NIK').value = "";
+                document.getElementById('employeeNIK').value = "generated";
+            }
+            else {
+                document.getElementById('NIK').removeAttribute("disabled");
+                document.getElementById('NIK').focus();
+                document.getElementById('lblGenerated').style.display = "none";
+            }
+        }
+    }
+
+    function checkBank(fromChk) {
+        document.getElementById('bankName').style.display = "none";
+        document.getElementById('ddlBank').style.display = "none";
+
+        if(fromChk != null)
+            if (fromChk.checked == false)//not existing
+            {
+                document.getElementById('bankName').style.display = ""
+            }
+            else //existing
+            {
+                document.getElementById('ddlBank').style.display = ""
+                document.getElementById('bankName').value = ""
+            }
+        else
+        {
+            if (document.getElementById('existingBank').checked == false)//not existing
+            {
+                document.getElementById('bankName').style.display = ""
+            }
+            else //existing
+            {
+                document.getElementById('ddlBank').style.display = ""
+            }
+        }
+    }
+
+    function typeCreateUserIds(fromChk) {
+        //alert(fromChk.value);
+        document.getElementById('userID').removeAttribute("readonly");
+        if (fromChk.value == "Generated") {
+            document.getElementById('userID').setAttribute("readonly", "readonly");
+            generatedUserId();
+        }
+        else {
+            //document.getElementById('userID').disabled = "";
+            document.getElementById('userID').focus();
+            document.getElementById('userID').value = "";
+        }
+    }
+
+    function generatedUserId() {
+        var empName = document.getElementById('employeeName').value;
+        var birthDate = document.getElementById('tanggalLahir').value;
+
+        alert(empName+" - "+birthDate);
+        if (empName != "" /*&& birthDate != ""*/) {
+            var char8Id = empName.split(' ').join('').substring(0, 8);
+            var dateBirth = birthDate.split('-');
+
+            var char4Id = ""
+            //if (dateBirth[2] != undefined && dateBirth[1] != undefined) {
+            //    char4Id = dateBirth[2] + dateBirth[1];
+            //}
+            if (dateBirth[0] != undefined && dateBirth[1] != undefined) {
+                var monthEN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                var monthIN = ["Jan", "Peb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agust", "Sep", "Okt", "Nop", "Des"];
+
+                var intMonth = 0;
+                for (var i = 0; i < monthEN.length; i++)
+                {
+                    if(monthEN[i] == dateBirth[1])
+                    {
+                        intMonth = i;
+                        break;
+                    }
+                }
+
+                if (intMonth == 0)
+                {
+                    for (var i = 0; i < monthIN.length; i++) {
+                        if (monthIN[i] == dateBirth[1]) {
+                            intMonth = (i+1);
+                            break;
+                        }
+                    }
+                }
+                alert(intMonth);
+
+                if (intMonth < 10)
+                    dateBirth[1] = "0" + intMonth;
+                else
+                    dateBirth[1] = intMonth;
+
+                char4Id = dateBirth[0] + dateBirth[1];
+            }
+
+            document.getElementById('userID').value = char8Id + char4Id;
+        }
+    }
+
+    function save() {
+        var chkExistingBank = document.getElementById('existingBank').checked;
+        var ddlbank = document.getElementById('ddlBank').value;
+
+        if (chkExistingBank == true) {
+            if (ddlbank == "")
+                alert("Bank Required");
+            else
+                document.forms[0].submit();
+        }
+    }
+</script>
+
+@using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>employee</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("Type Create", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("typeCreate", "Generated", ViewBag.typeCreate == "G,G," ? true : false, new { onchange = "typeCreated(this)" }) Generated
+                @Html.RadioButton("typeCreate", "Manual", ViewBag.typeCreate == "M,M," ? true : false, new { onchange = "typeCreated(this)" }) Manual
+                <div class="photo">
+                    <div>
+                        <input id="linkFilePhoto" name="linkFilePhoto" type="file" class="file" data-show-upload="false" data-show-caption="true" style="padding-top: 150px;display:none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeNIK, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Hidden("employeeNIK", "generated")
+                @Html.TextBox("NIK", ViewBag.NIK as string, new { @disabled = "disabled", onchange = "javascript:document.getElementById('employeeNIK').value=this.value" })
+                <label id="lblGenerated" style="font-weight:100">(ex: yymmxxx)</label>
+                @Html.ValidationMessageFor(model => model.employeeNIK)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.employeeName, new { onchange = "generatedUserId()" })
+                @Html.ValidationMessageFor(model => model.employeeName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.jenisKelamin, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model=>model.jenisKelamin)
+                @Html.TextBoxFor(model => model.jenisKelamin, new { hidden = "true" })
+                @Html.RadioButton("idGender", "L", ViewBag.Gender == "L" ? true : false, new { onchange = "document.getElementById('jenisKelamin').value='L';" }) Male
+                @Html.RadioButton("idGender", "P", ViewBag.Gender == "P" ? true : false, new { onchange = "document.getElementById('jenisKelamin').value='P';" }) Female
+                @Html.ValidationMessageFor(model => model.jenisKelamin)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.address, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.rt, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.rt, new { @style = "width:50px" })
+                @Html.TextBoxFor(model => model.rw, new { @style = "width:50px" })
+                @Html.ValidationMessageFor(model => model.rt)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kelurahan, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.kelurahan)
+                @Html.ValidationMessageFor(model => model.kelurahan)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kecamatan, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.kecamatan)
+                @Html.ValidationMessageFor(model => model.kecamatan)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.city, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.city)
+                @Html.ValidationMessageFor(model => model.city)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.agama, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.DropDownList("agama", ViewBag.agamas as SelectList, "- Select -", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.agama)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.statusNikah, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("statusNikah", ViewBag.statusNikahs as SelectList, "- Select -", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.statusNikah)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.pekerjaan, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.pekerjaan)
+                @Html.ValidationMessageFor(model => model.pekerjaan)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kewarganegaraan, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.DropDownList("kewarganegaraan", ViewBag.kewarganegaraans as SelectList, "- Select -", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.kewarganegaraan)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.npwp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.npwp)
+                @Html.ValidationMessageFor(model => model.npwp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ktp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ktp)
+                @Html.ValidationMessageFor(model => model.ktp)
+            </div>
+        </div>
+
+       <div class="form-group">
+            @Html.LabelFor(model => model.bankName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("existingBank", ViewBag.existingBank == true ? true : false, new { onchange = "javascript:checkBank(this)" }) Existing &nbsp;
+                @Html.EditorFor(model => model.bankName)
+                @Html.DropDownList("ddlBank", ViewBag.ListBankExistingOnEmployee as SelectList, new { @class = "form-control", style = "display:none" })
+                @Html.ValidationMessageFor(model => model.bankName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.rekening, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.rekening)
+                @Html.ValidationMessageFor(model => model.rekening)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Place & Birth Of Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tempatLahir)
+                @Html.ValidationMessageFor(model => model.tempatLahir)
+                @Html.TextBox("tanggalLahir", new DateTime(1990,1,1), "{0:dd-MMM-yyyy}", new { onchange = "generatedUserId()", @style = "width: 100px;" })@*type = "date",*@
+                @Html.ValidationMessageFor(model => model.tanggalLahir)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("UserID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("typeCreateUserId", "Generated", true, new { onchange = "javascript:typeCreateUserIds(this)" })Generated
+                @Html.RadioButton("typeCreateUserId", "Manual", false, new { onchange = "javascript:typeCreateUserIds(this)" })Manual
+                @Html.TextBox("userID", ViewBag.userID as string, new { @readonly = "readonly" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.Label("Atasan", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("txtAtasan")
+                    <button data-toggle="modal" data-target="#myModal">...</button>
+                </div>
+            </div>*@
+
+        @*<div id="dvDetail">
+                @Html.Partial("_PartialPageEmpPosition1")
+            </div>*@
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" onclick="save();" />
+            </div>
+        </div>
+    </div>
+}
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tanggalLahir").datepicker({
+            dateFormat: 'dd-M-yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-50:+5'
+        });
+        typeCreated();
+        checkBank();
+    });
+</script>

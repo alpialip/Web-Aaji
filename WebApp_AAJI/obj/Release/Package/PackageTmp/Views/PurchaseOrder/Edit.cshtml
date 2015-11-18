@@ -1,0 +1,322 @@
+﻿@model WebApp_AAJI.Models.purchaseOrderHeader
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script>
+    function getDataVendor(el)
+    {
+        //alert(el.value);
+        var idVal = $('#txtId').val();
+        var newPriceVal = $('#txtPrice').val();
+        $.ajax({
+            url: '/PurchaseOrder/GetDetailVendor',
+            contentType: 'application/html; charset=utf-8',
+            data: { id: el.value/*, newPrice: newPriceVal*/ },
+            type: 'GET',
+            //dataType: 'html'
+
+        })
+        .success(function (result) {
+            //alert(result);
+            var a = result.split('|');
+            $('#venAddress').text(a[0]);
+            $('#venCp').text(a[1]);
+            $('#venTelp').text(a[2]);
+        })
+        .error(function (xhr, status) {
+            alert(status);
+        })
+    }
+
+    function changeTOPType(elVal)
+    {
+        //alert(elVal.value);
+        document.getElementById("lblDaysSingle").style.display = 'none';
+        document.getElementById("btnMultiple").style.display = 'none';
+        document.getElementById("topAmount").style.display = 'none';
+        document.getElementById("topAmount").value = '0';
+
+        if(elVal.value == 'Single')
+        {
+            document.getElementById("lblDaysSingle").style.display = '';
+            document.getElementById("topAmount").style.display = '';
+        }
+        else
+        {
+            document.getElementById("btnMultiple").style.display = '';
+        }
+    }
+
+    @*$(document).ready(function() {
+        $('#jaButton').click(function() {
+            $.ajax({
+                url: '@Url.Action("loadTOPMultiple", "PurchaseOrder")',
+                type: 'GET',
+                //data: { cardId: $('#cardId').val() } //you should build your data here as you need
+            }).success(function(result) {
+                $("body").html(result);
+            });
+        });
+    });*@
+
+    function validateDataFormPO()
+    {
+        var validateError = 0;
+        var msgError = "";
+
+        var prId = document.getElementById("prId");
+        var prIdVal = prId.value;
+        var prIdId = prId.id;
+        if (prIdVal == "")
+            msgError += "\r\n Purchase Request Required";
+
+        var hdnVendorID = document.getElementById("vendorId");
+        var hdnVendorIDVal = hdnVendorID.value;
+        var hdnVendorIDId = hdnVendorID.id;
+        if (hdnVendorIDVal == "")
+            msgError += "\r\n Vendor Required";
+        //alert(document.getElementById('topType').checked);
+        if (document.getElementById('topType').value == "Multiple")
+            {
+            var tbl = document.getElementById("tbDetailMultiple");
+            var rowsCount = (tbl.rows.length - 1);
+            for (i = 0; i < rowsCount ; i++) {
+                if (indexDelete == i && indexDelete != 0) {
+                    rowsCount++;
+                    i = i++;
+                }
+
+                var BuyDate = document.getElementById("txtBuyDate_" + i);
+                var BuyDateVal = BuyDate.value;
+                var BuyDateId = BuyDate.id;
+
+                var BuyPercent = document.getElementById("txtBuyPercent_" + i);
+                var BuyPercentVal = BuyPercent.value;
+                var BuyPercentId = BuyPercent.id;
+
+                //alert(BuyDateVal + " - " + BuyPercentVal + " - " + i + "==" + (rowsCount-1));
+                if (BuyDateVal == "" && BuyPercentVal == "0" && i == (rowsCount - 1))
+                    break;
+
+                if (BuyDateVal == "" || (BuyPercentVal == "" || BuyPercentVal == "0")) {
+                    msgError += "\r\n Detail Multiple TOP Required";
+                    break;
+                }
+            }
+        }
+        else
+        {
+            var topAmount = document.getElementById("topAmount");
+            var topAmountVal = topAmount.value;
+            var topAmountId = topAmount.id;
+            if (topAmountVal == "0" || topAmountVal == "")
+                msgError += "\r\n TOP Days Required";
+        }
+
+
+        if (msgError == "")
+            return true;
+        else
+        {
+            alert(msgError);
+            return false;
+        }
+    }
+
+    function confirmSavePO() {
+        var x = validateDataFormPO();
+        if (x == true) {
+            document.forms[0].submit();
+        }
+    }
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Purchase Order</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @*@Html.HiddenFor(model => model.poId)*@
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.createdDate)
+        @Html.HiddenFor(model => model.proposedBy)
+        @Html.HiddenFor(model => model.proposedDate)
+        @Html.HiddenFor(model => model.proposedStatus)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.poId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.poId, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.poId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.poDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model=>model.poDate, "{0:yyyy-MM-dd}", new { type = "date", @readonly="readonly" })
+                @Html.ValidationMessageFor(model => model.poDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.prId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.prId, new {@readonly="readonly" })
+                <button data-toggle="modal" data-target="#myModal" disabled="disabled">...</button>
+                @*<input type="button" id="adfa" value="asdfaf" onclick="javascript: var ddlVendor = document.getElementById('hdnVendorID'); alert(ddlVendor.value);" />*@
+                @Html.ValidationMessageFor(model => model.prId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("From", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="prFrom" style="font-weight:100;">@ViewBag.From</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Type Of Order", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model=>model.poUrgent)
+                <label id="prType" style="font-weight:100;">@ViewBag.poUrgent</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Proposal Include", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="prProposal" style="font-weight:100;">@ViewBag.Proposal</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Special Instruction", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="prInstruction" style="font-weight:100;">@ViewBag.Instruction</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Project Time Delivery", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="prDelivery" style="font-weight:100;">@ViewBag.Delivery</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.vendorId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.vendorId)
+                @Html.DropDownList("ddlVendor", ViewBag.ddlVendors as SelectList, "- Select -", new { @class = "form-control", onchange = "getDataVendor(this);document.getElementById('vendorId').value=this.value" })
+                @Html.ValidationMessageFor(model => model.vendorId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Address", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="venAddress" style="font-weight:100;">@ViewBag.Address</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Contact Person", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="venCp" style="font-weight:100;">@ViewBag.Cp</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Contact Number", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="venTelp" style="font-weight:100;">@ViewBag.Telp</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.topType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                
+                @Html.HiddenFor(model=>model.topType)
+                @Html.RadioButton("rbTopType", "Single", ViewData["topTypes"] as string == "Single" ? true : false, new { @disabled="disabled", onchange = "javascript:changeTOPType(this);document.getElementById('topType').value='Single';" }) Single
+                @Html.RadioButton("rbTopType", "Multiple", ViewData["topTypes"] as string == "Multiple" ? true : false, new { @disabled = "disabled", onchange = "javascript:changeTOPType(this);document.getElementById('topType').value='Multiple'" }) Multiple
+                
+                @if (ViewData["topTypes"].ToString() == "Multiple")
+                { 
+                    @Html.TextBoxFor(model => model.topAmount, new { @value = "0", type = "number", step = "1", min = 0, style = "text-align:right; width: 50px;display:none;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    <label id="lblDaysSingle" style="display:none;">Days</label>
+                    <input type="button" id="btnMultiple" value="Setup Multiple TOP" data-toggle="modal" data-target="#modalPopUpMultipleTOP" />
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => model.topAmount, new { @value = "0", type = "number", step = "1", min = 0, style = "text-align:right; width: 50px;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })                    
+                    <label id="lblDaysSingle">Days</label>
+                    <input type="button" id="btnMultiple" value="Setup Multiple TOP" data-toggle="modal" data-target="#modalPopUpMultipleTOP" style="display:none" />
+                }
+                @Html.ValidationMessageFor(model => model.topType)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPagePR-PO")
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Create" class="btn btn-default" />*@
+                @*<input type="button" value="Save" class="btn btn-primary" onclick="confirmSavePO();" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save'; confirmSavePO();" />&nbsp;
+                <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSavePO();" />
+                @Html.Hidden("hdnTypeSubmit", Model.proposedStatus == true ? "requested" : "save")
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPopUpMultipleTOP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style=" width: 330px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Multiple T.O.P</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_PartialPageMultipleTOP")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" onclick="saveMultipleTOP()" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:725px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Puchase Request</h4>
+            </div>
+            @*<div class="modal-body">*@
+            <div class="table-responsive">
+                @Html.Partial("_PartialPagePR");
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

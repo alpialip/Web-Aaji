@@ -1,0 +1,108 @@
+﻿@model WebApp_AAJI.Models.employeeLoan
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script>
+    function confirmSave() {
+        var x = document.getElementById('employeeID').value;
+        if (x != 0) {
+            document.forms[0].submit();
+        }
+        else {
+            alert("Employee Required");
+        }
+    }
+    function maskingCurrency(val) {
+        document.getElementById("amounts").value = formatCurrency(document.getElementById("amounts").value.replace(/\./g, ''));
+        document.getElementById("amount").value = document.getElementById("amounts").value.replace(/\./g, '');
+    }
+</script>
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>employeePinjaman</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.pinjamanID)
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.createdDate)
+        @Html.HiddenFor(model => model.proposedBy)
+        @Html.HiddenFor(model => model.proposedBy)
+        @Html.HiddenFor(model => model.proposedDate)
+        @Html.HiddenFor(model => model.proposedStatus)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.employeeID)
+                @Html.TextBox("empName", ViewBag.empName as string, new { disabled = "disabled" })&nbsp;
+                <button data-toggle="modal" data-target="#myModal" disabled="disabled">...</button>
+                @Html.ValidationMessageFor(model => model.employeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Department", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="empDeptName" style="font-weight:100">@ViewBag.empDeptName</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("amounts", Model.amount.ToString("G29").Replace(',', '.'), new { type = "text", style = "text-align:right;width:150px;padding-right:10px", onchange = "maskingCurrency()" })
+                @Html.TextBox("amount", Model.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save'; confirmSave();" />&nbsp;
+                <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />
+                @Html.Hidden("hdnTypeSubmit", "save")
+            </div>
+        </div>
+        </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+<script>
+    maskingCurrency();
+</script>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:725px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Employee</h4>
+            </div>
+            @*<div class="modal-body">*@
+            <div class="table-responsive">
+                @Html.Partial("_PartialPagePopUpEmployee");
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

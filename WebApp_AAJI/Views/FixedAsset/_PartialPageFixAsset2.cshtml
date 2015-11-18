@@ -1,0 +1,91 @@
+﻿<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#sectionA"><b>Person</b></a></li>
+        <li><a data-toggle="tab" href="#sectionB"><b>Maintenance</b></a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="sectionA" class="tab-pane fade in active">
+            <table id="tbDetailFixedAssetEmployee">
+                <thead>
+                    <tr>
+                        <th>Start</th>
+                        <th>End</th>
+                        @*<th>Employee ID</th>*@
+                        <th>Employee Name</th>
+                        <th>&nbsp;&nbsp;&nbsp;Department&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th>Remark</th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                @{
+                    int idx = 0;
+                }
+                <tbody>
+                    @if (ViewBag.dataDetail != null)
+                    {
+                        foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.fixedAsset.detailSavedFixedAssetPerson>)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBox("persStart_" + idx, a.startDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;", @readonly="readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("persEnd_" + idx, a.endDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    <input type="hidden" name="persEmpId_@idx" id="persEmpId_@idx" value="@a.employeeID">
+                                    <input type="text" name="persEmpName_@idx" id="persEmpName_@idx" value="@a.employeeName" readonly="readonly">
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label id="lblDept_@idx" style="font-weight:100">@a.deptName</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="persRemark_@idx" id="persRemark_@idx" value="@a.remarks" readonly="readonly">
+                                </td>
+                            </tr>
+                            idx++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Remark</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                @{
+                    int idxMaint = 0;
+                }
+                <tbody>
+                    @if (ViewBag.dataDetailMaint != null)
+                    {
+                        foreach (var a in ViewBag.dataDetailMaint as IEnumerable<WebApp_AAJI.Models.fixedAsset.fixedAssetMaintenance>)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBox("maintDate_" + idxMaint, a.maintenanceDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;", @readonly="readonly"})
+                                </td>
+                                <td>
+                                    @Html.TextBox("maintRemark_" + idxMaint, a.remarks, new { style = " width: 500px;", @readonly = "readonly" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("maintAmount_" + idxMaint, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", @readonly = "readonly" })
+                                </td>
+                            </tr>
+                            idxMaint++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

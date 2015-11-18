@@ -1,0 +1,120 @@
+﻿@using System.Data;
+
+<h2><span style="margin-top:5px">Trial Balance Report</span></h2>
+Period : <span id="period"></span>
+@{
+    string month = string.Empty;
+    string year = string.Empty;
+}
+<table style="width:880px;border-collapse:collapse;" border="1">
+    <thead style="background-color:ButtonFace">
+        <tr>
+            <th style="text-align:center">Account</th>
+            <th style="text-align:center">Begining Balance</th>
+            <th style="text-align:center">Debit</th>
+            <th style="text-align:center">Credit</th>
+            <th style="text-align:center">Ending Balance</th>
+        </tr>
+    </thead>
+    <tbody id="tbDetail">
+        @if (ViewBag.SaldoGL != null)
+        {
+            decimal sumAwal = 0;
+            decimal sumDebit = 0;
+            decimal sumKredit = 0;
+            decimal sumAkhir = 0;
+            int coaId = 0;
+
+            foreach (var lvl1 in ViewBag.AccountLvl1 as IEnumerable<WebApp_AAJI.Models.chartOfAccount>)
+            {
+                <tr>
+                    <td>[@lvl1.accountNo] - @lvl1.accountName</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                foreach (var lvl2 in ViewBag.AccountLvl2 as IEnumerable<WebApp_AAJI.Models.chartOfAccount>)
+                {
+                    if (lvl2.parentCOAId == lvl1.id)
+                    {
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[@lvl2.accountNo] - @lvl2.accountName</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        foreach (var lvl3 in ViewBag.AccountLvl3 as IEnumerable<WebApp_AAJI.Models.chartOfAccount>)
+                        {
+                            if (lvl3.parentCOAId == lvl2.id)
+                            {
+                                DataTable dtSaldoGL = ViewBag.SaldoGL;
+                                bool isFindData = false;
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[@lvl3.accountNo] - @lvl3.accountName</td>
+                                    @foreach (DataRow dr in dtSaldoGL.Rows)
+                                    {
+                                        if (dr["month"].ToString() != string.Empty && dr["year"].ToString() != string.Empty && month == string.Empty && year == string.Empty)
+                                        {
+                                            month = dr["month"].ToString();
+                                            year = dr["year"].ToString();
+                                        }
+                                        coaId = int.Parse(dr["coaId"].ToString());
+                                        
+                                        if (dr["accountNo"].ToString() == lvl3.accountNo)
+                                        {
+                                            decimal valAwal = decimal.Parse(dr["awal"].ToString());
+                                            decimal valDebit = decimal.Parse(dr["debit"].ToString());
+                                            decimal valCredit = decimal.Parse(dr["kredit"].ToString());
+                                            decimal valAkhir = decimal.Parse(dr["akhir"].ToString());
+
+                                            <td style="text-align:right;padding-right:10px;">@string.Format("{0:#,##0.#0}", valAwal)</td>
+                                            <td style="text-align: right; padding-right: 10px;">@string.Format("{0:#,##0.#0}", valDebit)</td>
+                                            <td style="text-align: right; padding-right: 10px;">@string.Format("{0:#,##0.#0}", valCredit)</td>
+                                            <td style="text-align: right; padding-right: 10px;">@string.Format("{0:#,##0.#0}", valAkhir)</td>
+                                            isFindData = true;
+
+                                            sumAwal += Decimal.Parse(dr["awal"].ToString());
+                                            sumDebit += Decimal.Parse(dr["debit"].ToString());
+                                            sumKredit += Decimal.Parse(dr["kredit"].ToString());
+                                            sumAkhir += Decimal.Parse(dr["akhir"].ToString());
+                                            break;
+                                        }
+                                    }
+
+                                    @if (isFindData == false)
+                                    {
+                                        <td style="text-align: right; padding-right: 10px;">0.00</td>
+                                        <td style="text-align: right; padding-right: 10px;">0.00</td>
+                                        <td style="text-align: right; padding-right: 10px;">0.00</td>
+                                        <td style="text-align: right; padding-right: 10px;">0.00</td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    }
+                }
+            }
+            <tr>
+                <td></td>
+                <td style="text-align: right; padding-right: 10px;">@string.Format("{0:#,##0.#0}", sumAwal)</td>
+                <td style="text-align: right; padding-right: 10px;">@string.Format("{0:#,##0.#0}", sumDebit)</td>
+                <td style="text-align: right; padding-right: 10px;">@string.Format("{0:#,##0.#0}", sumKredit)</td>
+                <td style="text-align: right; padding-right: 10px;">@string.Format("{0:#,##0.#0}", sumAkhir)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Hidden("hdnPeriod", @month + "-" + @year);
+
+@if (ViewBag.SaldoGL != null)
+{
+    <script>
+        document.getElementById('period').innerHTML = document.getElementById('hdnPeriod').value;
+        window.print();
+        
+    </script>
+}

@@ -1,0 +1,101 @@
+﻿@model WebApp_AAJI.Models.bankCashPaymentVoucher
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>bankCashPaymentVoucher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.voucherDate)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.voucherDate)*@
+            @Model.voucherDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bankID)
+        </dt>
+
+        <dd>
+            @foreach (var a in ViewBag.Bank as SelectList)
+            {
+                if (a.Value == Model.bankID.ToString())
+                {
+                    @a.Text
+                }
+            }
+            @*@Html.DisplayFor(model => model.bankID)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.says)
+        </dt>
+
+        <dd>
+            <label style="font-weight: 100;" id="lblTerbilang"></label>
+            @*@Html.DisplayFor(model => model.says)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.preparedBy)
+        </dt>
+
+        <dd>
+            @foreach (var a in ViewBag.User as IEnumerable<WebApp_AAJI.Models.user>)
+            {
+                if (a.userID == Model.preparedBy.ToString())
+                {
+                    @a.userName
+                }
+            }
+            @*@Html.DisplayFor(model => model.preparedBy)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.preparedDate)
+        </dt>
+
+        <dd>
+            @Model.preparedDate.ToString("dd MMM yyyy HH:mm")
+            @*@Html.DisplayFor(model => model.preparedDate)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedStatus)
+        </dd>
+
+    </dl>
+</div>
+<div id="dvDetail">
+    @Html.Partial("_PartialPageBCP2")
+</div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

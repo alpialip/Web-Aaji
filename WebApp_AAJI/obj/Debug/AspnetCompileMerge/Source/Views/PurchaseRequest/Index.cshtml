@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.purchaseRequestHeader>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.prDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.requestBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.approvedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.acknowledgeBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.prDate.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.requestBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.approvedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.acknowledgeBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.createdUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedDate)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.prId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.prId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.prId })
+        </td>
+    </tr>
+}
+
+</table>

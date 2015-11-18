@@ -1,0 +1,571 @@
+﻿<script type="text/javascript">
+    var indexDelete = 0;
+
+    function onClickAddRowClient() {
+        var tbl = document.getElementById("tbDetail");
+        var rowDetail = (tbl.rows.length);
+        //alert(rowDetail);
+
+        var x = validateDataDetail("add");
+        var isReimbursement = document.getElementById('isReimbursement');
+        //alert(x);
+        if (x == true) {
+            var table = document.getElementById('tbDetail');
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "text";
+            element1.name = "txtDesc_" + (rowCount - 1);
+            element1.id = "txtDesc_" + (rowCount - 1);
+            cell1.appendChild(element1);
+            //seqId
+            var element11 = document.createElement("input");
+            element11.type = "hidden";
+            element11.value = (rowCount);
+            element11.name = "seqId_" + (rowCount - 1);
+            element11.id = "seqId_" + (rowCount - 1);
+            cell1.appendChild(element11);
+
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "number";
+            element2.style.width = "100px";
+            element2.value = 1;
+            element2.style.textAlign = "right";
+            element2.min = 0;
+            element2.name = "txtCur_" + (rowCount - 1);
+            element2.id = "txtCur_" + (rowCount - 1);
+            cell2.appendChild(element2);
+            cell2.style.display = "none";
+
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("input");
+            element3.type = "number";
+            element3.style.width = "150px";
+            element3.value = 0;
+            element3.style.textAlign = "right";
+            element3.min = 0;
+            element3.name = "txtAmount_" + (rowCount - 1);
+            element3.id = "txtAmount_" + (rowCount - 1);
+            element3.style.display = "none";
+            cell3.appendChild(element3);
+            //amounts
+            var element31 = document.createElement("input");
+            element31.type = "text";
+            element31.style.width = "150px";
+            element31.value = 0;
+            element31.style.textAlign = "right";
+            element31.style.paddingRight = "10px";
+            element31.name = "txtAmounts_" + (rowCount - 1);
+            element31.id = "txtAmounts_" + (rowCount - 1);
+            element31.setAttribute("onchange", "checkMaksAmount()")
+            cell3.appendChild(element31);
+
+            var cell4 = row.insertCell(3);
+            var element4 = document.createElement("input");
+            element4.type = "file";
+            element4.setAttribute("data-show-upload", "false");
+            element4.setAttribute("class", "file");
+            element4.setAttribute("data-show-caption", "true");
+            element4.name = "linkFileData_" + (rowCount - 1);
+            element4.id = "linkFileData_" + (rowCount - 1);
+            cell4.appendChild(element4);
+            cell4.id = "colUploadDetail_"+ (rowCount - 1);
+            if(isReimbursement.checked == false)
+                cell4.style.display = "none";
+            else
+                cell4.style.display = "";
+
+            var cell5 = row.insertCell(4);
+            var element5 = document.createElement("input");
+            element5.type = "button";
+            element5.setAttribute("onclick", "onClickDeleteRowClients(" + (rowCount - 1) + ")");
+            element5.value = "Delete";
+            element5.name = "btnDelete_" + (rowCount - 1);
+            element5.id = "btnDelete_" + (rowCount - 1);
+            cell5.appendChild(element5);
+        }
+    }    
+
+    function onClickDeleteRowClients(idx) {
+        var tbl = document.getElementById("tbDetail");
+        var rowDetail = (tbl.rows.length);
+        var isData = 0;
+        
+        var i = (idx + 1); //alert(i);
+        if (rowDetail > 2)
+        {
+            var colExist = document.getElementById("seqId_" + idx);
+            if (colExist == null) {
+                for (a = 1; a < 50; a++) {
+                    var seqId = document.getElementById("seqId_" + a);
+                    if (seqId != null)
+                    {
+                        isData++;
+                       // alert("seqId.value:"+seqId.value+" == "+"i:"+i)
+                        if (seqId.value == i)
+                        {
+                            i = (isData+1);
+                            //alert('masuk: ' + isData);
+                            break;
+                        }
+                    }
+                }
+                //alert('keluar');
+            }
+            else
+            {
+                for (a = 0; a < 50; a++) {
+                    var seqId = document.getElementById("seqId_" + a);
+                    var desc = document.getElementById("txtDesc_" + a);
+                    if (seqId != null) {
+                        isData++;
+                        //alert("seqId.value:" + seqId.value + " == " + "i:" + i + " desc:" + desc.value);
+                        //alert("a:" + a+" isData:"+isData);
+                        if (seqId.value == i) {
+                            //if(a == 0)
+                            //    i = (a+1);
+                            //else
+                            //    i = a;
+                            i = isData;
+                            break;
+                        }
+                    }
+                }                
+            }
+
+            document.getElementById("tbDetail").deleteRow(i);
+            indexDelete = idx;
+            @*var y = collectDataDetail();
+            
+            $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);*@
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function collectDataDetail() {
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 1; i < rowsCount; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                //alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                //alert("i after ==>" + i)
+            }
+
+            var AccountNo = document.getElementById("txtAccountNo_" + i);
+            var AccountNoVal = AccountNo.value;
+            var AccountNoId = AccountNo.id;
+
+            //var AccountName = document.getElementById("txtAccountName_" + i);
+            //var AccountNameVal = AccountName.value;
+            //var AccountNameId = AccountName.id;
+
+            var Amount = document.getElementById("txtAmount_" + i);
+            var AmountVal = Amount.value;
+            var AmountId = Amount.id;
+
+            stringDataDetail += seqRows + ";" + AccountNoVal + ";" + /*escape(AccountNameVal) + ";" +*/ AmountVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function renameElement()
+    {
+        var tbl = document.getElementById("tbDetail");
+        var rowsCount = (tbl.rows.length - 1);
+        var isData = 0;
+
+        for (a = 0; a < 50; a++) {
+            var seqId = document.getElementById("seqId_" + a);
+            if (seqId != null && isData <= rowsCount) {
+                var element1 = document.getElementById("txtDesc_" + a);
+                element1.name = "txtDesc_" + (isData);
+                element1.id = "txtDesc_" + (isData);
+                //seqId
+                var element11 = document.getElementById("seqId_" + a);
+                element11.value = (isData+1);
+                element11.name = "seqId_" + (isData);
+                element11.id = "seqId_" + (isData);
+
+                var element2 = document.getElementById("txtCur_" + a);
+                element2.name = "txtCur_" + (isData);
+                element2.id = "txtCur_" + (isData);
+
+                var element3 = document.getElementById("txtAmount_" + a);
+                element3.name = "txtAmount_" + (isData);
+                element3.id = "txtAmount_" + (isData);
+                //amounts
+                var element31 = document.getElementById("txtAmounts_" + a);
+                element31.name = "txtAmounts_" + (isData);
+                element31.id = "txtAmounts_" + (isData);
+
+                var element4 = document.getElementById("linkFileData_" + a);
+                element4.name = "linkFileData_" + (isData);
+                element4.id = "linkFileData_" + (isData);
+                var cell4 = document.getElementById("colUploadDetail_" + a);
+                cell4.id = "colUploadDetail_" + (isData);
+
+                var element5 = document.getElementById("btnDelete_" + a);
+                element5.name = "btnDelete_" + (isData);
+                element5.id = "btnDelete_" + (isData);
+
+                if (isData == rowsCount)
+                    break;
+
+                isData++;
+            }
+        }
+    }
+
+    function validateDataDetail(actFrom) {
+        var chk = document.getElementById("isReimbursement");
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+        //alert(rowsCount);
+        renameElement();
+
+        for (i = 0; i < rowsCount ; i++) {
+            //alert("iAwal: " + i + " rowsCountAwal:" + rowsCount);
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var ActDesc = document.getElementById("txtDesc_" + i);
+            var ActDescVal = ActDesc.value;
+            var ActDescId = ActDesc.id;
+
+            //alert(actFrom + " == 'save' && " + escape(ActDescVal) + " == '' && " + i + " == " + (rowsCount-1));
+            if (actFrom == "save" && escape(ActDescVal) == "" && i == (rowsCount - 1))
+                break;
+
+            var Currency = document.getElementById("txtCur_" + i);
+            var CurrencyVal = Currency.value;
+            var CurrencyId = Currency.id;
+
+            var Amount = document.getElementById("txtAmount_" + i);
+            var AmountVal = Amount.value;
+            var AmountId = Amount.id;
+
+            if (chk.checked) {
+                var viewIsExist = document.getElementById('colUploadViewDetail_' + i);
+                var linkFile = document.getElementById("linkFileData_" + i);
+                var linkFileVal = linkFile.files.length;
+                var linkFileId = linkFile.id;
+
+                //alert(viewIsExist);
+                if (viewIsExist == null)
+                    if (escape(ActDescVal) == "" || /*CurrencyVal == "" ||*/ (AmountVal == "" || AmountVal == 0) || linkFileVal == 0) {
+                        alert("Please complete data detail.");
+                        //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                        return false;
+                        break;
+                    }
+            }
+
+            //alert(escape(ActDescVal)+" == '' || "+ CurrencyVal +"== '1' || ("+AmountVal +"== '' || "+AmountVal+" == 0)");
+            if (escape(ActDescVal) == "" || /*CurrencyVal == "1" ||*/ (AmountVal == "" || AmountVal == 0)) {
+                alert("Please complete data detail.");
+                //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var grandTotal = 0;
+
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                grandTotal += document.getElementById("txtAmount_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtAmount_" + i).value);
+            }
+        }
+        $("#grandTotal").val(grandTotal);
+    }
+
+    function confirmSave() {
+        renameElement();
+        var x = validateDataDetail("save");
+        var y = checkMaksAmount();
+        if (x == true && y == true) {
+            var voucherDate = document.getElementById("date").value;
+            var reqFrom = document.getElementById("reqFrom").value;
+            var activity = document.getElementById("activity").value;
+            var reqIsCashOnHand = document.getElementById("reqIsCashOnHand").value;
+            var includeProposal = document.getElementById("includeProposal").value;
+            var isReimbursement = document.getElementById("isReimbursement").value;
+
+            if (voucherDate == "" || reqFrom == "" || activity == "" || reqIsCashOnHand == "" || includeProposal == "" || isReimbursement == "")
+            {
+                alert("Please Complete Data.");
+            }
+            else
+            {
+                document.forms[0].submit();
+            }
+        }
+        else if (y == false)
+        {
+            alert("Please Check Data Detail.");
+        }
+    }
+
+    function checkMaksAmount()
+    {
+        var maksAmountForCashOnHand = 1000000;
+        var tbl = document.getElementById("tbDetail");
+        var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+        var isCashOnHand = document.getElementById('reqIsCashOnHand');
+        var isValidated = true;
+
+        //alert("checkMaksAmount");
+        var isData = 0;
+        for (i = 0; i < rowsCount; i++) {
+            var colExist = document.getElementById("txtAmounts_" + i);
+            if (colExist == null && isData <= (rowsCount - 1)) {
+                for (a = 1; a < 50; a++) {
+                    var ActDescX = document.getElementById("txtAmounts_" + a);
+                    if (ActDescX != null) {
+                        i += a;
+                        rowsCount += a;
+                        break;
+                    }
+                }
+            }
+            var cellAmounts = formatCurrency(document.getElementById("txtAmounts_" + i).value.replace(/\./g, ''));
+            //alert(cellAmounts);
+            document.getElementById("txtAmounts_" + i).value = cellAmounts;
+            document.getElementById("txtAmount_" + i).value = cellAmounts.replace(/\./g, '');
+        }
+
+        if (isCashOnHand.checked == true) {
+            for (i = 0; i < rowsCount; i++) {
+                var colExist = document.getElementById("txtAmounts_" + i);
+                if (colExist == null && isData <= (rowsCount - 1)) {
+                    for (a = 1; a < 50; a++) {
+                        var ActDescX = document.getElementById("txtAmounts_" + a);
+                        if (ActDescX != null) {
+                            i += a;
+                            rowsCount += a;
+                            break;
+                        }
+                    }
+                }
+
+                var cellAmount = document.getElementById('txtAmount_' + i);
+                var cellAmounts = document.getElementById('txtAmounts_' + i);
+                var amount = parseFloat(cellAmount.value * 1);
+
+                //alert(amount+" > "+maksAmountForCashOnHand);
+                cellAmounts.style.backgroundColor = '';
+                cellAmounts.title = '';
+                if (parseFloat(amount) > parseFloat(maksAmountForCashOnHand)) {
+                    //alert('masuk');
+                    cellAmounts.style.backgroundColor = 'yellow';
+                    cellAmounts.title = 'Maksimum Amount For Cash On Hand';
+                    if (isValidated == true)
+                        isValidated = false;
+                }
+            }
+        }
+
+        return isValidated;
+    }
+
+    function onchangeReimbursement() {
+        var reqNo = document.getElementById('reqNo').value;
+        var chk = document.getElementById("isReimbursement");
+        var tbl = document.getElementById("tbDetail");
+        var rowDetail = (tbl.rows.length - 1);
+        //alert(rowDetail);
+        if (chk.checked) {
+            document.getElementById('colUploadHeader').style.display = '';
+            for (i = 0; i < rowDetail; i++) {
+                var viewIsExist = document.getElementById('colUploadViewDetail_' + i);
+                //alert(viewIsExist);
+                document.getElementById('colUploadDetail_' + i).style.display = '';
+                if (reqNo != "" && viewIsExist != null)
+                {
+                    viewIsExist.style.display = '';
+                    document.getElementById('colUploadDetail_' + i).style.display = 'none';
+                }
+            }
+        }
+        else {
+            document.getElementById('colUploadHeader').style.display = 'none';
+            for (i = 0; i < rowDetail; i++) {
+                var viewIsExist = document.getElementById('colUploadViewDetail_' + i);
+                //alert(viewIsExist);
+                if (reqNo != "" && viewIsExist != null) {
+                    viewIsExist.style.display = 'none';
+                }
+                document.getElementById('colUploadDetail_' + i).style.display = 'none';
+            }
+        }
+    }
+</script>
+<table class="table table-hover" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Activity Description</th>
+            <th style="display:none">Currency</th>
+            <th>Amount</th>            
+            <th id="colUploadHeader" style="display:none">
+                Documents
+            </th>
+            <th>
+                <input type="button" id="btnAddRow" name="btnAddRow" value="[ + ]" onclick="onClickAddRowClient();">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 0;
+            int totalRows = 0;
+            bool isReimbursement = false;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest.cashOnHandAndAdvanceRequestDetail>;
+            totalRows = totalList.Count();
+            int seqId = 0;
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest.cashOnHandAndAdvanceRequestDetail>)
+            {
+                <tr>
+                    <td>                        
+                        @Html.Hidden("seqId_" + idx, a.seqId)
+                        @Html.TextBox("txtDesc_" + idx, a.activityDescription)
+                    </td>
+                    <td style="display:none">
+                        @Html.TextBox("txtCur_" + idx, a.currency, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtAmounts_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "text", style = "text-align:right;width:150px;padding-right:10px;", placeholder = "0", onchange = "checkMaksAmount()" })
+                        @Html.TextBox("txtAmount_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                        
+                    </td>
+                    @if (a.fileReimbursement != null)
+                    {
+                        if (isReimbursement == false)
+                        { 
+                            isReimbursement = true;
+                        }
+                        
+                        string[] fileName = a.fileReimbursement.Split('\\');
+                        <td id="colUploadViewDetail_@idx">
+                            <a href="~/Common/Download?file=@a.fileReimbursement" target="_blank" title="Download File">
+                                <img src="~/img/download.png" style="width: 20px;" />
+                            </a>
+                            <img src="~/img/change.png" title="Change File" style="width: 15px;" onclick="javascript: document.getElementById('colUploadDetail_@idx').style.display = '';document.getElementById('colUploadViewDetail_@idx').style.display='none';" />
+                            &nbsp;@fileName[1]
+                        </td>
+                    }
+                    
+                        <td id="colUploadDetail_@idx" style="display:none">
+                            <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                            <img src="~/img/undo.png" title="Undo" style="width: 15px;" onclick="javascript: document.getElementById('colUploadDetail_@idx').style.display = 'none';document.getElementById('colUploadViewDetail_@idx').style.display = ''" />
+                        </td> 
+
+                    <td>
+                        <input type="button" id="btnDelete_@idx" value="Delete" onclick="onClickDeleteRowClients(@idx)" />
+                    </td>
+                </tr>
+                idx++;
+                seqId = a.seqId;
+            }            
+                <tr>
+                    <td>
+                        @Html.Hidden("seqId_" + idx, (seqId+1))
+                        @Html.TextBox("txtDesc_" + idx, "")
+                    </td>
+                    <td style="display:none">
+                        @Html.TextBox("txtCur_" + idx, 1, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtAmounts_" + idx, 0, new { type = "text", style = "text-align:right;width:150px;padding-right:10px;", placeholder = "0", onchange = "checkMaksAmount()" })
+                        @Html.TextBox("txtAmount_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?"})
+                    </td>
+                    @if(isReimbursement == true)
+                    {
+                        <td id="colUploadDetail_@idx" >
+                            <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                        </td>
+                    }
+                    else                    
+                    {
+                        <td id="colUploadDetail_@idx" style="display:none">
+                            <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                        </td>
+                    }
+
+                    <td>
+                        <input type="button" id="btnDelete_@idx"  value="Delete" onclick="onClickDeleteRowClients(@idx);" />
+                    </td>
+                </tr>
+        }
+        else
+        {           
+            <tr>
+                <td>
+                    @Html.Hidden("seqId_" + idx, 1)
+                    @Html.TextBox("txtDesc_" + idx, "")
+                </td>
+                <td style="display:none">
+                    @Html.TextBox("txtCur_" + idx, 1, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td>
+                    @Html.TextBox("txtAmounts_" + idx, 0, new { type = "text", style = "text-align:right;width:150px;padding-right:10px;", placeholder = "0", onchange = "checkMaksAmount()" })
+                    @Html.TextBox("txtAmount_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "checkMaksAmount()" })
+                </td>
+                <td id="colUploadDetail_@idx" style="display:none">
+                    <input type="file" id="linkFileData_@idx" name="linkFileData_@idx" class="file" data-show-upload="false" data-show-caption="true">
+                </td>
+                <td>
+                    <input type="button" id="btnDelete_@idx" value="Delete" onclick="onClickDeleteRowClients(@idx)" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+<script>
+    var isReimbursement = document.getElementById('isReimbursement');
+    if (isReimbursement.checked)
+    {
+        document.getElementById('colUploadHeader').style.display = '';
+        
+        //var tbl = document.getElementById("tbDetail");
+        //var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+
+        //for (i = 0; i < rowsCount; i++) {
+        //    document.getElementById('colUploadDetail_'+i).style.display = '';
+        //}
+    }
+    checkMaksAmount();
+</script>
+

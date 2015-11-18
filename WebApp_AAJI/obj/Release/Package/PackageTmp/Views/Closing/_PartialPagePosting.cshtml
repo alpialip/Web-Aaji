@@ -1,0 +1,21 @@
+﻿@if (ViewBag.Posting != null)
+{
+    if (ViewBag.Posting == true)
+    {
+        <script>
+            //setTimeout(function () {
+            document.getElementById('wait').style.display = 'none';
+            document.getElementById('check').style.display = '';
+            //}, 2000);
+        </script>
+    }
+    else
+    {
+        <script>
+            //setTimeout(function () {
+            document.getElementById('wait').style.display = 'none';
+            document.getElementById('failed').style.display = '';
+            //}, 2000);
+        </script>
+    }
+}

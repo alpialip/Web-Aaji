@@ -1,0 +1,204 @@
+﻿@model WebApp_AAJI.Models.menuValidation
+
+@{
+    ViewBag.Title = "Create";
+}
+<script type="text/javascript">
+
+    function triggerChecked(elements,from)
+    {
+        var tbl = document.getElementById('tblMenuAssign');
+        var tblLength = tbl.rows.length - 1;
+        //alert('from:' + from + '-->' + elements.checked);
+        //alert(tbl.rows.length)
+
+        for (i = 0; i < tblLength;i++)
+        {
+            document.getElementById(from + '_' + i).checked = elements.checked;
+        }
+
+    }
+
+    function confirmSave() {
+        var isValidatedGroup = false;
+        var isValidatedMenu = false;
+        var isValidatedUser = false;
+
+        //alert(document.getElementById('rbIsGeneral').checked);
+        if (document.getElementById('rbIsGeneral').checked == true)
+        {
+            var tbl = document.getElementById('tblMenuAssign');
+            var tblLength = tbl.rows.length - 1;
+
+            for (i = 0; i < tblLength; i++) {
+                if (document.getElementById('insert_' + i).checked) {
+                    //alert("insert" + i + ": " + document.getElementById('insert_' + i).checked);
+                    isValidatedMenu = true;
+                }
+                else if (document.getElementById('update_' + i).checked)
+                    isValidatedMenu = true;
+                else if (document.getElementById('delete_' + i).checked)
+                    isValidatedMenu = true;
+                else if (document.getElementById('view_' + i).checked)
+                    isValidatedMenu = true;
+
+                if (isValidatedMenu == true)
+                    break;
+            }
+        }
+        else
+            isValidatedMenu = true;
+
+        for (i = 0; i < document.getElementById('userID').value; i++)
+        {
+            //alert(document.getElementsByName("["+ i +"].userSelected")[0].checked);
+            if (document.getElementsByName('[' + i + '].userSelected')[0].checked == true)
+            {
+                isValidatedUser = true;
+                break;
+            }
+        }
+
+        isValidatedGroup = document.getElementById('validationName').value.trim() == '' ? false : true;
+
+        if (isValidatedMenu == true && isValidatedUser == true && isValidatedGroup == true) {
+            document.forms[0].submit();
+        }
+        else {
+            var msgGroup = '';
+            var msgMenu = '';
+            var msgUser = '';
+
+            if (isValidatedGroup == false)
+                msgGroup = 'Group Name Required \r\n ';
+            if (isValidatedMenu == false)
+                msgMenu = 'Assign Menu Required \r\n ';
+            if (isValidatedUser == false)
+                msgUser = 'Assign User Required ';
+
+            alert(msgGroup + msgMenu + msgUser);
+        }
+    }
+</script> 
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>menuValidation</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.validationName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.validationName, new { style="width:280px"})
+                @Html.ValidationMessageFor(model => model.validationName)
+                @*@Html.DropDownList("ddlMenuParent", ViewBag.MenuParent as SelectList, "-Select-", new { @class = "form-control", onchange = "javascript:document.getElementById('validationName').value=this.value;" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("valType", "Validation Type", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("rbIsGeneral", true, true, new { onchange = "document.getElementById('menuGeneral').style.display='';document.getElementById('menuExclusive').style.display='none';" }) General
+                @Html.RadioButton("rbIsGeneral", false, false, new { onchange = "document.getElementById('menuGeneral').style.display='none';document.getElementById('menuExclusive').style.display='';" }) Exclusive
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Assign Menu", new { @class = "control-label col-md-2" })
+            @Html.Hidden("menuID", 1)
+            <div class="col-md-10" id="menuGeneral">
+                <div style="width: 600px; height: 400px; overflow:auto;">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-condensed" width="100%" id="tblMenuAssign">
+                            <tr>
+                                <th>Menu Name</th>
+                                <th>
+                                    <input type="checkbox" id="insertAll" name="insertAll" onchange="triggerChecked(this,'insert')"/>
+                                    Insert
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="updateAll" name="updateAll" onchange="triggerChecked(this,'update')" />
+                                    Update
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="deleteAll" name="deleteAll" onchange="triggerChecked(this,'delete')" />
+                                    Delete
+                                </th>
+                                <th>
+                                    <input type="checkbox" id="viewAll" name="viewAll" onchange="triggerChecked(this,'view')" />
+                                    View
+                                </th>
+                            </tr>
+                    @if (ViewData["menuGeneral"] != null)
+                    {
+                        var menuAssign = ViewData["menuGeneral"] as IEnumerable<WebApp_AAJI.Models.menuValidation.SelectMenuAuthorize>;
+                        for (int i = 0; i < menuAssign.ToList().Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.Hidden("menuIDGeneral"+i,menuAssign.ToList()[i].Id)
+                                    @Html.Label("menuAssign_" + i, menuAssign.ToList()[i].Name)
+                                </td>
+                                <td>@Html.CheckBox("insert_" + i, false)</td>
+                                <td>@Html.CheckBox("update_" + i, false)</td>
+                                <td>@Html.CheckBox("delete_" + i, false)</td>
+                                <td>@Html.CheckBox("view_" + i, false)</td>
+                            </tr>
+                        }
+                    }
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-10" id="menuExclusive" style="display:none">
+                @Html.DropDownList("menu", ViewBag.menuExclusive as SelectList, new { @class = "form-control" })  
+            </div>        
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.userID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div style="width: 600px; height: 110px; overflow:auto;">
+                    @if (ViewData["userAssign"] != null)
+                    {
+                        var userAssign = ViewData["userAssign"] as IEnumerable<WebApp_AAJI.Models.user.SelectActionUser>;
+                        for (int i = 0; i < userAssign.ToList().Count; i++)
+                        {
+                            <div>
+                                @Html.HiddenFor(x => userAssign.ToList()[i].userId)
+                                @Html.CheckBoxFor(x => userAssign.ToList()[i].userSelected, new { @value = userAssign.ToList()[i].userId })
+                                @Html.LabelFor(x => userAssign.ToList()[i].userSelected, userAssign.ToList()[i].userName)
+                            </div>
+                        }
+                        @Html.Hidden("userID", userAssign.ToList().Count)
+                    }
+                </div>                
+                @Html.ValidationMessageFor(model => model.userID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isActive, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.isActive)
+                @Html.ValidationMessageFor(model => model.isActive)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="confirmSave();" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

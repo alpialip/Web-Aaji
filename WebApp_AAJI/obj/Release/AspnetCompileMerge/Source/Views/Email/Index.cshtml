@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.email>
+
+@{
+    ViewBag.Title = "Email";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.emailName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailAddress)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.createdDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createdUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modifiedUser)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.emailName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emailAddress)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.createdDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modifiedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modifiedUser)
+                </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.emailID }) <img src='~/img/edit.png' style="width:15px" />  |
+                @Html.ActionLink("Details", "Details", new { id=item.emailID }) <img src='~/img/view.png' style="width:15px" />  |
+                @Html.ActionLink("Delete", "Delete", new { id = item.emailID }) <img src='~/img/delete.png' style="width:15px" />*@ 
+                <a href="@Url.Action("Edit")/@item.emailID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("Details")/@item.emailID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("Delete")/@item.emailID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+    }
+
+</table>

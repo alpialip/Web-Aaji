@@ -1,0 +1,66 @@
+﻿@using System.Data;
+@{
+    ViewBag.Title = "Detail Trial Balance Per Account";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{
+    decimal totalDebit = 0;
+    decimal totalKredit = 0;
+    string accountName = string.Empty;
+}
+
+<h3><span id="hAccountName"></span></h3>
+<table style="border-collapse: collapse; " border="1" width="100%"> 
+    <thead style="background-color:ButtonFace;">
+        <tr>
+            <th>Transaction ID</th>
+            <th>Debit</th>
+            <th>Credit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.detailTrialBalancePerAccount != null)
+        {
+            DataTable dtResult = (DataTable) ViewBag.detailTrialBalancePerAccount;
+            foreach (DataRow a in dtResult.Rows)
+            {
+                decimal debit = decimal.Parse(a["debit"].ToString());
+                decimal credit = decimal.Parse(a["credit"].ToString());
+                    string debits = string.Format("{0:#,##0.#0}",debit);
+                
+                    string credits = string.Format("{0:#,##0.#0}",credit);
+                
+                if (accountName == string.Empty && a["accountNameOther"].ToString() != string.Empty)
+                {
+                    accountName = a["accountNameOther"].ToString();
+                }
+                <tr>
+                    <td style="padding-left: 5px;">@a["voucherNo"].ToString()</td>
+                    <td style="text-align: right; padding-right: 5px;" >@debits</td>
+                    <td style="text-align: right; padding-right: 5px;">@credits</td>
+                </tr>
+                totalDebit += debit;
+                totalKredit += credit;
+            }
+            <tr>
+                <td style="text-align: right; padding-right: 5px;">Total</td>
+                <td style="text-align: right; padding-right: 5px;">@string.Format("{0:#,##0.#0}",totalDebit)</td>
+                <td style="text-align: right; padding-right: 5px;">@string.Format("{0:#,##0.#0}",totalKredit)</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<input type="hidden" id="hdnAccountName" value="@accountName" />
+<script>
+    document.getElementById('hAccountName').innerHTML = document.getElementById('hdnAccountName').value;
+</script>
+
+

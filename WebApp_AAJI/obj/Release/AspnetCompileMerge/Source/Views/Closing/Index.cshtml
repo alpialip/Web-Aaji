@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Closing";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{    
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Closing</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.Label("Period", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ddlMonth", ViewBag.Month as SelectList, "-Select-", new { @class = "control-label col-md-2", style = " width: 130px;" })
+                &nbsp;
+                @Html.TextBox("txtYear", DateTime.Now.Year, new { type = "number", style = " width: 130px;" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Posting" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+

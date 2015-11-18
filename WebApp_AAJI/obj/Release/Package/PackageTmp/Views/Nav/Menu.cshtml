@@ -1,0 +1,256 @@
+﻿@model IEnumerable<string>
+
+@*@Html.ActionLink("Home", "List", "Product", null, new { @class = "btn btn-block btn-info" })
+@foreach (var link in Model)
+{
+    @Html.RouteLink(link, new
+    {
+        controller = "Product",
+        action = "List",
+        menu = link,
+        page = 1
+    },
+        new { @class = "btn btn-block btn-info" }
+    )
+}*@
+
+@*Iterating Course model using ViewData string as a key *@
+@*@foreach (var mainMenu in ViewData["parentMenu"] as List<WebApp_AAJI.Models.menu>)
+{
+    var menuID = @mainMenu.menuID;
+    <div class="btn-group" style="margin-top:3px">
+        <button type="button" class="btn btn-info" style="min-width:160px" title="@mainMenu.menuDescription">
+            @mainMenu.menuName
+        </button>
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="Click here to display submenu">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        @if (ViewData["parentMenu"] != null)
+        {
+            var hasSubMenu = false;
+            foreach (var subMenu in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+            {
+                var parentMenu = subMenu.menuParent;
+                if (menuID == parentMenu)
+                {
+                    hasSubMenu = true;
+                    break;
+                }
+            }
+            
+            if(hasSubMenu)
+            { 
+                <ul class="dropdown-menu" role="menu">
+                    @foreach (var subMenu in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+                    {
+                        var parentMenu = subMenu.menuParent;
+                        var subMenuID = subMenu.menuID;
+                        if (menuID == parentMenu)
+                        {
+                                <li><a href="/@subMenu.menuLink/Index"  title="@subMenu.menuDescription">@subMenu.menuName</a></li>                                    
+                            
+                        }
+                    }
+            }
+        }
+    </div>    
+}*@
+
+<div class="row">
+    <div class="dropdown" style="margin-top:1px">
+        <a id="dLabel" role="button" class="btn btn-primary" style="width: 215px;" data-target="#" href="~/Account/Index" title="Homepage">
+            Homepage
+        </a>
+    </div>
+</div>
+
+@foreach (var mainMenu in ViewData["parentMenuPersonal"] as List<WebApp_AAJI.Models.menu>)
+{
+    var menuID = mainMenu.menuID;
+    <div class="row">
+        <div class="dropdown" style="margin-top:1px">
+            <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" style="width: 215px;" data-target="#" href="/page.html" title="@mainMenu.menuDescription">
+                @mainMenu.menuName <span class="caret"></span>
+            </a>
+            @foreach (var subMenu in ViewData["subMenuPersonal"] as List<WebApp_AAJI.Models.menu>)
+            {
+                var parentMenu = subMenu.menuParent;
+                if (menuID == parentMenu)
+                {
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu" style="margin-left: 20px;">
+                        @foreach (var menu in ViewData["subMenuPersonal"] as List<WebApp_AAJI.Models.menu>)
+                        {
+                            if (menuID == menu.menuParent)
+                            {
+                                var hasSubmenu = false;
+                                foreach (var menu2 in ViewData["subMenuPersonal"] as List<WebApp_AAJI.Models.menu>)
+                                {
+                                    if (menu.menuID == menu2.menuParent)
+                                    {
+                                        hasSubmenu = true;
+                                        <li class="divider"></li>
+                                        <li class="dropdown-submenu">
+                                            <a tabindex="-1" href="#">@menu.menuName</a>
+                                            <ul class="dropdown-menu">
+                                                @foreach (var menu3 in ViewData["subMenuPersonal"] as List<WebApp_AAJI.Models.menu>)
+                                                {
+                                                    if (menu.menuID == menu3.menuParent)
+                                                    {
+                                                        <li><a tabindex="-1" href="#">@menu3.menuName</a></li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+
+                                if (hasSubmenu == false)
+                                {
+                                    <li style="width:215px;"><a href="~/@menu.menuLink/Index" title="@menu.menuDescription">@menu.menuName</a></li>
+                                }
+                            }
+                        }
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+}
+
+@{
+    bool isPurchaseMenu = true;
+}
+@foreach (var mainMenu in ViewData["parentMenu"] as List<WebApp_AAJI.Models.menu>)
+{
+var menuID = mainMenu.menuID;
+<div class="row">
+    <div class="dropdown" style="margin-top:1px">
+        <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" style="width: 215px;" data-target="#" href="/page.html" title="@mainMenu.menuDescription">
+            @mainMenu.menuName <span class="caret"></span>
+        </a>
+
+        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu" style="margin-left: 20px;">
+            @foreach (var subMenu in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+            {
+                var parentMenu = subMenu.menuParent;
+                if (menuID == parentMenu)
+                {
+                    var hasSubmenu = false;
+                    bool menuIsReportBind = false; 
+                    foreach (var menu2 in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+                    {
+                        if (subMenu.menuID == menu2.menuParent && menuIsReportBind == false)
+                        {
+                            hasSubmenu = true;
+                            <li class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">@subMenu.menuName</a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var menu3 in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+                                    {
+                                        if (subMenu.menuID == menu3.menuParent)
+                                        {
+                                            <li><a tabindex="-1" href="~/@menu3.menuLink/Index">@menu3.menuName</a></li>
+                                            @*<li class="dropdown-submenu">
+                                                <a href="#">Even More..</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">3rd level</a></li>
+                                                    <li><a href="#">3rd level</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Second level</a></li>
+                                            <li><a href="#">Second level</a></li>*@ 
+                                        }
+                                    }
+                                </ul>
+                            </li>               
+                            if (subMenu.menuName == "Report")
+                            {
+                                menuIsReportBind = true;
+                            }
+                        }
+                    }
+                        
+                    menuIsReportBind = false;                        
+                    if (hasSubmenu == false)
+                    {
+                        if (subMenu.menuName.ToLower().Contains("purchase") && !subMenu.menuName.ToLower().Contains("invoice"))
+                        {
+                            foreach (var menuPurchase in ViewData["subMenuPurchase"] as List<WebApp_AAJI.Models.menu>)
+                            {
+                                bool hasSubmenuPurchase = false;
+                                if (menuID == menuPurchase.menuParent)
+                                {
+                                    foreach (var menu2 in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+                                    {
+                                        if (menuPurchase.menuID == menu2.menuParent && menuIsReportBind == false)
+                                        {
+                                            hasSubmenuPurchase = true;
+                                            <li class="divider"></li>
+                                            <li class="dropdown-submenu">
+                                                <a tabindex="-1" href="#">@menuPurchase.menuName</a>
+                                                <ul class="dropdown-menu">
+                                                    @foreach (var menu3 in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+                                                    {
+                                                        if (menuPurchase.menuID == menu3.menuParent)
+                                                        {
+                                                            <li><a tabindex="-1" href="~/@menu3.menuLink/Index">@menu3.menuName</a></li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                            if(menuPurchase.menuName == "Report")
+                                            {
+                                                menuIsReportBind = true;
+                                            }
+                                        }
+                                    }
+                                
+                                    if(hasSubmenuPurchase == false)
+                                    { 
+                                        <li style="width:215px;"><a href="~/@menuPurchase.menuLink/Index" title="@menuPurchase.menuDescription">@menuPurchase.menuName</a></li>
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            <li style="width:215px;"><a href="~/@subMenu.menuLink/Index" title="@subMenu.menuDescription">@subMenu.menuName</a></li>
+                        }
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+}
+
+@*<div class="row">
+    <div class="dropdown" style="margin-top:1px">
+        <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" style="width: 215px;" data-target="#" href="/page.html" title="menuDescription">
+            menuName <span class="caret"></span>
+        </a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+            <li><a href="#">Some other action</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Hover me for more options</a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#">Second level</a></li>
+                    <li class="dropdown-submenu">
+                        <a href="#">Even More..</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">3rd level</a></li>
+                            <li><a href="#">3rd level</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Second level</a></li>
+                    <li><a href="#">Second level</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>*@
+

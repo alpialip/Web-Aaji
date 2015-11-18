@@ -1,0 +1,110 @@
+﻿@model WebApp_AAJI.Models.purchaseReceive
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<script>
+    function clickPopup() {
+        var target = "PurchaseReceive/LoadDetailPurchaseReceive";
+        $("#myModal .modal-body").load(target, function () {
+            $("#myModal").modal("show");
+        });
+    }
+    $("a[data-target=#myModal]").click(function (ev) {
+        ev.preventDefault();
+        var target = $(this).attr("href");
+
+        // load the url and show modal on success
+        $("#myModal .modal-body").load(target, function () {
+            $("#myModal").modal("show");
+        });
+    });
+
+    function confirmSave() {
+        document.forms[0].submit();
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>purchaseReceive</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @*@Html.HiddenFor(model => model.receiveNo)*@
+        @Html.HiddenFor(model => model.proposedBy)
+        @Html.HiddenFor(model => model.proposedDate)
+        @Html.HiddenFor(model => model.proposedStatus)
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.createdDate)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.receiveNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.receiveNo, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.receiveNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.receiveDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("receiveDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                @Html.ValidationMessageFor(model => model.receiveDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.poId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.poId, new { @readonly = "readonly" })&nbsp;
+                <button data-toggle="modal" data-target="#myModal" disabled="disabled">...</button>
+                @Html.ValidationMessageFor(model => model.poId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Vendor", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="poVendorName" style="font-weight:100">@ViewBag.vendorName</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.deliveryOrder, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.deliveryOrder, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.deliveryOrder)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageRCV-PO1")
+        </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                    <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save';confirmSave();" />&nbsp;
+                    <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />
+                    @Html.Hidden("hdnTypeSubmit", "save")
+                </div>
+            </div>
+        </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>

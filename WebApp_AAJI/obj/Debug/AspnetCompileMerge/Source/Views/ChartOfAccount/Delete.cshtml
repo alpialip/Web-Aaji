@@ -1,0 +1,91 @@
+﻿@model WebApp_AAJI.Models.chartOfAccount
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<script type="text/javascript">
+    function changeDDL(fromChk) {
+        document.getElementById("parentCOAId_0").style.display = "none";
+        if (fromChk.value == 1) {
+            document.getElementById("parentCOAId_1").style.display = "";
+            document.getElementById("parentCOAId_2").style.display = "none";
+            document.getElementById("parentCOAId_3").style.display = "none";
+        }
+        else if (fromChk.value == 2) {
+            document.getElementById("parentCOAId_1").style.display = "none";
+            document.getElementById("parentCOAId_2").style.display = "";
+            document.getElementById("parentCOAId_3").style.display = "none";
+        }
+        else if (fromChk.value == 3) {
+            document.getElementById("parentCOAId_1").style.display = "none";
+            document.getElementById("parentCOAId_2").style.display = "none";
+            document.getElementById("parentCOAId_3").style.display = "";
+        }
+    }
+    function sendText(objElm, idx) {
+
+        var coaSelected = document.getElementById("parentCOAId_" + idx);
+        //alert(coaSelected.id);
+        //alert(coaSelected.options[coaSelected.selectedIndex].text);
+        var txt = coaSelected.options[coaSelected.selectedIndex].text.split("]");
+        var txtDDL = txt[1].trim();
+        document.getElementById("accountName").value = txtDDL;
+        document.getElementById("parentCOAId").value = coaSelected.value;
+
+    }
+</script>
+
+@*<h3>Are you sure you want to delete this?</h3>*@
+<div class="form-horizontal">
+    <h4>chartOfAccount</h4>
+    <hr />
+    <div class="form-group">
+        @Html.Label("levelID", "Level", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.RadioButton("levelID", 1, ViewBag.Checked == 1 ? true : false, new { onchange = "javascript:changeDDL(this);" }) 1
+            @Html.RadioButton("levelID", 2, ViewBag.Checked == 2 ? true : false, new { onchange = "javascript:changeDDL(this);" }) 2
+            @Html.RadioButton("levelID", 3, ViewBag.Checked == 3 ? true : false, new { onchange = "javascript:changeDDL(this);" }) 3
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.Label("COA Name", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.parentCOAId)
+            @Html.DropDownList("parentCOAId_0", ViewBag.parentCOAId0 as SelectList, "- Select -", new { @class = "form-control" })
+            @Html.DropDownList("parentCOAId_1", ViewBag.parentCOAId1 as SelectList, "- Select -", new { @class = "form-control", @onchange = "javascript:sendText(this,1);", @style = "display:none" })
+            @Html.DropDownList("parentCOAId_2", ViewBag.parentCOAId2 as SelectList, "- Select -", new { @class = "form-control", @onchange = "javascript:sendText(this,2);", @style = "display:none" })
+            @Html.DropDownList("parentCOAId_3", ViewBag.parentCOAId3 as SelectList, "- Select -", new { @class = "form-control", @onchange = "javascript:sendText(this,3);", @style = "display:none" })
+
+            @Html.ValidationMessageFor(model => model.parentCOAId)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.accountName, new { @class = "control-label col-md-2" })
+        @*@Html.HiddenFor(model => model.accountName, new { @Value = ViewBag.accountName })*@
+        <div class="col-md-10">
+            @*@if (ViewBag.accountName != null)
+                {*@
+            @*@Html.Editor("accountName", new { @Value = ViewBag.accountName })*@
+            @*@Html.EditorFor(model => model.accountName)*@
+            <input type="text" id="accountName" name="accountName" value="@ViewBag.accountName" />
+            @*}*@
+            @Html.ValidationMessageFor(model => model.accountName)
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" onclick="javascript: var answer = confirm('Are you sure you want to delete this?'); if (answer == true) { return (true); } else { return (false); }" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

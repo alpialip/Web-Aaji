@@ -1,0 +1,26 @@
+﻿<script type="text/javascript">
+    
+</script>
+    <table class="table table-striped table-hover table-condensed" width="100%">
+        <tr>
+            <th></th>
+            <th>Invoice No</th>
+            <th>Supplier</th>
+            <th>Debt</th>
+            <th>Remains</th>
+        </tr>
+
+        @foreach (var item in ViewBag.VendorPopUp as IEnumerable<WebApp_AAJI.Models.vendor>)
+        {
+            <tr>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToForm(item.vendorID, item.vendorName, item.address1, item.contactPerson, item.telp);"></a>
+                </td>
+                <td>@Html.Label("popUpVendorID", item.vendorID)</td>
+                <td>@Html.Label("popUpVendorName", item.vendorName)</td>
+                <td>@Html.Label("popUpVendorAddress", item.address1)</td>
+                <td>@Html.Label("popUpVendorCp", item.contactPerson)</td>
+                <td>@Html.Label("popUpVendorTelp", item.telp)</td>
+            </tr>
+        }
+    </table>

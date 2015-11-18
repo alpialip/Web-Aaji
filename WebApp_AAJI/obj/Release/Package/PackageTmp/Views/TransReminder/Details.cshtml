@@ -1,0 +1,68 @@
+﻿@model WebApp_AAJI.Models.transReminder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>transReminder</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reminderDate)
+        </dt>
+
+        <dd>
+            @Model.reminderDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reminderTime)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.reminderTime)*@
+            @Model.reminderTime.ToString().Substring(0,5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.repeatitionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.repeatitionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reminderID)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.reminderID)*@
+            @Model.reminderID.Replace('_',' ')
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

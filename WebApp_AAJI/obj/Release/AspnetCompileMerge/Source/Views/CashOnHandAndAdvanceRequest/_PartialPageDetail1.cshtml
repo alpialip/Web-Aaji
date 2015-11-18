@@ -1,0 +1,369 @@
+﻿<script type="text/javascript">
+    var indexDelete = 0;
+
+    function onClickDeleteRow(idx) {
+        var tbl = document.getElementById("tbDetail");
+        var rowDetail = (tbl.rows.length - 1);//1 <-- dihitung dari baris yg bukan detail/yg bukan isian
+        //alert(rowDetail);
+        //alert(idx);
+        if (rowDetail > 2) {
+            document.getElementById("tbDetail").deleteRow(idx);
+            indexDelete = idx;
+            //var tblDel = document.getElementById("tbDetail");
+            //alert("afterdelete: " + tblDel.length);
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRow() {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+
+        var x = validateDataDetail("add");
+        //alert(x);
+        if (x == true) {
+            var y = collectDataDetail();
+            //alert(y);
+            //alert(document.getElementById('voucherNo').value);
+            $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=add&voucherNo='+document.getElementById('voucherNo').value);
+            $("#hdnTotalRows").val(tbl.rows.length);
+            setTimeout(function () { sumTotal(); }, 500);
+        }
+    }
+
+    function onClickAddRowClient() {
+        var x = validateDataDetail("add");
+        //alert(x);
+        if (x == true) {
+            var table = document.getElementById('tbDetail');
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "text";
+            element1.name = "txtDesc_" + (rowCount - 1);
+            element1.id = "txtDesc_" + (rowCount - 1);
+            cell1.appendChild(element1);
+
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "number";
+            element2.style.width = "100px";
+            element2.value = 0;
+            element2.style.textAlign = "right";
+            element2.min = 0;
+            element2.name = "txtCur_" + (rowCount - 1);
+            element2.id = "txtCur_" + (rowCount - 1);
+            cell2.appendChild(element2);
+
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("input");
+            element3.type = "number";
+            element3.style.width = "150px";
+            element3.value = 0;
+            element3.style.textAlign = "right";
+            element3.min = 0;
+            element3.name = "txtAmount_" + (rowCount - 1);
+            element3.id = "txtAmount_" + (rowCount - 1);
+            cell3.appendChild(element3);
+
+            var cell4 = row.insertCell(3);
+            var element4 = document.createElement("input");
+            element4.type = "file";
+            element4.setAttribute("data-show-upload", "false");
+            element4.setAttribute("class", "file");
+            element4.setAttribute("data-show-caption", "true");
+            element4.name = "linkFileData_" + (rowCount - 1);
+            element4.id = "linkFileData_" + (rowCount - 1);
+            cell4.appendChild(element4);
+
+            var cell5 = row.insertCell(4);
+            var element5 = document.createElement("input");
+            element5.type = "button";
+            element5.setAttribute("onclick", "onClickDeleteRowClient(" + (rowCount - 1) + ")");
+            element5.value = "Delete";
+            element5.name = "btnDelete_" + (rowCount - 1);
+            element5.id = "btnDelete_" + (rowCount - 1);
+            cell5.appendChild(element5);
+        }
+
+        function onClickDeleteRowClient(idx) {
+            var tbl = document.getElementById("tbDetail");
+            var rowDetail = (tbl.rows.length);
+            alert(rowDetail);
+            alert(idx);
+            if (rowDetail > 2) {
+                document.getElementById("tbDetail").deleteRow(idx);
+                indexDelete = idx;
+                @*var y = collectDataDetail();
+            
+                $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+                $("#hdnTotalRows").val(tbl.rows.length);*@
+                }
+            else {
+                alert("Cannot Delete This Row, Detail Required.");
+            }
+
+            indexDelete = 0;
+        }
+    }
+
+    function collectDataDetail() {
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+        alert(rowsCount);
+        var seqRows = 1;
+        for (i = 1; i < rowsCount; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                alert("i after ==>" + i)
+            }
+
+            var AccountNo = document.getElementById("txtAccountNo_" + i);
+            var AccountNoVal = AccountNo.value;
+            var AccountNoId = AccountNo.id;
+
+            //var AccountName = document.getElementById("txtAccountName_" + i);
+            //var AccountNameVal = AccountName.value;
+            //var AccountNameId = AccountName.id;
+
+            var Amount = document.getElementById("txtAmount_" + i);
+            var AmountVal = Amount.value;
+            var AmountId = Amount.id;
+
+            stringDataDetail += seqRows + ";" + AccountNoVal + ";" + /*escape(AccountNameVal) + ";" +*/ AmountVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function validateDataDetail(actFrom) {
+        var chk = document.getElementById("isReimbursement");
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+        //alert(rowsCount);
+        for (i = 0; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var ActDesc = document.getElementById("txtDesc_" + i);
+            var ActDescVal = ActDesc.value;
+            var ActDescId = ActDesc.id;
+
+            //alert(actFrom + " == 'save' && " + productIDVal + " == '' && " + i + " == " + (rowsCount - 1));
+            if (actFrom == "save" && escape(ActDescVal) == "" && i == (rowsCount - 1))
+                break;
+
+            var Currency = document.getElementById("txtCur_" + i);
+            var CurrencyVal = Currency.value;
+            var CurrencyId = Currency.id;
+
+            var Amount = document.getElementById("txtAmount_" + i);
+            var AmountVal = Amount.value;
+            var AmountId = Amount.id;
+
+            if (chk.checked)
+            {
+                var linkFile = document.getElementById("linkFileData_" + i);
+                var linkFileVal = linkFile.files.length;
+                var linkFileId = linkFile.id;
+
+                if (escape(ActDescVal) == "" || CurrencyVal == "" || (AmountVal == "" || AmountVal == 0) || linkFileVal == 0)
+                {
+                    alert("Please complete data detail.");
+                    //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                    return false;
+                    break;
+                }
+            }
+
+            //alert(parseFloat(payVal));
+            if (escape(ActDescVal) == "" || CurrencyVal == "" || (AmountVal == "" || AmountVal == 0) ) {
+                alert("Please complete data detail.");
+                //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var grandTotal = 0;
+
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                grandTotal += document.getElementById("txtAmount_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtAmount_" + i).value);
+            }
+        }
+        $("#grandTotal").val(grandTotal);
+    }
+
+    function confirmSave() {
+        var x = validateDataDetail("save");
+        if (x == true) {
+            var voucherDate = document.getElementById("date").value;
+            var reqFrom = document.getElementById("reqFrom").value;
+            var activity = document.getElementById("activity").value;
+            var reqIsCashOnHand = document.getElementById("reqIsCashOnHand").value;
+            var includeProposal = document.getElementById("includeProposal").value;
+            var isReimbursement = document.getElementById("isReimbursement").value;
+
+            if (voucherDate == "" || reqFrom == "" || activity == "" || reqIsCashOnHand == "" || includeProposal == "" || isReimbursement == "")
+            {
+                alert("Please Complete Data.");
+            }
+            else
+            {
+                document.forms[0].submit();
+            }
+        }
+    }
+</script>
+
+<table class="table table-hover" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Activity Description</th>
+            <th style="display:none">Currency</th>
+            <th>Amount</th>            
+            <th id="colUploadHeader" style="display:none">
+                Documents
+            </th>
+            <th>
+                <input type="button" id="btnAddRow" name="btnAddRow" value="[ + ]" onclick="onClickAddRowClient();">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 0;
+            int totalRows = 0;
+            bool isReimbursement = false;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest.cashOnHandAndAdvanceRequestDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest.cashOnHandAndAdvanceRequestDetail>)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("txtDesc_" + idx, a.activityDescription)
+                    </td>
+                    <td style="display:none">
+                        @Html.TextBox("txtCur_" + idx, a.currency, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtAmount_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                        
+                    </td>
+                    @if (a.fileReimbursement != null)
+                    {
+                        if (isReimbursement == false)
+                        { 
+                            isReimbursement = true;
+                        }
+                        
+                        string[] fileName = a.fileReimbursement.Split('\\');
+                        <td id="colUploadViewDetail_@idx">
+                            <a href="~/EmployeeClaimMedical/Download?file=@a.fileReimbursement" target="_blank" title="Download File">
+                                <img src="~/img/download.png" style="width: 20px;" />
+                            </a>
+                            <img src="~/img/change.png" title="Change File" style="width: 15px;" onclick="javascript: document.getElementById('colUploadDetail_@idx').style.display = '';document.getElementById('colUploadViewDetail_@idx').style.display='none';" />
+                            &nbsp;@fileName[1]
+                        </td>
+                    }
+                    
+                        <td id="colUploadDetail_@idx" style="display:none">
+                            <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                            <img src="~/img/undo.png" title="Undo" style="width: 15px;" onclick="javascript: document.getElementById('colUploadDetail_@idx').style.display = 'none';document.getElementById('colUploadViewDetail_@idx').style.display = ''" />
+                        </td> 
+
+                    <td>
+                        <input type="button" value="Delete" min=0 onclick="onClickDeleteRowClient(@idx);" />
+                    </td>
+                </tr>
+                idx++;
+            }            
+                <tr>
+                    <td>
+                        @Html.TextBox("txtDesc_" + idx, "")
+                    </td>
+                    <td style="display:none">
+                        @Html.TextBox("txtCur_" + idx, 1, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtAmount_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?"})
+                    </td>
+                    @if(isReimbursement == true)
+                    {
+                        <td id="colUploadDetail_@idx" >
+                            <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                        </td>
+                    }
+                    else                    
+                    {
+                        <td id="colUploadDetail_@idx" style="display:none">
+                            <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                        </td>
+                    }
+
+                    <td>
+                        <input type="button" value="Delete" min=0 onclick="onClickDeleteRowClient(@idx);" />
+                    </td>
+                </tr>
+        }
+        else
+        {           
+            <tr>
+                <td>
+                    @Html.TextBox("txtDesc_" + idx, "")
+                </td>
+                <td style="display:none">
+                    @Html.TextBox("txtCur_" + idx, 1, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td>
+                    @Html.TextBox("txtAmount_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?"})
+                </td>
+                <td id="colUploadDetail_@idx" style="display:none">
+                    <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                </td>
+                <td>
+                    <input type="button" value="Delete" min=0 onclick="onClickDeleteRowClient(@idx);" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+<script>
+    var isReimbursement = document.getElementById('isReimbursement');
+    if (isReimbursement.checked)
+        document.getElementById('colUploadHeader').style.display = '';
+</script>
+

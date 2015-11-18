@@ -1,0 +1,39 @@
+﻿<script type="text/javascript">
+    function copyToFormPR(productID, productCode, productName, unit) {
+        var idx = document.getElementById('hdnIdxRowsClick').value;
+        $('#txtProductID_' + idx).val(productID);
+        $('#txtProductCode_' + idx).val(productCode);
+        $('#txtDescription_' + idx).val(productName);
+        $('#txtUnit_' + idx).val(unit);
+        //$("#dvDetail").load('@(Url.Action("LoadDetailPO", "PurchaseReceive", null, Request.Url.Scheme))?poId=' + poId);
+        $('#myModal').modal('hide');
+        $('#txtQty_' + idx).focus();
+    }
+</script>
+
+@if (ViewBag.ProductPopUp != null)
+{
+    <table class="table table-striped table-hover table-condensed" width="600px">
+        <tr>
+            <th></th>
+            <th style="width: 190px;">Product Code</th>
+            <th>Description</th>
+            <th>Unit</th>
+        </tr>
+        @foreach (var item in ViewBag.ProductPopUp as IEnumerable<WebApp_AAJI.Models.product.listProduct>)
+        {
+            <tr>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormPR('@item.productID', '@item.productCode', '@item.productName', '@item.unit');"></a>
+                </td>
+                <td>@item.productCode</td>
+                <td>@item.productName</td>
+                <td>@item.unit</td>
+            </tr>
+        }
+        @*@for (var item in ViewData["PRPopUp"] as List<string> )
+            {
+
+            }*@
+    </table>
+}

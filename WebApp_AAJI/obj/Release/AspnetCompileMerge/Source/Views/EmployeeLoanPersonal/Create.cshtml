@@ -1,0 +1,74 @@
+﻿@model WebApp_AAJI.Models.employeeLoan
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script>
+    function confirmSave() {
+        var x = document.getElementById('employeeID').value;
+        if (x != 0) {
+            document.forms[0].submit();
+        }
+        else {
+            alert("Employee Required");
+        }
+    }
+</script>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Employee Loan</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.employeeID, new { @Value = ViewBag.empId })
+                <label id="empName" style="font-weight:100">@ViewBag.empName</label>
+                @Html.ValidationMessageFor(model => model.employeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Department", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="empDeptName" style="font-weight:100">@ViewBag.empDeptName</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("amount", 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "sumTotal();" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save'; confirmSave();" />&nbsp;
+                <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />
+                @Html.Hidden("hdnTypeSubmit", "save")
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

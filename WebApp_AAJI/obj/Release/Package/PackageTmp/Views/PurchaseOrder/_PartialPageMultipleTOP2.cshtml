@@ -1,0 +1,33 @@
+﻿<table class="table" id="tbDetailMultiple">
+    <thead>
+        <tr>
+            <th>Buy Date</th>
+            <th>Percent &nbsp;</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 0;
+        }
+        @if (Session["topMultiple"] != null && Session["topMultiple"] != "")
+        {
+            foreach (var a in Session["topMultiple"] as IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader.purchaseOrderTop>)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("txtBuyDate_" + idx, @a.buyDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;", @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtBuyPercent_" + idx, @a.buyPercent.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, style = "text-align:right;width: 65px;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                idx++;
+            }
+        }
+    </tbody>
+</table>
+

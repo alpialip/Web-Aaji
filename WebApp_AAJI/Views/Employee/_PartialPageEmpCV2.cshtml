@@ -1,0 +1,334 @@
+﻿
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li style="padding-top: 0.6%;">
+            <input type="button" id="btnOccupation" value="[+]" onclick="onClickAddRowOccupation()" style="display:none" />&nbsp;&nbsp;&nbsp;
+        </li>
+        <li class="active"><a data-toggle="tab" href="#sectionCV" onclick="document.getElementById('btnOccupation').style.display = 'none'"><b>CV</b></a></li>
+        <li><a data-toggle="tab" href="#sectionEducation" onclick="document.getElementById('btnOccupation').style.display = 'none'"><b>Education</b></a></li>
+        <li><a data-toggle="tab" href="#sectionOccupation" onclick="document.getElementById('btnOccupation').style.display = ''"><b>Work Experience</b></a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="sectionCV" class="tab-pane fade in active">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Download CV</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.detailCV != null)
+                    {
+                        foreach (var a in ViewBag.detailCV as IEnumerable<WebApp_AAJI.Models.employee.employeeCV>)
+                        {
+                            <tr>
+                                <td>  
+                                    @if (!String.IsNullOrEmpty(a.linkFileCV))
+                                    {
+                                        @*<a href="@(Url.Action("previewCV", "Employee", null, Request.Url.Scheme))?employeeID=@a.employeeID"
+                                                onclick="window.open(this.href, 'previewCV','left=20,top=20,width=500,height=700,toolbar=1,resizable=0'); return false;">
+                                                <img src="~/img/view.png" style="width:18px" title="Preview" />
+                                            </a>*@
+                                        <a href="~/Common/Download?file=@a.linkFileCV" target="_blank" title="Download File" style="float:left">
+                                            <img src="~/img/download.png" style="width: 20px;" />&nbsp;
+                                        </a>
+                                    }                           
+                                    @Html.Hidden("hdnlinkFileCV_", a.linkFileCV)                                                                     
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @("Tidak ada file CV yang tersimpan")
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionEducation" class="tab-pane fade">
+            <table class="table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Level</th>
+                        <th style="text-align:center">Nama Sekolah</th>
+                        <th style="text-align:center">Kota</th>
+                        <th style="text-align:center">Penjurusan</th>
+                        <th style="text-align:center">Tahun Pendidikan</th>
+                        <th style="text-align:center">Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.detailEducation != null)
+                    {
+                        string[] period = null;
+                        string periodStart = string.Empty;
+                        string periodEnd = string.Empty;
+                        
+                        foreach (var a in ViewBag.detailEducation as IEnumerable<WebApp_AAJI.Models.employee.employeeEducation>)
+                        {
+                            <tr>
+                                <td>
+                                    SD<br />
+                                    <span style="font-size:10px">Elementary</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdNamaSekolah_", a.sdNamaSekolah, new { type = "text", style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdKotaSekolah_", a.sdKotaSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdJurusanSekolah_", a.sdJurusanSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.sdPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period[1];
+                                    }
+                                    @Html.Hidden("sdPeriod_", a.sdPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("sdPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })-@Html.TextBox("sdPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("sdKeterangan_", a.sdKeterangan, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SMP<br />
+                                    <span style="font-size:10px">Junior High</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpNamaSekolah_", a.smpNamaSekolah, new { type = "text", style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpKotaSekolah_", a.smpKotaSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpJurusanSekolah_", a.smpJurusanSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.smpPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period[1];
+                                    }
+                                    @Html.Hidden("smpPeriod_", a.smpPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("smpPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })-@Html.TextBox("smpPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("smpKeterangan_", a.smpKeterangan, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                            </tr>
+                                            <tr>
+                                    <td>                                    
+                                        SMA<br />
+                                        <span style="font-size:10px">Senior High</span>
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaNamaSekolah_", a.smaNamaSekolah, new { type = "text", style = " width: 150px;", disabled = "disabled" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaKotaSekolah_", a.smaKotaSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaJurusanSekolah_", a.smaJurusanSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                    </td>
+                                    <td>
+                                        @{
+                                            period = a.smaPeriod.Split('-');
+                                            periodStart = period[0];
+                                            periodEnd = period[1];
+                                        }
+                                        @Html.Hidden("smaPeriod_", a.smaPeriod, new { style = " width: 150px;" })
+                                        @Html.TextBox("smaPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })-@Html.TextBox("smaPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("smaKeterangan_", a.smaKeterangan, new { style = " width: 150px;", disabled = "disabled" })
+                                    </td>
+                                </tr>
+                        <tr>
+                                <td>                                    
+                                    AKADEMI/ UNIVERSITAS<br />
+                                    <span style="font-size:10px">Academy/ University</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiNamaSekolah_", a.akademiNamaSekolah, new { type = "text", style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiKotaSekolah_", a.akademiKotaSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiJurusanSekolah_", a.akademiJurusanSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.akademiPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period[1];
+                                    }
+                                    @Html.Hidden("akademiPeriod_", a.akademiPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("akademiPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })-@Html.TextBox("akademiPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("akademiKeterangan_", a.akademiKeterangan, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>
+                                    PASCA SARJANA<br />
+                                    <span style="font-size:10px">Post Graduate</span>
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaNamaSekolah_", a.pascaNamaSekolah, new { type = "text", style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaKotaSekolah_", a.pascaKotaSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaJurusanSekolah_", a.pascaJurusanSekolah, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @{
+                                        period = a.pascaPeriod.Split('-');
+                                        periodStart = period[0];
+                                        periodEnd = period[1];
+                                    }
+                                    @Html.Hidden("pascaPeriod_", a.pascaPeriod, new { style = " width: 150px;" })
+                                    @Html.TextBox("pascaPeriodStart_", periodStart, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })-@Html.TextBox("pascaPeriodEnd_", periodEnd, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("pascaKeterangan_", a.pascaKeterangan, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div id="sectionOccupation" class="tab-pane fade">
+            <table id="tblDetailOccupation" class="table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Period</th>
+                        <th style="text-align:center">Company</th>
+                        <th style="text-align:center">Job Desc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idxWorkExperience = 0;
+                        int seqIdWorkExperience = 0;
+                        string[] bln = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+                    }
+
+                    @if (ViewBag.detailOccupation != null)
+                    {
+                        foreach (var a in ViewBag.detailOccupation as IEnumerable<WebApp_AAJI.Models.employee.employeeOccupation>)
+                        {
+                            Session["idxWorkExperience"] = idxWorkExperience;
+                            <tr>
+                                <td>
+                                    @Html.Hidden("seqIdWorkExperience_" + idxWorkExperience, a.sId)
+                                    @{
+                                        DateTime dtStart = a.periodStart == null ? DateTime.MinValue : Convert.ToDateTime(a.periodStart);
+                                        int periodStartYear = dtStart.Year;                                        
+                                        string periodStartMonth = dtStart.Month < 10 ? "0"+dtStart.Month.ToString() : dtStart.Month.ToString();
+                                        
+                                        DateTime dtEnd = a.periodEnd == null ? DateTime.MinValue : Convert.ToDateTime(a.periodEnd);
+                                        int periodEndYear = dtEnd.Year;
+                                        string periodEndMonth = dtEnd.Month < 10 ? "0" + dtEnd.Month.ToString() : dtEnd.Month.ToString();
+                                    }
+                                    <select id="periodStartMonth_@idxWorkExperience" name="periodStartMonth_@idxWorkExperience" style="height: 26px;" disabled="disabled">
+                                        <option value="" disabled="disabled">--</option>
+                                        @for (int i = 0; i < bln.Length; i++)
+                                        {
+                                            if ((i + 1) < 10)
+                                            {
+                                                string valMonth = "0" + (i + 1);
+                                                if (valMonth == periodStartMonth)
+                                                {
+                                                    <option value="@valMonth" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@valMonth">@bln[i]</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if ((i + 1) == int.Parse(periodStartMonth))
+                                                {
+                                                    <option value="@(i + 1)" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@(i + 1)">@bln[i]</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    @Html.TextBox("periodStartYear_" + idxWorkExperience, periodStartYear, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })
+                                    -
+                                    <select id="periodEndMonth_@idxWorkExperience" name="periodEndMonth_@idxWorkExperience" style="height: 26px;"  disabled="disabled">
+                                        <option value="" disabled="disabled">--</option>
+                                        @for (int i = 0; i < bln.Length; i++)
+                                        {
+                                            if ((i + 1) < 10)
+                                            {
+                                                string valMonth = "0" + (i + 1);
+                                                if (valMonth == periodEndMonth)
+                                                {
+                                                    <option value="@valMonth" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@valMonth">@bln[i]</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if ((i + 1) == int.Parse(periodEndMonth))
+                                                {
+                                                    <option value="@(i + 1)" selected="selected">@bln[i]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@(i + 1)">@bln[i]</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    @Html.TextBox("periodEndYear_" + idxWorkExperience, periodEndYear, new { type = "number", placeholder = "0000", style = " width: 55px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("company_" + idxWorkExperience, a.company, new { style = " width: 265px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextArea("jobdesc_" + idxWorkExperience, a.jobdesc, new { style = " width: 280px;", rows = 2, disabled = "disabled" })
+                                </td>
+                            </tr>
+                            idxWorkExperience++;
+                            seqIdWorkExperience = a.sId;
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,161 @@
+﻿@model WebApp_AAJI.Models.fixedAsset
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script>
+    function fixedAssetCodeChange(fromChk) {
+        //alert(fromChk.value);
+        if (fromChk.value == "Generated") {
+            document.getElementById('txtCode').disabled = "disabled";
+            document.getElementById('txtCode').value = "";
+            document.getElementById('fixedAssetCode').value = "generated";
+        }
+        else {
+            document.getElementById('txtCode').disabled = "";
+            document.getElementById('txtCode').focus();
+            document.getElementById('txtCode').value = "";
+            document.getElementById('fixedAssetCode').value = "";
+        }
+    }
+
+    function saveFixedAsset() {
+        var x = validateDataDetailMultiple("save");
+        var y = checkMinMaks();
+        //alert(x);
+        if (x == true && y == true) {
+            var typeGenerateCode = document.getElementById('rbTypeCode').value;
+            var txtCode = document.getElementById('txtCode').value;
+            if (typeGenerateCode == "Manual" && txtCode == "")
+                alert('Asset Code Required')
+            else
+                document.forms[0].submit();
+        }
+    }
+
+    function maskingCurrency(val) {
+        document.getElementById("amounts").value = formatCurrency(document.getElementById("amounts").value.replace(/\./g, ''));
+        document.getElementById("amount").value = document.getElementById("amounts").value.replace(/\./g, '');
+    }
+    
+    function checkMinMaks() {
+        var str = document.getElementById('depreciationProcentage').value;
+        var n = str.indexOf(",");
+        var min = str.indexOf("-");
+        var result = true;
+        if (n > 0) {
+            //alert(str.substring(0, n));
+            if (parseInt(str.substring(0, n)) > 100) {
+                alert("Maksimum Value Procentage Depresiation = 100");
+                if (result == true)
+                    result = false;
+            }
+        }
+        if (min > 0) {
+            alert("Minimum Value Procentage Depresiation = 0");
+            if (result == true)
+                result = false;
+        }
+        return result;
+    }
+</script>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Fixed Asset</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.purchaseDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("purchaseDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                @Html.ValidationMessageFor(model => model.purchaseDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.salesDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("salesDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                @Html.ValidationMessageFor(model => model.salesDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fixedAssetType)
+                @Html.ValidationMessageFor(model => model.fixedAssetType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.Hidden("fixedAssetCode", "Generated")
+                @Html.RadioButton("rbTypeCode", "Generated", ViewBag.typeCode == "Generated" ? true : false, new { onchange = "fixedAssetCodeChange(this)" }) Generated (ex: GAyymmxxxx)&nbsp;
+                @Html.RadioButton("rbTypeCode", "Manual", ViewBag.typeCode == "Manual" ? true : false, new { onchange = "fixedAssetCodeChange(this)" }) Manual
+                @Html.TextBox("txtCode", "", new { @disabled = "disabled", onchange="document.getElementById('fixedAssetCode').value='this.value'" })
+                @Html.ValidationMessageFor(model => model.fixedAssetCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fixedAssetName)
+                @Html.ValidationMessageFor(model => model.fixedAssetName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.amount)*@
+                @Html.TextBox("amounts", 0, new { type = "text", style = "text-align:right;width:150px;padding-right:10px", onchange = "maskingCurrency()" })
+                @Html.TextBox("amount", 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.depreciationProcentage, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.amount)*@
+                @Html.TextBoxFor(model => model.depreciationProcentage, new { @style = "width:50px" }) %&nbsp;
+                @Html.TextBoxFor(model => model.depreciationValPeriod, new { @style = "width:50px;text-align:right;", type="number", min="0", max="5", placeholder="0" })
+                @Html.DropDownListFor(model => model.depreciationPeriod, ViewBag.ddlPeriodDepreciation as SelectList, new { @style = "height:26px" })
+                @Html.ValidationMessageFor(model => model.depreciationProcentage)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fixedAssetStatus, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.fixedAssetStatus)*@
+                @Html.DropDownList("fixedAssetStatus", ViewBag.StatusfixedAsset as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.fixedAssetStatus)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageFixAsset1")
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript:saveFixedAsset()" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

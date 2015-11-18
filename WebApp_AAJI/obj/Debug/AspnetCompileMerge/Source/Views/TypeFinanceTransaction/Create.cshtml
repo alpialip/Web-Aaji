@@ -1,0 +1,86 @@
+﻿@model WebApp_AAJI.Models.typeFinanceTransaction
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>typeFinanceTransaction</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tftID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.tftID)
+                @Html.DropDownList("ddlTft", ViewBag.ddlTft as SelectList, "- Select -", new { @class = "form-control", @onchange = "javascript:document.getElementById('tftID').value=this.value;" })
+                @Html.ValidationMessageFor(model => model.tftID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tftName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tftName)
+                @Html.ValidationMessageFor(model => model.tftName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.accountNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.accountNo)
+                @Html.DropDownList("ddlAccount", ViewBag.ddlAccount as SelectList, "- Select -", new { @class = "form-control", @onchange = "javascript:document.getElementById('accountNo').value=this.value;" })
+                @Html.ValidationMessageFor(model => model.accountNo)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.createdDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.createdDate)
+                @Html.ValidationMessageFor(model => model.createdDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.createdUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.createdUser)
+                @Html.ValidationMessageFor(model => model.createdUser)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modifiedDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedDate)
+                @Html.ValidationMessageFor(model => model.modifiedDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modifiedUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedUser)
+                @Html.ValidationMessageFor(model => model.modifiedUser)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

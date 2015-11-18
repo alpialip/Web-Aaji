@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.poDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vendorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.topDay)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.poDate.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.topDay)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.poId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.poId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.poId })
+        </td>
+    </tr>
+}
+
+</table>

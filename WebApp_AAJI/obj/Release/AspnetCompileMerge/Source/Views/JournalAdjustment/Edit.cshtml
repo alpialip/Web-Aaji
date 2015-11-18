@@ -1,0 +1,65 @@
+﻿@model WebApp_AAJI.Models.journalHeader
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Journal Adjustment</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.journalType)
+        @Html.HiddenFor(model => model.createdDate)
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.modifiedDate)
+        @Html.HiddenFor(model => model.modifiedUser)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.voucherNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.TextBoxFor(model => model.voucherNo, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.voucherNo)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.voucherDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.voucherDate, "{0:dd MMM yyyy}", new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.voucherDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remark, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remark, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remark)
+            </div>
+        </div>
+
+        <br />
+        <div id="dvDetail">
+            @Html.Partial("_PartialPage1")
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-default" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="confirmSave();" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

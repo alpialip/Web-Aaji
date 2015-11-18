@@ -1,0 +1,65 @@
+﻿<script type="text/javascript">
+    var maxRows = 10;
+
+    function copyToFormPRVen(id,vendorID,vendorName) {
+        var idx = document.getElementById('hdnIdxRowsClick').value;
+        $('#txtVendorID_' + idx).val(id);
+        $('#txtVendorName_' + idx).val(vendorName);
+        //$("#dvDetail").load('@(Url.Action("LoadDetailPO", "PurchaseReceive", null, Request.Url.Scheme))?poId=' + poId);
+        $('#myModalVendor').modal('hide');
+        $('#txtQty_' + idx).focus();
+    }
+
+    function popUpSearchVendor() {
+        var pageStart = 1;
+        var keywordId = document.getElementById('ddlSearchByVendor').value;
+        var keywordSearch = null;
+        keywordSearch = document.getElementById('txtSearchVendor').value;
+
+        $("#dvSubPopUpVendor").load('@(Url.Action("popUpSearchVendor", "PurchaseRequest", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+
+    function popUpVendorPagingClick(values) {
+        var pageStart = values;
+        var keywordId = document.getElementById('ddlSearchByVendor').value;
+        var keywordSearch = null;
+        keywordSearch = document.getElementById('txtSearchVendor').value;
+
+        $("#dvSubPopUpVendor").load('@(Url.Action("popUpSearchVendor", "PurchaseRequest", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+</script>
+
+<table>
+    <tr>
+        <td>&nbsp;Search By</td>
+        <td>
+            :
+            <select id="ddlSearchByVendor">
+                <option value="vendorID" selected>Vendor ID</option>
+                <option value="vendorName">Vendor Name</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;Keyword</td>
+        <td>
+            : <input type="text" id="txtSearchVendor" />
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            &nbsp;&nbsp;<input type="button" onclick="popUpSearchVendor()" value="Search" />
+        </td>
+    </tr>
+</table>
+<br />
+
+@if (ViewBag.VendorPopUp != null)
+{
+    <div id="dvSubPopUpVendor">
+        @Html.Partial("_PartialPagePopUpVendorSearchSub1")
+    </div>
+}
+
+

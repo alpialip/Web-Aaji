@@ -1,0 +1,80 @@
+﻿@model WebApp_AAJI.Models.transReminder
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>transReminder</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.createdDate)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.subject, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.subject)
+                    @Html.ValidationMessageFor(model => model.subject)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.email, new { @class = "form-control", @rows = 2 })*) Use character ' @Html.Label(";") ' for multiple email address
+                    @Html.ValidationMessageFor(model => model.email)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.reminderDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">                    
+                    @Html.TextBox("reminderDate", Model.reminderDate, "{0:yyyy-MM-dd}", new { type = "date" })
+                    @Html.ValidationMessageFor(model => model.reminderDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.reminderTime, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Model.reminderTime*@
+                    @Html.TextBox("reminderTime", Convert.ToDateTime(Model.reminderTime.ToString()), "{0:HH:mm}", new { type = "time" })
+                    @Html.ValidationMessageFor(model => model.reminderTime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.repeatitionID, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">                    
+                    @Html.DropDownList("repeatitionID", ViewBag.repeat as SelectList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.repeatitionID)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.reminderID, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">                    
+                    @Html.DropDownList("reminderID", ViewBag.remind as SelectList, new { @class = "form-control" })                    
+                    @Html.ValidationMessageFor(model => model.reminderID)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>

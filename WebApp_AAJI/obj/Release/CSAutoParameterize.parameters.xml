@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="MyDataAccess-Web.config Connection String" description="MyDataAccess Connection String used in web.config by the application to access the database." defaultValue="Data Source=USER-PC\SQLEXPRESS;Initial Catalog=DB_AAJI;User ID=sa;Password=admin123" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Cari\ Tambahan\\AAJI\ Application\\Source_Terbaru\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MyDataAccess']/@connectionString" />
+  </parameter>
+  <parameter name="DB_AAJIEntities-Web.config Connection String" description="DB_AAJIEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.Model1.csdl|res://*/Models.Model1.ssdl|res://*/Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=USER-PC\SQLEXPRESS;initial catalog=DB_AAJI;user id=sa;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Cari\ Tambahan\\AAJI\ Application\\Source_Terbaru\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DB_AAJIEntities']/@connectionString" />
+  </parameter>
+  <parameter name="DB_AAJIConnectionString-Web.config Connection String" description="DB_AAJIConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=USER-PC;Initial Catalog=DB_AAJI;Persist Security Info=True;User ID=sa;Password=admin123" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Cari\ Tambahan\\AAJI\ Application\\Source_Terbaru\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DB_AAJIConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="MyDataAccess_DatabasePublish-Web.config Connection String" description="MyDataAccess_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="MyDataAccess_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Cari\ Tambahan\\AAJI\ Application\\Source_Terbaru\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MyDataAccess_DatabasePublish']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,82 @@
+﻿@model WebApp_AAJI.Models.purchaseOrderHeader
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>purchaseOrderHeader</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.poDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.topDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.topDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.poId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

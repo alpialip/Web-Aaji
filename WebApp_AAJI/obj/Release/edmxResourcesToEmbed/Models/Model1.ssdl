@@ -1,0 +1,1098 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_AAJIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.AbsensiEmployees' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="AbsensiEmployees">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="employeeID" />
+      <PropertyRef Name="date" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="checkIn" Type="time" Precision="0" />
+    <Property Name="checkOut" Type="time" Precision="0" />
+    <Property Name="typeAbsensiID" Type="int" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="AbsensiRekaps">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="absensiDate" Type="datetime" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="typeAbsensiID" Type="int" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdvancePaymentVoucherDetails">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+      <PropertyRef Name="accountNo" />
+    </Key>
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="accountNo" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdvancePaymentVouchers">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="voucherDate" Type="date" Nullable="false" />
+    <Property Name="bankID" Type="int" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="says" Type="varchar" MaxLength="250" />
+    <Property Name="preparedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="preparedDate" Type="datetime" Nullable="false" />
+    <Property Name="preparedStatus" Type="bit" Nullable="false" />
+    <Property Name="checkedBy" Type="varchar" MaxLength="20" />
+    <Property Name="checkedDate" Type="datetime" />
+    <Property Name="checkedStatus" Type="bit" />
+    <Property Name="approvedBy" Type="varchar" MaxLength="20" />
+    <Property Name="approvedDate" Type="datetime" />
+    <Property Name="approvedStatus" Type="bit" />
+    <Property Name="acknowledgeBy" Type="varchar" MaxLength="20" />
+    <Property Name="acknowledgeDate" Type="datetime" />
+    <Property Name="acknowledgeStatus" Type="bit" />
+    <Property Name="requestDeptId" Type="int" />
+    <Property Name="received" Type="datetime" />
+    <Property Name="settlement" Type="bit" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BankCashPaymentVoucherDetails">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+      <PropertyRef Name="accountNo" />
+    </Key>
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="accountNo" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BankCashPaymentVouchers">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="voucherDate" Type="date" Nullable="false" />
+    <Property Name="bankId" Type="int" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="says" Type="varchar" MaxLength="250" />
+    <Property Name="preparedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="preparedDate" Type="datetime" Nullable="false" />
+    <Property Name="preparedStatus" Type="bit" Nullable="false" />
+    <Property Name="checkedBy" Type="varchar" MaxLength="20" />
+    <Property Name="checkedDate" Type="datetime" />
+    <Property Name="checkedStatus" Type="bit" />
+    <Property Name="approvedBy" Type="varchar" MaxLength="20" />
+    <Property Name="approvedDate" Type="datetime" />
+    <Property Name="approvedStatus" Type="bit" />
+    <Property Name="acknowledgeBy" Type="varchar" MaxLength="20" />
+    <Property Name="acknowledgeDate" Type="datetime" />
+    <Property Name="acknowledgeStatus" Type="bit" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Banks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Banks">
+    <Key>
+      <PropertyRef Name="bankID" />
+      <PropertyRef Name="bankName" />
+      <PropertyRef Name="accountNo" />
+      <PropertyRef Name="coaID" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="bankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bankName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="accountNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="coaID" Type="int" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CashOnHandAndAdvanceRequestDetails">
+    <Key>
+      <PropertyRef Name="seqId" />
+      <PropertyRef Name="reqNo" />
+    </Key>
+    <Property Name="seqId" Type="int" Nullable="false" />
+    <Property Name="reqNo" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="activityDescription" Type="nvarchar(max)" />
+    <Property Name="currency" Type="int" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="fileReimbursement" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="CashOnHandAndAdvanceRequests">
+    <Key>
+      <PropertyRef Name="reqNo" />
+    </Key>
+    <Property Name="reqNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+    <Property Name="reqFrom" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="activity" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="reqIsCashOnHand" Type="bit" Nullable="false" />
+    <Property Name="includeProposal" Type="bit" Nullable="false" />
+    <Property Name="isReimbursement" Type="bit" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="ChartOfAccounts">
+    <Key>
+      <PropertyRef Name="accountNo" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="accountNo" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="accountName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="levelID" Type="int" Nullable="false" />
+    <Property Name="parentCOAId" Type="int" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Departments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="deptID" />
+      <PropertyRef Name="deptName" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="deptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="deptName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Divisis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Divisis">
+    <Key>
+      <PropertyRef Name="divisiID" />
+      <PropertyRef Name="deptID" />
+      <PropertyRef Name="divisiName" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="divisiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="deptID" Type="int" Nullable="false" />
+    <Property Name="divisiName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Emails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Emails">
+    <Key>
+      <PropertyRef Name="emailID" />
+      <PropertyRef Name="emailName" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="emailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="emailName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="emailAddress" Type="varchar" MaxLength="100" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="EmployeeClaimMedicals">
+    <Key>
+      <PropertyRef Name="klaimID" />
+    </Key>
+    <Property Name="klaimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="klaimDate" Type="date" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="linkFileData" Type="varchar" MaxLength="250" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="proposedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="proposedDate" Type="datetime" Nullable="false" />
+    <Property Name="proposedStatus" Type="bit" Nullable="false" />
+    <Property Name="acknowledgeBy" Type="varchar" MaxLength="20" />
+    <Property Name="acknowledgeDate" Type="datetime" />
+    <Property Name="acknowledgeStatus" Type="bit" />
+    <Property Name="approvedBy" Type="varchar" MaxLength="20" />
+    <Property Name="approvedDate" Type="datetime" />
+    <Property Name="approvedStatus" Type="bit" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeLoans">
+    <Key>
+      <PropertyRef Name="pinjamanID" />
+    </Key>
+    <Property Name="pinjamanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="proposedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="proposedDate" Type="datetime" Nullable="false" />
+    <Property Name="proposedStatus" Type="bit" Nullable="false" />
+    <Property Name="acknowledgeBy" Type="varchar" MaxLength="20" />
+    <Property Name="acknowledgeDate" Type="datetime" />
+    <Property Name="acknowledgeStatus" Type="bit" />
+    <Property Name="approvedBy" Type="varchar" MaxLength="20" />
+    <Property Name="approvedDate" Type="datetime" />
+    <Property Name="approvedStatus" Type="bit" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeePositions">
+    <Key>
+      <PropertyRef Name="positionId" />
+    </Key>
+    <Property Name="positionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="positionDate" Type="date" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="jobTitle" Type="varchar" MaxLength="50" />
+    <Property Name="deptID" Type="int" Nullable="false" />
+    <Property Name="divisiID" Type="int" Nullable="false" />
+    <Property Name="levelID" Type="int" Nullable="false" />
+    <Property Name="employeeStatus" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeResigns">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="resignDate" Type="date" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="employeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="employeeNIK" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="npwp" Type="varchar" MaxLength="50" />
+    <Property Name="ktp" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="bankName" Type="varchar" MaxLength="100" />
+    <Property Name="rekening" Type="varchar" MaxLength="30" />
+    <Property Name="tempatLahir" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="tanggalLahir" Type="date" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FinanceTransactionDetails">
+    <Key>
+      <PropertyRef Name="sId" />
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="sId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="invoiceNo" Type="varchar" MaxLength="50" />
+    <Property Name="amount" Type="decimal" Precision="24" Scale="4" />
+  </EntityType>
+  <EntityType Name="FinanceTransactionHeaders">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="voucherDate" Type="date" Nullable="false" />
+    <Property Name="transactionType" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tftID" Type="int" />
+    <Property Name="billingType" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="billingNo" Type="int" />
+    <Property Name="clearingDate" Type="date" />
+    <Property Name="amount" Type="decimal" Precision="24" Scale="4" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FixedAssetMaintenances">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="maintenanceDate" Type="date" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+    <Property Name="fixedAssetID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FixedAssetPersons">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="startDate" Type="date" />
+    <Property Name="endDate" Type="date" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="fixedAssetID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FixedAssets">
+    <Key>
+      <PropertyRef Name="fixedAssetID" />
+    </Key>
+    <Property Name="fixedAssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="purchaseDate" Type="date" />
+    <Property Name="salesDate" Type="date" />
+    <Property Name="fixedAssetCode" Type="varchar" MaxLength="13" />
+    <Property Name="fixedAssetType" Type="varchar" MaxLength="100" />
+    <Property Name="fixedAssetName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="fixedAssetStatus" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.FixedAssetTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="FixedAssetTypes">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="typeName" />
+      <PropertyRef Name="typeCode" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="typeCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.GroupEmails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GroupEmails">
+    <Key>
+      <PropertyRef Name="groupEmailID" />
+      <PropertyRef Name="groupEmailName" />
+      <PropertyRef Name="modifiedDate" />
+    </Key>
+    <Property Name="groupEmailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="groupEmailName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="emailAddress" Type="varchar" MaxLength="250" />
+    <Property Name="modifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="journalDetails">
+    <Key>
+      <PropertyRef Name="sId" />
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="sId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="coaId" Type="int" Nullable="false" />
+    <Property Name="accountNameOther" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="debit" Type="decimal" Precision="24" Scale="4" />
+    <Property Name="credit" Type="decimal" Precision="24" Scale="4" />
+  </EntityType>
+  <EntityType Name="journalHeaders">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="voucherNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="voucherDate" Type="date" Nullable="false" />
+    <Property Name="journalType" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="remark" Type="varchar" MaxLength="250" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Levels' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Levels">
+    <Key>
+      <PropertyRef Name="levelID" />
+      <PropertyRef Name="levelName" />
+      <PropertyRef Name="saldoCuti" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="levelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="levelName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="saldoCuti" Type="int" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Menus">
+    <Key>
+      <PropertyRef Name="menuID" />
+    </Key>
+    <Property Name="menuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="menuName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="menuLink" Type="varchar" MaxLength="50" />
+    <Property Name="menuParent" Type="int" />
+    <Property Name="menuDescription" Type="varchar" MaxLength="200" />
+    <Property Name="menuIsParent" Type="bit" Nullable="false" />
+    <Property Name="menuIsActive" Type="bit" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" />
+    <Property Name="createdUser" Type="varchar" MaxLength="50" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MenuValidationDetails">
+    <Key>
+      <PropertyRef Name="menuValIdH" />
+      <PropertyRef Name="menuID" />
+    </Key>
+    <Property Name="menuValIdH" Type="int" Nullable="false" />
+    <Property Name="menuID" Type="int" Nullable="false" />
+    <Property Name="validationAccess" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MenuValidations">
+    <Key>
+      <PropertyRef Name="menuValId" />
+    </Key>
+    <Property Name="menuValId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="validationTypeIsGeneral" Type="bit" Nullable="false" />
+    <Property Name="validationName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="userID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Penghasilans' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Penghasilans">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="typePenghasilan" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typePenghasilan" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.PengurangPenghasilans' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="PengurangPenghasilans">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Potongans' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Potongans">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="productCode" />
+      <PropertyRef Name="productName" />
+      <PropertyRef Name="unit" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="productName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="unit" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.PurchaseInvoices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="PurchaseInvoices">
+    <Key>
+      <PropertyRef Name="purchaseInvoiceNo" />
+      <PropertyRef Name="invoiceDate" />
+      <PropertyRef Name="dueDate" />
+      <PropertyRef Name="receiveNo" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="purchaseInvoiceNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="invoiceDate" Type="date" Nullable="false" />
+    <Property Name="dueDate" Type="date" Nullable="false" />
+    <Property Name="receiveNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="paymentInfo" Type="varchar" MaxLength="250" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="total" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderDetails">
+    <Key>
+      <PropertyRef Name="poId" />
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="poId" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="qty" Type="int" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="24" Scale="4" Nullable="false" />
+    <Property Name="disc" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderHeaders">
+    <Key>
+      <PropertyRef Name="poId" />
+    </Key>
+    <Property Name="poId" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="poDate" Type="date" Nullable="false" />
+    <Property Name="prId" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="vendorId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="poUrgent" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="topType" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="topAmount" Type="int" Nullable="false" />
+    <Property Name="ppn" Type="int" Nullable="false" />
+    <Property Name="disc" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="proposedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="proposedDate" Type="datetime" Nullable="false" />
+    <Property Name="proposedStatus" Type="bit" Nullable="false" />
+    <Property Name="approvedBy" Type="varchar" MaxLength="20" />
+    <Property Name="approvedDate" Type="datetime" />
+    <Property Name="approvedStatus" Type="bit" />
+    <Property Name="acknowledgeBy" Type="bit" />
+    <Property Name="acknowledgeDate" Type="datetime" />
+    <Property Name="acknowledgeStatus" Type="bit" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderTops">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="poId" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="poId" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="buyDate" Type="datetime" Nullable="false" />
+    <Property Name="buyPercent" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="purchaseReceiveDetails">
+    <Key>
+      <PropertyRef Name="receiveNo" />
+      <PropertyRef Name="productId" />
+    </Key>
+    <Property Name="receiveNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="productId" Type="int" Nullable="false" />
+    <Property Name="qty" Type="int" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="purchaseReceive_receiveNo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PurchaseReceives">
+    <Key>
+      <PropertyRef Name="receiveNo" />
+    </Key>
+    <Property Name="receiveNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="receiveDate" Type="datetime" Nullable="false" />
+    <Property Name="poId" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="proposedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="proposedDate" Type="datetime" Nullable="false" />
+    <Property Name="proposedStatus" Type="bit" Nullable="false" />
+    <Property Name="receivedBy" Type="varchar" MaxLength="20" />
+    <Property Name="receivedDate" Type="datetime" />
+    <Property Name="receivedStatus" Type="bit" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PurchaseRequestDetails">
+    <Key>
+      <PropertyRef Name="prId" />
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="prId" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="250" />
+    <Property Name="qty" Type="int" Nullable="false" />
+    <Property Name="unit" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="vendorId" Type="int" />
+  </EntityType>
+  <EntityType Name="PurchaseRequestHeaders">
+    <Key>
+      <PropertyRef Name="prId" />
+    </Key>
+    <Property Name="prId" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="prDate" Type="datetime" Nullable="false" />
+    <Property Name="requestDeptId" Type="int" Nullable="false" />
+    <Property Name="typeOrder" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="proposalInclude" Type="bit" Nullable="false" />
+    <Property Name="specialInstruction" Type="varchar" MaxLength="250" />
+    <Property Name="projectTimeDelivery" Type="varchar" MaxLength="250" />
+    <Property Name="proposedBy" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="proposedDate" Type="datetime" Nullable="false" />
+    <Property Name="proposedStatus" Type="bit" Nullable="false" />
+    <Property Name="approvedBy" Type="varchar" MaxLength="20" />
+    <Property Name="approvedDate" Type="datetime" />
+    <Property Name="approvedStatus" Type="bit" />
+    <Property Name="acknowledgeBy" Type="varchar" MaxLength="20" />
+    <Property Name="acknowledgeDate" Type="datetime" />
+    <Property Name="acknowledgeStatus" Type="bit" />
+    <Property Name="receivedBy" Type="varchar" MaxLength="20" />
+    <Property Name="receivedDate" Type="datetime" />
+    <Property Name="receivedStatus" Type="bit" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PurchaseReturnDetails">
+    <Key>
+      <PropertyRef Name="receiveNo" />
+      <PropertyRef Name="productId" />
+    </Key>
+    <Property Name="receiveNo" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="productId" Type="int" Nullable="false" />
+    <Property Name="qty" Type="int" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="250" />
+    <Property Name="purchaseReceive_receiveNo" Type="varbinary" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.SetupEmails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SetupEmails">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="host" />
+      <PropertyRef Name="port" />
+      <PropertyRef Name="modifiedDate" />
+      <PropertyRef Name="modifiedUser" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="host" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="port" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="emailName" Type="varchar" MaxLength="250" />
+    <Property Name="emailAddress" Type="varchar" MaxLength="250" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="modifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SisaSaldoCutis">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="year" Type="int" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.TransReminders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TransReminders">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="email" />
+      <PropertyRef Name="reminderDate" />
+      <PropertyRef Name="reminderTime" />
+      <PropertyRef Name="repeatitionID" />
+      <PropertyRef Name="reminderID" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="reminderDate" Type="date" Nullable="false" />
+    <Property Name="reminderTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="repeatitionID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="reminderID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.TypeAbsensis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TypeAbsensis">
+    <Key>
+      <PropertyRef Name="typeAbsensiID" />
+      <PropertyRef Name="typeAbsensiName" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="typeAbsensiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typeAbsensiName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TypeFinanceTransactions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tftID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tftName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="accountNo" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="UserGroupDs">
+    <Key>
+      <PropertyRef Name="groupHId" />
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="groupHId" Type="int" Nullable="false" />
+    <Property Name="userID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserGroupHs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="groupName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="groupDesc" Type="varchar" MaxLength="100" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" />
+    <Property Name="createdUser" Type="varchar" MaxLength="50" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="100" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="lastLogin" Type="datetime" />
+    <Property Name="password" Type="nvarchar" MaxLength="20" />
+    <Property Name="deptID" Type="int" Nullable="false" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+    <Property Name="employeeNIK" Type="varchar" MaxLength="10" />
+    <Property Name="isAdmin" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_AAJI.dbo.Vendors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vendors">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="vendorID" />
+      <PropertyRef Name="vendorName" />
+      <PropertyRef Name="ppn" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vendorID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="vendorName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="npwp" Type="varchar" MaxLength="50" />
+    <Property Name="address1" Type="varchar" MaxLength="250" />
+    <Property Name="address2" Type="varchar" MaxLength="250" />
+    <Property Name="telp" Type="varchar" MaxLength="50" />
+    <Property Name="fax" Type="varchar" MaxLength="50" />
+    <Property Name="contactPerson" Type="varchar" MaxLength="50" />
+    <Property Name="ppn" Type="bit" Nullable="false" />
+    <Property Name="top" Type="int" />
+    <Property Name="createdUser" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" Nullable="false" />
+    <Property Name="modifiedUser" Type="varchar" MaxLength="20" />
+    <Property Name="modifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="DB_AAJIModelStoreContainer">
+    <EntitySet Name="AbsensiRekaps" EntityType="Self.AbsensiRekaps" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdvancePaymentVoucherDetails" EntityType="Self.AdvancePaymentVoucherDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdvancePaymentVouchers" EntityType="Self.AdvancePaymentVouchers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BankCashPaymentVoucherDetails" EntityType="Self.BankCashPaymentVoucherDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BankCashPaymentVouchers" EntityType="Self.BankCashPaymentVouchers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CashOnHandAndAdvanceRequestDetails" EntityType="Self.CashOnHandAndAdvanceRequestDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CashOnHandAndAdvanceRequests" EntityType="Self.CashOnHandAndAdvanceRequests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeClaimMedicals" EntityType="Self.EmployeeClaimMedicals" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeLoans" EntityType="Self.EmployeeLoans" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeePositions" EntityType="Self.EmployeePositions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeResigns" EntityType="Self.EmployeeResigns" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FinanceTransactionDetails" EntityType="Self.FinanceTransactionDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FinanceTransactionHeaders" EntityType="Self.FinanceTransactionHeaders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FixedAssetMaintenances" EntityType="Self.FixedAssetMaintenances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FixedAssetPersons" EntityType="Self.FixedAssetPersons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FixedAssets" EntityType="Self.FixedAssets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="journalDetails" EntityType="Self.journalDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="journalHeaders" EntityType="Self.journalHeaders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MenuValidationDetails" EntityType="Self.MenuValidationDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MenuValidations" EntityType="Self.MenuValidations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeaders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderTops" EntityType="Self.PurchaseOrderTops" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="purchaseReceiveDetails" EntityType="Self.purchaseReceiveDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseReceives" EntityType="Self.PurchaseReceives" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseRequestDetails" EntityType="Self.PurchaseRequestDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseRequestHeaders" EntityType="Self.PurchaseRequestHeaders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseReturnDetails" EntityType="Self.PurchaseReturnDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SisaSaldoCutis" EntityType="Self.SisaSaldoCutis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeFinanceTransactions" EntityType="Self.TypeFinanceTransactions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserGroupDs" EntityType="Self.UserGroupDs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserGroupHs" EntityType="Self.UserGroupHs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AbsensiEmployees" EntityType="Self.AbsensiEmployees" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [AbsensiEmployees].[id] AS [id], 
+    [AbsensiEmployees].[employeeID] AS [employeeID], 
+    [AbsensiEmployees].[date] AS [date], 
+    [AbsensiEmployees].[checkIn] AS [checkIn], 
+    [AbsensiEmployees].[checkOut] AS [checkOut], 
+    [AbsensiEmployees].[typeAbsensiID] AS [typeAbsensiID], 
+    [AbsensiEmployees].[remarks] AS [remarks]
+    FROM [dbo].[AbsensiEmployees] AS [AbsensiEmployees]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Banks" EntityType="Self.Banks" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Banks].[bankID] AS [bankID], 
+    [Banks].[bankName] AS [bankName], 
+    [Banks].[accountNo] AS [accountNo], 
+    [Banks].[coaID] AS [coaID], 
+    [Banks].[createdUser] AS [createdUser], 
+    [Banks].[createdDate] AS [createdDate], 
+    [Banks].[modifiedUser] AS [modifiedUser], 
+    [Banks].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Banks] AS [Banks]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Departments" EntityType="Self.Departments" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Departments].[deptID] AS [deptID], 
+    [Departments].[deptName] AS [deptName], 
+    [Departments].[createdUser] AS [createdUser], 
+    [Departments].[createdDate] AS [createdDate], 
+    [Departments].[modifiedUser] AS [modifiedUser], 
+    [Departments].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Departments] AS [Departments]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Divisis" EntityType="Self.Divisis" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Divisis].[divisiID] AS [divisiID], 
+    [Divisis].[deptID] AS [deptID], 
+    [Divisis].[divisiName] AS [divisiName], 
+    [Divisis].[createdUser] AS [createdUser], 
+    [Divisis].[createdDate] AS [createdDate], 
+    [Divisis].[modifiedUser] AS [modifiedUser], 
+    [Divisis].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Divisis] AS [Divisis]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Emails" EntityType="Self.Emails" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Emails].[emailID] AS [emailID], 
+    [Emails].[emailName] AS [emailName], 
+    [Emails].[emailAddress] AS [emailAddress], 
+    [Emails].[createdDate] AS [createdDate], 
+    [Emails].[createdUser] AS [createdUser], 
+    [Emails].[modifiedDate] AS [modifiedDate], 
+    [Emails].[modifiedUser] AS [modifiedUser]
+    FROM [dbo].[Emails] AS [Emails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="FixedAssetTypes" EntityType="Self.FixedAssetTypes" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [FixedAssetTypes].[id] AS [id], 
+    [FixedAssetTypes].[typeName] AS [typeName], 
+    [FixedAssetTypes].[typeCode] AS [typeCode], 
+    [FixedAssetTypes].[createdUser] AS [createdUser], 
+    [FixedAssetTypes].[createdDate] AS [createdDate], 
+    [FixedAssetTypes].[modifiedUser] AS [modifiedUser], 
+    [FixedAssetTypes].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[FixedAssetTypes] AS [FixedAssetTypes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="GroupEmails" EntityType="Self.GroupEmails" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GroupEmails].[groupEmailID] AS [groupEmailID], 
+    [GroupEmails].[groupEmailName] AS [groupEmailName], 
+    [GroupEmails].[emailAddress] AS [emailAddress], 
+    [GroupEmails].[modifiedDate] AS [modifiedDate], 
+    [GroupEmails].[modifiedUser] AS [modifiedUser]
+    FROM [dbo].[GroupEmails] AS [GroupEmails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Levels" EntityType="Self.Levels" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Levels].[levelID] AS [levelID], 
+    [Levels].[levelName] AS [levelName], 
+    [Levels].[saldoCuti] AS [saldoCuti], 
+    [Levels].[createdUser] AS [createdUser], 
+    [Levels].[createdDate] AS [createdDate], 
+    [Levels].[modifiedUser] AS [modifiedUser], 
+    [Levels].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Levels] AS [Levels]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Penghasilans" EntityType="Self.Penghasilans" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Penghasilans].[id] AS [id], 
+    [Penghasilans].[typePenghasilan] AS [typePenghasilan], 
+    [Penghasilans].[subject] AS [subject], 
+    [Penghasilans].[createdUser] AS [createdUser], 
+    [Penghasilans].[createdDate] AS [createdDate], 
+    [Penghasilans].[modifiedUser] AS [modifiedUser], 
+    [Penghasilans].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Penghasilans] AS [Penghasilans]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="PengurangPenghasilans" EntityType="Self.PengurangPenghasilans" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [PengurangPenghasilans].[id] AS [id], 
+    [PengurangPenghasilans].[subject] AS [subject], 
+    [PengurangPenghasilans].[createdUser] AS [createdUser], 
+    [PengurangPenghasilans].[createdDate] AS [createdDate], 
+    [PengurangPenghasilans].[modifiedUser] AS [modifiedUser], 
+    [PengurangPenghasilans].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[PengurangPenghasilans] AS [PengurangPenghasilans]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Potongans" EntityType="Self.Potongans" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Potongans].[id] AS [id], 
+    [Potongans].[subject] AS [subject], 
+    [Potongans].[createdUser] AS [createdUser], 
+    [Potongans].[createdDate] AS [createdDate], 
+    [Potongans].[modifiedUser] AS [modifiedUser], 
+    [Potongans].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Potongans] AS [Potongans]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Products" EntityType="Self.Products" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Products].[productID] AS [productID], 
+    [Products].[productCode] AS [productCode], 
+    [Products].[productName] AS [productName], 
+    [Products].[unit] AS [unit], 
+    [Products].[createdUser] AS [createdUser], 
+    [Products].[createdDate] AS [createdDate], 
+    [Products].[modifiedUser] AS [modifiedUser], 
+    [Products].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Products] AS [Products]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="PurchaseInvoices" EntityType="Self.PurchaseInvoices" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [PurchaseInvoices].[purchaseInvoiceNo] AS [purchaseInvoiceNo], 
+    [PurchaseInvoices].[invoiceDate] AS [invoiceDate], 
+    [PurchaseInvoices].[dueDate] AS [dueDate], 
+    [PurchaseInvoices].[receiveNo] AS [receiveNo], 
+    [PurchaseInvoices].[paymentInfo] AS [paymentInfo], 
+    [PurchaseInvoices].[remarks] AS [remarks], 
+    [PurchaseInvoices].[total] AS [total], 
+    [PurchaseInvoices].[createdUser] AS [createdUser], 
+    [PurchaseInvoices].[createdDate] AS [createdDate], 
+    [PurchaseInvoices].[modifiedUser] AS [modifiedUser], 
+    [PurchaseInvoices].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[PurchaseInvoices] AS [PurchaseInvoices]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="SetupEmails" EntityType="Self.SetupEmails" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SetupEmails].[id] AS [id], 
+    [SetupEmails].[host] AS [host], 
+    [SetupEmails].[port] AS [port], 
+    [SetupEmails].[emailName] AS [emailName], 
+    [SetupEmails].[emailAddress] AS [emailAddress], 
+    [SetupEmails].[password] AS [password], 
+    [SetupEmails].[modifiedDate] AS [modifiedDate], 
+    [SetupEmails].[modifiedUser] AS [modifiedUser]
+    FROM [dbo].[SetupEmails] AS [SetupEmails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TransReminders" EntityType="Self.TransReminders" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TransReminders].[id] AS [id], 
+    [TransReminders].[subject] AS [subject], 
+    [TransReminders].[email] AS [email], 
+    [TransReminders].[reminderDate] AS [reminderDate], 
+    [TransReminders].[reminderTime] AS [reminderTime], 
+    [TransReminders].[repeatitionID] AS [repeatitionID], 
+    [TransReminders].[reminderID] AS [reminderID], 
+    [TransReminders].[createdUser] AS [createdUser], 
+    [TransReminders].[createdDate] AS [createdDate], 
+    [TransReminders].[modifiedUser] AS [modifiedUser], 
+    [TransReminders].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[TransReminders] AS [TransReminders]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TypeAbsensis" EntityType="Self.TypeAbsensis" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TypeAbsensis].[typeAbsensiID] AS [typeAbsensiID], 
+    [TypeAbsensis].[typeAbsensiName] AS [typeAbsensiName], 
+    [TypeAbsensis].[createdUser] AS [createdUser], 
+    [TypeAbsensis].[createdDate] AS [createdDate], 
+    [TypeAbsensis].[modifiedUser] AS [modifiedUser], 
+    [TypeAbsensis].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[TypeAbsensis] AS [TypeAbsensis]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vendors" EntityType="Self.Vendors" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vendors].[id] AS [id], 
+    [Vendors].[vendorID] AS [vendorID], 
+    [Vendors].[vendorName] AS [vendorName], 
+    [Vendors].[npwp] AS [npwp], 
+    [Vendors].[address1] AS [address1], 
+    [Vendors].[address2] AS [address2], 
+    [Vendors].[telp] AS [telp], 
+    [Vendors].[fax] AS [fax], 
+    [Vendors].[contactPerson] AS [contactPerson], 
+    [Vendors].[ppn] AS [ppn], 
+    [Vendors].[top] AS [top], 
+    [Vendors].[createdUser] AS [createdUser], 
+    [Vendors].[createdDate] AS [createdDate], 
+    [Vendors].[modifiedUser] AS [modifiedUser], 
+    [Vendors].[modifiedDate] AS [modifiedDate]
+    FROM [dbo].[Vendors] AS [Vendors]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

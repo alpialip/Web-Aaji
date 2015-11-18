@@ -1,0 +1,111 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.accountPayableHeader>
+
+@{
+    ViewBag.Title = "Account Payable";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bankId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vendorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paymentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.date)*@
+            @item.date.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @foreach(var bank in ViewBag.Bank as IEnumerable<WebApp_AAJI.Models.bank>)
+            {
+                if(bank.bankID == item.bankId)
+                {
+                    @bank.bankName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.bankId)*@
+        </td>
+        <td>
+            @foreach(var vendor in ViewBag.Vendor as IEnumerable<WebApp_AAJI.Models.vendor>)
+            {
+                if(vendor.vendorID == item.vendorId)
+                {
+                    @vendor.vendorName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.vendorId)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.paymentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        <td>
+            @foreach(var user in ViewBag.User as IEnumerable<WebApp_AAJI.Models.user>)
+            {
+                if(user.userID == item.createdUser)
+                {
+                    @user.userName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.createdUser)*@
+        </td>
+        <td>
+            @item.createdDate.ToString("dd MMM yyyy")
+            @*@Html.DisplayFor(modelItem => item.createdDate)*@
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.modifiedUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedDate)
+        </td>*@
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.voucherNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.voucherNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.voucherNo })*@
+
+            <a href="@Url.Action("Edit")/@item.voucherNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.voucherNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.voucherNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>

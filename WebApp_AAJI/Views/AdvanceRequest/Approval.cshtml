@@ -1,0 +1,136 @@
+﻿@model WebApp_AAJI.Models.cashOnHandAndAdvanceRequest
+
+@{
+    ViewBag.Title = "Approval";
+}
+<script>
+    function sendSubmit(values)
+    {
+        var val = values.split('_');
+        //alert(val[0]);
+        //alert(val[1]);
+        $("#dvSubmit").load('@(Url.Action("ApprovalProcess", "AdvanceRequest", null, Request.Url.Scheme))?act=' + val[0] + '&id=' + val[1],
+            function () {
+                //window.history.go(-1);
+                window.location.replace('/AdvanceRequest/Index');
+        });
+    }
+</script>
+<h2>@ViewBag.Title</h2>
+<div>
+    <h4>@*cashOnHandAnd*@Advance Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.reqNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reqNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Model.date.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reqFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reqFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clearanceDate)
+        </dt>
+
+        <dd>
+            @Model.clearanceDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reqIsCashOnHand)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.reqIsCashOnHand)*@
+            Advance Request
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.includeProposal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.includeProposal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isReimbursement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isReimbursement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @if (Model.modifiedDate == null)
+            {
+                @Html.DisplayFor(model => model.createdDate)
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.modifiedDate)
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @if (Model.modifiedUser == null)
+            {
+                @Html.DisplayFor(model => model.createdUser)
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.modifiedUser)
+            }
+        </dd>
+    </dl>
+</div>
+<div id="dvDetail">
+    @Html.Partial("_PartialPageDetail2")
+</div>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="button" value="Approved" class="btn btn-primary" onclick="sendSubmit('approved_@Model.reqNo')" /> |
+        <input type="button" value="Rejected" class="btn btn-primary" onclick="sendSubmit('rejected_@Model.reqNo')" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div id="dvSubmit" style="display:none"></div>
+}
+</div>

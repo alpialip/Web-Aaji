@@ -1,0 +1,67 @@
+﻿<table class="table" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.purchaseRequestHeader.purchaseRequestDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.purchaseRequestHeader.purchaseRequestDetail>)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("txtProductID_" + idx, a.productId, new{@readonly="readonly"})
+                    </td>
+                    <td>
+                        @Html.TextBox("txtDescription_" + idx, a.description, new { @readonly = "readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtQty_" + idx, a.qty.ToString("G29").Replace(',', '.'), new { type = "number", @readonly="readonly", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtUnit_" + idx, a.unit, new{@readonly="readonly"})
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                idx++;
+                grandTotal += a.qty;
+            }
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+                <td>
+                    <input type="number" step="1" min=0 id="grandTotal" name="grandTotal" readonly="readonly" value="@grandTotal" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 100px; " />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Hidden("hdnIdxRowsClick")
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+
+
+
+
+
+

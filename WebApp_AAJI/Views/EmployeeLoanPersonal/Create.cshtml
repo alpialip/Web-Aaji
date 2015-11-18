@@ -1,0 +1,164 @@
+﻿@model WebApp_AAJI.Models.employeeLoan
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+<script>
+    function confirmSave() {
+        //var x = document.getElementById('employeeID').value;
+        //if (x != 0) {
+            document.forms[0].submit();
+        //}
+        //else {
+        //    alert("Employee Required");
+        //}
+    }
+
+    function maskingCurrency(val) {
+        document.getElementById("amounts").value = formatCurrency(document.getElementById("amounts").value.replace(/\./g, ''));
+        document.getElementById("amount").value = document.getElementById("amounts").value.replace(/\./g, '');
+
+        document.getElementById("installments").value = formatCurrency(document.getElementById("installments").value.replace(/\./g, ''));
+        document.getElementById("installment").value = document.getElementById("installments").value.replace(/\./g, '');
+
+        var amount = document.getElementById("amount").value;
+        var gapok = document.getElementById('gapok').value;
+        var maksAmountLoan = (parseFloat(gapok) * 15);
+
+        var installment = document.getElementById('installment').value;
+        var maksAmountInstallment = ((parseFloat(gapok) * 30) / 100);
+
+        document.getElementById('btnSaveProposed').removeAttribute('disabled');
+        document.getElementById('btnSave').removeAttribute('disabled');
+        document.getElementById("amounts").style.backgroundColor = '';
+        document.getElementById("installments").style.backgroundColor = '';
+        //alert(installment + ">" + maksAmountInstallment)
+        if (parseFloat(gapok) > 0) {
+            if (parseFloat(amount) > parseFloat(maksAmountLoan)) {
+                document.getElementById('btnSaveProposed').disabled = 'disabled';
+                document.getElementById('btnSave').disabled = 'disabled';
+                document.getElementById("amounts").style.backgroundColor = 'yellow';
+                alert('Loan Amount Exceeds The Rules');
+            }
+            else if (parseFloat(installment) > parseFloat(maksAmountInstallment)) {
+                document.getElementById('btnSaveProposed').disabled = 'disabled';
+                document.getElementById('btnSave').disabled = 'disabled';
+                document.getElementById("installments").style.backgroundColor = 'yellow';
+                alert('Mortgage Exceeds 30% of Basic Salary');
+            }
+        }
+        else {
+            document.getElementById('btnSaveProposed').disabled = 'disabled';
+            document.getElementById('btnSave').disabled = 'disabled';
+            alert('Please Select Employee First')
+        }
+
+    }
+
+    function checkMinMaksInstallmentDuration() {
+        var min = 0;
+        var maks = 24;
+        var installmentDuration = document.getElementById("installmentDuration").value;
+        if (installmentDuration > 24) {
+            document.getElementById("installmentDuration").value = maks;
+        }
+        else if (installmentDuration < 0) {
+            document.getElementById("installmentDuration").value = min;
+        }
+    }
+</script>
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Employee Loan</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.employeeID, new { @Value = ViewBag.empId })
+                <label id="empName" style="font-weight:100">@ViewBag.empName</label>
+                @Html.ValidationMessageFor(model => model.employeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Department", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="empDeptName" style="font-weight:100">@ViewBag.empDeptName</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.loanCategory, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("loanCategory", ViewBag.LoanCategory as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.loanCategory)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.Hidden("gapok", @ViewBag.empGapok as string)
+                @Html.TextBox("amounts", 0, new { type = "text", style = "text-align:right;width:150px;padding-right:10px", onchange = "maskingCurrency()" })
+                @Html.TextBox("amount", 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.installment, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("installments", 0, new { type = "text", style = "text-align:right;width:150px;padding-right:10px", onchange = "maskingCurrency()" })
+                @Html.TextBox("installment", 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.installment)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.installmentDuration, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.installmentDuration, new { type = "number", step = "1", min = 1, max = 24, style = "text-align:right;width:36px;", placeholder = "00", onchange = "checkMinMaksInstallmentDuration()" })
+                @Html.ValidationMessageFor(model => model.installmentDuration)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.collateral, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.collateral)
+                @Html.ValidationMessageFor(model => model.collateral)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" id="btnSave" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save'; confirmSave();" />&nbsp;
+                <input type="button" value="Save & Proposed" id="btnSaveProposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />
+                @Html.Hidden("hdnTypeSubmit", "save")
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

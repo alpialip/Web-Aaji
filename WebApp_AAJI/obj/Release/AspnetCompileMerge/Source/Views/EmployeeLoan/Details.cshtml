@@ -1,0 +1,108 @@
+﻿@model WebApp_AAJI.Models.employeeLoan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>employeePinjaman</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </dt>
+
+        <dd>
+            @ViewBag.empName
+            @*@Html.DisplayFor(model => model.employeeID)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.amount)*@
+            @{
+                int number = int.Parse(Model.amount.ToString("G29").Replace(',', '.'));
+                string nominal = number.ToString("#,##0");
+            }
+            @nominal
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.proposedDate)*@
+            @Model.proposedDate.ToString("dd MMM yyyy")
+        </dd>
+
+        @*<dt>
+        @Html.DisplayNameFor(model => model.proposedStatus)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.proposedStatus)
+    </dd>
+
+    <dt>
+            @Html.DisplayNameFor(model => model.approvedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.approvedDate)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.approvedStatus)*@
+            @if (Model.approvedStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (Model.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (Model.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pinjamanID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,118 @@
+﻿@model WebApp_AAJI.Models.fixedAsset
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>fixedAsset</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.purchaseDate)
+        </dt>
+
+        <dd>
+            @if (Model.purchaseDate != null)
+            {
+                var dtPurchase = (DateTime)Model.purchaseDate;
+                @dtPurchase.ToString("dd MMM yyyy")
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => Model.purchaseDate)
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.salesDate)
+        </dt>
+
+        <dd>
+            @if (Model.salesDate != null)
+            {
+                var dtSales = (DateTime)Model.salesDate;
+                @dtSales.ToString("dd MMM yyyy")
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => Model.salesDate)
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fixedAssetType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fixedAssetType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fixedAssetName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fixedAssetName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fixedAssetCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fixedAssetCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fixedAssetStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fixedAssetStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>            
+            @Model.amount.ToString("#,##0")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @ViewBag.UserName
+            @*@Html.DisplayFor(model => model.createdUser)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Model.createdDate.ToString("dd MMM yyyy")
+        </dd>
+
+    </dl>
+</div>
+<div id="dvDetail">
+    @Html.Partial("_PartialPageFixAsset2")
+</div>
+<br />
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

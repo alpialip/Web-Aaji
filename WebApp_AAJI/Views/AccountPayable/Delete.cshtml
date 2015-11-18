@@ -1,0 +1,109 @@
+﻿@model WebApp_AAJI.Models.accountPayableHeader
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="form-horizontal">
+    <h4>accountPayable</h4>
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.voucherNo, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.voucherNo, new { @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.voucherNo)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.date, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBox("date", Model.date, "{0:yyyy-MM-dd}", new { type = "date", @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.date)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.bankId, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.HiddenFor(model => model.bankId)*@
+            @Html.DropDownList("bankId", ViewBag.Bank as SelectList, new
+        { @*onchange = "javascript:document.getElementById('bankId').value = this.value;",*@ @class = "form-control",
+         @readonly = "readonly"
+        })
+            @Html.ValidationMessageFor(model => model.bankId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.vendorId, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.vendorId)
+            @{
+                bool isfind = false;
+            }
+            @foreach (var a in ViewBag.VendorPopUp as IEnumerable<WebApp_AAJI.Models.vendor>)
+            {
+                if (Model.vendorId == a.vendorID)
+                {
+                    @Html.TextBox("txtVendorName", a.vendorName, new { @readonly = "readonly" })
+                    isfind = true;
+                    break;
+                }
+            }
+            @if (isfind == false)
+            {
+                @Html.TextBox("txtVendorName", "", new { @readonly = "readonly" })
+            }
+            @Html.ValidationMessageFor(model => model.vendorId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.paymentType, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.HiddenFor(model => model.paymentType)*@
+            @Html.DropDownList("paymentType", ViewBag.DDLpaymentType as SelectList, new
+        { @*onchange = "javascript:document.getElementById('paymentType').value = this.value;",*@ @class = "form-control",
+         @readonly = "readonly"
+        })
+            @Html.ValidationMessageFor(model => model.paymentType)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.noTrans, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.noTrans, new { @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.noTrans)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.remarks)*@
+            @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2, @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.remarks)
+        </div>
+    </div>
+
+    <div id="dvDetail">
+        @Html.Partial("_PartialPageAP2")
+    </div>
+    <br />
+</div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

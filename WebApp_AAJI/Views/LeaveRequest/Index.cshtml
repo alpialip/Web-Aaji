@@ -1,0 +1,129 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.transLeaveRequest>
+
+@{
+    ViewBag.Title = "Leave Request";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.leaveStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.leaveEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.leaveDescription)
+        </th>
+        @*<th>
+        @Html.DisplayNameFor(model => model.approvedBy)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.approvedDate)
+    </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </th>
+        @*<th>
+        @Html.DisplayNameFor(model => model.acknowledgeBy)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.acknowledgeDate)
+    </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.acknowledgeStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @item.createdUser
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.leaveStartDate)*@
+            @item.leaveStartDate.ToString("dd-MMM-yyyy")
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.leaveEndDate)*@
+            @item.leaveEndDate.ToString("dd-MMM-yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.leaveDescription)
+        </td>
+        @*<td>
+        @Html.DisplayFor(modelItem => item.approvedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.approvedDate)
+    </td>*@
+        <td>
+            @*@Html.DisplayFor(modelItem => item.approvedStatus)*@
+            @if (item.approvedStatus == null)
+            {
+                @*<a href="@Url.Action("Approval")?id=@item.leaveRequestID&empId=@item.employeeID">Waiting</a>*@
+                @("Waiting")
+            }
+            else if (item.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (item.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+        </td>
+        @*<td>
+        @Html.DisplayFor(modelItem => item.acknowledgeBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.acknowledgeDate)
+    </td>*@
+        <td>
+            @*@Html.DisplayFor(modelItem => item.acknowledgeStatus)*@
+            @if (item.acknowledgeStatus == null)
+            {
+                @*<a href="@Url.Action("Approval")?id=@item.leaveRequestID&empId=@item.employeeID">Waiting</a>*@
+                @("Waiting")
+            }
+            else if (item.acknowledgeStatus == true)
+            {
+                @("Acknowledged")
+            }
+            else if (item.acknowledgeStatus == false)
+            {
+                @("Rejected")
+            }
+        </td>
+        <td>
+            @if (item.approvedStatus == null || item.acknowledgeStatus == null)
+            { 
+                <a href="@Url.Action("Edit")?id=@item.leaveRequestID&empId=@item.employeeID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+            }
+            &nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")?id=@item.leaveRequestID&empId=@item.employeeID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            @if (item.approvedStatus == null || item.acknowledgeStatus == null)
+            {
+                <a href="@Url.Action("Delete")?id=@item.leaveRequestID&empId=@item.employeeID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>
+            }
+        </td>
+    </tr>
+}
+
+</table>

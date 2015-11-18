@@ -1,0 +1,46 @@
+﻿<table class="table table-hover">
+    @if (ViewBag.masterPengurangPenghasilan != null)
+    {
+        <thead>
+            <tr>
+                @foreach (var a in ViewBag.masterPengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.pengurangPenghasilan>)
+                {
+                    <th>@a.subject</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (ViewBag.pengurangPenghasilan != null)
+                {
+                    foreach (var a in ViewBag.pengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.transMasterPengurangPenghasilan>)
+                    {
+                        foreach (var b in ViewBag.masterPengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.pengurangPenghasilan>)
+                        {
+                            if (b.id == a.idPengurangPenghasilan)
+                            {
+                                <td>
+                                    @Html.TextBox("pengurangPenghasilans_" + b.id, string.Format("{0:#,##0}", a.amount), new { type = "text", @class = "form-control", @readonly = "readonly" })
+                                    @Html.TextBox("pengurangPenghasilan_" + b.id, string.Format("{0:#,##0}", a.amount), new { type = "text", @style = "display:none" })
+                                </td>
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var b in ViewBag.masterPengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.pengurangPenghasilan>)
+                    {
+                        <td>
+                            @Html.TextBox("pengurangPenghasilans_" + b.id, 0, new { type = "text", @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBox("pengurangPenghasilan_" + b.id, 0, new { type = "text", @style = "display:none" })
+                        </td>
+                    }
+                }
+            </tr>
+        </tbody>
+    }
+
+</table>
+

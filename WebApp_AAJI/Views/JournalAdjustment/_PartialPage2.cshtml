@@ -1,0 +1,146 @@
+﻿<script>
+    function sumTotal(){
+        var tbl = document.getElementById("tbDetail");
+        var totalDebit = 0;
+        var totalCredit = 0;
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                document.getElementById("txtDebits_" + i).value = formatCurrency(document.getElementById("txtDebits_" + i).value.replace(/\./g, ''));
+                document.getElementById("txtCredits_" + i).value = formatCurrency(document.getElementById("txtCredits_" + i).value.replace(/\./g, ''));
+
+                totalDebit += document.getElementById("txtDebit_" + i).value == "" ? 0.0000 : parseFloat(document.getElementById("txtDebits_" + i).value.replace(/\./g, ''));
+                totalCredit += document.getElementById("txtCredit_" + i).value == "" ? 0.0000 : parseFloat(document.getElementById("txtCredits_" + i).value.replace(/\./g, ''));
+                //alert(totalDebit);
+            }
+        }
+        //alert(totalDebit +"!="+ totalCredit);
+        //setTimeout(function () {
+        document.getElementById("totalDebits").value = formatCurrency(totalDebit);
+        document.getElementById("totalCredits").value = formatCurrency(totalCredit);
+        document.getElementById("totalDebit").value = totalDebit;
+        document.getElementById("totalCredit").value = totalCredit;
+        //}, 1000);
+
+        document.getElementById("totalDebits").style.backgroundColor = "";
+        document.getElementById("totalCredits").style.backgroundColor = "";
+        document.getElementById("totalDebit").style.backgroundColor = "";
+        document.getElementById("totalCredit").style.backgroundColor = "";
+        document.getElementById("totalDebits").style.color = "black";
+        document.getElementById("totalCredits").style.color = "black";
+        document.getElementById("totalDebit").style.color = "black";
+        document.getElementById("totalCredit").style.color = "black";
+
+        if (totalDebit != totalCredit) {
+
+            document.getElementById("totalDebits").style.backgroundColor = "yellow";
+            document.getElementById("totalCredits").style.backgroundColor = "yellow";
+            document.getElementById("totalDebit").style.backgroundColor = "yellow";
+            document.getElementById("totalCredit").style.backgroundColor = "yellow";
+
+
+            document.getElementById("totalDebits").style.color = "red";
+            document.getElementById("totalCredits").style.color = "red";
+            document.getElementById("totalDebit").style.color = "red";
+            document.getElementById("totalCredit").style.color = "red";
+        }
+    }
+</script>
+<table class="table" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Account No.</th>
+            <th style="display:none">Account Name</th>
+            <th>Remark</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal totalDebit = 0;
+            decimal totalKredit = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.journalHeader.journalDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.journalHeader.journalDetail>)
+            {
+                totalDebit += a.debit;
+                totalKredit += a.credit;
+                <tr>
+                    <td>
+                        @*@Html.DropDownList("ddlAccount_"+idx, ViewBag.ddlAccount as SelectList, "- Select -", new { @class = "form-control", @onchange = "onChangeDDLAccountNo(this)" })*@
+                        @Html.DropDownList("ddlAccount_" + idx, (ViewData["ddlAccount" + idx]) as SelectList, "- Select -", new { @class = "form-control", @onchange = "onChangeDDLAccountNo(this)" })
+                    </td>
+                    <td style="display:none">
+                        @Html.TextBox("txtAccountName_" + idx, a.accountNameOther, new { @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtRemark_" + idx, a.remarks)
+                    </td>
+                    <td>
+                        @Html.TextBox("txtDebits_" + idx, a.debit.ToString("G29").Replace(',', '.'),
+                       new { type = "text", style = "text-align:right;padding-right:10px", onchange = "document.getElementById('txtDebit_" + @idx + "').value=this.value;document.getElementById('txtCredit_" + @idx + "').value=0;sumTotal();" })
+                        @Html.TextBox("txtDebit_" + idx, a.debit.ToString("G29").Replace(',', '.'),
+                             new { type = "number", step = "0.0001", min = 0, style = "text-align:right; display: none", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "document.getElementById('txtCredit_" + @idx + "').value=0.0000;sumTotal();" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtCredits_" + idx, a.credit.ToString("G29").Replace(',', '.'),
+                          new { type = "text", style = "text-align:right;padding-right:10px", onchange = "document.getElementById('txtCredit_" + @idx + "').value=this.value;document.getElementById('txtDebit_" + @idx + "').value=0;sumTotal();" })
+                        @Html.TextBox("txtCredit_" + idx, a.credit.ToString("G29").Replace(',', '.'),
+                             new { type = "number", step = "0.0001", min = 0, style = "text-align:right; display: none", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "document.getElementById('txtDebit_" + @idx + "').value=0.0000;sumTotal();" })
+                    </td>
+                    <td><input type="button" value="Delete" onclick="onClickDeleteRow(@idx);" /></td>
+                </tr>
+
+                idx++;
+            }
+            
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+                <td>
+                    @if (totalDebit != totalKredit)
+                    {
+                        <input type="text" id="totalDebits" name="totalDebits" readonly="readonly" value="@totalDebit.ToString("G29").Replace(',','.')" style="text-align: right; background-color: yellow; color: red; padding-right: 10px" />
+                        <input type="number" step="0.0001" min=0 id="totalDebit" name="totalDebit" readonly="readonly" value="@totalDebit.ToString("G29").Replace(',','.')" placeholder="0.0000" pattern="^\d*(\.\d{2}$)?" style="text-align: right; background-color: yellow; color: red; display: none" />
+                    }
+                    else
+                    {
+                        <input type="text" id="totalDebits" name="totalDebits" readonly="readonly" value="@totalDebit.ToString("G29").Replace(',','.')" style="text-align:right;padding-right:10px" />
+                        <input type="number" step="0.0001" min=0 id="totalDebit" name="totalDebit" readonly="readonly" value="@totalDebit.ToString("G29").Replace(',','.')" pattern="^\d*(\.\d{2}$)?" placeholder="0.0000" style="text-align: right; display: none" />
+                    }
+                </td>
+                <td>
+                    @if (totalDebit != totalKredit)
+                    {
+                        <input type="text" id="totalCredits" name="totalCredits" readonly="readonly" value="@totalKredit.ToString("G29").Replace(',', '.')" style="text-align: right; padding-right: 10px; background-color: yellow; color: red" />
+                        <input type="number" step="0.0001" min=0 id="totalCredit" name="totalCredit" readonly="readonly" value="@totalKredit.ToString("G29").Replace(',', '.')" pattern="^\d*(\.\d{2}$)?" placeholder="0.0000" style="text-align: right; background-color: yellow; color: red; display: none" />
+                    }
+                    else
+                    {
+                        <input type="text" id="totalCredits" name="totalCredits" readonly="readonly" value="@totalKredit.ToString("G29").Replace(',', '.')" style="text-align: right; padding-right: 10px" />
+                        <input type="number" step="0.0001" min=0 id="totalCredit" name="totalCredit" readonly="readonly" value="@totalKredit.ToString("G29").Replace(',', '.')" pattern="^\d*(\.\d{2}$)?" placeholder="0.0000" style="text-align:right; display:none" />
+                    }
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Hidden("hdnTotalRows", new { @Value = @totalRows })
+
+<script>
+    sumTotal();
+</script>

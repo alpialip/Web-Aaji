@@ -1,0 +1,121 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.menuValidation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+           User Name
+        </th>
+        <th>
+            Menu Name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.validationAccess)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isActive)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (ViewData["userName"] != null)
+            {
+                foreach (var u in ViewData["userName"] as List<WebApp_AAJI.Models.user>)
+                {
+                    if(u.userID == item.userID)
+                    {
+                        @u.userName
+                        break;
+                    }
+                }
+            }
+        </td>
+        <td>
+           @if (ViewData["menuName"] != null)
+            {
+                foreach (var m in ViewData["menuName"] as List<WebApp_AAJI.Models.menu>)
+                {
+                    if (m.menuID == item.menuID)
+                    {
+                        @m.menuName
+                        break;
+                    }
+                }
+            }
+        </td>
+        <td>
+            @if(item.validationAccess != null)
+            {
+
+                string accessName = string.Empty;
+                var splitItem = item.validationAccess.Split(',');
+                foreach(var x in splitItem)
+                {
+                    if (x == "i")
+                    {
+                        accessName += "Insert, ";
+                    }
+                    else if(x == "u")
+                    {
+                        accessName += "Update, ";
+                    }
+                    else if (x == "d")
+                    {
+                        accessName += "Delete, ";
+                    }
+                    else if(x == "v")
+                    {
+                        accessName += "View, ";
+                    }
+                }
+                @accessName.Substring(0,accessName.Length-2);
+            }
+            @*@Html.DisplayFor(modelItem => item.validationAccess)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isActive)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.createdDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedUser)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {id=item.menuValId,item.menuID,item.userID}) |
+            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.menuValId, item.menuID, item.userID })
+        </td>
+    </tr>
+}
+
+</table>

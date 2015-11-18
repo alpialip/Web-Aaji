@@ -1,0 +1,170 @@
+﻿@model WebApp_AAJI.Models.employee
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>employee</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.employeeID)
+        @Html.HiddenFor(model => model.employeeNIK, new { @readonly = "readonly" })
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.createdDate)
+
+        @*<div class="form-group">
+            @Html.Label("Type Create", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("typeCreate", "Generated", true, new { onchange = "typeCreated(this)" }) Generated
+                @Html.RadioButton("typeCreate", "Manual", false, new { onchange = "typeCreated(this)" }) Manual
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeNIK, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Model.employeeNIK
+                @*@Html.TextBox("NIK", "", new { @disabled = "disabled", onchange = "javascript:document.getElementById('employeeNIK').value=this.value" })*@
+                @*<label id="lblGenerated" style="font-weight:100">(ex: yymmxxx)</label>*@
+                @Html.ValidationMessageFor(model => model.employeeNIK)
+                <div class="photo">
+                    @if (ViewBag.PhotoDir != null)
+                    {
+                        string photoDir = ViewBag.PhotoDir;
+                            photoDir = @Url.Action("../"+photoDir.Replace("~",""));
+                        <img src="@photoDir.Trim()" style="height: 143px;width: 119px;" />
+                    }
+                    <div>
+                        <input id="linkFilePhoto" name="linkFilePhoto" type="file" class="file" data-show-upload="false" data-show-caption="true" style="padding-top: 5px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.employeeName, new { onchange = "generatedUserId()" })
+                @Html.ValidationMessageFor(model => model.employeeName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.npwp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.npwp)
+                @Html.ValidationMessageFor(model => model.npwp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ktp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ktp)
+                @Html.ValidationMessageFor(model => model.ktp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.address, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.city, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.city)
+                @Html.ValidationMessageFor(model => model.city)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bankName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("existingBank", ViewBag.bankIsExisting == true ? true : false, new { onchange = "javascript:checkBank(this)" }) Existing &nbsp;
+                @if (ViewBag.bankIsExisting == true)
+                {
+                    @Html.DropDownList("ddlBank", ViewBag.ListBankExistingOnEmployee as SelectList, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.bankName, new { @style = "display:none"})
+                }
+                @Html.ValidationMessageFor(model => model.bankName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.rekening, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.rekening)
+                @Html.ValidationMessageFor(model => model.rekening)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Place & Birth Of Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tempatLahir)
+                @Html.ValidationMessageFor(model => model.tempatLahir)
+                @Html.TextBoxFor(model => model.tanggalLahir, new { type = "date", @Value = Model.tanggalLahir.ToString("yyyy-MM-dd")})
+                @Html.ValidationMessageFor(model => model.tanggalLahir)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("UserID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.RadioButton("typeCreateUserId", "Generated", true, new { onchange = "javascript:typeCreateUserIds(this)" })Generated
+                @Html.RadioButton("typeCreateUserId", "Manual", false, new { onchange = "javascript:typeCreateUserIds(this)" })Manual*@
+                @Html.TextBox("userID", ViewBag.userID as string, new { @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.linkFilePhoto, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input id="linkFilePhoto" name="linkFilePhoto" type="file" class="file" data-show-upload="false" data-show-caption="true"><!--multiple="true"-->
+                @Html.ValidationMessageFor(model => model.linkFilePhoto)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.Label("Atasan", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("txtAtasan")
+                    <button data-toggle="modal" data-target="#myModal">...</button>
+                </div>
+            </div>*@
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageEmpPosition1")
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" onclick="save();" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="save();" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

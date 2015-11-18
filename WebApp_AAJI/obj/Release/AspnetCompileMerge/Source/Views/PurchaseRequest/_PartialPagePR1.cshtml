@@ -1,0 +1,246 @@
+﻿<script type="text/javascript">
+    var indexDelete = 0;
+
+    function onClickDeleteRow(idx) {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+        if ((tbl.rows.length - 1) > 2) {
+            document.getElementById("tbDetail").deleteRow(idx);
+            indexDelete = idx;
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailPurchaseRequest", "PurchaseRequest", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRow() {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+
+        var x = validateDataDetail("add");
+        //alert(x);
+        if (x == true) {
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailPurchaseRequest", "PurchaseRequest", null, Request.Url.Scheme))?dataDetail=' + y + '&act=add');
+            $("#hdnTotalRows").val(tbl.rows.length);
+            setTimeout(function () { sumTotal(); }, 500);
+        }
+    }
+
+    function collectDataDetail() {
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = tbl.rows.length;
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 1; i < (rowsCount - 1) ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                //alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                //alert("i after ==>" + i)
+            }
+
+            var productID = document.getElementById("txtProductID_" + i);
+            var productIDVal = productID.value;
+            var productIDId = productID.id;
+
+            var description = document.getElementById("txtDescription_" + i);
+            var descriptionVal = description.value;
+            var descriptionId = description.id;
+
+            var qty = document.getElementById("txtQty_" + i);
+            var qtyVal = qty.value;
+            var qtyId = qty.id;
+
+            var unit = document.getElementById("txtUnit_" + i);
+            var unitVal = unit.value;
+            var unitId = unit.id;
+
+            stringDataDetail += seqRows + ";" + productIDVal + ";" + escape(descriptionVal) + ";" + qtyVal + ";" + unitVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function validateDataDetail(actFrom) {
+        //alert(indexDelete);
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length - 1);
+        //alert(rowsCount);
+        for (i = 1; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var productID = document.getElementById("txtProductID_" + i);
+            var productIDVal = productID.value;
+            var productIDId = productID.id;
+
+            //alert(actFrom + " == 'save' && " + productIDVal + " == '' && " + i + " == " + (rowsCount - 1));
+            if (actFrom == "save" && productIDVal == "" && i == (rowsCount))
+                break;
+
+            var description = document.getElementById("txtDescription_" + i);
+            var descriptionVal = description.value;
+            var descriptionId = description.id;
+
+            var qty = document.getElementById("txtQty_" + i);
+            var qtyVal = qty.value;
+            var qtyId = qty.id;
+
+            var unit = document.getElementById("txtUnit_" + i);
+            var unitVal = unit.value;
+            var unitId = unit.id;
+
+            //alert(parseFloat(payVal));
+            if (productIDVal == "" || descriptionVal == "" || (qtyVal == "" || qtyVal == 0) || unitVal == "") {
+                alert("Please complete data detail.");
+                //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var grandTotal = 0;
+
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                grandTotal += document.getElementById("txtQty_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtQty_" + i).value);
+            }
+        }
+        $("#grandTotal").val(grandTotal);
+    }
+</script>
+<table class="table" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th>
+                <input type="button" id="btnAddRow" name="btnAddRow" value="[ + ]" onclick="onClickAddRow();">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            int grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.purchaseRequestHeader.purchaseRequestDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.purchaseRequestHeader.purchaseRequestDetail>)
+            {
+                string prodName = string.Empty;
+                string prodCode = string.Empty;
+                foreach(var b in ViewBag.product as IEnumerable<WebApp_AAJI.Models.product.listProduct>)
+                {
+                    if(b.productID == a.productId)
+                    {
+                        prodCode = b.productCode;
+                        prodName = b.productName;
+                        break;
+                    }
+                }
+                <tr>
+                    <td>
+                        @Html.Hidden("txtProductID_" + idx, a.productId)
+                        @Html.TextBox("txtProductCode_" + idx, prodCode, new { @readonly = "readonly" })
+                        <button data-toggle="modal" data-target="#myModal" onclick="javascript:document.getElementById('hdnIdxRowsClick').value='@idx'">...</button>
+                    </td>
+                    <td>
+                        @Html.TextBox("txtDescription_" + idx, a.description, new { @readonly = "readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtQty_" + idx, a.qty.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "sumTotal(" + idx + ");" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtUnit_" + idx, a.unit, "", new { @readonly = "readonly" })
+                    </td>
+                    <td>
+                        <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                    </td>
+                </tr>
+                idx++;
+                grandTotal += a.qty;
+            }
+        }        
+        
+            <tr>
+                <td>
+                    @Html.Hidden("txtProductID_" + idx, "")
+                    @Html.TextBox("txtProductCode_" + idx, "", new { @readonly = "readonly" })
+                    <button data-toggle="modal" data-target="#myModal" onclick="javascript:document.getElementById('hdnIdxRowsClick').value='@idx'">...</button>
+                </td>
+                <td>
+                    @Html.TextBox("txtDescription_" + idx,"",new{@readonly="readonly"})
+                </td>
+                <td>
+                    @Html.TextBox("txtQty_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "sumTotal(" + idx + ");" })
+                </td>
+                <td>
+                    @Html.TextBox("txtUnit_" + idx, "", new { @readonly = "readonly" })
+                </td>
+                <td>
+                    <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+                <td>
+                    <input type="number" step="1" min=0 id="grandTotal" name="grandTotal" readonly="readonly" value="@grandTotal" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 100px; " />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+    </tbody>
+</table>
+
+@Html.Hidden("hdnIdxRowsClick")
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:625px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Product</h4>
+            </div>
+            @*<div class="modal-body">*@
+            <div class="table-responsive">
+                @Html.Partial("_PartialPagePopUpProduct");
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

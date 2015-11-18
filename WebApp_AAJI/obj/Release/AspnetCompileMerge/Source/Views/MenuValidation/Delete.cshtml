@@ -1,0 +1,162 @@
+﻿@model WebApp_AAJI.Models.menuValidation
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<h3><font color="Red">Are you sure you want to delete this?</font></h3>
+    <div class="form-horizontal">
+        <h4>menuValidation</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.menuValId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.validationName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.validationName, new { style = "width:280px", disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.validationName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("valType", "Validation Type", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("rbIsGeneral", true, Model.validationTypeIsGeneral == true ? true : false, new { @disabled = "disabled" }) General
+                @Html.RadioButton("rbIsGeneral", false, Model.validationTypeIsGeneral == false ? true : false, new { @disabled = "disabled" }) Exclusive
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Assign Menu", new { @class = "control-label col-md-2" })
+            @Html.Hidden("menuID", 1)
+            @if (Model.validationTypeIsGeneral == true)
+            {
+                <div class="col-md-10" id="menuGeneral">
+                    <div style="width: 600px; height: 400px; overflow:auto;">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-condensed" width="100%" id="tblMenuAssign">
+                                <tr>
+                                    <th>Menu Name</th>
+                                    <th>
+                                        <input type="checkbox" id="insertAll" name="insertAll" disabled="disabled" />
+                                        Insert
+                                    </th>
+                                    <th>
+                                        <input type="checkbox" id="updateAll" name="updateAll" disabled="disabled" />
+                                        Update
+                                    </th>
+                                    <th>
+                                        <input type="checkbox" id="deleteAll" name="deleteAll" disabled="disabled" />
+                                        Delete
+                                    </th>
+                                    <th>
+                                        <input type="checkbox" id="viewAll" name="viewAll" disabled="disabled" />
+                                        View
+                                    </th>
+                                </tr>
+                                @if (ViewData["menuGeneral"] != null)
+                                {
+                                    var menuAssign = ViewData["menuGeneral"] as IEnumerable<WebApp_AAJI.Models.menuValidation.SelectMenuAuthorize>;
+                                    var menuGeneralSaved = ViewData["menuGeneralSaved"] as List<string>;
+
+                                    for (int i = 0; i < menuAssign.ToList().Count; i++)
+                                    {
+                                        bool iChecked = false;
+                                        bool uChecked = false;
+                                        bool dChecked = false;
+                                        bool vChecked = false;
+
+                                        for (int ms = 0; ms < menuGeneralSaved.Count; ms++)
+                                        {
+                                            var idMenu = menuGeneralSaved[ms].Split('|');
+                                            if (idMenu[0].ToString() == menuAssign.ToList()[i].Id.ToString())
+                                            {
+                                                var msChecked = menuGeneralSaved[ms].Split('|');
+                                                var checkd = msChecked[1].Split(',');
+                                                for (int c = 0; c < checkd.Length; c++)
+                                                {
+                                                    if (checkd[c] == "i")
+                                                    {
+                                                        iChecked = true;
+                                                    }
+                                                    else if (checkd[c] == "u")
+                                                    {
+                                                        uChecked = true;
+                                                    }
+                                                    else if (checkd[c] == "d")
+                                                    {
+                                                        dChecked = true;
+                                                    }
+                                                    else if (checkd[c] == "v")
+                                                    {
+                                                        vChecked = true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        <tr>
+                                            <td>
+                                                @Html.Hidden("menuIDGeneral" + i, menuAssign.ToList()[i].Id)
+                                                @Html.Label("menuAssign_" + i, menuAssign.ToList()[i].Name)
+                                            </td>
+                                            <td>@Html.CheckBox("insert_" + i, iChecked, new { disabled = "disabled" })</td>
+                                            <td>@Html.CheckBox("update_" + i, uChecked, new { disabled = "disabled" })</td>
+                                            <td>@Html.CheckBox("delete_" + i, dChecked, new { disabled = "disabled" })</td>
+                                            <td>@Html.CheckBox("view_" + i, vChecked, new { disabled = "disabled" })</td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-10" id="menuExclusive">
+                    @Html.DropDownList("menu", ViewBag.menuExclusive as SelectList, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.userID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div style="width: 600px; height: 110px; overflow:auto;">
+                    @if (ViewData["userAssign"] != null)
+                    {
+                        var userAssign = ViewData["userAssign"] as IEnumerable<WebApp_AAJI.Models.user.SelectActionUser>;
+                        for (int i = 0; i < userAssign.ToList().Count; i++)
+                        {
+                            <div>
+                                @Html.HiddenFor(x => userAssign.ToList()[i].userId)
+                                @Html.CheckBoxFor(x => userAssign.ToList()[i].userSelected, new { @value = userAssign.ToList()[i].userId, disabled = "disabled" })
+                                @Html.LabelFor(x => userAssign.ToList()[i].userSelected, userAssign.ToList()[i].userName)
+                            </div>
+                        }
+                        @Html.Hidden("userID", userAssign.ToList().Count)
+                    }
+                </div>
+                @Html.ValidationMessageFor(model => model.userID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isActive, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.isActive, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.isActive)
+            </div>
+        </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

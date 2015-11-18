@@ -1,0 +1,53 @@
+﻿@using System.Data;
+
+<h2><span style="margin-top:5px">Employee Report</span></h2>
+Period : <span id="period"></span>
+
+@if (ViewBag.detail != null)
+{
+    <div style="overflow:auto; width:1000px; height:400px">
+        <table class="table-hover" style="border-collapse: collapse;" border="1">
+            <thead>
+                <tr>
+                    <th style="text-align: center">No.</th>
+                    <th style="text-align: center">NIK</th>
+                    <th style="min-width:225px;text-align:center">Employee Name</th>
+                    <th style="min-width:225px;text-align:center">Join Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.detail != null)
+                {
+                    DataTable dt = ViewBag.detail as DataTable;
+                    if (dt.Rows.Count > 0)
+                    {
+                        int noUrut = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            DateTime joinDate = DateTime.Parse(dr["positionDate"].ToString());
+                            <tr>
+                                <td style="padding:0 5px 0 5px;">@noUrut</td>
+                                <td style="padding:0 5px 0 5px;">@dr["employeeNIK"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["employeeName"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@joinDate.ToString("dd-MMM-yyyy")</td>
+                            </tr>
+                            noUrut++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">No Data Result</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

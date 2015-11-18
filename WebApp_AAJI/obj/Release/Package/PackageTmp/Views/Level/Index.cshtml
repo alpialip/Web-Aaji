@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.level>
+
+@{
+    ViewBag.Title = "Level";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.levelName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.saldoCuti)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.levelName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.saldoCuti)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.levelID }) <img src='~/img/edit.png' style="width:15px" /> |
+            @Html.ActionLink("Details", "Details", new { id = item.levelID }) <img src='~/img/view.png' style="width:15px" />  |
+            @Html.ActionLink("Delete", "Delete", new { id = item.levelID }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+            <a href="@Url.Action("Edit")/@item.levelID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.levelID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.levelID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>

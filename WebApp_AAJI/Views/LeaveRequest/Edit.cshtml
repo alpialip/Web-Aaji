@@ -1,0 +1,123 @@
+﻿@model WebApp_AAJI.Models.transLeaveRequest
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>transLeaveRequest</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.leaveRequestID)
+        @Html.HiddenFor(model => model.createdDate)
+        @Html.HiddenFor(model => model.createdUser)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.employeeID)
+                @Html.TextBox("employeeName", ViewBag.employeeName as string, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.employeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.leaveStartDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.leaveStartDate, new { @class = "tanggal", @Value = Model.leaveStartDate.ToString("dd-MMM-yyyy") })
+                @Html.ValidationMessageFor(model => model.leaveStartDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.leaveEndDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.leaveEndDate, new { @class = "tanggal", @Value = Model.leaveEndDate.ToString("dd-MMM-yyyy") })
+                @Html.ValidationMessageFor(model => model.leaveEndDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cutiInHoliday, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Model.cutiInHoliday
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.category, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.category, new { @class = "form-control" })*@
+                @Html.DropDownListFor(model => model.category, new SelectList(
+                  new List<Object>{
+                       new { value = "tahunan" , text = "Cuti Tahunan"  },
+                       new { value = "persalinan" , text = "Cuti Persalinan" },
+                       new { value = "kemalangan" , text = "Cuti Kemalangan"},
+                       new { value = "lainlain" , text = "Cuti Lain-lain"},
+                    },
+                  "value",
+                  "text",
+            "tahunan"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.category)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.leaveDescription, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.leaveDescription, new { @class = "form-control", @rows = "2" })
+                @Html.ValidationMessageFor(model => model.leaveDescription)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.approvedStatus, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.CheckBox("approvedStatus", Model.approvedStatus == true, new { @class = "form-control", label="huwala" })*@
+                @Html.DropDownListFor(model => model.approvedStatus, new SelectList(
+                  new List<Object>{
+                       new { value = "" , text = "= Waiting ="  },
+                       new { value = true , text = "Approved" },
+                       new { value = false , text = "Rejected"},
+                    },
+                  "value",
+                  "text",
+            ""), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.approvedStatus)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.acknowledgeStatus, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.CheckBox("acknowledgeStatus", Model.acknowledgeStatus == true, new { @class = "form-control"})*@
+                @Html.DropDownListFor(model => model.acknowledgeStatus, new SelectList(
+                  new List<Object>{
+                       new { value = "" , text = "= Waiting ="  },
+                       new { value = true , text = "Acknowledged" },
+                       new { value = false , text = "Rejected"},
+                    },
+                  "value",
+                  "text",
+            ""), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.acknowledgeStatus)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

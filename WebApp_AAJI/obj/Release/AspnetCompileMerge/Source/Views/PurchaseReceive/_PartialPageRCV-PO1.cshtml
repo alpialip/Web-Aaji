@@ -1,0 +1,122 @@
+﻿<script src="~/Scripts/commonFunction.js"></script>
+<script type="text/javascript">
+    function sumRemain() {
+        var tbl = document.getElementById("tbDetail");
+        var subTotal = 0;
+
+        //alert(tbl.rows.length);
+        var tblLength = (tbl.rows.length-0);//5 didapat dari pengurangan row subtotal,disc,total,ppn,grandtotal ~lihat tampilan u/ jelasnya
+        //alert(tblLength);
+        if (tblLength > 1) {
+            for (i = 1; i < tblLength ; i++) {
+                //alert(i);
+                var qtyOrder = document.getElementById("txtQtyOrder_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtQtyOrder_" + i).value);
+                var qtyReceive = document.getElementById("txtQtyReceive_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtQtyReceive_" + i).value);
+                var qtyReturn = document.getElementById("txtQtyReturn_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtQtyReturn_" + i).value);
+
+                var qtyRemain = (qtyOrder - (qtyReceive + qtyReturn));
+                document.getElementById("txtQtyRemain_" + i).value = qtyRemain;
+
+                if(qtyRemain > qtyOrder || qtyRemain < 0)
+                {
+                    document.getElementById("txtQtyRemain_" + i).style.borderColor = "red";
+                    //document.getElementById("txtQtyRemain_" + i).style.backgroundColor = "yellow";
+                    document.getElementById("txtQtyRemain_" + i).title = "Qty Remain Not Match Qty Order";
+                }
+                else
+                {
+                    document.getElementById("txtQtyRemain_" + i).style.borderColor = "";
+                    //document.getElementById("txtQtyRemain_" + i).style.backgroundColor = "gainsboro";
+                    document.getElementById("txtQtyRemain_" + i).title = "Qty Remain";
+                }
+            }
+        }
+    }
+
+</script>
+<table class="table" id="tbDetail" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Description</th>
+            <th>Qty Order</th>
+            <th>Qty Remain</th>
+            <th>Qty Receive</th>
+            <th>Qty Return</th>
+            <th>Unit</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal subTotal = 0;
+            decimal grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.purchaseReceive.poReceive>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.purchaseReceive.poReceive>)
+            {
+                int qtySaved = 0;
+                int qtyReturn = 0;
+                int qtyRemain = a.qtyOrder;
+                if (ViewBag.dataDetailSaved != null)
+                {
+                    foreach (var b in ViewBag.dataDetailSaved as IEnumerable<WebApp_AAJI.Models.purchaseReceive.purchaseReceiveDetail>)
+                    {
+                        if (a.productId == b.productId)
+                        {
+                            qtySaved = b.qty;
+                            break;
+                        }
+                    }
+
+                    foreach (var c in ViewBag.dataDetailReturnSaved as IEnumerable<WebApp_AAJI.Models.purchaseReceive.purchaseReturnDetail>)
+                    {
+                        if (a.productId == c.productId)
+                        {
+                            qtyReturn = c.qty;
+                            break;
+                        }
+                    }
+
+                    qtyRemain = a.qtyOrder - qtySaved;
+                }
+                <tr>
+                    <td>
+                        @Html.TextBox("txtProductID_" + idx, a.productId, new { @readonly = "readonly", style = "background-color: gainsboro;" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtDescription_" + idx, a.productDesc, new { @readonly = "readonly", style = "background-color: gainsboro;" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtQtyOrder_" + idx, a.qtyOrder.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, style = "text-align:right;width:100px;background-color: gainsboro;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtQtyRemain_" + idx, qtyRemain.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, style = "text-align:right;width:100px;background-color: gainsboro;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtQtyReceive_" + idx, qtySaved.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, max = a.qtyOrder, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "javascript:sumRemain()" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtQtyReturn_" + idx, qtyReturn.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, max = a.qtyOrder, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "javascript:sumRemain()" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtUnit_" + idx, a.unit, new { @readonly = "readonly", style = "width:100px;background-color: gainsboro;" })
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                idx++;
+            }
+        }
+    </tbody>
+</table>
+
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })

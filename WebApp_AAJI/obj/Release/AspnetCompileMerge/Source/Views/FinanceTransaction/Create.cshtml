@@ -1,0 +1,129 @@
+﻿@model WebApp_AAJI.Models.financeTransactionHeader
+
+@{
+    ViewBag.Title = "Create";
+}
+@*<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>*@
+<script type="text/javascript">
+    function triggerTft(valTransactionType)
+    {
+        document.getElementById('transactionType').value = valTransactionType;
+
+        document.getElementById('ddlTftCI').style.display = "none";
+        document.getElementById('ddlTftCO').style.display = "none";
+        document.getElementById('ddlTftAP').style.display = "none";
+        document.getElementById('ddlTftAR').style.display = "none";
+
+        if (valTransactionType == "Cash_In")
+            document.getElementById('ddlTftCI').style.display = "";
+        else if (valTransactionType == "Cash_Out")
+            document.getElementById('ddlTftCO').style.display = "";
+        else if (valTransactionType == "AP")
+            document.getElementById('ddlTftAP').style.display = "";
+        else if (valTransactionType == "AR")
+            document.getElementById('ddlTftAR').style.display = "";
+
+    }
+    function triggerBt(valBillingType) {
+        document.getElementById("ddlAccount").style.display = "none";
+        document.getElementById("dvCD").style.display = "none";
+        document.getElementById('billingType').value = "";
+        document.getElementById('billingNo').value = "";
+        document.getElementById('clearingDate').value = "";
+
+        if (valBillingType == "Bank")
+        {
+            document.getElementById('billingType').value = valBillingType;
+            document.getElementById("ddlAccount").style.display = "";
+        }
+        else if (valBillingType == "Giro")
+            document.getElementById("dvCD").style.display = "";
+    }
+</script>
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Finance Transaction</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.voucherNo)
+        @Html.HiddenFor(model => model.transactionType)
+        @Html.HiddenFor(model => model.tftID)
+        @Html.HiddenFor(model => model.billingType)
+        @Html.HiddenFor(model => model.billingNo)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.voucherDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.voucherDate)*@
+                @Html.TextBoxFor(model => model.voucherDate, new { type = "date", @Value = DateTime.Now.Date.ToString("yyyy-MM-dd"),@readonly="readonly" })
+                @Html.ValidationMessageFor(model => model.voucherDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.transactionType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ddlFt", ViewBag.ddlFt as SelectList, "- Select -", new { @class = "form-control", @onchange = "triggerTft(this.value);" })
+                @Html.DropDownList("ddlTftCI", ViewBag.TFTCI as SelectList, "- Select -", new { @class = "form-control", @style = "display:none", @onchange = "javascript:document.getElementById('tftID').value=this.value;" })
+                @Html.DropDownList("ddlTftCO", ViewBag.TftCO as SelectList, "- Select -", new { @class = "form-control", @style = "display:none", @onchange = "javascript:document.getElementById('tftID').value=this.value;" })
+                @Html.DropDownList("ddlTftAP", ViewBag.TftAP as SelectList, "- Select -", new { @class = "form-control", @style = "display:none", @onchange = "javascript:document.getElementById('tftID').value=this.value;" })
+                @Html.DropDownList("ddlTftAR", ViewBag.TftAR as SelectList, "- Select -", new { @class = "form-control", @style = "display:none", @onchange = "javascript:document.getElementById('tftID').value=this.value;" })
+                @Html.ValidationMessageFor(model => model.transactionType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.billingType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ddlBt", ViewBag.ddlBt as SelectList, "- Select -", new { @class = "form-control", @onchange = "triggerBt(this.value);" })
+                @Html.DropDownList("ddlAccount", ViewBag.ddlAccount as SelectList, "- Select -", new { @class = "form-control", @style="display:none", @onchange = "javascript:document.getElementById('billingNo').value=this.value;" })
+                @Html.ValidationMessageFor(model => model.billingType)
+            </div>
+        </div>
+
+        <div class="form-group" id="dvCD" style="display:none">
+            @Html.LabelFor(model => model.clearingDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.clearingDate, new { type="date"})
+                @Html.ValidationMessageFor(model => model.clearingDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.amount, new { type = "number", step = "0.0001", min = 0, style = "text-align:right", placeholder = "0.0000" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageFT1")
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="confirmSave();" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

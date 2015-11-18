@@ -1,0 +1,111 @@
+﻿@model WebApp_AAJI.Models.cashOnHandAndAdvanceRequest
+
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "CashOnHandAndAdvanceRequest", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>@*cashOnHandAnd*@ Advance Request</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.reqNo)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("date", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+                @Html.ValidationMessageFor(model => model.date)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.reqFrom, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (ViewBag.isAdmin == true)
+                {
+                    @Html.DropDownList("reqFrom", ViewBag.User as SelectList, new { @class = "form-control" })
+                }
+                else
+                {
+                    @Html.DropDownList("reqFroms", ViewBag.User as SelectList, new { @class = "form-control", @readonly="readonly", @disabled="disabled" })
+                    @Html.Hidden("reqFrom")
+                }
+                @Html.ValidationMessageFor(model => model.reqFrom)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("To", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label style="font-weight:100">Operation Division Finance & Accounting</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.activity, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("activity", ViewBag.Activity as SelectList,"-Select-", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.activity)
+            </div>
+        </div>  
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.clearanceDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("clearanceDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+                @Html.ValidationMessageFor(model => model.clearanceDate)
+            </div>
+        </div>  
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.reqIsCashOnHand, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("reqIsCashOnHand", true, false, new { style = "display:none" }) @*Cash On Hand*@
+                @Html.RadioButton("reqIsCashOnHand", false, true) Advance Request
+                @Html.ValidationMessageFor(model => model.reqIsCashOnHand)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.includeProposal, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.includeProposal)
+                @Html.ValidationMessageFor(model => model.includeProposal)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isReimbursement, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.isReimbursement, new { onclick = "onchangeReimbursement()" })
+                @Html.ValidationMessageFor(model => model.isReimbursement)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageDetail1")
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="confirmSave();" />&nbsp;
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    document.getElementById('reqFrom').value = document.getElementById('reqFroms').value;
+</script>

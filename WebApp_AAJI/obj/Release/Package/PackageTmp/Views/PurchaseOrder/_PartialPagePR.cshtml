@@ -1,0 +1,54 @@
+﻿<script type="text/javascript">
+    function copyToFormPR(prId, deptName, typeOrder, proposalInclude, specialInstruction, projectTimeDelivery) {
+        $('#prId').val(prId);
+        //$('#prFrom').val(deptName);
+        $('#prFrom').text(deptName);
+        $('#prType').text(typeOrder);
+        $('#poUrgent').val(typeOrder);
+        $('#prProposal').text(proposalInclude);
+        $('#prInstruction').text(specialInstruction);
+        $('#prDelivery').text(projectTimeDelivery);
+        $("#dvDetail").load('@(Url.Action("LoadDetailPR", "PurchaseOrder", null, Request.Url.Scheme))?prId=' + prId);
+        $('#myModal').modal('hide');
+    }
+</script>
+
+@if (ViewBag.PRPopUp != null)
+{ 
+    <table class="table table-striped table-hover table-condensed" width="700px">
+        <tr>
+            <th></th>
+            <th>PR No</th>
+            <th>Dept</th>
+            <th>Order</th>
+            <th>Prop.Include</th>
+            <th>Instruction</th>
+            <th>Delivery</th>
+        </tr>
+        @foreach (var item in ViewBag.PRPopUp as IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader.prPopUp>)
+        {
+            var propInclude = @item.proposalInclude == true ? "Yes" : "No";
+            <tr>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormPR('@item.prId', '@item.deptName', '@item.typeOrder', '@propInclude', '@item.specialInstruction', '@item.projectTimeDelivery');"></a>
+                </td>
+                @*<td>@Html.Label("popUpPRId", item.prId)</td>
+                <td>@Html.Label("popUpPRDeptName", item.deptName)</td>
+                <td>@Html.Label("popUpPROrder", item.typeOrder)</td>
+                <td>@Html.Label("popUpPRProposal", item.proposalInclude)</td>
+                <td>@Html.Label("popUpPRInstruction", item.specialInstruction)</td>
+                <td>@Html.Label("popUpPRProject", item.projectTimeDelivery)</td>*@
+                <td>@item.prId</td>
+                <td>@item.deptName</td>
+                <td>@item.typeOrder</td>
+                <td>@item.proposalInclude</td>
+                <td>@item.specialInstruction</td>
+                <td>@item.projectTimeDelivery</td>
+            </tr>
+        }
+@*@for (var item in ViewData["PRPopUp"] as List<string> )
+{
+    
+}*@
+    </table>
+}

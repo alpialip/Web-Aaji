@@ -1,0 +1,124 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.setupEmail>*@
+@model WebApp_AAJI.Models.setupEmail
+
+@{
+    ViewBag.Title = "Setup Email";
+}
+
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.port)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.port)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emailName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emailAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedUser)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.host }) |
+            @Html.ActionLink("Details", "Details", new { id=item.host }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.host })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Setup Email</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.host, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.host)
+                @Html.ValidationMessageFor(model => model.host)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.port, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.port)
+                @Html.ValidationMessageFor(model => model.port)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emailName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emailName)
+                @Html.ValidationMessageFor(model => model.emailName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emailAddress, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emailAddress)
+                @Html.ValidationMessageFor(model => model.emailAddress)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.modifiedDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedDate)
+                @Html.ValidationMessageFor(model => model.modifiedDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modifiedUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedUser)
+                @Html.ValidationMessageFor(model => model.modifiedUser)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

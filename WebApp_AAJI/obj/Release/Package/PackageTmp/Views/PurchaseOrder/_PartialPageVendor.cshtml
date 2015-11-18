@@ -1,0 +1,7 @@
+﻿@Html.DropDownList("ddlVendor", ViewBag.ddlVendor as SelectList, "- Select -", new { @class = "form-control", disabled = "disabled", onchange = "getDataVendor(this);document.getElementById('vendorId').value=this.value" })
+<script>
+    if(document.getElementById('prId').value != "")
+    {
+        document.getElementById('ddlVendor').removeAttribute('disabled');
+    }
+</script>

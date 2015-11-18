@@ -1,0 +1,67 @@
+﻿@model WebApp_AAJI.Models.groupEmail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>groupEmail</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.groupEmailName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.groupEmailName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emailAddress)
+        </dt>
+
+        <dd>
+            @if (ViewBag.email != null)
+            {
+                string[] emailSaved = Model.emailAddress.Split(',');
+                string emailDistributed = string.Empty;
+                foreach (var a in ViewBag.email as IEnumerable<WebApp_AAJI.Models.email>)
+                {
+                    for (int i = 0; i < emailSaved.Length; i++)
+                    {
+                        if (Convert.ToInt32(emailSaved[i].ToString()) == a.emailID)
+                        {
+                            emailDistributed += a.emailName + " (" + a.emailAddress + ")" + ", ";
+                        }
+                    }
+                }
+                emailDistributed = emailDistributed.Substring(0, emailDistributed.Length - 2);
+                @emailDistributed;
+            }
+            @*@Html.DisplayFor(model => model.emailAddress)*@
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedUser)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.groupEmailID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

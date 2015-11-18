@@ -1,0 +1,246 @@
+﻿<script src="~/Scripts/commonFunction.js"></script>
+<script type="text/javascript">
+    var indexDelete = 0;
+
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var subTotal = 0;
+
+        //alert(tbl.rows.length);
+        var tblLength = (tbl.rows.length - 5);//5 didapat dari pengurangan row subtotal,disc,total,ppn,grandtotal ~lihat tampilan u/ jelasnya
+        //alert(tblLength);
+        if (tblLength > 1) {
+            for (i = 1; i < tblLength ; i++) {
+                //alert(i);
+                var prices = formatCurrency(document.getElementById("txtPrices_" + i).value.replace(/\./g, ''));
+                document.getElementById("txtPrices_" + i).value = prices;
+                document.getElementById("txtPrice_" + i).value = prices.replace(/\./g, '');
+
+                var i_qty = document.getElementById("txtQty_" + i).value * 1;
+                document.getElementById("txtQty_" + i).value = i_qty;
+                var qty = document.getElementById("txtQty_" + i).value == "" ? 0 : parseFloat(i_qty);
+                var price = parseFloat(prices.replace(/\./g, ''));
+                var disc = document.getElementById("txtDisc_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtDisc_" + i).value);
+                var totalPerRow = document.getElementById("txtTotal_" + i).value = ((qty * price) - (((qty * price) * disc) / 100));
+
+                var totalPerRows = formatCurrency(totalPerRow);
+                document.getElementById("txtTotals_" + i).value = totalPerRows;
+                document.getElementById("txtTotal_" + i).value = totalPerRows.replace(/\./g, '');
+
+                //var totalPerRow = totalPerRows.replace(/\./g, '');
+                //alert("totalPerRow " + totalPerRow);
+                subTotal = parseInt(subTotal) + parseInt(totalPerRow);
+                //alert("subTotal " + subTotal);
+                //alert("qty:" + qty + "- price: " + price + "-disc" + disc + "-totalPerRow:" + totalPerRow);
+            }
+
+            document.getElementById("subTotals").value = formatCurrency(subTotal);
+            document.getElementById("subTotal").value = subTotal;
+            document.getElementById("disc").value = (document.getElementById("discs").value.replace(/\./g, '') * 1);
+            document.getElementById("discs").value = (document.getElementById("discs").value.replace(/\./g, '') * 1);
+            var total = (parseInt(subTotal) - ((parseInt(subTotal) * parseFloat(document.getElementById("discs").value)) / 100));
+            document.getElementById("totals").value = formatCurrency(total);
+            document.getElementById("total").value = total;
+            document.getElementById("ppn").value = (document.getElementById("ppns").value.replace(/\./g, '') * 1);
+            document.getElementById("ppns").value = (document.getElementById("ppns").value.replace(/\./g, '') * 1);
+            var grandTotal = (parseInt(total) + ((parseInt(total) * parseInt(document.getElementById("ppns").value)) / 100));
+            document.getElementById("grandTotals").value = formatCurrency(grandTotal);
+            document.getElementById("grandTotal").value = grandTotal;
+
+            if (grandTotal > 0) {
+                var sayit = terbilang(grandTotal);
+                $("#lblTerbilang").text(sayit);
+            }
+            //alert("sini");
+        }
+    }
+
+</script>
+<table class="table" id="tbDetail" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Description</th>
+            <th>Req.Qty</th>
+            <th>Qty</th>
+            <th>Unit</th>
+            <th>Price</th>
+            <th>Disc (%)</th>
+            <th>Total</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal subTotal = 0;
+            decimal grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.purchaseRequestHeader.purchaseRequestDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.purchaseRequestHeader.purchaseRequestDetail>)
+            {
+                int qtySaved = 0;
+                decimal priceSaved = 0;
+                decimal discSaved = 0;
+                decimal totalPerRow = 0;
+                if (ViewBag.dataDetailSaved != null)
+                {
+                    foreach(var b in ViewBag.dataDetailSaved as IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader.purchaseOrderDetail>)
+                    {
+                        if(a.productId == b.productID)
+                        {
+                            qtySaved = b.qty;
+                            priceSaved = b.price;
+                            discSaved = b.disc;
+
+                            totalPerRow = (b.qty * b.price) - (((b.qty * b.price) * b.disc) / 100);
+                            subTotal += totalPerRow;
+                            break;
+                        }
+                    }
+                }
+        <tr>
+            <td>
+                @Html.TextBox("txtProductID_" + idx, a.productId, new { @readonly = "readonly", style = "background-color: gainsboro;display:none;" })
+                @if (ViewBag.product != null)
+                {
+                    foreach (var p in ViewBag.product as IEnumerable<WebApp_AAJI.Models.product>)
+                    {
+                        @Html.TextBox("txtProductCode_" + idx, p.productCode, new { @readonly = "readonly", style = "background-color: gainsboro;" })
+                        break;
+                    }
+                }
+            </td>
+            <td>
+                @Html.TextBox("txtDescription_" + idx, a.description, new { @readonly = "readonly" })
+            </td>
+            <td>
+                @Html.TextBox("txtReqQty_" + idx, a.qty.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, style = "text-align:right;width:100px;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+            </td>
+            <td>
+                @Html.TextBox("txtQty_" + idx, qtySaved.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, max = a.qty, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "javascript:sumTotal()" })
+            </td>
+            <td>
+                @Html.TextBox("txtUnit_" + idx, a.unit, new { @readonly = "readonly", style = "width:100px;" })
+            </td>
+            <td>
+                @Html.TextBox("txtPrices_" + idx, priceSaved.ToString("G29").Replace(',', '.'), new { type = "text", @readonly = "readonly", style = "text-align:right;width:100px;padding-right: 10px;", onchange = "javascript:sumTotal()" })
+                @Html.TextBox("txtPrice_" + idx, priceSaved.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, style = "text-align:right;width:100px;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "javascript:sumTotal()" })
+            </td>
+            <td>
+                @Html.TextBox("txtDisc_" + idx, discSaved.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "javascript:sumTotal()" })
+            </td>
+            <td><!--style ="text-align: right; padding-right: 7%;"-->
+                @*@Html.Label("txtTotal_" + idx, "0", new { style = "font-weight:100" })*@
+                @Html.TextBox("txtTotals_" + idx, totalPerRow.ToString("G29").Replace(',', '.'), new { type = "text", @readonly = "readonly", style = "text-align:right;width:150px;padding-right: 10px;" })
+                @Html.TextBox("txtTotal_" + idx, totalPerRow.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "1", min = 0, style = "text-align:right;width:150px;background-color: gainsboro;display:none", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+                idx++;
+            }
+        <tr>
+            <td colspan="6">
+                <label>Terbilang : </label>&nbsp;
+                <label id="lblTerbilang"></label>
+            </td>
+            <td align="right">
+                Subtotal
+            </td>
+            <td>
+                <input type="text" step="1" min=0 id="subTotals" name="subTotals" readonly="readonly" value="@subTotal.ToString("G29").Replace(',', '.' )" style="padding-right: 10px; text-align: right; width: 150px; " />
+                <input type="number" step="1" min=0 id="subTotal" name="subTotal" readonly="readonly" value="@subTotal.ToString("G29").Replace(',', '.' )" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; background-color: gainsboro;display:none" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                &nbsp;
+            </td>
+            <td align="right">
+                Disc (%)
+            </td>
+            <td>                
+                @{
+                    decimal discHeaderSaved = 0;
+                    if(ViewBag.Disc != null)
+                    {
+                        discHeaderSaved = ViewBag.Disc;
+                    }
+                }
+                <input type="text" id="discs" name="discs" value="@discHeaderSaved.ToString("G29").Replace(',', '.' )" readonly="readonly" style="padding-right: 10px; text-align: right; width: 150px; " onchange="javascript:sumTotal()" />
+                <input type="number" step="1" min=0 id="disc" name="disc" value="@discHeaderSaved.ToString("G29").Replace(',', '.' )" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; display:none" onchange="javascript: sumTotal()" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                &nbsp;
+            </td>
+            <td align="right">
+                Total
+            </td>
+            <td>
+                @{
+                    decimal totalHeader = 0;
+                    if (ViewBag.Ppn != null)
+                    {
+                        totalHeader = (subTotal-((subTotal*discHeaderSaved)/100));
+                    }
+                }
+                <input type="text" id="totals" name="totals" readonly="readonly" value="@totalHeader.ToString("G29").Replace(',', '.' )" style="padding-right: 10px; text-align: right; width: 150px; " />
+                <input type="number" step="1" min=0 id="total" name="total" readonly="readonly" value="@totalHeader.ToString("G29").Replace(',', '.' )" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; background-color: gainsboro; display:none" />
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                &nbsp;
+            </td>
+            <td align="right">
+                PPN (%)
+            </td>
+            <td>
+                @{
+                    decimal ppnHeaderSaved = 0;
+                    if (ViewBag.Ppn != null)
+                    {
+                        ppnHeaderSaved = ViewBag.Ppn;
+                    }
+                }
+                <input type="text" id="ppns" name="ppns" value="@ppnHeaderSaved.ToString("G29").Replace(',', '.')" readonly="readonly" style="text-align: right; width: 150px; padding-right:10px" onchange="javascript:sumTotal()" />
+                <input type="number" step="1" min=0 id="ppn" name="ppn" value="@ppnHeaderSaved.ToString("G29").Replace(',', '.')" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; display:none" onchange="javascript:sumTotal()" />
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                &nbsp;
+            </td>
+            <td align="right">
+                Grand Total
+            </td>
+            <td>
+                @{
+                    grandTotal = (totalHeader + ((totalHeader * ppnHeaderSaved) / 100));
+                }
+                <input type="text" id="grandTotals" name="grandTotals" readonly="readonly" value="@grandTotal.ToString("G29").Replace(',', '.')" style="text-align: right; width: 150px; padding-right: 10px; padding-right: 10px" />
+                <input type="number" step="1" min=0 id="grandTotal" name="grandTotal" readonly="readonly" value="@grandTotal.ToString("G29").Replace(',', '.')" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; background-color: gainsboro; display:none" />
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+<script>
+    document.getElementById('lblTerbilang').innerHTML = terbilang(@grandTotal);
+    sumTotal();
+</script>

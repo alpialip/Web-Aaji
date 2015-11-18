@@ -1,0 +1,881 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_AAJIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AbsensiRekaps">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="absensiDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="typeAbsensiID" Type="Int32" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdvancePaymentVoucherDetails">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+      <PropertyRef Name="accountNo" />
+    </Key>
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="accountNo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdvancePaymentVouchers">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="voucherDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="bankID" Type="Int32" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="says" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="preparedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="preparedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="preparedStatus" Type="Boolean" Nullable="false" />
+    <Property Name="checkedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="checkedDate" Type="DateTime" Precision="3" />
+    <Property Name="checkedStatus" Type="Boolean" />
+    <Property Name="approvedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="approvedDate" Type="DateTime" Precision="3" />
+    <Property Name="approvedStatus" Type="Boolean" />
+    <Property Name="acknowledgeBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="acknowledgeDate" Type="DateTime" Precision="3" />
+    <Property Name="acknowledgeStatus" Type="Boolean" />
+    <Property Name="requestDeptId" Type="Int32" />
+    <Property Name="received" Type="DateTime" Precision="3" />
+    <Property Name="settlement" Type="Boolean" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="BankCashPaymentVoucherDetails">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+      <PropertyRef Name="accountNo" />
+    </Key>
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="accountNo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BankCashPaymentVouchers">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="voucherDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="bankId" Type="Int32" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="says" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="preparedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="preparedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="preparedStatus" Type="Boolean" Nullable="false" />
+    <Property Name="checkedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="checkedDate" Type="DateTime" Precision="3" />
+    <Property Name="checkedStatus" Type="Boolean" />
+    <Property Name="approvedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="approvedDate" Type="DateTime" Precision="3" />
+    <Property Name="approvedStatus" Type="Boolean" />
+    <Property Name="acknowledgeBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="acknowledgeDate" Type="DateTime" Precision="3" />
+    <Property Name="acknowledgeStatus" Type="Boolean" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="CashOnHandAndAdvanceRequestDetails">
+    <Key>
+      <PropertyRef Name="seqId" />
+      <PropertyRef Name="reqNo" />
+    </Key>
+    <Property Name="seqId" Type="Int32" Nullable="false" />
+    <Property Name="reqNo" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="activityDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="currency" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="fileReimbursement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CashOnHandAndAdvanceRequests">
+    <Key>
+      <PropertyRef Name="reqNo" />
+    </Key>
+    <Property Name="reqNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="reqFrom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="activity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reqIsCashOnHand" Type="Boolean" Nullable="false" />
+    <Property Name="includeProposal" Type="Boolean" Nullable="false" />
+    <Property Name="isReimbursement" Type="Boolean" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ChartOfAccounts">
+    <Key>
+      <PropertyRef Name="accountNo" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="accountNo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="accountName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="levelID" Type="Int32" Nullable="false" />
+    <Property Name="parentCOAId" Type="Int32" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="EmployeeClaimMedicals">
+    <Key>
+      <PropertyRef Name="klaimID" />
+    </Key>
+    <Property Name="klaimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="klaimDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="linkFileData" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="proposedStatus" Type="Boolean" Nullable="false" />
+    <Property Name="acknowledgeBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="acknowledgeDate" Type="DateTime" Precision="3" />
+    <Property Name="acknowledgeStatus" Type="Boolean" />
+    <Property Name="approvedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="approvedDate" Type="DateTime" Precision="3" />
+    <Property Name="approvedStatus" Type="Boolean" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="EmployeeLoans">
+    <Key>
+      <PropertyRef Name="pinjamanID" />
+    </Key>
+    <Property Name="pinjamanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="proposedStatus" Type="Boolean" Nullable="false" />
+    <Property Name="acknowledgeBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="acknowledgeDate" Type="DateTime" Precision="3" />
+    <Property Name="acknowledgeStatus" Type="Boolean" />
+    <Property Name="approvedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="approvedDate" Type="DateTime" Precision="3" />
+    <Property Name="approvedStatus" Type="Boolean" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="EmployeePositions">
+    <Key>
+      <PropertyRef Name="positionId" />
+    </Key>
+    <Property Name="positionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="positionDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="jobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="deptID" Type="Int32" Nullable="false" />
+    <Property Name="divisiID" Type="Int32" Nullable="false" />
+    <Property Name="levelID" Type="Int32" Nullable="false" />
+    <Property Name="employeeStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeResigns">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="resignDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="employeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="employeeNIK" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="npwp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ktp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="bankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="rekening" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="tempatLahir" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tanggalLahir" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FinanceTransactionDetails">
+    <Key>
+      <PropertyRef Name="sId" />
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="sId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="invoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="amount" Type="Decimal" Precision="24" Scale="4" />
+  </EntityType>
+  <EntityType Name="FinanceTransactionHeaders">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="voucherDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="transactionType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tftID" Type="Int32" />
+    <Property Name="billingType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="billingNo" Type="Int32" />
+    <Property Name="clearingDate" Type="DateTime" Precision="0" />
+    <Property Name="amount" Type="Decimal" Precision="24" Scale="4" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FixedAssetMaintenances">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="maintenanceDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="fixedAssetID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FixedAssetPersons">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="startDate" Type="DateTime" Precision="0" />
+    <Property Name="endDate" Type="DateTime" Precision="0" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="fixedAssetID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FixedAssets">
+    <Key>
+      <PropertyRef Name="fixedAssetID" />
+    </Key>
+    <Property Name="fixedAssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="purchaseDate" Type="DateTime" Precision="0" />
+    <Property Name="salesDate" Type="DateTime" Precision="0" />
+    <Property Name="fixedAssetCode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="fixedAssetType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="fixedAssetName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fixedAssetStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="journalDetails">
+    <Key>
+      <PropertyRef Name="sId" />
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="sId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="coaId" Type="Int32" Nullable="false" />
+    <Property Name="accountNameOther" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="debit" Type="Decimal" Precision="24" Scale="4" />
+    <Property Name="credit" Type="Decimal" Precision="24" Scale="4" />
+  </EntityType>
+  <EntityType Name="journalHeaders">
+    <Key>
+      <PropertyRef Name="voucherNo" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="voucherNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="voucherDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="journalType" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Menus">
+    <Key>
+      <PropertyRef Name="menuID" />
+    </Key>
+    <Property Name="menuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="menuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="menuLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="menuParent" Type="Int32" />
+    <Property Name="menuDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="menuIsParent" Type="Boolean" Nullable="false" />
+    <Property Name="menuIsActive" Type="Boolean" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MenuValidationDetails">
+    <Key>
+      <PropertyRef Name="menuValIdH" />
+      <PropertyRef Name="menuID" />
+    </Key>
+    <Property Name="menuValIdH" Type="Int32" Nullable="false" />
+    <Property Name="menuID" Type="Int32" Nullable="false" />
+    <Property Name="validationAccess" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MenuValidations">
+    <Key>
+      <PropertyRef Name="menuValId" />
+    </Key>
+    <Property Name="menuValId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="validationTypeIsGeneral" Type="Boolean" Nullable="false" />
+    <Property Name="validationName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderDetails">
+    <Key>
+      <PropertyRef Name="poId" />
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="poId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="qty" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="24" Scale="4" Nullable="false" />
+    <Property Name="disc" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderHeaders">
+    <Key>
+      <PropertyRef Name="poId" />
+    </Key>
+    <Property Name="poId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="poDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="prId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vendorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="poUrgent" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="topType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="topAmount" Type="Int32" Nullable="false" />
+    <Property Name="ppn" Type="Int32" Nullable="false" />
+    <Property Name="disc" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="proposedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="proposedStatus" Type="Boolean" Nullable="false" />
+    <Property Name="approvedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="approvedDate" Type="DateTime" Precision="3" />
+    <Property Name="approvedStatus" Type="Boolean" />
+    <Property Name="acknowledgeBy" Type="Boolean" />
+    <Property Name="acknowledgeDate" Type="DateTime" Precision="3" />
+    <Property Name="acknowledgeStatus" Type="Boolean" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderTops">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="poId" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="poId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="buyDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="buyPercent" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="purchaseReceiveDetails">
+    <Key>
+      <PropertyRef Name="receiveNo" />
+      <PropertyRef Name="productId" />
+    </Key>
+    <Property Name="receiveNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productId" Type="Int32" Nullable="false" />
+    <Property Name="qty" Type="Int32" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="purchaseReceive_receiveNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PurchaseReceives">
+    <Key>
+      <PropertyRef Name="receiveNo" />
+    </Key>
+    <Property Name="receiveNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="receiveDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="poId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="proposedStatus" Type="Boolean" Nullable="false" />
+    <Property Name="receivedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="receivedDate" Type="DateTime" Precision="3" />
+    <Property Name="receivedStatus" Type="Boolean" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PurchaseRequestDetails">
+    <Key>
+      <PropertyRef Name="prId" />
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="prId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="qty" Type="Int32" Nullable="false" />
+    <Property Name="unit" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vendorId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PurchaseRequestHeaders">
+    <Key>
+      <PropertyRef Name="prId" />
+    </Key>
+    <Property Name="prId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="requestDeptId" Type="Int32" Nullable="false" />
+    <Property Name="typeOrder" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposalInclude" Type="Boolean" Nullable="false" />
+    <Property Name="specialInstruction" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="projectTimeDelivery" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="proposedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proposedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="proposedStatus" Type="Boolean" Nullable="false" />
+    <Property Name="approvedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="approvedDate" Type="DateTime" Precision="3" />
+    <Property Name="approvedStatus" Type="Boolean" />
+    <Property Name="acknowledgeBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="acknowledgeDate" Type="DateTime" Precision="3" />
+    <Property Name="acknowledgeStatus" Type="Boolean" />
+    <Property Name="receivedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="receivedDate" Type="DateTime" Precision="3" />
+    <Property Name="receivedStatus" Type="Boolean" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PurchaseReturnDetails">
+    <Key>
+      <PropertyRef Name="receiveNo" />
+      <PropertyRef Name="productId" />
+    </Key>
+    <Property Name="receiveNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productId" Type="Int32" Nullable="false" />
+    <Property Name="qty" Type="Int32" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="purchaseReceive_receiveNo" Type="Binary" MaxLength="50" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="SisaSaldoCutis">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="year" Type="Int32" Nullable="false" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeFinanceTransactions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tftID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tftName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="accountNo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="UserGroupDs">
+    <Key>
+      <PropertyRef Name="groupHId" />
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="groupHId" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="UserGroupHs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="groupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="groupDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="lastLogin" Type="DateTime" Precision="3" />
+    <Property Name="password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="deptID" Type="Int32" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="employeeNIK" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="isAdmin" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AbsensiEmployees">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="employeeID" />
+      <PropertyRef Name="date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="checkIn" Type="Time" Precision="0" />
+    <Property Name="checkOut" Type="Time" Precision="0" />
+    <Property Name="typeAbsensiID" Type="Int32" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Banks">
+    <Key>
+      <PropertyRef Name="bankID" />
+      <PropertyRef Name="bankName" />
+      <PropertyRef Name="accountNo" />
+      <PropertyRef Name="coaID" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="bankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="accountNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="coaID" Type="Int32" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="deptID" />
+      <PropertyRef Name="deptName" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="deptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="deptName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Divisis">
+    <Key>
+      <PropertyRef Name="divisiID" />
+      <PropertyRef Name="deptID" />
+      <PropertyRef Name="divisiName" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="divisiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="deptID" Type="Int32" Nullable="false" />
+    <Property Name="divisiName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Emails">
+    <Key>
+      <PropertyRef Name="emailID" />
+      <PropertyRef Name="emailName" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="emailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="emailName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="emailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FixedAssetTypes">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="typeName" />
+      <PropertyRef Name="typeCode" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="typeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="GroupEmails">
+    <Key>
+      <PropertyRef Name="groupEmailID" />
+      <PropertyRef Name="groupEmailName" />
+      <PropertyRef Name="modifiedDate" />
+    </Key>
+    <Property Name="groupEmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="groupEmailName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="emailAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Levels">
+    <Key>
+      <PropertyRef Name="levelID" />
+      <PropertyRef Name="levelName" />
+      <PropertyRef Name="saldoCuti" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="levelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="levelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="saldoCuti" Type="Int32" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Penghasilans">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="typePenghasilan" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typePenghasilan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="subject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PengurangPenghasilans">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="subject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Potongans">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="subject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="productCode" />
+      <PropertyRef Name="productName" />
+      <PropertyRef Name="unit" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PurchaseInvoices">
+    <Key>
+      <PropertyRef Name="purchaseInvoiceNo" />
+      <PropertyRef Name="invoiceDate" />
+      <PropertyRef Name="dueDate" />
+      <PropertyRef Name="receiveNo" />
+      <PropertyRef Name="total" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="purchaseInvoiceNo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="invoiceDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="dueDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="receiveNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="paymentInfo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="total" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="SetupEmails">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="host" />
+      <PropertyRef Name="port" />
+      <PropertyRef Name="modifiedDate" />
+      <PropertyRef Name="modifiedUser" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="host" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="port" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="emailName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="emailAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TransReminders">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="subject" />
+      <PropertyRef Name="email" />
+      <PropertyRef Name="reminderDate" />
+      <PropertyRef Name="reminderTime" />
+      <PropertyRef Name="repeatitionID" />
+      <PropertyRef Name="reminderID" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reminderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="reminderTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="repeatitionID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reminderID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TypeAbsensis">
+    <Key>
+      <PropertyRef Name="typeAbsensiID" />
+      <PropertyRef Name="typeAbsensiName" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="typeAbsensiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeAbsensiName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Vendors">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="vendorID" />
+      <PropertyRef Name="vendorName" />
+      <PropertyRef Name="ppn" />
+      <PropertyRef Name="createdUser" />
+      <PropertyRef Name="createdDate" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vendorID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="vendorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="npwp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address1" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="address2" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="telp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ppn" Type="Boolean" Nullable="false" />
+    <Property Name="top" Type="Int32" />
+    <Property Name="createdUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modifiedUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="modifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="DB_AAJIEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AbsensiRekaps" EntityType="Self.AbsensiRekaps" />
+    <EntitySet Name="AdvancePaymentVoucherDetails" EntityType="Self.AdvancePaymentVoucherDetails" />
+    <EntitySet Name="AdvancePaymentVouchers" EntityType="Self.AdvancePaymentVouchers" />
+    <EntitySet Name="BankCashPaymentVoucherDetails" EntityType="Self.BankCashPaymentVoucherDetails" />
+    <EntitySet Name="BankCashPaymentVouchers" EntityType="Self.BankCashPaymentVouchers" />
+    <EntitySet Name="CashOnHandAndAdvanceRequestDetails" EntityType="Self.CashOnHandAndAdvanceRequestDetails" />
+    <EntitySet Name="CashOnHandAndAdvanceRequests" EntityType="Self.CashOnHandAndAdvanceRequests" />
+    <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccounts" />
+    <EntitySet Name="EmployeeClaimMedicals" EntityType="Self.EmployeeClaimMedicals" />
+    <EntitySet Name="EmployeeLoans" EntityType="Self.EmployeeLoans" />
+    <EntitySet Name="EmployeePositions" EntityType="Self.EmployeePositions" />
+    <EntitySet Name="EmployeeResigns" EntityType="Self.EmployeeResigns" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" />
+    <EntitySet Name="FinanceTransactionDetails" EntityType="Self.FinanceTransactionDetails" />
+    <EntitySet Name="FinanceTransactionHeaders" EntityType="Self.FinanceTransactionHeaders" />
+    <EntitySet Name="FixedAssetMaintenances" EntityType="Self.FixedAssetMaintenances" />
+    <EntitySet Name="FixedAssetPersons" EntityType="Self.FixedAssetPersons" />
+    <EntitySet Name="FixedAssets" EntityType="Self.FixedAssets" />
+    <EntitySet Name="journalDetails" EntityType="Self.journalDetails" />
+    <EntitySet Name="journalHeaders" EntityType="Self.journalHeaders" />
+    <EntitySet Name="Menus" EntityType="Self.Menus" />
+    <EntitySet Name="MenuValidationDetails" EntityType="Self.MenuValidationDetails" />
+    <EntitySet Name="MenuValidations" EntityType="Self.MenuValidations" />
+    <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetails" />
+    <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeaders" />
+    <EntitySet Name="PurchaseOrderTops" EntityType="Self.PurchaseOrderTops" />
+    <EntitySet Name="purchaseReceiveDetails" EntityType="Self.purchaseReceiveDetails" />
+    <EntitySet Name="PurchaseReceives" EntityType="Self.PurchaseReceives" />
+    <EntitySet Name="PurchaseRequestDetails" EntityType="Self.PurchaseRequestDetails" />
+    <EntitySet Name="PurchaseRequestHeaders" EntityType="Self.PurchaseRequestHeaders" />
+    <EntitySet Name="PurchaseReturnDetails" EntityType="Self.PurchaseReturnDetails" />
+    <EntitySet Name="SisaSaldoCutis" EntityType="Self.SisaSaldoCutis" />
+    <EntitySet Name="TypeFinanceTransactions" EntityType="Self.TypeFinanceTransactions" />
+    <EntitySet Name="UserGroupDs" EntityType="Self.UserGroupDs" />
+    <EntitySet Name="UserGroupHs" EntityType="Self.UserGroupHs" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="AbsensiEmployees" EntityType="Self.AbsensiEmployees" />
+    <EntitySet Name="Banks" EntityType="Self.Banks" />
+    <EntitySet Name="Departments" EntityType="Self.Departments" />
+    <EntitySet Name="Divisis" EntityType="Self.Divisis" />
+    <EntitySet Name="Emails" EntityType="Self.Emails" />
+    <EntitySet Name="FixedAssetTypes" EntityType="Self.FixedAssetTypes" />
+    <EntitySet Name="GroupEmails" EntityType="Self.GroupEmails" />
+    <EntitySet Name="Levels" EntityType="Self.Levels" />
+    <EntitySet Name="Penghasilans" EntityType="Self.Penghasilans" />
+    <EntitySet Name="PengurangPenghasilans" EntityType="Self.PengurangPenghasilans" />
+    <EntitySet Name="Potongans" EntityType="Self.Potongans" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="PurchaseInvoices" EntityType="Self.PurchaseInvoices" />
+    <EntitySet Name="SetupEmails" EntityType="Self.SetupEmails" />
+    <EntitySet Name="TransReminders" EntityType="Self.TransReminders" />
+    <EntitySet Name="TypeAbsensis" EntityType="Self.TypeAbsensis" />
+    <EntitySet Name="Vendors" EntityType="Self.Vendors" />
+  </EntityContainer>
+</Schema>

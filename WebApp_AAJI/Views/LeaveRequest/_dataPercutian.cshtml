@@ -1,0 +1,60 @@
+﻿@model WebApp_AAJI.Models.ViewModelCuti
+
+<h5>Level Karyawan : Level @Model.level</h5>
+<div>
+    <div class="row">
+        <div class="col-lg-5">
+            <dl class="dl-horizontal">
+                @*<dt>= Data Cuti Tahunan =</dt>
+                <dd></dd>*@
+                <dt> @Html.DisplayNameFor(model => model.saldoCuti)</dt>
+                <dd>: @Html.DisplayFor(model => model.saldoCuti)</dd>
+                <dt> @Html.DisplayNameFor(model => model.countedApproved)</dt>
+                <dd>: @Model.countedApproved</dd>
+                <dt> @Html.DisplayNameFor(model => model.amount)</dt>
+                <dd>: @Model.amount</dd>
+            </dl>
+        </div>
+
+        <div class="col-lg-5">
+            <dl class="dl-horizontal">
+                @*<dt>= Data Cuti Persalinan =</dt>
+                <dd></dd>*@
+                <dt> @Html.DisplayNameFor(model => model.saldoCuti2)</dt>
+                <dd>: @Html.DisplayFor(model => model.saldoCuti2)</dd>
+                <dt> @Html.DisplayNameFor(model => model.countedApproved2)</dt>
+                <dd>: @Model.countedApproved2</dd>
+                <dt> @Html.DisplayNameFor(model => model.amount2)</dt>
+                <dd>: @Model.amount2</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <dl class="dl-horizontal">
+                @*<dt>= Data Cuti Kemalangan =</dt>
+                <dd></dd>*@
+                <dt> @Html.DisplayNameFor(model => model.saldoCuti3)</dt>
+                <dd>: @Html.DisplayFor(model => model.saldoCuti3)</dd>
+                <dt> @Html.DisplayNameFor(model => model.countedApproved3)</dt>
+                <dd>: @Model.countedApproved3</dd>
+                <dt> @Html.DisplayNameFor(model => model.amount3)</dt>
+                <dd>: @Model.amount3</dd>
+            </dl>
+        </div>
+
+        <div class="col-lg-5">
+            <dl class="dl-horizontal">
+                @*<dt>= Data Cuti Lain-lain =</dt>
+                <dd></dd>*@
+                <dt> @Html.DisplayNameFor(model => model.saldoCuti4)</dt>
+                <dd>: @Html.DisplayFor(model => model.saldoCuti4)</dd>
+                <dt> @Html.DisplayNameFor(model => model.countedApproved4)</dt>
+                <dd>: @Model.countedApproved4</dd>
+                <dt> @Html.DisplayNameFor(model => model.amount4)</dt>
+                <dd>: @Model.amount4</dd>
+            </dl>
+        </div>
+    </div>
+</div>

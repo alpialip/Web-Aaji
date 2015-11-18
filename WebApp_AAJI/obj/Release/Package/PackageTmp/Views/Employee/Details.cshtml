@@ -1,0 +1,208 @@
+﻿@model WebApp_AAJI.Models.employee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>employee</h4>
+	<hr />
+    <div class="photo" style="margin-top: 0px;">
+        @if (ViewBag.PhotoDir != null)
+        {
+            string photoDir = ViewBag.PhotoDir;
+            photoDir = @Url.Action("../" + photoDir.Replace("~", ""));
+            <img src="@photoDir.Trim()" style="height: 143px;width: 119px;" />
+        }
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employeeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeNIK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employeeNIK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jenisKelamin)
+        </dt>
+
+        <dd>
+            @if (Model.jenisKelamin == "L")
+            {
+                @("Laki-Laki")
+            }
+            else
+            {
+                @("Perempuan")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.city)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.city)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rt)/
+            @Html.DisplayFor(model => model.rw)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kelurahan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kelurahan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kecamatan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kecamatan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.agama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.agama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.statusNikah)
+        </dt>
+
+        <dd>
+            @Model.statusNikah.Replace('_',' ')
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pekerjaan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pekerjaan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kewarganegaraan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kewarganegaraan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.npwp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.npwp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ktp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ktp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rekening)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rekening)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tempatLahir)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tempatLahir)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tanggalLahir)
+        </dt>
+
+        <dd>
+            @Model.tanggalLahir.ToString("dd MMM yyyy")
+        </dd>
+
+    </dl>
+</div>
+
+<div id="dvDetail">
+    @Html.Partial("_PartialPagePenghasilan2")
+</div>
+
+<div id="dvDetail">
+    @Html.Partial("_PartialPagePengurangPenghasilan2")
+</div>
+
+<div id="dvDetail">
+    @Html.Partial("_PartialPageEmpPosition2")
+</div>
+
+@*<div id="dvDetail">
+    @Html.Partial("_PartialPageEmpFamily2")
+</div>
+
+<div id="dvDetail">
+    @Html.Partial("_PartialPageEmpCV2")
+</div>*@
+<br />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.employeeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

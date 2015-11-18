@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Employee Claim Medical Report";
+}
+
+<script>
+    function showDetail() {
+        var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+
+        //alert(period+"-"+empId);
+        if (startDate != "" && endDate != "")
+            $("#dvDetail").load('@(Url.Action("loadDetail", "ReportEmployeeClaimMedical", null, Request.Url.Scheme))?startDate=' + startDate + "&endDate=" + endDate);
+        else
+            alert("Date Required");
+    }
+</script>
+
+<h2>@ViewBag.Title</h2>
+<table>
+    <tr>
+        <td>Date</td>
+        <td>
+            : @Html.TextBox("startDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+            -
+            @Html.TextBox("endDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            &nbsp;&nbsp;<input type="button" value="Show" onclick="showDetail()" />
+        </td>
+    </tr>
+</table>
+<br />
+<div id="dvDetail">
+    @Html.Partial("ReportEmployeeClaimMedical_PartialPage")
+</div>
+
+
+
+

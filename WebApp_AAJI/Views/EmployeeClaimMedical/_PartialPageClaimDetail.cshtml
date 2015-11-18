@@ -1,0 +1,295 @@
+﻿@using System.Data;
+
+ <script type="text/javascript">
+    var indexDelete = 0;
+
+    function onClickDeleteRow(idx) {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+        if ((tbl.rows.length - 1) > 2) {
+            document.getElementById("tbDetail").deleteRow(idx);
+            indexDelete = idx;
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailPurchaseRequest", "PurchaseRequest", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRow() {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+
+        var x = validateDataDetail("add");
+        //alert(x);
+        if (x == true) {
+            var y = collectDataDetail();
+            //alert(y);
+            var employeeID = document.getElementById('employeeID').value;
+            $("#dvDetail").load('@(Url.Action("LoadDetailClaimMedical_Client", "EmployeeClaimMedical", null, Request.Url.Scheme))?dataDetail=' + y + '&act=add' + '&employeeID=' + employeeID);
+            $("#hdnTotalRows").val(tbl.rows.length);
+            setTimeout(function () { sumTotal(); }, 500);
+        }
+    }
+
+    function collectDataDetail() {
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = tbl.rows.length;
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 1; i < (rowsCount - 1) ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                //alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                //alert("i after ==>" + i)
+            }
+
+            var txtSeqID_ = document.getElementById("txtSeqID_" + i);
+            var txtSeqID_Val = txtSeqID_.value;
+            var txtSeqID_Id = txtSeqID_.id;
+
+            var txtFamilyName_ = document.getElementById("txtFamilyName_" + i);
+            var txtFamilyName_Val = txtFamilyName_.value;
+            var txtFamilyName_Id = txtFamilyName_.id;
+
+            var klaimDateDetail_ = document.getElementById("klaimDateDetail_" + i);
+            var klaimDateDetail_Val = klaimDateDetail_.value;
+            var klaimDateDetail_Id = klaimDateDetail_.id;
+
+            var typeClaim_ = document.getElementById("typeClaim_" + i);
+            var typeClaim_Val = typeClaim_.value;
+            var typeClaim_Id = typeClaim_.id;
+
+            var amountClaims_ = document.getElementById("amountClaim_" + i);
+            var amountClaims_Val = amountClaims_.value;
+            var amountClaims_Id = amountClaims_.id;
+
+            var descriptionClaim_ = document.getElementById("descriptionClaim_" + i);
+            var descriptionClaim_Val = descriptionClaim_.value;
+            var descriptionClaim_Id = descriptionClaim_.id;
+
+            var relationStatus_ = document.getElementById("relationStatus_" + i);
+            var relationStatus_Val = relationStatus_.value;
+            var relationStatus_Id = relationStatus_.id;
+
+            var jenisKelamin_ = document.getElementById("jenisKelamin_" + i);
+            var jenisKelamin_Val = jenisKelamin_.value;
+            var jenisKelamin_Id = jenisKelamin_.id;
+
+            stringDataDetail += seqRows + ";" + txtSeqID_Val + ";" + txtFamilyName_Val + ";" + klaimDateDetail_Val + ";" + typeClaim_Val + ";" + amountClaims_Val + ";" + escape(descriptionClaim_Val) + ";" + escape(relationStatus_Val) + ";" + escape(jenisKelamin_Val) + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var grandTotal = 0;
+
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                document.getElementById("amountClaim_" + i).value = document.getElementById("amountClaims_" + i).value.replace(/\./g, '');
+                grandTotal += document.getElementById("amountClaim_" + i).value == "" ? 0 : parseFloat(document.getElementById("amountClaim_" + i).value);
+
+                document.getElementById("amountClaims_" + i).value = formatCurrency(document.getElementById("amountClaims_" + i).value.replace(/\./g, ''));
+                document.getElementById("amountClaim_" + i).value = document.getElementById("amountClaims_" + i).value.replace(/\./g, '');
+            }
+        }
+        //alert(grandTotal);
+        $("#grandTotal").val(grandTotal);
+        //alert($("#grandTotal").val());
+        document.getElementById("grandTotal").value = formatCurrency(document.getElementById("grandTotal").value.replace(/\./g, ''));
+    }
+</script>
+
+<table class="table-striped table-hover" id="tbDetail">
+    <thead>
+        <tr>
+            <th style="width: 192px; text-align: center">Name</th>
+            <th style="text-align:center">Happening<br />Date</th>
+            <th style="text-align:center">Claim Type</th>
+            <th style="text-align:center">Gender</th>
+            <th style="text-align:center">Relation</th>
+            <th style="text-align:center">Amount</th>
+            <th style="text-align:center">Description</th>
+            <th>
+                <input type="button" id="btnAddRow" name="btnAddRow" value="[ + ]" onclick="onClickAddRow();">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DataTable dtGenderAndRelationDetail = new DataTable();
+            if(ViewBag.dtGenderAndRelationDetail != null)
+            {
+                dtGenderAndRelationDetail = ViewBag.dtGenderAndRelationDetail;                
+            }
+            int idx = 1;
+            int totalRows = 0;
+            int grandTotal = 0;
+        }
+        @if (ViewBag.detailClaimMedical != null)
+        {
+            var totalList = ViewBag.detailClaimMedical as List<WebApp_AAJI.Models.employeeClaimMedical.employeeClaimMedicalDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.detailClaimMedical as IEnumerable<WebApp_AAJI.Models.employeeClaimMedical.employeeClaimMedicalDetail>)
+            {
+                <tr>
+                    <td>
+                        @Html.Hidden("txtSeqID_" + idx, a.seqID)
+                        @if (ViewBag.FamilyPopUp != null)
+                        {
+                            foreach (var dr in ViewBag.FamilyPopUp as IEnumerable<WebApp_AAJI.Models.employeeClaimMedical.familyList>)
+                            {
+                                if (dr.sId == a.seqID)
+                                {
+                                    @Html.TextBox("txtFamilyName_" + idx, dr.name, new { @readonly = "readonly" })
+                                    break;
+                                }
+                            }
+                        }
+                        <button data-toggle="modal" data-target="#myModalFamilySearch" onclick="javascript:document.getElementById('hdnIdxRowsClick').value='@idx'" style="position:absolute;">...</button>
+                    </td>
+                    <td>
+                        @Html.TextBox("klaimDateDetail_" + idx, a.happeningDate, "{0:dd-MMM-yyyy}", new { @style="width:87px;" })
+                    </td>
+                    <td>
+                        <select id="typeClaim_@idx" name="typeClaim_@idx" style="height:26px">
+                            @foreach (var z in ViewBag.typeClaim as SelectList)
+                            {
+                                if (z.Value == a.claimType)
+                                {
+                                    <option value="@z.Value" selected="selected">@z.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@z.Value">@z.Text</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        @if (ViewBag.FamilyPopUp != null)
+                        {
+                            foreach (var dr in ViewBag.FamilyPopUp as IEnumerable<WebApp_AAJI.Models.employeeClaimMedical.familyList>)
+                            {
+                                if(dr.sId == a.seqID)
+                                {
+                                    @Html.TextBox("jenisKelamin_" + idx, dr.gender, new { @readonly = "readonly", @style = "width:60px;text-align:center;" })     
+                                    break;                               
+                                }
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (ViewBag.FamilyPopUp != null)
+                        {
+                            foreach (var dr in ViewBag.FamilyPopUp as IEnumerable<WebApp_AAJI.Models.employeeClaimMedical.familyList>)
+                            {
+                                if (dr.sId == a.seqID)
+                                {
+                                    @Html.TextBox("relationStatus_" + idx, dr.statusRelation, new { @readonly = "readonly", @style = "width:60px;text-align:center;" })
+                                    break;
+                                }
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.TextBox("amountClaim_" + idx, a.amount, new { @style = "text-align:right;width:100px;display:none" })
+                        @Html.TextBox("amountClaims_" + idx, a.amount, new { @style = "text-align:right;width:100px;padding-right: 5px;", onchange = "sumTotal()" })
+                    </td>
+                    <td>
+                        @Html.TextArea("descriptionClaim_" + idx, a.remarks, new { style = " width: 280px;", rows = 2 })
+                    </td>
+                    <td>
+                        <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                    </td>
+                </tr>
+                        idx++;
+            }
+        }
+
+        <tr>
+            <td>
+                @Html.Hidden("txtSeqID_" + idx, "")
+                @Html.TextBox("txtFamilyName_" + idx, "", new { @readonly = "readonly" })
+                <button data-toggle="modal" data-target="#myModalFamilySearch" onclick="javascript:document.getElementById('hdnIdxRowsClick').value='@idx'" style="position:absolute;">...</button>
+            </td>
+            <td>
+                @Html.TextBox("klaimDateDetail_" + idx, DateTime.Now, "{0:dd-MMM-yyyy}", new { @style = "width:87px;" })
+            </td>
+            <td>                
+                @Html.DropDownList("typeClaim_" + idx, ViewBag.typeClaim as SelectList, "- Select -", new { @style="height:26px" })
+            </td>
+            <td>
+                @Html.TextBox("jenisKelamin_" + idx, "", new { @readonly = "readonly", @style = "width:56px;text-align:center;" })
+            </td>
+            <td>
+                @Html.TextBox("relationStatus_" + idx, "", new { @readonly = "readonly", @style = "width:60px;text-align:center;" })
+            </td>
+            <td>
+                @Html.TextBox("amountClaim_" + idx, "", new { @style = "text-align:right;width:100px;display:none;" })
+                @Html.TextBox("amountClaims_" + idx, "", new { @style = "text-align:right;width:100px;padding-right: 5px;", onchange = "sumTotal()" })
+            </td>
+            <td>
+                @Html.TextArea("descriptionClaim_" + idx, "", new { style = " width: 280px;", rows = 2 })
+            </td>
+            <td>
+                <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                &nbsp;
+            </td>
+            <td>
+                <input id="grandTotal" name="grandTotal" readonly="readonly" value="@grandTotal" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 100px; padding-right: 5px;" />
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@Html.Hidden("hdnIdxRowsClick")
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+
+<div class="modal fade" id="myModalFamilySearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:625px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Family</h4>
+            </div>
+            @*<div class="modal-body">*@
+            <div class="table-responsive">
+                <div id="dvFamilyList">
+                    @Html.Partial("_PartialPagePopUpFamilySearchSub")
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@if (ViewBag.detailClaimMedical != null)
+{
+    <script type="text/javascript">
+        sumTotal();
+    </script>
+}

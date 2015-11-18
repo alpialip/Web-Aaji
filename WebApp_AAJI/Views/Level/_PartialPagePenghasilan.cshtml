@@ -1,0 +1,68 @@
+﻿<script>
+    function formating(elementId) {
+        var amount = document.getElementById('penghasilans_' + elementId).value.replace(/\,/g, '');
+        amount = amount.replace(/\./g, '');
+        //alert((amount*1));
+        document.getElementById('penghasilan_' + elementId).value = amount;
+        document.getElementById('penghasilans_' + elementId).value = formatCurrency(amount);
+    }
+</script>
+
+
+<table class="table table-hover">
+    @if (ViewBag.masterPenghasilan != null)
+    {
+        <thead>
+            <tr>
+                @foreach (var a in ViewBag.masterPenghasilan as IEnumerable<WebApp_AAJI.Models.penghasilan>)
+                {
+                    <th>@a.subject</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (ViewBag.penghasilan != null)
+                {
+                    int countMaster = 0;
+                    int countTrans = 0;
+                    foreach (var b in ViewBag.masterPenghasilan as IEnumerable<WebApp_AAJI.Models.penghasilan>)
+                    {
+                        countMaster++;
+                        foreach (var a in ViewBag.penghasilan as IEnumerable<WebApp_AAJI.Models.transMasterPenghasilan>)
+                        {
+                            if (b.id == a.idPenghasilan)
+                            {
+                                countTrans++;
+                                <td>
+                                    @Html.TextBox("penghasilans_" + b.id, string.Format("{0:#,##0}", a.amount), new { type = "text", @class = "form-control", onchange = "formating('" + b.id + "')" })
+                                    @Html.TextBox("penghasilan_" + b.id, string.Format("{0:#.##0}", a.amount), new { type = "text", @style = "display:none" })
+                                </td>
+                                break;
+                            }
+                        }
+                        if (countMaster > countTrans)
+                        {
+                            countTrans++;
+                            <td>
+                                @Html.TextBox("penghasilans_" + b.id, 0, new { type = "text", @class = "form-control", onchange = "formating('" + b.id + "')" })
+                                @Html.TextBox("penghasilan_" + b.id, 0, new { type = "text", @style = "display:none" })
+                            </td>
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var b in ViewBag.masterPenghasilan as IEnumerable<WebApp_AAJI.Models.penghasilan>)
+                    {
+                        <td>
+                            @Html.TextBox("penghasilans_" + b.id, 0, new { type = "text", @class = "form-control", onchange = "formating('" + b.id + "')" })
+                            @Html.TextBox("penghasilan_" + b.id, 0, new { type = "text", @style = "display:none" })
+                        </td>
+                    }
+                }
+            </tr>
+        </tbody>
+    }
+
+</table>

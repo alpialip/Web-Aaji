@@ -1,0 +1,173 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader>*@
+@model PagedList.IPagedList<WebApp_AAJI.Models.purchaseOrderHeader>
+@using PagedList.Mvc;
+@using System.Data;
+
+@{
+    ViewBag.Title = "Purchase Order";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "PurchaseOrder", FormMethod.Get))
+{
+    <p>
+        Find : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Date : @Html.TextBox("startDate", ViewBag.startDateFilter as string, "{0:yyyy-MM-dd}", new { @class = "tanggal" }) - @Html.TextBox("endDate", ViewBag.endDateFilter as string, "{0:yyyy-MM-dd}", new { @class = "tanggal" })
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.poId)*@
+            @Html.ActionLink("PO No.", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.poDate)*@            
+            @Html.ActionLink("PO Date", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.prId)*@
+            PR No.
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.vendorId)*@
+            Vendor
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.topDay)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.proposedStatus)*@
+            Proposed Status
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.approvedStatus)*@
+            Approved
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.poId)
+            </td>
+            <td>
+                @item.poDate.ToString("dd MMM yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prId)
+            </td>
+            <td>
+                @if (ViewBag.vendor != null)
+                {
+                    foreach (var v in ViewBag.vendor as IEnumerable<WebApp_AAJI.Models.vendor>)
+                    {
+                        if (v.vendorID == item.vendorId)
+                        {
+                            @v.vendorName
+                            break;
+                        }
+                    }
+                }
+                @*@Html.DisplayFor(modelItem => item.vendorId)*@
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.topDay)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.proposedStatus)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.approvedStatus)*@
+                @if (item.approvedStatus == null)
+                {
+                    @("Waiting")
+                }
+                else if (item.approvedStatus == true)
+                {
+                    @("Approved")
+                }
+                else if (item.approvedStatus == false)
+                {
+                    @("Rejected")
+                }
+            </td>
+            <td>
+                @{
+                DataTable dtDonePayment = ViewBag.donePayment;
+                bool isDonePayment = false;
+                }
+                @foreach (DataRow dr in dtDonePayment.Rows)
+                {
+                    if (dr["poId"].ToString() == item.poId)
+                    {
+                        <img src="~/img/check.png" style="width: 20px" title="Done Payment" /><span>&nbsp;&nbsp;&nbsp;</span>
+                        <a href="@Url.Action("Details")/@item.poId"><img src='~/img/view.png' style="width:15px" title="View" /></a>
+                        isDonePayment = true;
+                        break;
+                    }
+                }
+                @if (isDonePayment == false)
+                {
+                    if (ViewBag.rcvHasCreated != null)
+                    {
+                        var isFind = false;
+                        foreach (var a in ViewBag.rcvHasCreated as IEnumerable<WebApp_AAJI.Models.purchaseReceive>)
+                        {
+                            if (a.poId == item.poId)
+                            {
+                                <a data-toggle="modal" data-target="#myModal" style="cursor:hand"><img src='~/img/edit.png' style="width:15px" /></a>
+                                isFind = true;
+                                break;
+                            }
+                        }
+
+                        if (isFind == false)
+                        {
+                             <a href="@Url.Action("Edit")/@item.poId"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+                        }
+                    }
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    @*@Html.ActionLink("Details", "Details", new { id = item.poId }) <img src='~/img/view.png' style="width:15px" />  |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.poId }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+                    <a href="@Url.Action("Details")/@item.poId"><img src='~/img/view.png' style="width:15px" title="View" /></a><span>&nbsp;&nbsp;&nbsp;</span>
+                    <a href="@Url.Action("Delete")/@item.poId"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a><span>&nbsp;&nbsp;&nbsp;</span>
+                    if (ViewBag.ApprovalAuth != null)
+                    {
+                        if (ViewBag.ApprovalAuth == true && item.approvedStatus == null && item.proposedStatus == true)
+                        {
+                            <a href="@Url.Action("Approval")/@item.poId?act=Appr"><img src='~/img/approval.png' style="width:15px" title="Approval" /></a>
+                        }
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, startDateFilter = ViewBag.startDateFilter, endDateFilter = ViewBag.endDateFilter }))
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 440px;">
+            <div class="modal-header" style="background-color:#5BC0DE">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>Cannot Edit Purchase Order, Purchase Receive Was Created.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,273 @@
+﻿<script type="text/javascript">
+    var indexDelete = 0;
+
+    function onClickDeleteRow(idx) {
+        var tbl = document.getElementById("tbDetail");
+        var rowDetail = (tbl.rows.length - 1);//1 <-- dihitung dari baris yg bukan detail/yg bukan isian
+        //alert(rowDetail);
+        //alert(idx);
+        if (rowDetail > 2) {
+            document.getElementById("tbDetail").deleteRow(idx);
+            indexDelete = idx;
+            //var tblDel = document.getElementById("tbDetail");
+            //alert("afterdelete: " + tblDel.length);
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRow() {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+
+        var x = validateDataDetail("add");
+        //alert(x);
+        if (x == true) {
+            var y = collectDataDetail();
+            //alert(y);
+            //alert(document.getElementById('voucherNo').value);
+            $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=add&voucherNo='+document.getElementById('voucherNo').value);
+            $("#hdnTotalRows").val(tbl.rows.length);
+            setTimeout(function () { sumTotal(); }, 500);
+        }
+    }
+
+    function collectDataDetail() {
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 1; i < rowsCount; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                //alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                //alert("i after ==>" + i)
+            }
+
+            var AccountNo = document.getElementById("txtAccountNo_" + i);
+            var AccountNoVal = AccountNo.value;
+            var AccountNoId = AccountNo.id;
+
+            //var AccountName = document.getElementById("txtAccountName_" + i);
+            //var AccountNameVal = AccountName.value;
+            //var AccountNameId = AccountName.id;
+
+            var Amount = document.getElementById("txtAmount_" + i);
+            var AmountVal = Amount.value;
+            var AmountId = Amount.id;
+
+            stringDataDetail += seqRows + ";" + AccountNoVal + ";" + /*escape(AccountNameVal) + ";" +*/ AmountVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function validateDataDetail(actFrom) {
+        //alert(indexDelete);
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length - 1);// 1 <-- didapat dari baris setelah detail, yaitu grandTotal
+        //alert(rowsCount);
+        for (i = 1; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var AccountNo = document.getElementById("txtAccountNo_" + i);
+            var AccountNoVal = AccountNo.value;
+            var AccountNoId = AccountNo.id;
+
+            //var AccountName = document.getElementById("txtAccountName_" + i);
+            //var AccountNameVal = AccountName.value;
+            //var AccountNameId = AccountName.id;
+
+            var Amount = document.getElementById("txtAmount_" + i);
+            var AmountVal = (Amount.value * 1);
+            var AmountId = Amount.id;
+
+            //alert(actFrom + " == 'save' && " + productIDVal + " == '' && " + i + " == " + (rowsCount - 1));
+            if (actFrom == "save" && AccountNoVal == "" && AmountVal == "0" && i == (rowsCount - 1))
+                break;
+
+            //alert(parseFloat(payVal));
+            if (AccountNoVal == "" || /*AccountNameVal == "" || */ (AmountVal == "" || AmountVal == 0) ) {
+                alert("Please complete data detail.");
+                //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var grandTotal = 0;
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                document.getElementById("txtAmounts_" + i).value = formatCurrency(document.getElementById("txtAmounts_" + i).value.replace(/\./g, ''));
+                //alert(document.getElementById("txtAmounts_" + i).value);
+                document.getElementById("txtAmount_" + i).value = document.getElementById("txtAmounts_" + i).value.replace(/\./g, '');
+                //alert(document.getElementById("txtAmount_" + i).value);
+                grandTotal += document.getElementById("txtAmount_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtAmount_" + i).value);
+                //alert(grandTotal);
+            }
+        }
+        document.getElementById("grandTotal").value = grandTotal;
+        document.getElementById("grandTotals").value = formatCurrency(grandTotal);
+    }
+
+    function confirmSave() {
+        var x = validateDataDetail("save");
+        if (x == true) {
+            var voucherDate = document.getElementById("voucherDate").value;
+            var bankId = document.getElementById("bankID").value;
+
+            if(voucherDate == "" || bankId == "")
+            {
+                alert("Please Complete Data.");
+            }
+            else
+            {
+                document.forms[0].submit();
+            }
+        }
+    }
+</script>
+<table class="table table-hover" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Account</th>
+            @*<th>Account Name</th>*@
+            <th>Amount</th>
+            <th>
+                <input type="button" id="btnAddRow" name="btnAddRow" value="[ + ]" onclick="onClickAddRow();">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.advancePaymentVoucher.advancePaymentVoucherDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.advancePaymentVoucher.advancePaymentVoucherDetail>)
+            {
+                <tr>
+                    <td>
+                        <select id="txtAccountNo_@idx" name="txtAccountNo_@idx" class="form-control">
+                            @foreach (var z in ViewBag.COA as SelectList)
+                            {
+                                if (z.Value == a.accountNo)
+                                {
+                                    <option value="@z.Value" selected="selected">@z.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@z.Value">@z.Text</option>
+                                }
+                            }
+                            @*@Html.DropDownList("txtAccountNo_" + idx, ViewBag.COA as SelectList, new { @class = "form-control", selected=a.accountNo })*@
+                        </select>
+
+                    </td>
+                    @*<td>
+                        @foreach(var x in ViewBag.Account as IEnumerable<WebApp_AAJI.Models.chartOfAccount>)
+                        {
+                            if(x.accountNo == a.accountNo)
+                            {
+                                @Html.TextBox("txtAccountName_" + idx, x.accountName, new{@readonly="readonly"})
+                                break;
+                            }
+                        }
+                    </td>*@
+                    <td>
+                        @Html.TextBox("txtAmounts_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "text", style = "text-align:right;width:150px;padding-right: 10px;", onchange = "javascript:document.getElementById('txtAmount_" + idx + "').value=this.value;sumTotal();" })
+                        @Html.TextBox("txtAmount_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "sumTotal();" })
+                    </td>
+                    <td>
+                        <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                    </td>
+                </tr>
+                            idx++;
+                            grandTotal += a.amount;
+            }
+            <tr>
+                <td>
+                    @Html.DropDownList("txtAccountNo_" + idx, ViewBag.COA as SelectList, "- Select -", new { @class = "form-control" })
+                    @*@Html.TextBox("txtAccountNo_" + idx)*@
+                </td>
+                @*<td>
+                    @Html.TextBox("txtAccountName_" + idx, "", new { @readonly = "readonly" })
+                </td>*@
+                <td>
+                    @Html.TextBox("txtAmounts_" + idx, 0, new { type = "text", style = "text-align:right;width:150px;padding-right: 10px;", onchange = "javascript:document.getElementById('txtAmount_" + idx + "').value=this.value;sumTotal();" })
+                    @Html.TextBox("txtAmount_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "sumTotal();" })
+                </td>
+                <td>
+                    <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.DropDownList("txtAccountNo_" + idx, ViewBag.COA as SelectList, "- Select -", new { @class = "form-control" })
+                    @*@Html.TextBox("txtAccountNo_" + idx)*@
+                </td>
+                @*<td>
+                    @Html.TextBox("txtAccountName_" + idx, "", new { @readonly = "readonly" })
+                </td>*@
+                <td>
+                    @Html.TextBox("txtAmounts_" + idx, 0, new { type = "text", style = "text-align:right;width:150px;padding-right: 10px;", onchange = "javascript:document.getElementById('txtAmount_" + idx + "').value=this.value;sumTotal();" })
+                    @*<input type="text" id="txtAmounts_@idx" style="text-align:right;width:150px" value="0" pattern="^\\d*(\\.\\d{2}$)?" />*@
+                           @Html.TextBox("txtAmount_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "sumTotal();" })
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        }
+        <tr>
+            <td @*colspan="2"*@>
+                &nbsp;
+            </td>
+            <td>
+                <input type="text" step="1" min=0 id="grandTotals" name="grandTotals" readonly="readonly" value="@grandTotal.ToString("G29").Replace(',', '.')" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; padding-right: 10px; " />
+                <input type="number" step="1" min=0 id="grandTotal" name="grandTotal" readonly="readonly" value="@grandTotal.ToString("G29").Replace(',', '.')" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; display:none;" />
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@Html.Hidden("hdnIdxRowsClick")
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+<script>
+    sumTotal();
+    @*document.getElementById('grandTotals').value = formatCurrency(@grandTotal.ToString("G29").Replace(',', '.'));*@
+</script>

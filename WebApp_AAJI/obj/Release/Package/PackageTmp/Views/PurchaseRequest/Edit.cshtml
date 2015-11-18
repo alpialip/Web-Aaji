@@ -1,0 +1,124 @@
+﻿@model WebApp_AAJI.Models.purchaseRequestHeader
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<script>
+    function confirmSave() {
+        var x = validateDataDetail("save");
+        //alert(x);
+        if (x == true) {
+            var reqBy = document.getElementById('requestDeptId').value;
+            //alert(reqBy);
+            if (reqBy == "") {
+                alert('Request By Required')
+            }
+            else {
+                document.forms[0].submit();
+            }
+        }
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Purchase Request</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @*@Html.HiddenFor(model => model.prId)*@
+        @Html.HiddenFor(model => model.proposedBy)
+        @Html.HiddenFor(model => model.proposedDate)
+        @Html.HiddenFor(model => model.proposedStatus)
+        @Html.HiddenFor(model => model.createdDate)
+        @Html.HiddenFor(model => model.createdUser)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.prId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.prId, new { @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.prId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.prDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.prDate,, new { type = "date" })*@
+                @Html.TextBox("prDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+                @Html.ValidationMessageFor(model => model.prDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("To", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                Procurement
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.requestDeptId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.requestDeptId, ViewBag.Dept as SelectList, "- Select -", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.requestDeptId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.typeOrder, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("typeOrder", "Routine", Model.typeOrder == "Routine" ? true : false) Routine
+                @Html.RadioButton("typeOrder", "Urgent", Model.typeOrder == "Urgent" ? true : false) Urgent
+                @Html.RadioButton("typeOrder", "Project", Model.typeOrder == "Project" ? true : false) Project
+                @Html.ValidationMessageFor(model => model.typeOrder)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.proposalInclude, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.proposalInclude)
+                @Html.ValidationMessageFor(model => model.proposalInclude)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.specialInstruction, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.specialInstruction, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.specialInstruction)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.projectTimeDelivery, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.projectTimeDelivery)
+                @Html.ValidationMessageFor(model => model.projectTimeDelivery)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @*@Html.Partial("_PartialPagePR1")*@
+            @Html.Partial("_PartialPagePR_Supplier1")
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-default" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save';confirmSave();" />&nbsp;
+                <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />                
+                @Html.Hidden("hdnTypeSubmit", Model.proposedStatus == true ? "requested" : "save")
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

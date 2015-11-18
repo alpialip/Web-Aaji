@@ -1,0 +1,64 @@
+﻿@model IEnumerable<string>
+
+@*@Html.ActionLink("Home", "List", "Product", null, new { @class = "btn btn-block btn-info" })
+@foreach (var link in Model)
+{
+    @Html.RouteLink(link, new
+    {
+        controller = "Product",
+        action = "List",
+        menu = link,
+        page = 1
+    },
+        new { @class = "btn btn-block btn-info" }
+    )
+}*@
+
+@*Iterating Course model using ViewData string as a key *@
+@foreach (var mainMenu in ViewData["parentMenu"] as List<WebApp_AAJI.Models.menu>)
+{
+    var menuID = @mainMenu.menuID;
+    <div class="btn-group" style="margin-top:3px">
+        <button type="button" class="btn btn-info" style="min-width:155px">
+            @mainMenu.menuName
+        </button>
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        @if (ViewData["parentMenu"] != null)
+        {
+            var hasSubMenu = false;
+            foreach (var subMenu in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+            {
+                var parentMenu = subMenu.menuParent;
+                if (menuID == parentMenu)
+                {
+                    hasSubMenu = true;
+                    break;
+                }
+            }
+            
+            if(hasSubMenu)
+            { 
+                
+                <ul class="dropdown-menu" role="menu">
+                    @foreach (var subMenu in ViewData["subMenu"] as List<WebApp_AAJI.Models.menu>)
+                    {
+                        var parentMenu = subMenu.menuParent;
+                        if (menuID == parentMenu)
+                        {
+                            <li><a href="/@subMenu.menuLink/Index">@subMenu.menuName</a></li>
+                        }
+                    }
+                </ul>
+            }
+            
+            
+        }
+    </div>
+}
+
+
+
+

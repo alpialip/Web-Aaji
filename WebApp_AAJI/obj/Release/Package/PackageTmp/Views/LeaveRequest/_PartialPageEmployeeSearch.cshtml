@@ -1,0 +1,101 @@
+﻿<script type="text/javascript">
+    function copyToFormMain(employeeID, employeeName, deptName, status) {
+        $('#employeeID').val(employeeID);
+        $('#employeeName').val(employeeName);
+        $('#myModal').modal('hide');
+    }
+
+    function popUpSearch()
+    {
+        var pageStart = 1;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "employeeStatus")
+        {
+            //alert($('input[name=rbProposal]:checked').val());
+            keywordSearch = $('input[name=rbStatus]:checked').val();
+        }
+        else
+            keywordSearch = document.getElementById('txtSearch').value;
+
+        $("#dvResultPop").load('@(Url.Action("LoadDetailEmployeeSearch", "LeaveRequest", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&pageStart=" + pageStart);
+    }
+
+    function popUpPagingClick(values) {
+        var pageStart = values;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "employeeStatus") {
+            //alert($('input[name=rbProposal]:checked').val());
+            keywordSearch = $('input[name=rbStatus]:checked').val();
+        }
+        else
+            keywordSearch = document.getElementById('txtSearch').value;
+
+        $("#dvResultPop").load('@(Url.Action("LoadDetailEmployeeSearch", "LeaveRequest", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch + "&pageStart=" + pageStart);
+    }
+
+    function changeKeywordSearch(values)
+    {
+        document.getElementById('txtSearch').style.display='none';
+        document.getElementById('rbProposalProbation').style.display = 'none';
+        document.getElementById('rbProposalContract').style.display = 'none';
+        document.getElementById('rbProposalPermanent').style.display = 'none';
+        document.getElementById('lblProposalProbation').style.display = 'none';
+        document.getElementById('lblProposalContract').style.display = 'none';
+        document.getElementById('lblProposalPermanent').style.display = 'none';
+
+        if (values == "employeeNIK" || values == "employeeName" || values == "deptName")
+        {
+            document.getElementById('txtSearch').style.display = '';
+        }
+        else if (values == "employeeStatus")
+        {
+            document.getElementById('rbProposalProbation').style.display = '';
+            document.getElementById('rbProposalContract').style.display = '';
+            document.getElementById('rbProposalPermanent').style.display = '';
+            document.getElementById('lblProposalProbation').style.display = '';
+            document.getElementById('lblProposalContract').style.display = '';
+            document.getElementById('lblProposalPermanent').style.display = '';
+        }
+
+    }
+</script>
+<table>
+    <tr>
+        <td>&nbsp;Search By</td>
+        <td>
+            :
+            <select id="ddlSearchBy" onchange="changeKeywordSearch(this.value)">
+                <option value="employeeNIK" selected>NIK</option>
+                <option value="employeeName">Employee Name</option>
+                <option value="deptName">Department</option>
+                <option value="employeeStatus">Status</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;Keyword</td>
+        <td>
+            : <input type="text" id="txtSearch" />
+            <input type="radio" id="rbStatus" name="rbStatus" value="Probation" style="display:none" /><label id="lblStatusProbation" style="display:none; font-weight:100">Probation</label>
+            <input type="radio" id="rbStatus" name="rbStatus" value="Contract" style="display:none" /><label id="lblStatusContract" style="display: none; font-weight: 100">Contract</label>
+            <input type="radio" id="rbStatus" name="rbStatus" value="Permanent" style="display:none" /><label id="lblStatusPermanent" style="display: none; font-weight: 100">Permanent</label>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            &nbsp;&nbsp;<input type="button" onclick="popUpSearch()" value="Search" />
+        </td>
+    </tr>
+</table>
+<br />
+
+@if (ViewBag.resultPopUp != null)
+{
+    <div id="dvResultPop">
+        @Html.Partial("_PartialPageEmployeeSearchSub")
+    </div>
+}
+

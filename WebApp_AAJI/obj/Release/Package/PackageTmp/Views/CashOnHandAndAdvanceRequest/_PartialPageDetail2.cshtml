@@ -1,0 +1,77 @@
+﻿<table class="table table-hover" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Activity Description</th>
+            <th>Currency</th>
+            <th>Amount</th>
+            <th id="colUploadHeader" style="display:none">
+                Documents
+            </th>
+            <th>
+                @*<input type="button" id="btnAddRow" name="btnAddRow" value="[ + ]" onclick="onClickAddRowClient();">*@
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 0;
+            int totalRows = 0;
+            string isReimbursement = "false";
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest.cashOnHandAndAdvanceRequestDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.cashOnHandAndAdvanceRequest.cashOnHandAndAdvanceRequestDetail>)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("txtDesc_" + idx, a.activityDescription)
+                    </td>
+                    <td>
+                        @Html.TextBox("txtCur_" + idx, a.currency, new { type = "number", step = "1", min = 0, style = "text-align:right;width:100px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtAmount_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+
+                    </td>
+                    @if (a.fileReimbursement != null)
+                    {
+                        if (isReimbursement == "false")
+                        {
+                            isReimbursement = "true";
+                        }
+
+                        string[] fileName = a.fileReimbursement.Split('\\');
+                        <td id="colUploadViewDetail_@idx">
+                            @*<img src="~/img/change.png" title="Change File" style="width: 15px;" onclick="javascript: document.getElementById('colUploadDetail_@idx').style.display = '';document.getElementById('colUploadViewDetail_@idx').style.display='none';" />*@
+                            @fileName[1]&nbsp;
+                            <a href="~/Common/Download?file=@a.fileReimbursement" target="_blank" title="Download File">
+                                <img src="~/img/download.png" style="width: 20px;" />
+                            </a>
+                        </td>
+                    }
+
+                    <td id="colUploadDetail_@idx" style="display:none">
+                        <input id="linkFileData_@idx" name="linkFileData_@idx" type="file" class="file" data-show-upload="false" data-show-caption="true">
+                        <img src="~/img/undo.png" title="Undo" style="width: 15px;" onclick="javascript: document.getElementById('colUploadDetail_@idx').style.display = 'none';document.getElementById('colUploadViewDetail_@idx').style.display = ''" />
+                    </td>
+
+                    <td>
+                        @*<input type="button" value="Delete" min=0 onclick="onClickDeleteRowClient(@idx);" />*@
+                    </td>
+                </tr>
+                    idx++;
+            }
+        }
+    </tbody>
+</table>
+<input type="hidden" id="isCheckedReimbursement" value="@isReimbursement" />
+@*@Html.Hidden("isCheckedReimbursement", new { value = @isReimbursement })*@
+<script>
+    var isReimbursement = document.getElementById('isCheckedReimbursement').value;
+    //alert(isReimbursement);
+    if (isReimbursement == "true")
+        document.getElementById('colUploadHeader').style.display = '';
+</script>
+

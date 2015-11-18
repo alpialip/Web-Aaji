@@ -1,0 +1,44 @@
+﻿<script type="text/javascript">
+    function copyToFormEmployee(seqID, name, gender, status) {
+        var idxClicked = document.getElementById('hdnIdxRowsClick').value;
+        //alert(idxClicked);
+        $('#txtSeqID_' + idxClicked).val(seqID);
+        $('#txtFamilyName_' + idxClicked).val(name);
+        $('#jenisKelamin_' + idxClicked).val(gender);
+        $('#relationStatus_' + idxClicked).val(status);
+        $('#myModalFamilySearch').modal('hide');
+    }
+</script>
+
+@if (ViewBag.FamilyPopUp != null)
+{
+    int idxRows = 0;
+
+    <table class="table table-striped table-hover table-condensed" width="600px">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var item in ViewBag.FamilyPopUp as IEnumerable<WebApp_AAJI.Models.employeeClaimMedical.familyList>)
+        {
+            <tr>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormEmployee('@item.sId', '@item.name', '@item.gender', '@item.statusRelation');"></a>
+                </td>
+                <td>@item.name</td>
+                <td>@item.gender</td>
+                <td>@item.statusRelation</td>
+            </tr>
+            idxRows++;
+        }
+
+        @if (idxRows == 0)
+        {
+            <tr style="text-align:center;">
+                <td colspan="4">No Data Result</td>
+            </tr>
+        }
+    </table>
+}

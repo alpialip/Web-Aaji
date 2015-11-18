@@ -1,0 +1,105 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.chartOfAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create") |
+    @Html.ActionLink("Edit COA", "Edit") |
+    @Html.ActionLink("Delete COA", "Delete")
+</p>
+<div class="dtree">
+    <p><a href="javascript: d.openAll();">open all</a> | <a href="javascript: d.closeAll();">close all</a></p>
+
+    @*<script type="text/javascript">
+        <!--
+        d = new dTree('d');
+
+        d.add(0,-1,'Chart Of Account');
+
+        d.add(1,0,'[1] Asset','');
+            d.add(2,1,'[1000] Cash','');
+                d.add(3,2,'Kas Besar','');
+                d.add(4,2,'Kas Kecil','');
+            d.add(5,1,'[1001] Bank','');
+                d.add(6,5,'Bank BCA','');
+                d.add(7,5,'Bank Mandiri','');
+
+        d.add(8,0,'[2] Liability Accounts (Kewajiban)','');
+            d.add(9,8,'[2000] Hutang Usaha','');
+            d.add(10,8,'[2001] Hutang Giro','');
+
+        d.add(11,0,'[3] Equity Account','');
+            d.add(12,11,'[3000] Modal Pemilik','');
+                d.add(13,12,'Modal A','');
+                d.add(14,12,'Modal B','');
+            d.add(15,11,'LABA','');
+                d.add(16,15,'LABA DITAHAN','');
+
+        d.add(17,0,'[4] Profit & Lost Account','');
+            d.add(18,17,'[4000] Pendapatan','');
+                d.add(19,18,'Penjualan','');
+                d.add(20,18,'Pendapatan Lain - Lain','');
+
+        d.add(21,0,'[5] Expense Account','');
+            d.add(22,21,'[5000] Biaya Kantor','');
+                d.add(23,22,'BIAYA LISTRIK','');
+                d.add(24,22,'BIAYA AIR','');
+                d.add(25,22,'BIAYA GEDUNG','');
+            d.add(26,21,'[5001] Biaya Gaji','');
+                d.add(27,26,'GAJI KARYAWAN','');
+        document.write(d);
+        //-->
+    </script>*@
+    @Html.Raw(string.IsNullOrEmpty(ViewBag.treeCOA) ? "&nbsp;" : ViewBag.treeCOA)
+</div>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.accountName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.accountName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedUser)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.accountNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.accountNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.accountNo })
+        </td>
+    </tr>
+}
+
+</table>*@

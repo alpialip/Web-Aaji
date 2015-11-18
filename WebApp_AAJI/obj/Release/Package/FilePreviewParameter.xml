@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="Default Web Site/WebApp_AAJI" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\Cari\ Tambahan\\AAJI\ Application\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^D:\\Cari\ Tambahan\\AAJI\ Application\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DB_AAJIConnectionString-Web.config Connection String" description="" value="Data Source=USER-PC;Initial Catalog=DB_AAJI;Persist Security Info=True;User ID=sa;Password=admin123" tags="">
+    <parameterEntry kind="XmlFile" scope="D:\\Cari\ Tambahan\\AAJI\ Application\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DB_AAJIConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="DB_AAJIEntities-Web.config Connection String" description="" value="metadata=res://*/Models.Model1.csdl|res://*/Models.Model1.ssdl|res://*/Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=USER-PC;initial catalog=DB_AAJI;persist security info=True;user id=sa;password=admin123;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="">
+    <parameterEntry kind="XmlFile" scope="D:\\Cari\ Tambahan\\AAJI\ Application\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DB_AAJIEntities']/@connectionString" />
+  </parameter>
+  <parameter name="MyDataAccess-Web.config Connection String" description="" value="Data Source=USER-PC\SQLEXPRESS;Initial Catalog=DB_AAJI;User ID=sa;Password=admin123" tags="">
+    <parameterEntry kind="XmlFile" scope="D:\\Cari\ Tambahan\\AAJI\ Application\\WebApp_AAJI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MyDataAccess']/@connectionString" />
+  </parameter>
+</parameters>

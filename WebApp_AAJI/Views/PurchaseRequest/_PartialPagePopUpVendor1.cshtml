@@ -1,0 +1,36 @@
+﻿<script type="text/javascript">
+    function copyToFormPRVen(id,vendorID,vendorName) {
+        var idx = document.getElementById('hdnIdxRowsClick').value;
+        $('#txtVendorID_' + idx).val(id);
+        $('#txtVendorName_' + idx).val(vendorName);
+        //$("#dvDetail").load('@(Url.Action("LoadDetailPO", "PurchaseReceive", null, Request.Url.Scheme))?poId=' + poId);
+        $('#myModalVendor').modal('hide');
+        $('#txtQty_' + idx).focus();
+    }
+</script>
+
+@if (ViewBag.VendorPopUp != null)
+{
+    <table class="table table-striped table-hover table-condensed" width="600px">
+        <tr>
+            <th></th>
+            <th style="width: 190px;">Vendor Id</th>
+            <th>Name</th>
+        </tr>
+        @foreach (var item in ViewBag.VendorPopUp as IEnumerable<WebApp_AAJI.Models.vendor>)
+        {
+            <tr>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormPRVen('@item.id', '@item.vendorID', '@item.vendorName');"></a>
+                </td>
+                <td>@item.vendorID</td>
+                <td>@item.vendorName</td>
+            </tr>
+        }
+        @*@for (var item in ViewData["PRPopUp"] as List<string> )
+            {
+
+            }*@
+    </table>
+}
+

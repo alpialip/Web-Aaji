@@ -1,0 +1,70 @@
+﻿<script>
+    function formatingPengurangPenghasilan(elementId) {
+        var amount = document.getElementById('pengurangPenghasilans_' + elementId).value.replace(/\,/g, '');
+        amount = amount.replace(/\./g, '');
+
+        document.getElementById('pengurangPenghasilan_' + elementId).value = amount;
+        document.getElementById('pengurangPenghasilans_' + elementId).value = formatCurrency(amount);
+    }
+</script>
+
+
+<table class="table table-hover">
+    @if (ViewBag.masterPengurangPenghasilan != null)
+    {
+        <thead>
+            <tr>
+                @foreach (var a in ViewBag.masterPengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.pengurangPenghasilan>)
+                {
+                    <th>@a.subject</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (ViewBag.pengurangPenghasilan != null)
+                {
+                    foreach (var b in ViewBag.masterPengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.pengurangPenghasilan>)
+                    {
+                        int countMaster = 0;
+                        int countTrans = 0;
+
+                        countMaster++;
+                        foreach (var a in ViewBag.pengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.transPengurangPenghasilan>)
+                        {
+                            if (b.id == a.idPengurangPenghasilan)
+                            {
+                                countTrans++;
+                                <td>
+                                    @Html.TextBox("pengurangPenghasilans_" + b.id, string.Format("{0:#,##0}", a.amount), new { type = "text", @class = "form-control", onchange = "formatingPengurangPenghasilan('" + b.id + "')" })
+                                    @Html.TextBox("pengurangPenghasilan_" + b.id, string.Format("{0:#,##0}", a.amount), new { type = "text", @style = "display:none" })
+                                </td>
+                                break;
+                            }
+                        }
+
+                        if(countMaster > countTrans)
+                        {
+                            countTrans++;
+                            <td>
+                                @Html.TextBox("pengurangPenghasilans_" + b.id, 0, new { type = "text", @class = "form-control", onchange = "formatingPengurangPenghasilan('" + b.id + "')" })
+                                @Html.TextBox("pengurangPenghasilan_" + b.id, 0, new { type = "text", @style = "display:none" })
+                            </td>
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var b in ViewBag.masterPengurangPenghasilan as IEnumerable<WebApp_AAJI.Models.pengurangPenghasilan>)
+                    {
+                        <td>
+                            @Html.TextBox("pengurangPenghasilans_" + b.id, 0, new { type = "text", @class = "form-control", onchange = "formatingPengurangPenghasilan('" + b.id + "')" })
+                            @Html.TextBox("pengurangPenghasilan_" + b.id, 0, new { type = "text", @style = "display:none" })
+                        </td>
+                    }
+                }
+            </tr>
+        </tbody>
+    }
+
+</table>

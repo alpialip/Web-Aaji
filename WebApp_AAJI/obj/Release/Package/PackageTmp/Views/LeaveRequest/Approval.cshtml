@@ -1,0 +1,106 @@
+﻿@model WebApp_AAJI.Models.transLeaveRequest
+
+@{
+    ViewBag.Title = "Approval";
+}
+<script>
+    function sendSubmit(values)
+    {
+        var val = values.split('_');
+        //alert(val[0]);
+        //alert(val[1]);
+        $("#dvSubmit").load('@(Url.Action("ApprovalProcess", "LeaveRequest", null, Request.Url.Scheme))?act=' + val[0] + '&id=' + val[1] + '&empID=' + val[2],
+            function () {
+                //window.history.go(-1);
+                window.location.replace('/Account/Index');
+        });
+    }
+</script>
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>Leave Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </dt>
+
+        <dd>
+            @ViewBag.employeeName
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.leaveStartDate)
+        </dt>
+
+        <dd>
+            @Model.leaveStartDate.ToString("dd-MMM-yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.leaveEndDate)
+        </dt>
+
+        <dd>
+            @Model.leaveEndDate.ToString("dd-MMM-yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.leaveDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.leaveDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedStatus)
+        </dt>
+
+        <dd>
+            @if (Model.approvedStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (Model.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (Model.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.acknowledgeStatus)
+        </dt>
+
+        <dd>
+            @if (Model.acknowledgeStatus == null)
+            {
+                @("Waiting")
+            }
+            else if (Model.acknowledgeStatus == true)
+            {
+                @("Approved")
+            }
+            else if (Model.acknowledgeStatus == false)
+            {
+                @("Rejected")
+            }
+        </dd>
+
+@using (Html.BeginForm())
+{    
+    @Html.AntiForgeryToken()
+    var act = "_"+Request.QueryString["act"].ToString();
+    var id = Model.leaveRequestID + "_" + Model.employeeID + act;
+    <div class="form-actions no-color">
+        <input type="button" value="Approved" class="btn btn-primary" onclick="sendSubmit('approved_@id')" /> |
+        <input type="button" value="Rejected" class="btn btn-primary" onclick="sendSubmit('rejected_@id')" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div id="dvSubmit" style="display:none"></div>
+}
+</div>

@@ -1,0 +1,10 @@
+﻿@if (ViewBag.linkFileVirtualSign != null)
+{
+    string linkVirtualSign = ViewBag.linkFileVirtualSign;
+    linkVirtualSign = linkVirtualSign.Substring(1, linkVirtualSign.Length - 1);
+    <img src="@linkVirtualSign" width="190px" />
+}
+else
+{
+    @("No File")
+}

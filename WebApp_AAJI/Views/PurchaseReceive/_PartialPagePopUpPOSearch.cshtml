@@ -1,0 +1,105 @@
+﻿<script type="text/javascript">
+    var maxRows = 10;
+
+    function copyToFormPR(poId, poDate, vendorId, vendorName, poUrgent) {
+        $('#poId').val(poId);
+        //$('#prFrom').val(deptName);
+        $('#poDate').text(poDate);
+        $('#poVendorID').text(vendorId);
+        $('#poVendorName').text(vendorName);
+        $('#poUrgent').text(poUrgent);
+        $("#dvDetail").load('@(Url.Action("LoadDetailPO", "PurchaseReceive", null, Request.Url.Scheme))?poId=' + poId);
+        $('#myModal').modal('hide');
+    }
+
+    function popUpSearch() {
+        var pageStart = 1;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "a.poDate")
+        {
+            keywordId = "CONVERT(VARCHAR," + keywordId + ",112)";
+            keywordSearch = " BETWEEN CONVERT(VARCHAR,'" + document.getElementById('startDateSearch').value + "',112)" + " AND CONVERT(VARCHAR,'" + document.getElementById('endDateSearch').value + "',112)";
+        }
+        else
+        {
+            keywordSearch = document.getElementById('txtSearch').value;
+        }
+
+        $("#dvSubPopUp").load('@(Url.Action("popUpSearch", "PurchaseReceive", null, Request.Url.Scheme))?keywordId=' + escape(keywordId) + "&keywordSearch=" + escape(keywordSearch) + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+
+    function popUpPagingClick(values) {
+        var pageStart = values;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+        if (keywordId == "a.poDate")
+        {
+            keywordId = "CONVERT(VARCHAR," + keywordId + ",112)";
+            keywordSearch = " BETWEEN CONVERT(VARCHAR,'" + document.getElementById('startDateSearch').value + "',112)" + " AND CONVERT(VARCHAR,'" + document.getElementById('endDateSearch').value + "',112)";
+        }
+        else
+        {
+            keywordSearch = document.getElementById('txtSearch').value;
+        }
+
+        $("#dvSubPopUp").load('@(Url.Action("popUpSearch", "PurchaseReceive", null, Request.Url.Scheme))?keywordId=' + escape(keywordId) + "&keywordSearch=" + escape(keywordSearch) + "&maxRows=" + maxRows + "&pageStart=" + pageStart);
+    }
+
+    function checkInputSearch(val) {
+        //alert(val);
+        document.getElementById('txtSearch').style.display = 'none';
+        document.getElementById('startDateSearch').style.display = 'none';
+        document.getElementById('dashDate').style.display = 'none';
+        document.getElementById('endDateSearch').style.display = 'none';
+
+        if (val != "a.poDate") {
+            document.getElementById('txtSearch').style.display = '';
+        }
+        else {
+            document.getElementById('startDateSearch').style.display = '';
+            document.getElementById('dashDate').style.display = '';
+            document.getElementById('endDateSearch').style.display = '';
+        }
+    }
+    </script>
+
+<table>
+    <tr>
+        <td>&nbsp;Search By</td>
+        <td>
+            :
+            <select id="ddlSearchBy" onchange="checkInputSearch(this.value)">
+                <option value="a.poId" selected>PO ID</option>
+                <option value="a.poDate" >PO Date</option>
+                @*<option value="b.vendorID">Vendor ID</option>*@
+                <option value="b.vendorName" >Vendor Name</option>
+                <option value="a.poUrgent" >Type Order</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;Keyword</td>
+        <td>
+            : <input type="text" id="txtSearch" />
+            <input type="date" id="startDateSearch" style="display:none"/>
+            <label id="dashDate" style="display:none">-</label>
+            <input type="date" id="endDateSearch" style="display:none" />
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            &nbsp;&nbsp;<input type="button" onclick="popUpSearch()" value="Search" />
+        </td>
+    </tr>
+</table>
+<br />
+
+@if (ViewBag.POPopUp != null)
+{
+    <div id="dvSubPopUp">
+        @Html.Partial("_PartialPagePopUpPOSearchSub");
+    </div>
+}
+

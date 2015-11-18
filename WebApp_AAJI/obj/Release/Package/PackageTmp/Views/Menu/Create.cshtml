@@ -1,0 +1,91 @@
+﻿@model WebApp_AAJI.Models.menu
+
+@{
+    ViewBag.Title = "Create";
+}
+
+    <script type="text/javascript">
+        function OnChangeIsParentMenu()
+        {
+            if (document.getElementById('menuIsParent').checked)
+            {
+                $('select option:first-child').attr('selected', 'selected');
+                document.getElementById('menuParent').disabled = true;
+            }
+            else
+                document.getElementById('menuParent').disabled = false;
+        }
+    </script>
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>menu</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.menuName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.menuName)
+                @Html.ValidationMessageFor(model => model.menuName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.menuLink, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.menuLink)
+                @Html.ValidationMessageFor(model => model.menuLink)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.menuIsParent, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.menuIsParent, new { @onchange = "OnChangeIsParentMenu();" })
+                @*@Html.EditorFor(model => model.menuIsParent)*@
+                @Html.ValidationMessageFor(model => model.menuIsParent)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.menuParent, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.DropDownList("menuParent", (IEnumerable<SelectListItem>)ViewBag.table_name, "- Select -", new { @class = "form-control" })
+                @*@Html.EditorFor(model => model.menuParent)*@
+                @Html.ValidationMessageFor(model => model.menuParent)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.menuDescription, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.menuDescription)
+                @Html.ValidationMessageFor(model => model.menuDescription)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.menuIsActive, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.menuIsActive)
+                @Html.ValidationMessageFor(model => model.menuIsActive)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

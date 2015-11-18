@@ -1,0 +1,121 @@
+﻿@model WebApp_AAJI.Models.chartOfAccount
+
+@{
+    ViewBag.Title = "Create";
+}
+<script type="text/jscript">
+    $(function () {
+        //$('#State').change(function () {
+        //    $.getJSON('/ChartOfAccount/Create/' + $('#idLevel').val(), function (data) {
+        //        var items = '<option>Select a District</option>';
+        //        $.each(data, function (i, district) {
+        //            items += "<option value='" + district.Value + "'>" + district.Text + "</option>";
+        //        });
+        //        $('#District').html(items);
+        //    });
+        //});
+    });
+</script>
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>chartOfAccount</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.Raw(TempData["msg"])
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.accountNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.accountNo)
+                @Html.ValidationMessageFor(model => model.accountNo)
+            </div>
+        </div>*@
+
+        @Html.HiddenFor(model => model.accountNo)
+
+        @*@using (Html.BeginForm("Create","ChartOfAccount", FormMethod.Get))
+        {*@
+        <div class="form-group">
+            @Html.Label("lvlID","Level", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButton("idLevel", 1, ViewBag.Checked == 1 ? true : false, new { onchange = "this.form.submit();" }) 1
+                @Html.RadioButton("idLevel", 2, ViewBag.Checked == 2 ? true : false, new { onchange = "this.form.submit();" }) 2
+                @Html.RadioButton("idLevel", 3, ViewBag.Checked == 3 ? true : false, new { onchange = "this.form.submit();" }) 3
+            </div>
+        </div>
+        @*}  *@
+
+        @if(ViewBag.parentCOAId != null)
+        { 
+        <div class="form-group">
+            @Html.LabelFor(model => model.parentCOAId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("parentCOAId", ViewBag.parentCOAId as SelectList, "- Select -", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.parentCOAId)
+            </div>
+        </div>
+        }
+        else
+        { 
+            @*@Html.HiddenFor(model => model.parentCOAId, new { @value = "0"})*@
+            @Html.HiddenFor(m => m.parentCOAId, new { @Value = "0" })
+        }
+                    @*<select id="District" name="District"></select>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.accountName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.accountName)
+                @Html.ValidationMessageFor(model => model.accountName)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.createdDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.createdDate)
+                @Html.ValidationMessageFor(model => model.createdDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.createdUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.createdUser)
+                @Html.ValidationMessageFor(model => model.createdUser)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modifiedDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedDate)
+                @Html.ValidationMessageFor(model => model.modifiedDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modifiedUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifiedUser)
+                @Html.ValidationMessageFor(model => model.modifiedUser)
+            </div>
+        </div>*@
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

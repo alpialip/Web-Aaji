@@ -1,0 +1,42 @@
+﻿<script type="text/javascript">
+    function copyToFormPR(employeeID, employeeNIK, employeeName, deptID, deptName) {
+        var idxClicked = document.getElementById('hdnIdxClick').value;
+        $('#persEmpId_' + idxClicked).val(employeeID);
+        //$('#empNIK' + idxClicked).text(employeeNIK);
+        $('#persEmpName_' + idxClicked).val(employeeName);
+        //$('#empDeptId' + idxClicked).text(deptID);
+        $('#lblDept_' + idxClicked).text(deptName);
+        @*$("#dvDetail" + idxClicked).load('@(Url.Action("LoadDetailEmp", "Employee", null, Request.Url.Scheme))?empId=' + empId);*@
+        $('#myModal').modal('hide');
+    }
+</script>
+
+@if (ViewBag.EmpPopUp != null)
+{
+    <table class="table table-striped table-hover table-condensed" width="700px">
+        <tr>
+            <th></th>
+            <th>Employee ID.</th>
+            <th>Name</th>
+            <th>Dept.</th>
+        </tr>
+        @foreach (var item in ViewBag.EmpPopUp as IEnumerable<WebApp_AAJI.Models.employeeLoan.employeePOPUp>)
+        {
+            <tr>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormPR('@item.employeeID', '@item.employeeNIK', '@item.employeeName', '@item.deptID', '@item.deptName');"></a>
+                </td>
+                @*<td>@item.employeeID</td>*@
+                <td>@item.employeeNIK</td>
+                <td>@item.employeeName</td>
+                @*<td>@item.deptID</td>*@
+                <td>@item.deptName</td>
+            </tr>
+        }
+        @*@for (var item in ViewData["PRPopUp"] as List<string> )
+            {
+
+            }*@
+    </table>
+}
+

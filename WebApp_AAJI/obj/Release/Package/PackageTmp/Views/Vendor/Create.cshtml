@@ -1,0 +1,132 @@
+﻿@model WebApp_AAJI.Models.vendor
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>vendor</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.vendorID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.vendorID)
+                @Html.ValidationMessageFor(model => model.vendorID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.vendorName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.vendorName)
+                @Html.ValidationMessageFor(model => model.vendorName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.npwp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.npwp)
+                @Html.ValidationMessageFor(model => model.npwp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.address1)
+                @Html.ValidationMessageFor(model => model.address1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.address2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.address2)
+                @Html.ValidationMessageFor(model => model.address2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.telp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.telp)
+                @Html.ValidationMessageFor(model => model.telp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fax, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fax)
+                @Html.ValidationMessageFor(model => model.fax)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.contactPerson, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.contactPerson)
+                @Html.ValidationMessageFor(model => model.contactPerson)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ppn, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.ppn)
+                @Html.ValidationMessageFor(model => model.ppn)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.top, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.top, new { @style = "width:50px;", type="number" }) Day
+                @Html.ValidationMessageFor(model => model.top)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bankRekening, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("bankId", ViewBag.Bank as SelectList,"-Select-", new{onchange = "javascript:document.getElementById('bankRekening').value = this.value;",@class = "form-control"})
+                @Html.HiddenFor(model => model.bankRekening, new { @style = "width:50px;" })
+                @Html.ValidationMessageFor(model => model.bankRekening)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.noRekening, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.noRekening, new { @style = "width:200px;" })
+                @Html.ValidationMessageFor(model => model.noRekening)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.namaRekening, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.namaRekening, new { @style = "width:275px;" })
+                @Html.ValidationMessageFor(model => model.namaRekening)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

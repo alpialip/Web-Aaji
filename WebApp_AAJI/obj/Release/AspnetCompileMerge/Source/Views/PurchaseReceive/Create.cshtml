@@ -1,0 +1,146 @@
+﻿@model WebApp_AAJI.Models.purchaseReceive
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    function clickPopup()
+    {
+        var target = "PurchaseReceive/LoadDetailPurchaseReceive";
+        $("#myModal .modal-body").load(target, function () {
+            $("#myModal").modal("show");
+        });
+    }
+    $("a[data-target=#myModal]").click(function (ev) {
+        ev.preventDefault();
+        var target = $(this).attr("href");
+
+        // load the url and show modal on success
+        $("#myModal .modal-body").load(target, function () {
+            $("#myModal").modal("show");
+        });
+    });
+
+    function confirmSave() {
+        var poId = document.getElementById('poId').value;
+        var remarks = document.getElementById('remarks').value;
+        var tbl = document.getElementById('tbDetail');
+        var rowsCount = tbl.rows.length;
+        var isValidated = true;
+        //alert(poId);
+
+        var msg = "";
+        if (poId == "") {
+            msg += "PO Required \r\n";
+        }
+        if (remarks == "")
+        {
+            msg += "Remarks Required \r\n";
+        }
+
+        if (rowsCount > 1)
+        {
+            for(i=1; i<rowsCount; i++)
+            {
+                var qtyReceive = (document.getElementById('txtQtyReceive_'+i).value * 1);
+                var qtyReturn = (document.getElementById('txtQtyReturn_'+i).value * 1);
+
+                if(qtyReceive == 0 && qtyReturn ==  0)
+                {
+                    isValidated = false;
+                    msg += "Detail Required";
+                    break;
+                }
+            }
+        }
+        if (isValidated == true && msg == "")
+        {
+            document.forms[0].submit();
+        }
+        else
+        {
+            alert(msg);
+        }
+    }
+</script>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>purchaseReceive</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.receiveDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("receiveDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                @Html.ValidationMessageFor(model => model.receiveDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.poId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.poId, new { @readonly="readonly"})&nbsp;
+                <button data-toggle="modal" data-target="#myModal" >...</button>
+                @Html.ValidationMessageFor(model => model.poId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Vendor", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="poVendorName" style="font-weight:100"></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageRCV-PO1")
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save';confirmSave();" />&nbsp;
+                <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />
+                @Html.Hidden("hdnTypeSubmit", "save")
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:725px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Purchase Order</h4>
+            </div>
+            @*<div class="modal-body">*@
+            <div class="table-responsive">
+                @Html.Partial("_PartialPagePopUpPOSearch");
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

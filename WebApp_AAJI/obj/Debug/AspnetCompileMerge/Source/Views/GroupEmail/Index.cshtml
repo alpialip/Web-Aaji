@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.groupEmail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.groupEmailName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailAddress)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.groupEmailName)
+        </td>
+        <td>
+            @if (ViewBag.email != null)
+            {
+                string[] emailSaved = item.emailAddress.Split(',');
+                string emailDistributed = string.Empty;
+                foreach(var a in ViewBag.email as IEnumerable<WebApp_AAJI.Models.email>)
+                {
+                    for (int i = 0; i < emailSaved.Length; i++ )
+                    {
+                        if(Convert.ToInt32(emailSaved[i].ToString()) == a.emailID)
+                        {
+                            emailDistributed += a.emailName + ", ";       
+                        }
+                    }
+                }
+                emailDistributed = emailDistributed.Substring(0, emailDistributed.Length - 2);
+                @emailDistributed;
+            }
+            @*@Html.DisplayFor(modelItem => item.emailAddress)*@
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.modifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.modifiedUser)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.groupEmailID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.groupEmailID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.groupEmailID })
+        </td>
+    </tr>
+}
+
+</table>

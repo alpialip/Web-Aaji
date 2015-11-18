@@ -1,0 +1,67 @@
+﻿<table class="table" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Invoice No.</th>
+            <th>Invoice Date</th>
+            <th>Supplier</th>
+            <th>Total Debt</th>
+            <th>Remains</th>
+            <th>Total Pay</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.financeTransactionHeader.collectTransactionDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.financeTransactionHeader.collectTransactionDetail>)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("txtInvoiceNo_" + idx, a.invoiceNo)
+                    </td>
+                    <td>
+                        @Html.TextBox("txtInvoiceDate_" + idx, a.invoiceDate.ToString("yyyy-MM-dd"), new { /*type = "date",*/@readonly = "readonly", @style = "width:100px" })
+                    </td>
+                    <td>
+                        @Html.TextBox("supplierName_" + idx, a.supplierName)
+                    </td>
+                    <td>
+                        @Html.TextBox("txtDebt_" + idx, a.debt.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtRemains_" + idx, a.remains.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtPay_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?"})
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                grandTotal += a.amount;
+                idx++;
+            }
+                <tr>
+                    <td colspan="5">
+                        &nbsp;
+                    </td>
+                    <td>
+                        <input type="number" step="0.0001" min=0 id="grandTotal" name="grandTotal" readonly="readonly" placeholder="0.0000" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; " value="@grandTotal" />
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+

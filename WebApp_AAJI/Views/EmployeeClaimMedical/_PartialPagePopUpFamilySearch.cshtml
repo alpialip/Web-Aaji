@@ -1,0 +1,54 @@
+﻿<script type="text/javascript">
+    function copyToFormEmployee(seqID, name, gender, status) {
+        var idxClicked = document.getElementById('hdnIdxRowsClick').value;
+        $('#txtSeqID_' + idxClicked).val(seqID);
+        $('#txtFamilyName_' + idxClicked).text(name);
+        $('#jenisKelamin_' + idxClicked).text(gender);
+        $('#relationStatus_' + idxClicked).val(status);
+        $('#myModal').modal('hide');
+    }
+
+    function popUpSearch()
+    {
+        var pageStart = 1;
+        var keywordId = document.getElementById('ddlSearchBy').value;
+        var keywordSearch = null;
+            keywordSearch = document.getElementById('txtSearch').value;
+
+            $("#dvFamilyPop").load('@(Url.Action("LoadDetailFamilySearch", "EmployeeClaimMedical", null, Request.Url.Scheme))?keywordId=' + keywordId + "&keywordSearch=" + keywordSearch);
+    }
+</script>
+<table>
+    <tr>
+        <td>&nbsp;Search By</td>
+        <td>
+            :
+            <select id="ddlSearchBy" onchange="changeKeywordSearch(this.value)">
+                <option value="name_@Session["employeeID"].ToString()" selected>Name</option>
+                <option value="gender_@Session["employeeID"].ToString()">Gender</option>
+                <option value="statusRelation_@Session["employeeID"].ToString()">Status</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;Keyword</td>
+        <td>
+            : <input type="text" id="txtSearch" />
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            &nbsp;&nbsp;<input type="button" onclick="popUpSearch()" value="Search" />
+        </td>
+    </tr>
+</table>
+<br />
+
+@if (ViewBag.PRPopUp != null)
+{
+    <div id="dvFamilyPop">
+        @Html.Partial("_PartialPagePopUpFamilySearchSub")
+    </div>
+}
+

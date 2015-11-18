@@ -1,0 +1,152 @@
+﻿@using System.Data;
+
+@{
+    bool hasData = false;
+}
+
+@if (ViewBag.detail != null)
+{
+    <div style="overflow:auto; width:1000px; height:400px">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="text-align: center">No.</th>
+                    <th style="text-align: center">Transaction Type</th>
+                    <th>Voucher No.</th>
+                    <th style="text-align: center">VoucherDate</th>
+                    <th style="text-align:right">Amount</th>
+                    <th>Remarks</th>
+                    @*<th>Status</th>*@
+                    <th>Bank</th>
+                    <th>Account Name</th>
+                    <th>Account No.</th>
+                    <th>Payment Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.detail != null)
+                {
+                    DataTable dt = ViewBag.detail as DataTable;
+                    if (dt.Rows.Count > 0)
+                    {
+                        hasData = true;
+                        int noUrut = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            decimal amount = decimal.Parse(dr["amount"].ToString());
+                            DateTime voucherDate = DateTime.Parse(dr["voucherDate"].ToString());
+                            <tr>
+                                <td style="padding:0 5px 0 5px;">@noUrut</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["voucherPaymentType"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["voucherNo"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@voucherDate.ToString("dd-MMM-yyyy")</td>
+                                <td style="padding: 0 5px 0 5px;">@amount.ToString("#,##0")</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["remarks"].ToString()</td>
+                                @*<td style="padding: 0 5px 0 5px;">@dr["approvedStatus"].ToString()</td>*@
+                                <td style="padding: 0 5px 0 5px;">@dr["bankName"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["namaRek"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["noRek"].ToString()</td>
+                                <td>
+                                    @{
+                                        string select1 = string.Empty;
+                                        string select2 = string.Empty;
+                                        string select3 = string.Empty;
+                                        string select4 = string.Empty;
+                                        if (@dr["paymentType"].ToString() == "rtgs")
+                                        {
+                                            select2 = "selected=\"selected\"";                                
+                                        }
+                                        else if (@dr["paymentType"].ToString() == "clearing")
+                                        {
+                                            select3 = "selected=\"selected\"";                                
+                                        }
+                                        else if (@dr["paymentType"].ToString() == "online")
+                                        {
+                                            select4 = "selected=\"selected\"";                                
+                                        }
+                                        else
+                                        {
+                                            select1 = "selected=\"selected\"";                                
+                                        }   
+                                    }
+                                    <select id="ddlPaymentTypeReport_@dr["voucherNo"].ToString()" onchange="savePaymentType('@dr["voucherNo"].ToString()')">
+                                        <option value="" @select1>- Select -</option>
+                                        <option value="rtgs" @select2>RTGS</option>
+                                        <option value="clearing" @select3>Clearing</option>
+                                        <option value="online" @select4>Online</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <img src="~/img/save.png" style="display:none" id="succeed_@dr["voucherNo"].ToString()" width="20px" title="Save Succeed"/>
+                                    <img src="~/img/delete.png" style="display:none" id="failed_@dr["voucherNo"].ToString()" width="20px" title="Save Failed" />
+                                </td>
+                            </tr>
+                            noUrut++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" style="text-align:center">No Data Result</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@*@if (hasData == true)
+{
+    <img src="~/img/pdf.png" width="25px" onclick="generatePDF()" /> @("Print PDF")
+    <div id="dvReport" style="display:none">
+
+    </div>
+}*@
+@if (hasData == true)
+{        
+    <a href="@(Url.Action("printPayment", "ReportPayment", null, Request.Url.Scheme))@ViewBag.linkAction"
+       onclick="window.open(this.href, 'myPrint','left=20,top=20,width=920,height=800,toolbar=1,resizable=0'); return false;">
+        <img src="~/img/printer.png" width="30px" title="Print" />
+    </a>
+}
+
+<script type="text/javascript">
+    var voucherId = "";
+    function savePaymentType(val)
+    {
+        voucherId = val;
+        var payType = document.getElementById('ddlPaymentTypeReport_' + val).value;
+        //alert(voucherId + "-" + payType);
+        var actionUrl = '@Url.Action("savePaymentTypeReportPayment_Json", "ReportPayment")?voucherNo='+voucherId+'&paymentType='+payType;
+        $.getJSON(actionUrl, displayData);
+    }
+
+    function displayData(response) {
+        if (response != null) {
+            for (var i = 0; i < response.length; i++) {
+                //$("#movieList").append("<li>" + response[i].Title + " " + response[i].Genre + " " + response[i].Year + "</li>")
+                if (response[i].status == "OK")
+                {
+                    document.getElementById('succeed_' + voucherId).style.display = '';
+                }
+                else
+                {
+                    document.getElementById('failed_' + voucherId).style.display = '';
+                }
+
+                setTimeout(function () {
+                    document.getElementById('succeed_' + voucherId).style.display = 'none';
+                    document.getElementById('failed_' + voucherId).style.display = 'none';
+                }, 1000);
+            }
+        }
+    }
+</script>

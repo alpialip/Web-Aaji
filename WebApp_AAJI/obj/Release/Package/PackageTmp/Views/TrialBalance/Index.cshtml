@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Trial Balance";
+}
+<script>
+function onclickShow()
+{
+    var month = document.getElementById('ddlMonth').value;
+    var year = document.getElementById('txtYear').value;
+
+    document.getElementById('wait').style.display = '';
+    $("#divRefresh").load('@(Url.Action("showTrialBalance", "TrialBalance", null, Request.Url.Scheme))?month=' + month + "&year=" + year);
+}
+    function hideDetail()
+    {
+        document.getElementById('tbDetail').style.display = 'none';
+    }
+</script>
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            @Html.Label("Period", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ddlMonth", ViewBag.Month as SelectList, new { @class = "control-label col-md-2", style = " width: 130px;", onchange="hideDetail()" })
+                &nbsp;
+                @Html.TextBox("txtYear", DateTime.Now.Year, new { type = "number", style = " width: 130px;", onchange = "hideDetail()" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Show" class="btn btn-primary" onclick="onclickShow()" />
+                <img src="~/img/pleasewait.gif" id="wait" width="165px" title="Posting Processing" style="display:none" />
+            </div>
+        </div>
+        <div id="divRefresh" style="float:left">
+            @Html.Partial("_PartialPageDetailTrialBalance")
+        </div>
+    </div>
+}
+

@@ -1,0 +1,102 @@
+﻿<script type="text/javascript">
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var grandTotal = 0;
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                document.getElementById("txtAmounts_" + i).value = formatCurrency(document.getElementById("txtAmounts_" + i).value.replace(/\./g, ''));
+                //alert(document.getElementById("txtAmounts_" + i).value);
+                document.getElementById("txtAmount_" + i).value = document.getElementById("txtAmounts_" + i).value.replace(/\./g, '');
+                //alert(document.getElementById("txtAmount_" + i).value);
+                grandTotal += document.getElementById("txtAmount_" + i).value == "" ? 0 : parseFloat(document.getElementById("txtAmount_" + i).value);
+                //alert(grandTotal);
+            }
+        }
+        document.getElementById("grandTotal").value = grandTotal;
+        document.getElementById("grandTotals").value = formatCurrency(grandTotal);
+    }
+</script>
+<table class="table" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Account</th>
+            @*<th>Account Name</th>*@
+            <th>Amount</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.bankCashPaymentVoucher.bankCashPaymentVoucherDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.bankCashPaymentVoucher.bankCashPaymentVoucherDetail>)
+            {
+                <tr>
+                    <td>
+                        <select id="txtAccountNo_@idx" name="txtAccountNo_@idx" class="form-control">
+                            @foreach (var z in ViewBag.COA as SelectList)
+                            {
+                                if (z.Value == a.accountNo)
+                                {
+                                    <option value="@z.Value" selected="selected">@z.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@z.Value">@z.Text</option>
+                                }
+                            }
+                            @*@Html.DropDownList("txtAccountNo_" + idx, ViewBag.COA as SelectList, new { @class = "form-control", selected=a.accountNo })*@
+                        </select>
+
+                    </td>
+                    @*<td>
+                            @foreach(var x in ViewBag.Account as IEnumerable<WebApp_AAJI.Models.chartOfAccount>)
+                            {
+                                if(x.accountNo == a.accountNo)
+                                {
+                                    @Html.TextBox("txtAccountName_" + idx, x.accountName, new{@readonly="readonly"})
+                                    break;
+                                }
+                            }
+                        </td>*@
+                    <td>
+                        @Html.TextBox("txtAmounts_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "text", style = "text-align:right;width:150px;padding-right: 10px;", onchange = "javascript:document.getElementById('txtAmount_" + idx + "').value=this.value;sumTotal();" })
+                        @Html.TextBox("txtAmount_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px;display:none;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "sumTotal();" })
+                    </td>
+                    <td>
+                        <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                    </td>
+                </tr>
+                            idx++;
+                            grandTotal += a.amount;
+            }
+        }
+        <tr>
+            <td @*colspan="2"*@>
+                &nbsp;
+            </td>
+            <td>
+                <input type="text" step="1" min=0 id="grandTotals" name="grandTotals" readonly="readonly" value="@grandTotal.ToString("G29").Replace(',', '.')" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; padding-right: 10px;" />
+                <input type="number" step="1" min=0 id="grandTotal" name="grandTotal" readonly="readonly" value="@grandTotal.ToString("G29").Replace(',', '.')" placeholder="0" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; display:none;" />
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script src="~/Scripts/commonFunction.js"></script>
+<script>
+    @*document.write(document.getElementById('lblTerbilang').innerHTML=terbilang(@grandTotal));*@
+    document.getElementById('lblTerbilang').innerHTML = terbilang(@grandTotal);
+    sumTotal();
+</script>

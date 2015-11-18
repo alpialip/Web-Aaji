@@ -1,0 +1,94 @@
+﻿@model WebApp_AAJI.Models.employeeClaimMedical
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<script>
+    function confirmSave() {
+        //var x = validateDataFormPO();
+        //if (x == true) {
+        document.forms[0].submit();
+        //}
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>employeeClaimMedical</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.klaimID)
+        @Html.HiddenFor(model=>model.createdDate)
+        @Html.HiddenFor(model => model.createdUser)
+        @Html.HiddenFor(model => model.proposedBy)
+        @Html.HiddenFor(model => model.proposedDate)
+        @Html.HiddenFor(model => model.proposedStatus)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employeeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.HiddenFor(model => model.employeeID, new { @Value = ViewBag.empId })
+                <label id="empName" style="font-weight:100">@ViewBag.empName</label>
+                @Html.ValidationMessageFor(model => model.employeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Department", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label id="empDeptName" style="font-weight:100">@ViewBag.empDeptName</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.klaimDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10"> 
+                @Html.TextBox("klaimDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date" })
+                @Html.ValidationMessageFor(model => model.klaimDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("amount", Model.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                @Html.ValidationMessageFor(model => model.amount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.linkFileData, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.linkFileData)*@
+                <input id="linkFileData" name="linkFileData" type="file" class="file" data-show-upload="false" data-show-caption="true"><!--multiple="true"-->
+                @Html.ValidationMessageFor(model => model.linkFileData)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'save'; confirmSave();" />&nbsp;
+                <input type="button" value="Save & Proposed" class="btn btn-primary" onclick="javascript: document.getElementById('hdnTypeSubmit').value = 'requested'; confirmSave();" />
+                @Html.Hidden("hdnTypeSubmit", "save")
+            </div>
+        </div> 
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

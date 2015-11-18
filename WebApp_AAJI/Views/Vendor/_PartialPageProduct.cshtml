@@ -1,0 +1,41 @@
+﻿<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Unit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.masterProduct != null)
+        {
+            foreach (var a in ViewBag.masterProduct as IEnumerable<WebApp_AAJI.Models.product>)
+            {
+                bool isFind = false;
+                <tr>
+                    <td>
+                        @if (ViewBag.TransVendorProduct != null)
+                        {
+                            foreach (var b in ViewBag.TransVendorProduct as IEnumerable<WebApp_AAJI.Models.transVendorProduct>)
+                            {
+                                if(a.productID == b.productID)
+                                {
+                                    <input type="checkbox" id="chk_@a.productID" name="chk_@a.productID" checked="checked">
+                                    isFind = true;
+                                    break;
+                                }
+                            }
+                        }
+                        @if (isFind == false)
+                        {
+                            <input type="checkbox" id="chk_@a.productID" name="chk_@a.productID">
+                        }
+                    </td>
+                    <td>@a.productCode</td>
+                    <td>@a.productName</td>
+                    <td>@a.unit</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

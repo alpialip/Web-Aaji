@@ -1,0 +1,95 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.typeFinanceTransaction>
+
+@{
+    ViewBag.Title = "Finance Transaction Type";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tftID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tftName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.accountNo)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.createdDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createdUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modifiedUser)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @{
+        string valDesc = item.tftID.Replace('_', ' ');
+                }
+                @Html.DisplayFor(modelItem => valDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tftName)
+            </td>
+            <td>
+                @if (ViewBag.accountName != null)
+                {
+                    foreach (var x in ViewBag.accountName as SelectList)
+                    {
+                        @*@Html.Label(x.Value + " = " + item.accountNo+"- ");*@
+                        if (x.Value == item.accountNo)
+                        {
+                            @x.Text.ToString();
+                                          break;
+                        }
+                    }
+                }
+                @if (ViewData["accountName"] != null)
+                {
+                    @*for(int i=0; i<ViewData["accountName"])
+                        foreach (var desc in ViewData["accountName"])
+                        {
+                            var parentID = item.accountNo;
+                            if(Convert.ToInt32(item.accountNo) == desc.id)
+                            {
+                                @desc.accountNo
+                                break;
+                            }
+                        }*@
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.accountNo)
+                }
+            </td>
+
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) <img src='~/img/edit.png' style="width:15px" /> |*@
+                @*@Html.ActionLink("Details", "Details", new { id=item.tftID }) <img src='~/img/view.png' style="width:15px" /> |*@
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.id }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+
+                <a href="@Url.Action("Edit")/@item.id"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+                @*<a href="@Url.Action("Details")/@item.id"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;*@
+                <a href="@Url.Action("Delete")/@item.id"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+    }
+
+</table>

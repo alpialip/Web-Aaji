@@ -1,0 +1,211 @@
+﻿<script>
+    function onClickDeleteRowMultiple(idx){
+        var tbl = document.getElementById("tbDetailMultiple");
+        var rowDetail = (tbl.rows.length);
+        //alert(rowDetail);
+        //alert(idx);
+        if (rowDetail > 2) {
+            document.getElementById("tbDetailMultiple").deleteRow(idx);
+            indexDelete = idx;
+            @*var y = collectDataDetail();
+            
+            $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);*@
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRowMultiple() {
+        var tbl = document.getElementById("tbDetailMultiple");
+        //alert(tbl.rows.length);
+
+        var x = validateDataDetailMultiple("add");
+        ////alert(x);
+        if (x == true) {
+            var table = document.getElementById('tbDetailMultiple');
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "date";
+            element1.style.width = "130px";
+            element1.name = "txtBuyDate_" + (rowCount - 1);
+            element1.id = "txtBuyDate_" + (rowCount - 1);
+            cell1.appendChild(element1);
+
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "number";
+            element2.style.width = "65px";
+            element2.value = 0;
+            element2.style.textAlign = "right";
+            element2.min = 0;
+            element2.name = "txtBuyPercent_" + (rowCount - 1);
+            element2.id = "txtBuyPercent_" + (rowCount - 1);
+            cell2.appendChild(element2);
+
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("input");
+            element3.type = "button";
+            element3.setAttribute("onclick", "onClickDeleteRowMultiple(" + (rowCount - 1) + ")");
+            element3.value = "Delete";
+            element3.name = "btnDelete_" + (rowCount - 1);
+            element3.id = "btnDelete_" + (rowCount - 1);
+            cell3.appendChild(element3);
+        }
+    }
+
+    function saveMultipleTOP()
+    {
+        var x = validateDataDetailMultiple("save");
+        //alert(x);
+        if (x == true) {
+            var y = collectDataDetailMultiple("save");
+
+            $.ajax({
+                url: '/PurchaseOrder/saveMultipleTOP',
+                contentType: 'application/html; charset=utf-8',
+                data: { dataDetail: y/*, poId: newPriceVal*/ },
+                type: 'GET',
+                dataType: 'html'
+
+            })
+            .success(function (result) {
+                $('#modalPopUpMultipleTOP').modal('toggle')
+            })
+            .error(function (xhr, status) {
+                alert(status);
+            })
+        }
+    }
+
+    function collectDataDetailMultiple(actFrom) {
+        var tbl = document.getElementById("tbDetailMultiple");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = (tbl.rows.length-1);
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 0; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                //alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                //alert("i after ==>" + i)
+            }
+
+            var BuyDate = document.getElementById("txtBuyDate_" + i);
+            var BuyDateVal = BuyDate.value;
+            var BuyDateId = BuyDate.id;
+
+            var BuyPercent = document.getElementById("txtBuyPercent_" + i);
+            var BuyPercentVal = BuyPercent.value;
+            var BuyPercentId = BuyPercent.id;
+
+            if (actFrom == "save" && BuyDateVal == "" && BuyPercentVal == "0" && i == (rowsCount - 1))
+                break;
+
+            stringDataDetail += seqRows + ";" + BuyDateVal + ";" +  BuyPercentVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function validateDataDetailMultiple(actFrom) {
+        //alert("sad");
+        var tbl = document.getElementById("tbDetailMultiple");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length-1);
+        //alert(rowsCount);
+        for (i = 0; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var BuyDate = document.getElementById("txtBuyDate_" + i);
+            var BuyDateVal = BuyDate.value;
+            var BuyDateId = BuyDate.id;
+
+            var BuyPercent = document.getElementById("txtBuyPercent_" + i);
+            var BuyPercentVal = BuyPercent.value;
+            var BuyPercentId = BuyPercent.id;
+
+            //alert(BuyDateVal + " - " + BuyPercentVal + " - " + i + "==" + (rowsCount-1));
+            if (actFrom == "save" && BuyDateVal == "" && BuyPercentVal == "0" && i == (rowsCount-1))
+                break;
+
+            if (BuyDateVal == "" || (BuyPercentVal == "" || BuyPercentVal == "0")) {
+                alert("Please complete data detail.");
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+</script>
+<table class="table" id="tbDetailMultiple">
+    <thead>
+        <tr>
+            <th>Buy Date</th>
+            <th>Percent &nbsp;</th>
+            <th>
+                <input type="button" id="btnAddRowMultiple" name="btnAddRowMultiple" value="[ + ]" onclick="javascript:onClickAddRowMultiple()">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 0;
+        }
+        @if (Session["topMultiple"] != null && Session["topMultiple"] != "")
+        {
+            foreach (var a in Session["topMultiple"] as IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader.purchaseOrderTop>)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("txtBuyDate_" + idx, @a.buyDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtBuyPercent_" + idx, @a.buyPercent.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width: 65px;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td><input type="button" id="btnDelete_@idx" value="Delete" onclick="onClickDeleteRowMultiple(@idx);"></td>
+                </tr>
+                idx++;
+            }
+            <tr>
+                <td>
+                    @Html.TextBox("txtBuyDate_" + idx, "", "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                </td>
+                <td>
+                    @Html.TextBox("txtBuyPercent_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width: 65px;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td><input type="button" id="btnDelete_@idx" value="Delete" onclick="onClickDeleteRowMultiple(@idx);"></td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.TextBox("txtBuyDate_" + idx, DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                </td>
+                <td>
+                    @Html.TextBox("txtBuyPercent_" + idx, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width: 65px;", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td>
+                    <input type="button" id="btnDelete_@idx" value="Delete" onclick="onClickDeleteRowMultiple(@idx);">
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

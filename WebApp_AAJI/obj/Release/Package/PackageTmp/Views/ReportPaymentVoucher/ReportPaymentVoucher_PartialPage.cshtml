@@ -1,0 +1,83 @@
+﻿@using System.Data;
+<script>
+    function generatePDF()
+    {
+       var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+
+        //alert(period+"-"+empId);
+        if (startDate != "" && endDate != "")
+            $("#dvReport").load('@(Url.Action("GenerateReport", "ReportPaymentVoucher", null, Request.Url.Scheme))?startDate=' + startDate + "&endDate=" + endDate);
+
+    }
+</script>
+@{
+    bool hasData = false;
+}
+@if (ViewBag.detail != null)
+{
+    <div style="overflow:auto; width:1000px; height:400px">
+        <table class="table table-hover" >
+            <thead>
+                <tr>
+                    <th style="text-align: center">No.</th>
+                    <th style="text-align: center">VoucherDate</th>
+                    <th >Voucher No.</th>
+                    <th style="text-align:right">Amount</th>
+                    <th >Remarks</th>
+                    <th >Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.detail != null)
+                {
+                    DataTable dt = ViewBag.detail as DataTable;
+                    if (dt.Rows.Count > 0)
+                    {
+                        hasData = true;
+                        int noUrut = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            decimal amount = decimal.Parse(dr["amount"].ToString());
+                            DateTime voucherDate = DateTime.Parse(dr["voucherDate"].ToString());
+                            <tr>
+                                <td style="padding:0 5px 0 5px;">@noUrut</td>
+                                <td style="padding: 0 5px 0 5px;">@voucherDate.ToString("dd-MMM-yyyy")</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["voucherNo"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@amount.ToString("#,##0")</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["remarks"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["approvedStatus"].ToString()</td>
+                            </tr>
+                            noUrut++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" style="text-align:center">No Data Result</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (hasData == true)
+{
+
+    @*<a href="@Url.Action("GenerateReport" + ViewBag.linkAction)"> Print PDF</a>*@
+    <img src="~/img/pdf.png" width="25px" onclick="generatePDF()" /> @("Print PDF")
+    <div id="dvReport" style="display:none">
+
+    </div>
+}
+
+
+

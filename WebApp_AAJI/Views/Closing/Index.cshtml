@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Closing";
+}
+<script>
+function onclickPosting()
+{
+    var month = document.getElementById('ddlMonth').value;
+    var year = document.getElementById('txtYear').value;
+
+    document.getElementById('check').style.display = 'none';
+    document.getElementById('failed').style.display = 'none';
+    document.getElementById('wait').style.display = '';
+    $("#divRefresh").load('@(Url.Action("posting", "Closing", null, Request.Url.Scheme))?month=' + month + "&year=" + year);
+}
+</script>
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{    
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Closing</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.Label("Period", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ddlMonth", ViewBag.Month as SelectList, "-Select-", new { @class = "control-label col-md-2", style = " width: 130px;" })
+                &nbsp;
+                @Html.TextBox("txtYear", DateTime.Now.Year, new { type = "number", style = " width: 130px;" })
+            </div>
+        </div>
+        <div id="divRefresh" style="float:left">
+            @Html.Partial("_PartialPagePosting")
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Posting" class="btn btn-primary" onclick="onclickPosting()" />
+                <img src="~/img/check.png" id="check" width="40px" title="Posting Succeed" style="display:none" />
+                <img src="~/img/pleasewait.gif" id="wait" width="165px" title="Posting Processing" style="display:none" />
+                <img src="~/img/delete.png" id="failed" width="25px" title="Posting Failed" style="display:none" />
+            </div>
+        </div>
+    </div>
+}
+

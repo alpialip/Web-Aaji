@@ -1,0 +1,93 @@
+﻿@model WebApp_AAJI.Models.userGroupH
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>userGroup</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.groupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.groupName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.groupDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.groupDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isActive)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedUser)
+        </dd>*@
+
+        <dt>
+            User Assign
+        </dt>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <div style="width: 400px; height: 200px; overflow:auto;">
+                    @if (ViewData["userAssigned"] != null)
+                    {
+                        foreach (var a in ViewData["userAssigned"] as List<WebApp_AAJI.Models.user>)
+                        {
+                            <div>
+                                @a.userName
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

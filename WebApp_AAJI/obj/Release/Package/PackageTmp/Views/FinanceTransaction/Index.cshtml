@@ -1,0 +1,104 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.financeTransactionHeader>
+
+@{
+    ViewBag.Title = "Finance Transaction";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.voucherNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.voucherDate)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.tftID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.billingType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.billingNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.clearingDate)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.createdUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createdDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modifiedUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modifiedDate)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.voucherNo)
+            </td>
+            <td>
+                @item.voucherDate.ToString("dd MMM yyyy")
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.tftID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.billingType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.billingNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.clearingDate)
+                </td>*@
+            <td>
+                @item.amount.ToString("G29").Replace(',', '.')
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.remarks)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.createdUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modifiedUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modifiedDate)
+                </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.voucherNo }) <img src='~/img/edit.png' style="width:15px" />  |
+                @Html.ActionLink("Details", "Details", new { id = item.voucherNo }) <img src='~/img/view.png' style="width:15px" />  |
+                @Html.ActionLink("Delete", "Delete", new { id = item.voucherNo }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+                <a href="@Url.Action("Edit")/@item.voucherNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("Details")/@item.voucherNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Action("Delete")/@item.voucherNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+    }
+
+</table>

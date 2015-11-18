@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.absensiRekap>
+
+@{
+    ViewBag.Title = "Attendance Summary";
+}
+<script>
+    function showAbsensi()
+    {
+        var y = document.getElementById('dtpAbsensiDate').value;
+        var z = escape("");
+        $("#dvDetail").load('@(Url.Action("LoadDetailAbsensi", "AbsensiRekap", null, Request.Url.Scheme))?date=' + y +"&dataDetail="+z);
+    }
+</script>
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.absensiDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.typeAbsensiID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.absensiDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employeeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.typeAbsensiID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.Label("Date : ", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBox("dtpAbsensiDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", onchange = "javascript:document.getElementById('tbodyDetail').style.display = 'none';" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("_", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="button" id="btnSubmit" value="Show" onclick="showAbsensi();" />
+        </div>
+    </div>
+    <br />
+</div>
+    <div id="dvDetail">
+        @Html.Partial("_PartialPageAbsensi1")
+    </div>
+}

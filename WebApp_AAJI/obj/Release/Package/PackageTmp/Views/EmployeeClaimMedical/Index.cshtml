@@ -1,0 +1,200 @@
+﻿@*@model IEnumerable<WebApp_AAJI.Models.employeeClaimMedical>*@
+@model PagedList.IPagedList<WebApp_AAJI.Models.employeeClaimMedical>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Employee Claim Medical";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "EmployeeClaimMedical", FormMethod.Get))
+{
+    <p>
+        @*Find :*@ @Html.Hidden("SearchString", ViewBag.CurrentFilter as string)
+        Date : @Html.TextBox("startDate", ViewBag.startDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" }) - @Html.TextBox("endDate", ViewBag.endDateFilter as string, "{0:yyyy-MM-dd}", new { type = "date" })
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.klaimDate)*@            
+            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.employeeID)*@            
+            Employee
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.linkFileData)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.amount)*@
+            Amount
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.remarks)*@
+            Remarks
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.proposedStatus)*@
+            Proposed Status
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.approvedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.approvedDate)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.approvedStatus)*@
+            Approved
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.acknowledgeBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.acknowledgeDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.acknowledgeStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modifiedDate)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.klaimDate.ToString("dd-MMM-yyyy")
+        </td>
+        <td>
+            @foreach (var a in ViewBag.employeeList as IEnumerable<WebApp_AAJI.Models.employee>)
+            {
+                if(a.employeeID == item.employeeID)
+                {
+                    @a.employeeName
+                    break;
+                }
+            }
+            @*@Html.DisplayFor(modelItem => item.employeeID)*@
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.linkFileData)
+        </td>*@
+        <td>
+            @item.amount.ToString("#,##0")
+        </td>
+        @if(item.remarks != null && item.remarks.Length > 30)
+        { 
+            <td title="@item.remarks">
+                @(item.remarks.Substring(0,30)+"...")
+            </td>
+        }
+        else 
+        {        
+            <td>
+                @Html.DisplayFor(modelItem => item.remarks)
+            </td>
+        }
+        @*<td>
+            @Html.DisplayFor(modelItem => item.proposedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proposedDate)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.proposedStatus)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.approvedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.approvedDate)
+        </td>*@
+        <td>
+            @*@Html.DisplayFor(modelItem => item.approvedStatus)*@
+            @if (item.approvedStatus == true)
+            {
+                @("Approved")
+            }
+            else if (item.approvedStatus == false)
+            {
+                @("Rejected")
+            }
+            else
+            {
+                @("Waiting")                
+            }
+        </td>
+        <td>
+            @if(item.approvedStatus != null)
+            {     
+            } 
+            else
+            {
+                <a href="@Url.Action("Edit")/@item.klaimID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a> 
+                <label>&nbsp; &nbsp;&nbsp;</label>         
+            } 
+            @*@Html.ActionLink("Details", "Details", new { id = item.klaimID }) <img src='~/img/view.png' style="width:15px" />  |*@
+            <a href="@Url.Action("Details")/@item.klaimID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            @if (item.approvedStatus != null)
+            {
+                
+            }
+            else
+            { 
+                <a href="@Url.Action("Delete")/@item.klaimID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>
+            }
+            &nbsp;&nbsp;&nbsp;
+            @if (ViewBag.ApprovalAuth != null)
+            {
+                if (ViewBag.ApprovalAuth == true && item.approvedStatus == null && item.proposedStatus == true)
+                {
+                    <a href="@Url.Action("Approval")/@item.klaimID?act=Appr"><img src='~/img/approval.png' style="width:15px" title="Approval" /></a>
+                }
+            }
+        </td>
+    </tr>
+}
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, startDateFilter = ViewBag.startDateFilter, endDateFilter = ViewBag.endDateFilter }))
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 440px;">
+            <div class="modal-header" style="background-color:#5BC0DE">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>Cannot Edit Data Was Approved.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

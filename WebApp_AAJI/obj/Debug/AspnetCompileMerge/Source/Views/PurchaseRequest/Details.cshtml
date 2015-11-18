@@ -1,0 +1,92 @@
+﻿@model WebApp_AAJI.Models.purchaseRequestHeader
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>purchaseRequest</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.prDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.requestBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.requestBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.approvedBy)
+        </dt>
+
+        <dd>
+            @if(Model.approvedBy == null)
+            {
+                string a = "-";
+                @a
+            }
+            else
+            {
+                @Model.approvedBy
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.acknowledgeBy)
+        </dt>
+
+        <dd>
+            @if (Model.acknowledgeBy == null)
+            {
+                string a = "-";
+                @a
+            }
+            else
+            {
+                @Model.acknowledgeBy
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+    </dl>
+    <div id="dvDetail">
+        @Html.Partial("_PartialPagePR2")
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.prId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

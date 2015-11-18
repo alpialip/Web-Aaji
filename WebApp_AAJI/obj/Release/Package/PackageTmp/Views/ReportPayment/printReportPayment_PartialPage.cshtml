@@ -1,0 +1,77 @@
+﻿@using System.Data;
+
+<h2><span style="margin-top:5px">Payment Report</span></h2>
+Period : <span id="period">@ViewBag.period</span>
+
+    
+
+
+
+@{
+    bool hasData = false;
+}
+@if (ViewBag.detail != null)
+{
+    <div style="overflow:auto; width:1000px; height:400px">
+        <table style="width:880px;border-collapse:collapse;" border="1">
+            <thead style="background-color:ButtonFace">
+                <tr>
+                    <th style="text-align: center">No.</th>
+                    <th style="text-align: center">Transaction Type</th>
+                    <th>Voucher No.</th>
+                    <th style="text-align: center">VoucherDate</th>
+                    <th style="text-align: center">Amount</th>
+                    <th>Remarks</th>
+                    @*<th>Status</th>*@
+                    <th>Bank</th>
+                    <th>Account Name</th>
+                    <th>Account No.</th>
+                    <th>Payment Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.detail != null)
+                {
+                    DataTable dt = ViewBag.detail as DataTable;
+                    if (dt.Rows.Count > 0)
+                    {
+                        hasData = true;
+                        int noUrut = 1;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            decimal amount = decimal.Parse(dr["amount"].ToString());
+                            DateTime voucherDate = DateTime.Parse(dr["voucherDate"].ToString());
+                            <tr>
+                                <td style="padding:0 5px 0 5px;">@noUrut</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["voucherPaymentType"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["voucherNo"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@voucherDate.ToString("dd-MMM-yyyy")</td>
+                                <td style="padding: 0 5px 0 5px;">@amount.ToString("#,##0")</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["remarks"].ToString()</td>
+                                @*<td style="padding: 0 5px 0 5px;">@dr["approvedStatus"].ToString()</td>*@
+                                <td style="padding: 0 5px 0 5px;">@dr["bankName"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["namaRek"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["noRek"].ToString()</td>
+                                <td style="padding: 0 5px 0 5px;">@dr["paymentType"].ToString()</td>
+                            </tr>
+                            noUrut++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" style="text-align:center">No Data Result</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

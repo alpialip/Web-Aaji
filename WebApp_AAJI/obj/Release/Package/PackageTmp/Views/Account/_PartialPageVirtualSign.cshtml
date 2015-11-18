@@ -1,0 +1,41 @@
+﻿@*@(" : ")*@
+<span style="color: red; float: left">:&nbsp;</span>
+<input id="linkFileVirtualSign" name="linkFileVirtualSign" type="file" class="file" data-show-upload="false" data-show-caption="true" style="float:left">
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script>
+    $("#linkFileVirtualSign").change(function () {
+        var size = this.files[0].size / 1024; //Mb
+        //alert(size + "Kb");
+
+        var msgError = "";
+
+        if(size > 1024)//jika lebih dari 1 Mb
+        {
+            msgError += "- File Size Maksimum 1 Mb \r\n";
+        }
+
+        if ($(this).val() == '')
+        {
+            //alert('no file');
+        }
+        else
+        {
+            //alert($(this).val());
+            var file = $(this).val().split('.');
+            //alert(file.length);
+            var extFile = file[file.length - 1];
+            if(extFile.toLowerCase() != "png")
+            {
+                msgError += "- Required Format File is '.png' \r\n";
+                document.getElementById('submit').disabled = 'disabled';
+            }
+            else
+            {
+                document.getElementById('submit').removeAttribute('disabled');
+            }
+        }
+
+        if (msgError != "")
+            alert(msgError);
+    });
+</script>

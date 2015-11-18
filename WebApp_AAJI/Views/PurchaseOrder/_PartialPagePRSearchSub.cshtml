@@ -1,0 +1,88 @@
+﻿@if (ViewBag.PRPopUp != null)
+{
+    int maxRowsPerView = 10;
+    int rows = ViewBag.totalRows;
+    int idxRows = 0;
+    
+<table class="table table-striped table-hover table-condensed" width="776px">
+    <tr>
+        <th></th>
+        <th>PR No</th>
+        <th>Dept</th>
+        <th>Order</th>
+        <th>Prop.Include</th>
+        <th>Instruction</th>
+        <th>Delivery</th>
+    </tr>
+    @foreach (var item in ViewBag.PRPopUp as IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader.prPopUp>)
+    {
+        var propInclude = @item.proposalInclude == true ? "Yes" : "No";
+        <tr>
+            <td>
+                <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormPR('@item.prId', '@item.deptName', '@item.typeOrder', '@propInclude', '@item.specialInstruction', '@item.projectTimeDelivery');"></a>
+            </td>
+            @*<td>@Html.Label("popUpPRId", item.prId)</td>
+                <td>@Html.Label("popUpPRDeptName", item.deptName)</td>
+                <td>@Html.Label("popUpPROrder", item.typeOrder)</td>
+                <td>@Html.Label("popUpPRProposal", item.proposalInclude)</td>
+                <td>@Html.Label("popUpPRInstruction", item.specialInstruction)</td>
+                <td>@Html.Label("popUpPRProject", item.projectTimeDelivery)</td>*@
+            <td>@item.prId</td>
+            <td>@item.deptName</td>
+            <td>@item.typeOrder</td>
+            <td>@propInclude</td>
+            <td>@item.specialInstruction</td>
+            <td>@item.projectTimeDelivery</td>
+        </tr>
+        idxRows++;
+        if(idxRows == maxRowsPerView)
+        {
+            break;
+        }
+    }
+
+    @if(rows == 0)
+    {
+        <tr style="text-align:center;">
+            <td colspan="7">No Data Result</td>
+        </tr>
+    }
+</table>
+    
+    int sumTotalPage = rows/maxRowsPerView;
+    if ((rows % maxRowsPerView) > 0)
+    {
+        sumTotalPage = sumTotalPage + 1;
+    }
+    int lastPageActive = 0;
+    bool showPrevious = false;
+    bool showNext = false;
+        <div class="pagination-container">            
+            &nbsp;
+            <ul class="pagination">
+                @for(int i=1; i<=sumTotalPage; i++)
+                {
+                    if (ViewBag.currentPage > 1 && showPrevious == false)
+                    {
+                        <li class="PagedList-skipToPrevious"><a href="javascript:popUpPagingClick(@(ViewBag.currentPage - 1))" rel="prev">«</a></li>
+                        showPrevious = true;
+                    }
+                    
+                    if(ViewBag.currentPage == i || ViewBag.currentPage == null)
+                    {
+                        ViewBag.currentPage = i;
+                        lastPageActive = i;
+                        <li class="active"><a href="javascript:popUpPagingClick(@i)">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="javascript:popUpPagingClick(@i)">@i</a></li>
+                    }
+                }
+                @if (lastPageActive > 0 && lastPageActive < sumTotalPage && showNext == false)
+                { 
+                    <li class="PagedList-skipToNext"><a href="javascript:popUpPagingClick(@(lastPageActive+1))" rel="next">»</a></li>
+                }
+            </ul>
+        </div>
+}

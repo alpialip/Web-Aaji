@@ -1,0 +1,71 @@
+﻿@if (ViewBag.VendorPopUp != null)
+{
+    int maxRowsPerView = 10;
+    int rows = ViewBag.totalRowsVendor;
+    int idxRows = 0;
+    
+<table class="table table-striped table-hover table-condensed" width="600px">
+    <tr>
+        <th></th>
+        <th style="width: 190px;">Vendor Id</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var item in ViewBag.VendorPopUp as IEnumerable<WebApp_AAJI.Models.vendor>)
+    {
+        <tr>
+            <td>
+                <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormPRVen('@item.id', '@item.vendorID', '@item.vendorName');"></a>
+            </td>
+            <td>@item.vendorID</td>
+            <td>@item.vendorName</td>
+        </tr>
+        
+        idxRows++;
+        if (idxRows == maxRowsPerView)
+        {
+            break;
+        }
+    }
+
+    @if (rows == 0)
+    {
+        <tr style="text-align:center;">
+            <td colspan="7">No Data Result</td>
+        </tr>
+    }
+</table>
+    
+    int sumTotalPage = rows/maxRowsPerView;
+    int lastPageActive = 0;
+    bool showPrevious = false;
+    bool showNext = false;
+        <div class="pagination-container">            
+            &nbsp;
+            <ul class="pagination">
+                @for(int i=1; i<=sumTotalPage; i++)
+                {
+                    if (ViewBag.currentPage > 1 && showPrevious == false)
+                    {
+                        <li class="PagedList-skipToPrevious"><a href="javascript:popUpVendorPagingClick(@(ViewBag.currentPage - 1))" rel="prev">«</a></li>
+                        showPrevious = true;
+                    }
+                    
+                    if(ViewBag.currentPage == i || ViewBag.currentPage == null)
+                    {
+                        ViewBag.currentPage = i;
+                        lastPageActive = i;
+                        <li class="active"><a href="javascript:popUpVendorPagingClick(@i)">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="javascript:popUpPagingClick(@i)">@i</a></li>
+                    }
+                }
+                @if (lastPageActive > 0 && lastPageActive < sumTotalPage && showNext == false)
+                { 
+                    <li class="PagedList-skipToNext"><a href="javascript:popUpVendorPagingClick(@(lastPageActive+1))" rel="next">»</a></li>
+                }
+            </ul>
+        </div>
+}
+

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.divisi>
+
+@{
+    ViewBag.Title = "Division";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.deptID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.divisiName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.deptID)*@
+            @if (ViewBag.Dept != null)
+            {
+                foreach (var a in ViewData["Dept"] as IEnumerable<WebApp_AAJI.Models.department>)
+                {
+                    if(item.deptID == a.deptID)
+                    {
+                        @a.deptName;
+                        break;
+                    }
+                }
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.divisiName)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.divisiID }) <img src='~/img/edit.png' style="width:15px" /> |
+            @Html.ActionLink("Details", "Details", new { id = item.divisiID }) <img src='~/img/view.png' style="width:15px" />  |
+            @Html.ActionLink("Delete", "Delete", new { id = item.divisiID }) <img src='~/img/delete.png' style="width:15px" />*@ 
+            <a href="@Url.Action("Edit")/@item.divisiID"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Details")/@item.divisiID"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("Delete")/@item.divisiID"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,419 @@
+﻿@{
+    ViewBag.Title = "Homepage";
+}
+<script>
+function changePassword()
+{
+    document.getElementById('save').style.display = 'none';
+    document.getElementById('check').style.display = '';
+        var userId = document.getElementById('hdnUserId').value;
+        var password = document.getElementById('txtChangePassword').value;
+        //alert(userId+"-"+password);
+        $("#divChangePassword").load('@(Url.Action("savePassword", "Account", null, Request.Url.Scheme))?userId=' + userId + '&password=' + escape(password));
+    setTimeout(function () { document.getElementById('check').style.display = 'none'; document.getElementById('save').style.display = ''; }, 2000);
+}
+</script>
+<h2>Homepage</h2>
+
+<b>- Personal Info -</b>
+<div>
+    <table>
+        <tr>
+            <td>Name </td>
+            <td>: @ViewBag.Name</td>
+        </tr>
+        <tr>
+            <td>Position</td>
+            <td>: @ViewBag.Position</td>
+        </tr>
+        <tr>
+            <td>Service Period</td>
+            <td>: @ViewBag.ServicePeriod</td>
+        </tr>
+        <tr>
+            <td>Leave Remaining</td>
+            <td>: @ViewBag.LeaveRemaining</td>
+        </tr>
+        <tr>
+            <td>Change Password</td>
+            <td> 
+                <div id="divChangePassword" style="float:left">
+                    @Html.Partial("_PartialPageChangePassword")
+                </div>
+                <input type="hidden" id="hdnUserId" value="@ViewBag.userId" />
+                <div style="float:left;padding-left:3px;">
+                    <img src="~/img/save.png" id="save" width="20px" title="Save To Change Password" onclick="changePassword()" />
+                    <img src="~/img/check.png" id="check" width="20px" title="Change Password Succeed" style="display:none" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+
+@if(ViewBag.reminder != null)
+{ 
+<b>- Personal Reminder -</b>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Repeatition</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in ViewBag.reminder as IEnumerable<WebApp_AAJI.Models.transReminder>)
+            {
+            <tr>
+                <td>@a.subject</td>
+                <td>@a.reminderDate </td>
+                <td>@a.reminderTime </td>
+                <td>@a.repeatitionID </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+}
+
+@if (ViewBag.ViewRequest != null || ViewBag.RequestApproved != null)
+{ 
+<b>- Purchase Request -</b>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>PR No.</th>
+                <th>PR Date</th>
+                <th>Dept Request</th>
+                <th>Type</th>
+                <th>Approved</th>
+                <th>Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var a in ViewBag.ViewRequest as IEnumerable<WebApp_AAJI.Models.purchaseRequestHeader>)
+            {
+                <tr>                 
+                    <td>@a.prId</td>
+                    <td>@a.prDate</td>
+                    @foreach (var b in ViewBag.Dept as IEnumerable<WebApp_AAJI.Models.department>)
+                    { 
+                        if(b.deptID == a.requestDeptId)
+                        { 
+                            <td>@b.deptName</td>
+                            break;
+                        }
+                    }
+                    <td>@a.typeOrder</td>
+                    <td>
+                            @if (a.approvedStatus == null)
+                        {
+                            @("Waiting")
+                        }
+                        else if (a.approvedStatus == true)
+                        {
+                            @("Approved")
+                        }
+                        else if (a.approvedStatus == false)
+                        {
+                            @("Rejected")
+                        }
+                    </td>
+                    <td>
+                        @if (a.receivedStatus == null)
+                        {
+                            @("Waiting")
+                        }
+                        else if (a.receivedStatus == true)
+                        {
+                            @("Received")
+                        }
+                        else if (a.receivedStatus == false)
+                        {
+                            @("UnReceived")
+                        }
+                    </td>
+                </tr>
+            }
+            @foreach (var a in ViewBag.RequestApproved as IEnumerable<WebApp_AAJI.Models.purchaseRequestHeader>)
+            {
+                <tr>
+                    <td>@a.prId</td>
+                    <td>@a.prDate</td>
+                    @foreach (var b in ViewBag.Dept as IEnumerable<WebApp_AAJI.Models.department>)
+                    {
+                        if (b.deptID == a.requestDeptId)
+                        {
+                            <td>@b.deptName</td>
+                            break;
+                        }
+                    }
+                    <td>@a.typeOrder</td>
+                    <td>
+                        @if (a.approvedStatus == null)
+                        {
+                            @("Waiting")
+                        }
+                        else if (a.approvedStatus == true)
+                        {
+                            @("Approved")
+                        }
+                        else if (a.approvedStatus == false)
+                        {
+                            @("Rejected")
+                        }
+                    </td>
+                    <td>
+                        @if (a.receivedStatus == null)
+                        {
+                            @("Waiting")
+                        }
+                        else if (a.receivedStatus == true)
+                        {
+                            @("Received")
+                        }
+                        else if (a.receivedStatus == false)
+                        {
+                            @("UnReceived")
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+}
+
+@if (ViewBag.OrderApproved != null)
+{ 
+<b>- Purchase Order -</b>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>PO No.</th>
+                <th>PO Date</th>
+                <th>Type</th>
+                <th>Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in ViewBag.OrderApproved as IEnumerable<WebApp_AAJI.Models.purchaseOrderHeader>)
+            {
+                <tr>
+                    <td>@a.poId</td>
+                    <td>@a.poDate</td>
+                    <td>@a.poUrgent</td>
+                    <td>
+                        @if (a.approvedStatus == null)
+                        {
+                            @("Waiting")
+                        }
+                        else if (a.approvedStatus == true)
+                        {
+                            @("Approved")
+                        }
+                        else if (a.approvedStatus == false)
+                        {
+                            @("Rejected")
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+}
+
+@if (ViewBag.ReceivedApproved != null)
+{ 
+<b>- Receive -</b>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Receive No.</th>
+                <th>Receive Date</th>
+                <th>PO No.</th>
+                <th>Remarks</th>
+                <th>Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in ViewBag.ReceivedApproved as IEnumerable<WebApp_AAJI.Models.purchaseReceive>)
+            {
+                <tr>
+                    <td>@a.receiveNo</td>
+                    <td>@a.receivedDate</td>
+                    <td>@a.poId</td>
+                    <td>@a.remarks</td>
+                    <td>
+                        @if (a.receivedStatus == null)
+                        {
+                            @("Waiting")
+                        }
+                        else if (a.receivedStatus == true)
+                        {
+                            @("Received")
+                        }
+                        else if (a.receivedStatus == false)
+                        {
+                            @("UnReceived")
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+}
+
+@if (ViewBag.ReceivedOutstanding != null)
+{ 
+<b>- Receive Outstanding -</b>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Receive No.</th>
+                <th>Receive Date</th>
+                <th>PO No.</th>
+                <th>Remarks</th>
+                <th>Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in ViewBag.ReceivedOutstanding as IEnumerable<WebApp_AAJI.Models.purchaseReceive>)
+            {
+                <tr>
+                    <td>@a.receiveNo</td>
+                    <td>@a.receivedDate</td>
+                    <td>@a.poId</td>
+                    <td>@a.remarks</td>
+                    <td>
+                        @if (a.receivedStatus == null)
+                        {
+                            @("Waiting")
+                        }
+                        else if (a.receivedStatus == true)
+                        {
+                            @("Received")
+                        }
+                        else if (a.receivedStatus == false)
+                        {
+                            @("UnReceived")
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+}
+
+@*<b>- Purchase Invoice Due Date (D-7) -</b>
+<div>
+    <table>
+        <tr>
+            <td>? </td>
+            <td>: </td>
+        </tr>
+    </table>
+</div>
+<br />
+
+<b>- Employee Contract/ Probation -</b>
+<div>
+    <table>
+        <tr>
+            <td>? </td>
+            <td>: </td>
+        </tr>
+    </table>
+</div>
+<br />*@
+
+@if (ViewBag.AdvancePaymentVoucher != null)
+{ 
+<b>- Advance Payment Voucher -</b>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Voucher No.</th>
+                <th>Voucher Date</th>
+                <th>Bank</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in ViewBag.AdvancePaymentVoucher as IEnumerable<WebApp_AAJI.Models.advancePaymentVoucher>)
+            {
+                <tr>
+                    <td>@a.voucherNo</td>
+                    <td>@a.voucherDate</td>
+                    <td>
+                        @foreach (var b in ViewBag.Bank as IEnumerable<WebApp_AAJI.Models.bank>)
+                        {
+                            if (b.bankID == a.bankID)
+                            {
+                            <td>@b.bankName</td>
+                                break;
+                            }
+                        }
+                        </td>
+                        <td>@a.remarks</td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+}
+
+@if (ViewBag.AdvancePaymentVoucher != null)
+{
+<b>- Bank Cash Payment Voucher -</b>
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Voucher No.</th>
+                <th>Voucher Date</th>
+                <th>Bank</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in ViewBag.BankCashPaymentVoucher as IEnumerable<WebApp_AAJI.Models.bankCashPaymentVoucher>)
+            {
+                <tr>
+                    <td>@a.voucherNo</td>
+                    <td>@a.voucherDate</td>
+                    <td>
+                        @foreach (var b in ViewBag.Bank as IEnumerable<WebApp_AAJI.Models.bank>)
+                        {
+                            if (b.bankID == a.bankID)
+                            {
+                            <td>@b.bankName</td>
+                                break;
+                            }
+                        }
+                        </td>
+                        <td>@a.remarks</td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+}

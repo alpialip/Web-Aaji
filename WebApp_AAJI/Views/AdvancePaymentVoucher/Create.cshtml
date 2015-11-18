@@ -1,0 +1,59 @@
+﻿@model WebApp_AAJI.Models.advancePaymentVoucher
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>advancePaymentVoucher</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.voucherNo)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.voucherDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("voucherDate", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                @Html.ValidationMessageFor(model => model.voucherDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bankID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("bankID", ViewBag.Bank as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.bankID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.TextAreaFor(model => model.remarks, new { @class = "form-control", @rows = 2 })
+                @Html.ValidationMessageFor(model => model.remarks)
+            </div>
+        </div>
+
+        <div id="dvDetail">
+            @Html.Partial("_PartialPageAPV1")
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Create" class="btn btn-primary" />*@
+                <input type="button" value="Save" class="btn btn-primary" onclick="confirmSave();" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

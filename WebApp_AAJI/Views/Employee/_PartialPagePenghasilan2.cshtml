@@ -1,0 +1,46 @@
+﻿
+<table class="table table-hover">
+    @if (ViewBag.masterPenghasilan != null)
+    {
+        <thead>
+            <tr>
+                @foreach (var a in ViewBag.masterPenghasilan as IEnumerable<WebApp_AAJI.Models.penghasilan>)
+                {
+                    <th>@a.subject</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (ViewBag.penghasilan != null)
+                {
+                    foreach (var a in ViewBag.penghasilan as IEnumerable<WebApp_AAJI.Models.transPenghasilan>)
+                    {
+                        foreach (var b in ViewBag.masterPenghasilan as IEnumerable<WebApp_AAJI.Models.penghasilan>)
+                        {
+                            if (b.id == a.idPenghasilan)
+                            {
+                                <td>
+                                    @Html.TextBox("penghasilans_" + b.id, string.Format("{0:#,##0}", a.amount), new { type = "text", @class = "form-control", @readonly="readonly" })
+                                    @Html.TextBox("penghasilan_" + b.id, string.Format("{0:#.##0}", a.amount), new { type = "text", @style = "display:none" })
+                                </td>
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var b in ViewBag.masterPenghasilan as IEnumerable<WebApp_AAJI.Models.penghasilan>)
+                    {
+                        <td>
+                            @Html.TextBox("penghasilans_" + b.id, 0, new { type = "text", @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBox("penghasilan_" + b.id, 0, new { type = "text", @style = "display:none" })
+                        </td>
+                    }
+                }
+            </tr>
+        </tbody>
+    }
+
+</table>

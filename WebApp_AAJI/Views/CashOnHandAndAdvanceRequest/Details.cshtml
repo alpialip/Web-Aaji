@@ -1,0 +1,116 @@
+﻿@model WebApp_AAJI.Models.cashOnHandAndAdvanceRequest
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cash On Hand @*AndAdvanceRequest*@</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.reqNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reqNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+
+        <dd>
+            @Model.date.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reqFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reqFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clearanceDate)
+        </dt>
+
+        <dd>
+            @Model.clearanceDate.ToString("dd MMM yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reqIsCashOnHand)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.reqIsCashOnHand)*@
+            Cash On Hand
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.includeProposal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.includeProposal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isReimbursement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isReimbursement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdDate)
+        </dt>
+
+        <dd>
+            @if (Model.modifiedDate == null)
+            { 
+                @Html.DisplayFor(model => model.createdDate)
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.modifiedDate)                
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdUser)
+        </dt>
+
+        <dd>
+            @if (Model.modifiedUser == null)
+            {
+                @Html.DisplayFor(model => model.createdUser)
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.modifiedUser)                
+            }
+        </dd>
+    </dl>
+</div>
+<div id="dvDetail">
+    @Html.Partial("_PartialPageDetail2")
+</div>
+<br />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.reqNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

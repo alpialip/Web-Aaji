@@ -1,0 +1,316 @@
+﻿<script>
+    var indexDelete = 0;
+
+    function onClickDeleteRowMultiple(idx){
+        var tbl = document.getElementById("tbDetailFixedAssetEmployee");
+        var rowDetail = (tbl.rows.length);
+        //alert(rowDetail);
+        //alert(idx);
+        if (rowDetail > 2) {
+            document.getElementById("tbDetailFixedAssetEmployee").deleteRow(idx);
+            indexDelete = idx;
+            @*var y = collectDataDetail();
+
+            $("#dvDetail").load('@(Url.Action("LoadDetailAdvancePaymentVoucher", "AdvancePaymentVoucher", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);*@
+            }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRowMultiple() {
+        var tbl = document.getElementById("tbDetailFixedAssetEmployee");
+        //alert(tbl.rows.length);
+
+        var x = validateDataDetailMultiple("add");
+        ////alert(x);
+        if (x == true) {
+            var table = document.getElementById('tbDetailFixedAssetEmployee');
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "date";
+            element1.style.width = "130px";
+            element1.name = "persStart_" + (rowCount - 1);
+            element1.id = "persStart_" + (rowCount - 1);
+            cell1.appendChild(element1);
+
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "date";
+            element2.style.width = "130px";
+            element2.name = "persEnd_" + (rowCount - 1);
+            element2.id = "persEnd_" + (rowCount - 1);
+            cell2.appendChild(element2);
+
+            var cell2 = row.insertCell(2);
+            var element2 = document.createElement("input");
+            element2.type = "hidden";
+            element2.name = "persEmpId_" + (rowCount - 1);
+            element2.id = "persEmpId_" + (rowCount - 1);
+            cell2.appendChild(element2);
+
+            var element21 = document.createElement("input");
+            element21.type = "text";
+            element21.name = "persEmpName_" + (rowCount - 1);
+            element21.id = "persEmpName_" + (rowCount - 1);
+            cell2.appendChild(element21);
+
+            var element22 = document.createElement("input");
+            element22.type = "button";
+            element22.setAttribute("onclick", "document.getElementById('hdnIdxClick').value='"+(rowCount - 1)+"'");
+            element22.setAttribute("data-toggle", "modal");
+            element22.setAttribute("data-target", "#myModal");
+            element22.value = "...";
+            cell2.appendChild(element22);
+
+            var cell3 = row.insertCell(3);
+            var element3 = document.createElement("label");
+            element3.style.fontWeight = "100";
+            element3.id = "lblDept_" + (rowCount - 1);
+            cell3.appendChild(element3);
+
+            var cell4 = row.insertCell(4);
+            var element4 = document.createElement("input");
+            element4.type = "text";
+            //element21.style.width = "130px";
+            element4.name = "persRemark_" + (rowCount - 1);
+            element4.id = "persEmpName_" + (rowCount - 1);
+            cell4.appendChild(element4);
+
+        }
+    }
+
+    function collectDataDetailMultiple(actFrom) {
+        var tbl = document.getElementById("tbDetailMultiple");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = (tbl.rows.length-1);
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 0; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                //alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                //alert("i after ==>" + i)
+            }
+
+            var BuyDate = document.getElementById("txtBuyDate_" + i);
+            var BuyDateVal = BuyDate.value;
+            var BuyDateId = BuyDate.id;
+
+            var BuyPercent = document.getElementById("txtBuyPercent_" + i);
+            var BuyPercentVal = BuyPercent.value;
+            var BuyPercentId = BuyPercent.id;
+
+            if (actFrom == "save" && BuyDateVal == "" && BuyPercentVal == "0" && i == (rowsCount - 1))
+                break;
+
+            stringDataDetail += seqRows + ";" + BuyDateVal + ";" +  BuyPercentVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function validateDataDetailMultiple(actFrom) {
+        //alert("sad");
+        var tbl = document.getElementById("tbDetailFixedAssetEmployee");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length-1);
+        //alert(rowsCount);
+        for (i = 0; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var persStartDate = document.getElementById("persStart_" + i);
+            var persStartDateVal = persStartDate.value;
+            var persStartDateId = persStartDate.id;
+
+            var persEndDate = document.getElementById("persEnd_" + i);
+            var persEndDateVal = persEndDate.value;
+            var persEndDateId = persEndDate.id;
+
+            var persEmpName = document.getElementById("persEmpName_" + i);
+            var persEmpNameVal = persEmpName.value;
+            var persEmpNameId = persEmpName.id;
+
+            //alert(BuyDateVal + " - " + BuyPercentVal + " - " + i + "==" + (rowsCount-1));
+            if (actFrom == "save" && persStartDateVal == "" && persEndDateVal == "" && persEmpNameVal == "" && i == (rowsCount - 1))
+                break;
+
+            if (persStartDateVal == "" || persEndDateVal == "" || persEmpNameVal == "" ) {
+                alert("Please complete data detail.");
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+</script>
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#sectionA"><b>Person</b></a></li>
+        <li><a data-toggle="tab" href="#sectionB"><b>Maintenance</b></a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="sectionA" class="tab-pane fade in active">
+            <table id="tbDetailFixedAssetEmployee">
+                <thead>
+                    <tr>
+                        <th>Start</th>
+                        <th>End</th>
+                        @*<th>Employee ID</th>*@
+                        <th>Employee Name</th>
+                        <th>&nbsp;&nbsp;&nbsp;Department&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th>Remark</th>
+                        <th>
+                            <input type="button" id="btnAddRowMultiple" name="btnAddRowMultiple" value="[ + ]" onclick="javascript:onClickAddRowMultiple()">
+                        </th>
+                    </tr>
+                </thead>
+                @{
+                    int idx = 0;
+                }
+                <tbody>
+                    @if (ViewBag.dataDetail != null)
+                    {
+                        foreach(var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.fixedAsset.detailSavedFixedAssetPerson>)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBox("persStart_" + idx, a.startDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("persEnd_" + idx, a.endDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    <input type="hidden" name="persEmpId_@idx" id="persEmpId_@idx" value="@a.employeeID">
+                                    <input type="text" name="persEmpName_@idx" id="persEmpName_@idx" value="@a.employeeName">
+                                    <input type="button" onclick="document.getElementById('hdnIdxClick').value = '@idx'" data-toggle="modal" data-target="#myModal" value="...">
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label id="lblDept_@idx" style="font-weight:100">@a.deptName</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="persRemark_@idx" id="persRemark_@idx" value="@a.remarks">
+                                </td>
+                            </tr>
+                            idx++;
+                        }
+                    }
+                    else
+                    {
+                            <tr>
+                                <td>
+                                    @Html.TextBox("persStart_" + idx, DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("persEnd_" + idx, DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    <input type="hidden" name="persEmpId_@idx" id="persEmpId_@idx">
+                                    <input type="text" name="persEmpName_@idx" id="persEmpName_@idx">
+                                    <input type="button" onclick="document.getElementById('hdnIdxClick').value = '@idx'" data-toggle="modal" data-target="#myModal" value="...">
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label id="lblDept_@idx" style="font-weight:100"></label>
+                                </td>
+                                <td>
+                                    @Html.Editor("persRemark_" + idx)
+                                </td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Remark</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                @{
+                    int idxMaint = 0;
+                }
+                <tbody>
+                @if (ViewBag.dataDetailMaint != null)
+                {
+                    foreach (var a in ViewBag.dataDetailMaint as IEnumerable<WebApp_AAJI.Models.fixedAsset.fixedAssetMaintenance>)
+                    {
+                    <tr>
+                        <td>
+                            @Html.TextBox("maintDate_" + idxMaint, a.maintenanceDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                        </td>
+                        <td>
+                            @Html.TextBox("maintRemark_" + idxMaint, a.remarks, new { style = " width: 500px;" })
+                        </td>
+                        <td>
+                            @Html.TextBox("maintAmount_" + idxMaint, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                        </td>
+                    </tr>
+                        idxMaint++;
+                    }
+                }
+                else
+                {                    
+                    <tr>
+                        <td>
+                            @Html.TextBox("maintDate_" + idxMaint, DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                        </td>
+                        <td>
+                            @Html.TextBox("maintRemark_" + idxMaint, "", new { style = " width: 500px;" })
+                        </td>
+                        <td>
+                            @Html.TextBox("maintAmount_" + idxMaint, 0, new { type = "number", step = "1", min = 0, style = "text-align:right;width:150px", placeholder = "0", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        @*<div id="dropdown1" class="tab-pane fade">
+                <h3>Dropdown 1</h3>
+                <p>WInteger convallis, nulla in sollicitudin placerat, ligula enim auctor lectus, in mollis diam dolor at lorem. Sed bibendum nibh sit amet dictum feugiat. Vivamus arcu sem, cursus a feugiat ut, iaculis at erat. Donec vehicula at ligula vitae venenatis. Sed nunc nulla, vehicula non porttitor in, pharetra et dolor. Fusce nec velit velit. Pellentesque consectetur eros.</p>
+            </div>
+            <div id="dropdown2" class="tab-pane fade">
+                <h3>Dropdown 2</h3>
+                <p>Donec vel placerat quam, ut euismod risus. Sed a mi suscipit, elementum sem a, hendrerit velit. Donec at erat magna. Sed dignissim orci nec eleifend egestas. Donec eget mi consequat massa vestibulum laoreet. Mauris et ultrices nulla, malesuada volutpat ante. Fusce ut orci lorem. Donec molestie libero in tempus imperdiet. Cum sociis natoque penatibus et magnis.</p>
+            </div>*@
+    </div>
+</div>
+@Html.Hidden("hdnIdxClick")
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:725px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Employee</h4>
+            </div>
+            @*<div class="modal-body">*@
+            <div class="table-responsive">
+                @Html.Partial("_PartialPagePopUpEmployee");
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

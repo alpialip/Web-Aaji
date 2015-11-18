@@ -1,0 +1,122 @@
+﻿@model WebApp_AAJI.Models.purchaseReceive
+
+@{
+    ViewBag.Title = "Approval";
+}
+<script>
+    function sendSubmit(values)
+    {
+        var val = values.split('_');
+        //alert(val[0]);
+        //alert(val[1]);
+        $("#dvSubmit").load('@(Url.Action("ApprovalProcess", "PurchaseReceive", null, Request.Url.Scheme))?act=' + val[0] + '&id=' + val[1],
+            function () {
+                //window.history.go(-1);
+                window.location.replace('/PurchaseReceive/Index');
+        });
+    }
+</script>
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>purchaseReceive</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.receiveNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiveNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receiveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receiveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.poId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.proposedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.proposedDate)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.proposedStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.proposedStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.receivedBy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.receivedBy)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.receivedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.receivedDate)
+            </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.receivedStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.receivedStatus)
+        </dd>
+
+    </dl>
+
+    <div id="dvDetail">
+        @Html.Partial("_PartialPageRCV-PO2")
+    </div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="button" value="Received" class="btn btn-primary" onclick="sendSubmit('approved_@Model.receiveNo')" /> |
+        <input type="button" value="Not Received" class="btn btn-primary" onclick="sendSubmit('rejected_@Model.receiveNo')" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div id="dvSubmit" style="display:none"></div>
+}
+</div>

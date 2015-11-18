@@ -1,0 +1,408 @@
+﻿@*<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>*@
+<script type="text/javascript">
+    var indexDelete = 0;
+
+    function onClickDeleteRow(idx) {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+        if ((tbl.rows.length - 1) > 2) {
+            document.getElementById("tbDetail").deleteRow(idx);
+            indexDelete = idx;
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailFinanceTransaction", "FinanceTransaction", null, Request.Url.Scheme))?dataDetail=' + y + '&act=delete');
+            $("#hdnTotalRows").val(tbl.rows.length);
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRow() {
+        var tbl = document.getElementById("tbDetail");
+        //alert(tbl.rows.length);
+
+        var x = validateDataDetail("add");
+        //alert(x);
+        if (x == true) {
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailFinanceTransaction", "FinanceTransaction", null, Request.Url.Scheme))?dataDetail=' + y + '&act=add');
+            $("#hdnTotalRows").val(tbl.rows.length);
+            setTimeout(function () { sumTotal(); }, 500);
+        }
+    }
+
+    function collectDataDetail() {
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = tbl.rows.length;
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 1; i < (rowsCount - 1) ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                //alert("i before ==>" + i);
+                rowsCount++;
+                i++;
+                //alert("i after ==>" + i)
+            }
+
+            var invoiceNo = document.getElementById("txtInvoiceNo_" + i);
+            var invoiceNoVal = invoiceNo.value;
+            var invoiceNoId = invoiceNo.id;
+
+            var invoiceDate = document.getElementById("txtInvoiceDate_" + i);
+            var invoiceDateVal = invoiceDate.value;
+            var invoiceDateId = invoiceDate.id;
+
+            var supplier = document.getElementById("supplierName_" + i);
+            var supplierVal = supplier.value;
+            var supplierId = supplier.id;
+
+            var debt = document.getElementById("txtDebt_" + i);
+            var debtVal = debt.value;
+            var debtId = debt.id;
+
+            var remains = document.getElementById("txtRemains_" + i);
+            var remainsVal = remains.value;
+            var remainsId = remains.id;
+
+            var pay = document.getElementById("txtPay_" + i);
+            var payVal = pay.value;
+            var payId = pay.id;
+
+            stringDataDetail += seqRows + ";" + invoiceNoVal + ";" + invoiceDateVal + ";" + escape(supplierVal) + ";" + debtVal + ";" + remainsVal + ";" + payVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function validateDataDetail(actFrom) {
+        //alert(indexDelete);
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+
+        var rowsCount = (tbl.rows.length - 1);
+        //alert(rowsCount);
+        for (i = 1; i < rowsCount ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i = i++;
+            }
+
+            var invoiceNo = document.getElementById("txtInvoiceNo_" + i);
+            var invoiceNoVal = invoiceNo.value;
+            var invoiceNoId = invoiceNo.id;
+
+            //alert(actFrom + " == 'save' && " + coaSelectedVal + " == '' && " + i + " == " + (rowsCount - 2));
+            if (actFrom == "save" && invoiceNo == "" && i == (rowsCount - 2))
+                break;
+
+            var invoiceDate = document.getElementById("txtInvoiceDate_" + i);
+            var invoiceDateVal = invoiceDate.value;
+            var invoiceDateId = invoiceDate.id;
+
+            var supplier = document.getElementById("supplierName_" + i);
+            var supplierVal = supplier.value;
+            var supplierId = supplier.id;
+
+            var debt = document.getElementById("txtDebt_" + i);
+            var debtVal = debt.value;
+            var debtId = debt.id;
+
+            var remains = document.getElementById("txtRemains_" + i);
+            var remainsVal = remains.value;
+            var remainsId = remains.id;
+
+            var pay = document.getElementById("txtPay_" + i);
+            var payVal = pay.value;
+            var payId = pay.id;
+
+            //alert(parseFloat(payVal));
+            if (invoiceNoVal == "" || invoiceDateVal == "" || supplierVal == "" || (debtVal == ""  || debtVal == 0) || (remainsVal == "" || remainsVal == 0) || (payVal == "" || parseFloat(payVal) == 0)) {
+                alert("Please complete data detail.");
+                //alert(invoiceNoVal+' == "" || '+invoiceDateVal+' == "" || '+supplierVal+' == "" || '+debtVal+' == "" || '+remainsVal+' == "" || '+payVal+' == ""');
+                return false;
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    function cekPay(idx) {
+        //alert(idx);
+        var a = document.getElementById("txtRemains_" + idx).value;
+        var b = document.getElementById("txtPay_" + idx).value;
+        document.getElementById("txtPay_" + idx).title = "";
+        document.getElementById("txtPay_" + idx).style.backgroundColor = "";
+        //alert(b + ">" + a);
+        if (parseFloat(b) > parseFloat(a)) {
+            document.getElementById("txtPay_" + idx).title = "Overpayment";
+            document.getElementById("txtPay_" + idx).style.backgroundColor = "yellow";
+        }
+    }
+
+    function sumTotal() {
+        var tbl = document.getElementById("tbDetail");
+        var grandTotal = 0;
+
+        //alert(tbl.rows.length);
+        if (tbl.rows.length > 1) {
+            for (i = 1; i <= (tbl.rows.length - 2) ; i++) {
+                grandTotal += document.getElementById("txtPay_" + i).value == "" ? 0.0000 : parseFloat(document.getElementById("txtPay_" + i).value);
+            }
+        }
+        $("#grandTotal").val(grandTotal);
+    }
+
+    function confirmSave() {
+        var x = validateDataDetail("save");
+        if (x == true) {
+            //var totalDebit = document.getElementById("totalDebit").value;
+            //var totalCredit = document.getElementById("totalCredit").value;
+
+            //if ((totalCredit != totalDebit) || (parseFloat(totalCredit) == 0 && parseFloat(totalDebit) == 0)) {
+            //    alert("Please Cek Data Detail");
+            //    return (false);
+            //}
+
+            document.forms[0].submit();
+        }
+    }
+
+    function copyToForm(invNo, supName, debtAmt, remains) {
+        //alert(debtAmt + " " + debtAmt.replace(/\./g,''));
+        var idx = $('#hdnIdxRowsClick').val();
+        $('#txtInvoiceNo_' + idx).val(invNo);
+        $('#supplierName_' + idx).val(supName);
+        $('#txtDebt_' + idx).val(debtAmt.replace(/\./g, ''));
+        $('#txtRemains_' + idx).val(remains.replace(/\./g, ''));
+        $('#myModal').modal('hide');
+        setTimeout(function () { $('#txtPay_' + idx).select() }, 600);
+
+
+    }
+
+</script>
+<table class="table" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Invoice No.</th>
+            <th>Invoice Date</th>
+            <th>Supplier</th>
+            <th>Total Debt</th>
+            <th>Remains</th>
+            <th>Total Pay</th>
+            <th>
+                <input type="button" id="btnAddRow" name="btnAddRow" value="[ + ]" onclick="onClickAddRow();">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal grandTotal = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.financeTransactionHeader.collectTransactionDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.financeTransactionHeader.collectTransactionDetail>)
+            {
+                <tr>
+                    <td>
+                        @Html.TextBox("txtInvoiceNo_" + idx, a.invoiceNo)
+                        <button data-toggle="modal" data-target="#myModal" onclick="javascript:document.getElementById('hdnIdxRowsClick').value = @idx">...</button>
+                    </td>
+                    <td>
+                        @Html.TextBox("txtInvoiceDate_" + idx, a.invoiceDate.ToString("yyyy-MM-dd"), new { /*type = "date",*/@readonly = "readonly", @style = "width:100px" })
+                    </td>
+                    <td>
+                        @*@Html.Label("supplierName_" + idx, "supplier_Name");*@
+                        @Html.TextBox("supplierName_" + idx, a.supplierName)
+                    </td>
+                    <td>
+                        @Html.TextBox("txtDebt_" + idx, a.debt.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtRemains_" + idx, a.remains.ToString("G29").Replace(',', '.'), new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtPay_" + idx, a.amount.ToString("G29").Replace(',', '.'), new { type = "number", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "cekPay(" + idx + ");sumTotal(" + idx + ");" })
+                    </td>
+                    <td>
+                        <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                    </td>
+                </tr>
+                idx++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.TextBox("txtInvoiceNo_" + idx)
+                    <button data-toggle="modal" data-target="#myModal" onclick="javascript:document.getElementById('hdnIdxRowsClick').value = @idx">...</button>
+                </td>
+                <td>
+                    @Html.TextBox("txtInvoiceDate_" + idx, DateTime.Now.ToString("yyyy-MM-dd"), new { /*type = "date",*/@readonly = "readonly", @style = "width:100px" })
+                </td>
+                <td>
+                    @Html.TextBox("supplierName_" + idx, "")
+                </td>
+                <td>
+                    @Html.TextBox("txtDebt_" + idx, "0.0000", new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern="^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td>
+                    @Html.TextBox("txtRemains_" + idx, "0.0000", new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td>
+                    @Html.TextBox("txtPay_" + idx, "0.0000", new { type = "number", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "cekPay(" + idx + ");sumTotal(" + idx + ");" })
+                </td>
+                <td>
+                    <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                </td>
+            </tr>
+        }
+
+        @if (ViewBag.dataDetail != null)
+        {
+            <tr>
+                <td>
+                    @Html.TextBox("txtInvoiceNo_" + idx)
+                    <button data-toggle="modal" data-target="#myModal" onclick="javascript:document.getElementById('hdnIdxRowsClick').value = @idx">...</button>
+                </td>
+                <td>
+                    @Html.TextBox("txtInvoiceDate_" + idx, DateTime.Now.ToString("yyyy-MM-dd"), new { /*type = "date",*/@readonly = "readonly", @style = "width:100px" })
+                </td>
+                <td>
+                    @Html.TextBox("supplierName_" + idx, "")
+                </td>
+                <td>
+                    @Html.TextBox("txtDebt_" + idx, "0.0000", new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td>
+                    @Html.TextBox("txtRemains_" + idx, "0.0000", new { type = "number", @readonly = "readonly", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?" })
+                </td>
+                <td>
+                    @Html.TextBox("txtPay_" + idx, "0.0000", new { type = "number", step = "0.0001", min = 0, style = "text-align:right;width:150px", placeholder = "0.0000", @pattern = "^\\d*(\\.\\d{2}$)?", onchange = "cekPay(" + idx + ");sumTotal(" + idx + ");" })
+                </td>
+                <td>
+                    <input type="button" value="Delete" min=0 onclick="onClickDeleteRow(@idx);" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    &nbsp;
+                </td>
+                <td>
+                    <input type="number" step="0.0001" min=0 id="grandTotal" name="grandTotal" readonly="readonly" value="0.0000" placeholder="0.0000" pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; " />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">
+                    &nbsp;
+                </td>
+                <td>
+                    <input type="number" step="0.0001" min=0 id="grandTotal" name="grandTotal" readonly="readonly" value="0.0000" placeholder="0.0000"  pattern="^\d*(\.\d{2}$)?" style="text-align: right; width: 150px; " />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Button trigger modal -->
+@*<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+    </button>*@
+
+<!-- Modal -->
+@*<div id="dvDetailInvoice">
+        @Html.Partial("_PartialPageFT2")
+    </div>*@
+<div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Invoice</h4>
+            </div>
+            @*<div class="modal-body">*@
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-condensed" width="100%">
+                        <tr>
+                            <th></th>
+                            <th>Invoice No</th>
+                            <th>Supplier</th>
+                            <th>Debt</th>
+                            <th>Remains</th>
+                        </tr>
+
+                        @*@foreach (var item in Model)
+                    {*@
+                        <tr>
+                            <td>
+                                <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToForm('INV20150512', 'PT.A', '33.000.500', '2.070.500');"></a>
+                            </td>
+                            <td>@Html.Label("invNo","INV20150512")</td>
+                            <td>@Html.Label("supName", "PT.A")</td>
+                            <td>@Html.Label("debtAmt", "33.000.500")</td>
+                            <td>@Html.Label("remains", "2.070.500")</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToForm('INV20150511', 'PT.B', '13.000.500', '3.000.500');"></a>
+                            </td>
+                            <td>@Html.Label("invNo", "INV20150511")</td>
+                            <td>@Html.Label("supName", "PT.B")</td>
+                            <td>@Html.Label("debtAmt", "13.000.500")</td>
+                            <td>@Html.Label("remains", "3.000.500")</td>
+                        </tr>
+                        @*}*@
+                    </table>
+                </div>
+            @*</div>*@
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@Html.Hidden("hdnIdxRowsClick")
+@Html.Hidden("hdnTotalRows", new { value = @totalRows })
+
+

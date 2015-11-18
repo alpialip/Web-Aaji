@@ -1,0 +1,56 @@
+﻿@model WebApp_AAJI.Models.absensiRekap
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>absensiRekap</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.absensiDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.absensiDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employeeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employeeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.typeAbsensiID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typeAbsensiID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

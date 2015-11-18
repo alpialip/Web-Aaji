@@ -1,0 +1,90 @@
+﻿<table class="table" id="tbDetail">
+    <thead>
+        <tr>
+            <th>Account No.</th>
+            <th>Account Name</th>
+            <th>Remark</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int idx = 1;
+            int totalRows = 0;
+            decimal totalDebit = 0;
+            decimal totalKredit = 0;
+        }
+        @if (ViewBag.dataDetail != null)
+        {
+            var totalList = ViewBag.dataDetail as List<WebApp_AAJI.Models.journalHeader.journalDetail>;
+            totalRows = totalList.Count();
+            foreach (var a in ViewBag.dataDetail as IEnumerable<WebApp_AAJI.Models.journalHeader.journalDetail>)
+            {
+                totalDebit += a.debit;
+                totalKredit += a.credit;
+                <tr>
+                    <td>
+                        @*@Html.DropDownList("ddlAccount_"+idx, ViewBag.ddlAccount as SelectList, "- Select -", new { @class = "form-control", @onchange = "onChangeDDLAccountNo(this)" })*@
+                        @Html.DropDownList("ddlAccount_" + idx, (ViewData["ddlAccount" + idx]) as SelectList, "- Select -", new { @class = "form-control", @readonly="readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtAccountName_" + idx, a.accountNameOther, new { @readonly = "readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtRemark_" + idx, a.remarks, new { @readonly = "readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("txtDebit_" + idx, a.debit.ToString("G29").Replace(',', '.'),
+                               new { type = "number", step = "0.0001", min = 0, style = "text-align:right", placeholder = "0.0000", @readonly="readonly" })
+                        @*<input type="number" step="0.0001" min=0 id="txtDebit_@idx" name="txtDebit_@idx" value="@Convert.ToDecimal(a.debit)" style="text-align:right" placeholder="0.0000" onchange="sumTotal();" />*@
+                    </td>
+                    <td>
+                        @Html.TextBox("txtCredit_" + idx, a.credit.ToString("G29").Replace(',', '.'),
+                            new { type = "number", step = "0.0001", min = 0, style = "text-align:right", placeholder = "0.0000", @readonly = "readonly" })
+                        @*<input type="number" step="0.0001" min=0 id="txtCredit_@idx" name="txtCredit_@idx" value="@Convert.ToInt32(a.credit)" style="text-align:right" placeholder="0.0000" onchange="sumTotal();" />*@
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+
+                idx++;
+            }
+            
+            <tr>
+                <td colspan="3">
+                    &nbsp;
+                </td>
+                <td>
+                    @if (totalDebit != totalKredit)
+                    {
+                        <input type="number" step="0.0001" min=0 id="totalDebit" name="totalDebit" readonly="readonly" value="@totalDebit.ToString("G29").Replace(',','.')" placeholder="0.0000" style="text-align:right; background-color:yellow; color:red" />
+                    }
+                    else
+                    {
+                        <input type="number" step="0.0001" min=0 id="totalDebit" name="totalDebit" readonly="readonly" value="@totalDebit.ToString("G29").Replace(',','.')" placeholder="0.0000" style="text-align:right" />
+                    }
+                </td>
+                <td>
+                    @if (totalDebit != totalKredit)
+                    {
+                        <input type="number" step="0.0001" min=0 id="totalCredit" name="totalCredit" readonly="readonly" value="@totalKredit.ToString("G29").Replace(',', '.')" placeholder="0.0000" style="text-align: right; background-color: yellow; color: red" />
+                    }
+                    else
+                    {
+                        <input type="number" step="0.0001" min=0 id="totalCredit" name="totalCredit" readonly="readonly" value="@totalKredit.ToString("G29").Replace(',', '.')" placeholder="0.0000" style="text-align:right" />
+                    }
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Hidden("hdnTotalRows", new { @Value = @totalRows })

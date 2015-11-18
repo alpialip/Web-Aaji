@@ -1,0 +1,161 @@
+﻿@model IEnumerable<WebApp_AAJI.Models.purchaseInvoice>
+
+@{
+    ViewBag.Title = "Purchase Invoice";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <img src='~/img/add.png' style="width:15px" /> @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.purchaseInvoiceNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.invoiceDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.receiveNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paymentInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.purchaseInvoiceNo
+        </td>
+        <td>
+            @item.invoiceDate.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @item.dueDate.ToString("dd MMM yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.receiveNo)
+        </td>
+            @if (item.paymentInfo != null && item.paymentInfo.Length > 20)
+            {
+                var a = item.paymentInfo.Substring(0, 20);
+                <td title="@item.paymentInfo">
+                    @(a + "...")
+                </td>
+            }
+            else
+            {
+                <td>
+                    @item.paymentInfo    
+                    @*@Html.DisplayFor(modelItem => item.paymentInfo)*@
+                </td>
+            }
+            @if (item.remarks != null && item.remarks.Length > 20)
+            {
+                var a = item.remarks.Substring(0, 20);                
+                <td title="@item.remarks">
+                    @(a + "...")
+                </td>
+            }
+            else
+            {
+                <td>
+                    @item.remarks
+                </td>
+            }
+        <td>
+            @*@if(item.total > -1)
+            {
+                var a = Convert.ToInt32(item.total);
+                @a;
+            }*@
+            @*@Html.DisplayFor(modelItem => item.total)*@
+            @item.total.ToString("#,##0")
+        </td>
+        <td>
+            @{
+                var isFind = false;
+            }
+            @if (ViewBag.invoiceFromPR != null)
+            {
+                foreach (var a in ViewBag.invoiceFromPR as List<string>)
+                {
+                    if (a == item.receiveNo)
+                    {
+                        <a data-toggle="modal" data-target="#myModal" style="cursor:hand"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+                        isFind = true;
+                        break;
+                    }
+                }
+
+                if (isFind == false)
+                {
+                    <a href="@Url.Action("Edit")/@item.purchaseInvoiceNo"><img src='~/img/edit.png' style="width:15px" title="Edit" /></a>
+                }
+            }
+            &nbsp; &nbsp; &nbsp;
+            @*@Html.ActionLink("Details", "Details", new { id = item.purchaseInvoiceNo }) <img src='~/img/view.png' style="width:15px" /> |
+            @Html.ActionLink("Delete", "Delete", new { id = item.purchaseInvoiceNo }) <img src='~/img/delete.png' style="width:15px" />*@ 
+
+            <a href="@Url.Action("Details")/@item.purchaseInvoiceNo"><img src='~/img/view.png' style="width:15px" title="View" /></a>&nbsp;&nbsp;&nbsp;
+            @if(isFind == true)
+            {
+                <a data-toggle="modal" data-target="#myModalDel" style="cursor:hand"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>
+            }
+            else
+            { 
+                <a href="@Url.Action("Delete")/@item.purchaseInvoiceNo"><img src='~/img/delete.png' style="width:15px" title="Delete" /></a>
+            }
+        </td>
+    </tr>
+}
+
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 455px;">
+            <div class="modal-header" style="background-color:#5BC0DE">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>Cannot Edit Purchase Invoice, Data From Purchase Receive.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalDel" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 455px;">
+            <div class="modal-header" style="background-color:#5BC0DE">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>Cannot Delete Purchase Invoice, Data From Purchase Receive.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

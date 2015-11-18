@@ -1,0 +1,63 @@
+﻿@using System.Data;
+<script>
+    function generatePDF()
+    {
+       var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+
+        //alert(period+"-"+empId);
+        if (startDate != "" && endDate != "")
+            $("#dvReport").load('@(Url.Action("GenerateReport", "ReportPurchaseRequest", null, Request.Url.Scheme))?startDate=' + startDate + "&endDate=" + endDate);
+       
+    }
+</script>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>PR No.</th>
+            <th>PR Date</th>
+            <th>type Order</th>
+            <th>Special Instruction</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(ViewBag.detail != null)
+        {
+            DataTable dt = ViewBag.detail as DataTable;
+            if(dt.Rows.Count>0)
+            {
+                foreach(DataRow dr in dt.Rows)
+                {
+                <tr>
+                    <td>@dr["prId"].ToString()</td>
+                    <td>@dr["prDate"].ToString()</td>
+                    <td>@dr["typeOrder"].ToString()</td>
+                    <td>@dr["specialInstruction"].ToString()</td>
+                </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">No Data Result</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if(ViewBag.detail != null)
+{
+
+    @*<a href="@Url.Action("GenerateReport" + ViewBag.linkAction)"> Print PDF</a>*@
+    <img src="~/img/pdf.png" width="25px" onclick="generatePDF()"/> @("Print PDF")
+    <div id="dvReport" style="display:none">
+
+    </div>
+}

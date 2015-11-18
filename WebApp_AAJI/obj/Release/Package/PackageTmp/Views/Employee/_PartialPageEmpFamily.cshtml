@@ -1,0 +1,414 @@
+﻿
+<script>
+    var indexDelete = 0;
+
+    function onClickAddRowChild() {
+        var x = validateDetailChild("add");
+        //alert(x);
+        if (x == true) {
+            var table = document.getElementById('tblDetailChild');
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "text";
+            element1.style.width = "150px";
+            element1.name = "childName_" + (rowCount - 1);
+            element1.id = "childName_" + (rowCount - 1);
+            cell1.appendChild(element1);
+            //seqId
+            var element11 = document.createElement("input");
+            element11.type = "hidden";
+            element11.value = (rowCount);
+            element11.name = "seqId_" + (rowCount - 1);
+            element11.id = "seqId_" + (rowCount - 1);
+            cell1.appendChild(element11);
+
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "date";
+            element2.style.width = "130px";
+            element2.name = "childBirthDate_" + (rowCount - 1);
+            element2.id = "childBirthDate_" + (rowCount - 1);
+            cell2.appendChild(element2);
+
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("input");
+            element3.type = "text";
+            element3.style.width = "150px";
+            element3.name = "childBirthPlace_" + (rowCount - 1);
+            element3.id = "childBirthPlace_" + (rowCount - 1);
+            cell3.appendChild(element3);
+
+            var cell4 = row.insertCell(3);
+            var element4 = document.createElement("input");
+            element4.type = "text";
+            element4.style.width = "150px";
+            element4.name = "childLastEducation_" + (rowCount - 1);
+            element4.id = "childLastEducation_" + (rowCount - 1);
+            cell4.appendChild(element4);
+
+            var cell5 = row.insertCell(4);
+            var element5 = document.createElement("input");
+            element5.type = "button";
+            element5.setAttribute("onclick", "onClickDeleteRowChild(" + (rowCount - 1) + ")");
+            element5.value = "Delete";
+            element5.name = "btnDelete_" + (rowCount - 1);
+            element5.id = "btnDelete_" + (rowCount - 1);
+            cell5.appendChild(element5);
+        }
+    }
+
+    function onClickDeleteRowChild(idx) {
+        var tbl = document.getElementById("tblDetailChild");
+        var rowDetail = (tbl.rows.length);
+        var isData = 0;
+        
+        var i = (idx + 1); //alert(i);
+        if (rowDetail > 2)
+        {
+            var colExist = document.getElementById("seqId_" + idx);
+            if (colExist == null) {
+                for (a = 1; a < 50; a++) {
+                    var seqId = document.getElementById("seqId_" + a);
+                    if (seqId != null)
+                    {
+                        isData++;
+                        // alert("seqId.value:"+seqId.value+" == "+"i:"+i)
+                        if (seqId.value == i)
+                        {
+                            i = (isData+1);
+                            //alert('masuk: ' + isData);
+                            break;
+                        }
+                    }
+                }
+                //alert('keluar');
+            }
+            else
+            {
+                for (a = 0; a < 50; a++) {
+                    var seqId = document.getElementById("seqId_" + a);
+                    var desc = document.getElementById("childName_" + a);
+                    if (seqId != null) {
+                        isData++;
+                        //alert("seqId.value:" + seqId.value + " == " + "i:" + i + " desc:" + desc.value);
+                        //alert("a:" + a+" isData:"+isData);
+                        if (seqId.value == i) {
+                            i = isData;
+                            break;
+                        }
+                    }
+                }                
+            }
+
+            document.getElementById("tblDetailChild").deleteRow(i);
+            indexDelete = idx;
+            renameElementChild();
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function renameElementChild() {
+        var tbl = document.getElementById("tblDetailChild");
+        var rowsCount = (tbl.rows.length - 1);
+        var isData = 0;
+
+        for (a = 0; a < 50; a++) {
+            var seqId = document.getElementById("seqId_" + a);
+            if (seqId != null && isData <= rowsCount) {
+                var element1 = document.getElementById("childName_" + a);
+                element1.name = "childName_" + (isData);
+                element1.id = "childName_" + (isData);
+                //seqId
+                var element11 = document.getElementById("seqId_" + a);
+                element11.value = (isData + 1);
+                element11.name = "seqId_" + (isData);
+                element11.id = "seqId_" + (isData);
+
+                var element2 = document.getElementById("childBirthDate_" + a);
+                element2.name = "childBirthDate_" + (isData);
+                element2.id = "childBirthDate_" + (isData);
+
+                var element3 = document.getElementById("childBirthPlace_" + a);
+                element3.name = "childBirthPlace_" + (isData);
+                element3.id = "childBirthPlace_" + (isData);
+
+                var element4 = document.getElementById("childLastEducation_" + a);
+                element4.name = "childLastEducation_" + (isData);
+                element4.id = "childLastEducation_" + (isData);
+
+                var element5 = document.getElementById("btnDelete_" + a);
+                element5.name = "btnDelete_" + (isData);
+                element5.id = "btnDelete_" + (isData);
+                element5.setAttribute("onclick", "onClickDeleteRowOccupation(" + isData + ")");
+
+                if (isData == rowsCount)
+                    break;
+
+                isData++;
+            }
+        }
+    }
+
+    function validateDetailChild(triggerFrom)
+    {
+        var tblLength = document.getElementById('tblDetailChild').rows.length - 1;
+        stringDataDetail = "";
+        validateErr = 0;
+
+        //alert(tblLength);
+        for (i = 0; i < tblLength; i++) {
+            var childName_ = document.getElementById('childName_' + i).value;
+            var childBirthDate_ = document.getElementById('childBirthDate_' + i).value;
+            var childBirthPlace_ = document.getElementById('childBirthPlace_' + i).value;
+            var childLastEducation_ = document.getElementById('childLastEducation_' + i).value;
+
+            if (triggerFrom == "save" && childName_ != "" && childBirthDate_ != "" && childBirthPlace_ != "" && childLastEducation_ != "")
+            {
+                stringDataDetail += escape(childName_) + ";" + childBirthDate_ + ";" + escape(childBirthPlace_) + ";" + escape(childLastEducation_) + "|";
+            }
+            else if(childName_ != "" && childBirthDate_ != "" && childBirthPlace_ != "" && childLastEducation_ != "") {
+                stringDataDetail += escape(childName_) + ";" + childBirthDate_ + ";" + escape(childBirthPlace_) + ";" + escape(childLastEducation_) + "|";
+            }
+            else {
+                validateErr++;
+                alert("Please Complete Detail Child");
+                return false;
+            }
+        }
+
+        return true;
+    }
+</script>
+
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li style="padding-top: 0.6%;">
+            <input type="button" id="btnFamily" value="[+]" onclick="onClickAddRowChild()" style="display:none" />&nbsp;&nbsp;&nbsp;
+        </li>
+        <li class="active"><a data-toggle="tab" href="#sectionMateFamily" onclick="document.getElementById('btnFamily').style.display = 'none'"><b>Mate</b></a></li>
+        <li><a data-toggle="tab" href="#sectionChildFamily" onclick="document.getElementById('btnFamily').style.display = ''"><b>Child</b></a></li>
+        @*<li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="tab" href="#dropdown1">Dropdown1</a></li>
+                    <li><a data-toggle="tab" href="#dropdown2">Dropdown2</a></li>
+                </ul>
+            </li>*@
+    </ul>
+    <div class="tab-content">
+        <div id="sectionMateFamily" class="tab-pane fade in active">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Birth Date</th>
+                        <th>Birth Place</th>
+                        <th>Last Education</th>
+                        <th>Occupation</th>
+                        <th>Status</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.detailMate != null)
+                    {
+                        foreach (var a in ViewBag.detailMate as IEnumerable<WebApp_AAJI.Models.employee.employeeMate>)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBox("coupleName_", a.coupleName, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    <select id="mateGender_" name="mateGender_" class="form-control">
+                                        @foreach (var z in ViewBag.genderList as SelectList)
+                                        {
+                                            if (a.gender != null)
+                                            { 
+                                                if (z.Value == a.gender.ToString())
+                                                {
+                                                    <option value="@z.Value" selected="selected">@z.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@z.Value">@z.Text</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleBirthDate_", a.coupleBirthDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleBirthPlace_", a.coupleBirthPlace, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleLastEducation_", a.lastEducation, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleOccupation_", a.occupation, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    <select id="mateStatus_" name="mateStatus_" class="form-control">
+                                        @foreach (var z in ViewBag.MateStatusList as SelectList)
+                                        {
+                                            if (z.Value == a.status.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.TextBox("coupleName_", "", new { style = " width: 150px;" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("mateGender_", ViewBag.genderList as SelectList, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBox("coupleBirthDate_", DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                            </td>
+                            <td>
+                                @Html.TextBox("coupleBirthPlace_", "", new { style = " width: 150px;" })
+                            </td>
+                            <td>
+                                @Html.TextBox("coupleLastEducation_", "", new { style = " width: 150px;" })
+                            </td>
+                            <td>
+                                @Html.TextBox("coupleOccupation_", "", new { style = " width: 150px;" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("mateStatus_", ViewBag.MateStatusList as SelectList, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionChildFamily" class="tab-pane fade">
+            <table id="tblDetailChild">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Birth date</th>
+                        <th>Birth place</th>
+                        <th>Last Education</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idxChild = 0;
+                        int seqId = 0;
+                    }
+                    @if (ViewBag.detailChild != null)
+                    {
+                        foreach (var a in ViewBag.detailChild as IEnumerable<WebApp_AAJI.Models.employee.employeeChild>)
+                        {
+                            //Session["idx"] = idx;
+                            <tr>
+                                <td>                                    
+                                    @Html.Hidden("seqId_" + idxChild, a.sId)
+                                    @Html.TextBox("childName_" + idxChild, a.childName, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    <select id="childGender_@idxChild" name="childGender_@idxChild" class="form-control">
+                                        @foreach (var z in ViewBag.genderList as SelectList)
+                                        {
+                                            if (a.gender != null)
+                                            { 
+                                                if (z.Value == a.gender.ToString())
+                                                {
+                                                    <option value="@z.Value" selected="selected">@z.Text</option>
+                                                }                                                
+                                                else
+                                                {
+                                                    <option value="@z.Value">@z.Text</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    @Html.TextBox("childBirthDate_" + idxChild, a.childBirthDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("childBirthPlace_" + idxChild, a.childBirthPlace, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("childLastEducation_" + idxChild, a.lastEducation, new { style = " width: 150px;" })
+                                </td>
+                                <td>
+                                    <input type="button" id="btnDelete_@idxChild" name="btnDelete_@idxChild" onclick="onClickDeleteRowChild(@idxChild)" value="Delete" />
+                                </td>
+                            </tr>
+                            idxChild++;
+                            seqId = a.sId;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.Hidden("seqId_" + idxChild, (seqId + 1))
+                                @Html.TextBox("childName_" + idxChild, "", new { style = " width: 150px;" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("childGender_", ViewBag.genderList as SelectList, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBox("childBirthDate_" + idxChild, DateTime.Now, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                            </td>
+                            <td>
+                                @Html.TextBox("childBirthPlace_" + idxChild, "", new { style = " width: 150px;" })
+                            </td>
+                            <td>
+                                @Html.TextBox("childLastEducation_" + idxChild, "", new { style = " width: 150px;" })
+                            </td>
+                            <td>
+                                @*@if (idxChild > 0)
+                                {*@
+                                    <input type="button" id="btnDelete_@idxChild" name="btnDelete_@idxChild" onclick="onClickDeleteRowChild(@idxChild)" value="Delete" />
+                                @*}*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+

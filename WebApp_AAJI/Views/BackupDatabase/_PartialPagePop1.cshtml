@@ -1,0 +1,25 @@
+﻿<script>
+    function copyToFormPRVen()
+    {
+        $("#divNext").load('@(Url.Action("next", "BackupDatabase", null, Request.Url.Scheme))');
+    }
+</script>
+    <table class="table table-striped table-hover table-condensed" width="600px">
+        <tr>
+            <th></th>
+            <th style="width: 190px;">Vendor Id</th>
+            <th>Name</th>
+        </tr>
+            <tr>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-ok-sign" data-toggle="modal" onclick="copyToFormPRVen('item.id', 'item.vendorID', 'item.vendorName');"></a>
+                </td>
+                <td>vendorID</td>
+                <td>vendorName</td>
+            </tr>
+        <div id="divNext">
+            @Html.Partial("_PartialPagePop2");
+        </div>
+    </table>
+
+

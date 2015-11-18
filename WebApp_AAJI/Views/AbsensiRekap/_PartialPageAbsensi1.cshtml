@@ -1,0 +1,115 @@
+﻿<script>
+    function saveAbsensi(idx, empId)
+    {
+        document.getElementById('imgSave_' + idx).style.display = '';
+        setTimeout(function () {
+            var date = document.getElementById('dtpAbsensiDate').value;
+            var absensiType = document.getElementById('ddlAbsensiType_' + idx).value;
+            var remark = document.getElementById('remarks_' + idx).value;
+            //alert(empId+"-"+absensiType+"-"+remark);
+            //alert(date);
+            var z = date + ";" + empId + ";" + absensiType + ";" + escape(remark) + "|";
+            $("#dvDetail").load('@(Url.Action("LoadDetailAbsensi", "AbsensiRekap", null, Request.Url.Scheme))?date=' + date + "&dataDetail=" + z);
+            document.getElementById('imgSave_' + idx).style.display = 'none';
+        },600);
+    }
+    function deleteAbsensi(idx, empId) {
+        document.getElementById('imgSave_' + idx).style.display = '';
+        setTimeout(function () {
+        var date = document.getElementById('dtpAbsensiDate').value;
+        var absensiType = "0";
+        var remark = "";
+        //alert(empId+"-"+absensiType+"-"+remark);
+        //alert(date);
+        var z = date + ";" + empId + ";" + absensiType + ";" + escape(remark) + "|";
+        $("#dvDetail").load('@(Url.Action("LoadDetailAbsensi", "AbsensiRekap", null, Request.Url.Scheme))?date=' + date + "&dataDetail=" + z);
+        document.getElementById('imgSave_' + idx).style.display = 'none';
+        }, 600);
+
+    }
+</script>
+<div style="overflow-y:auto; height:100%">
+    <table class="table" id="tbDetail">
+        <thead>
+            <tr>
+                <th style="text-align:center">
+                    No.
+                </th>
+                <th style="text-align:center">
+                    Employee ID
+                </th>
+                <th style="text-align:center">
+                    Name
+                </th>
+                <th style="text-align:center">
+                    Department
+                </th>
+                <th style="text-align:center">
+                    Absensi
+                </th>
+                <th style="text-align:center">
+                    Remarks
+                </th>
+                <th style="text-align:center">
+                    &nbsp;
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbodyDetail">
+            @{
+                int idx = 1;
+            }
+            @if (ViewBag.detailRekapAbsensi != null)
+            {
+                foreach (var a in ViewBag.detailRekapAbsensi as IEnumerable<WebApp_AAJI.Models.absensiRekap.RekapAbsensiDetail>)
+                {
+                    <tr>
+                        <td>
+                            @Html.Hidden("hdnEmployeeID_" + idx, a.employeeID)
+                            @idx
+                        </td>
+                        <td>
+                            @a.employeeNIK
+                        </td>
+                        <td>
+                            @a.employeeName
+                        </td>
+                        <td>
+                            @a.deptName
+                        </td>
+                        <td>
+                            <select id="ddlAbsensiType_@idx" name="ddlAbsensiType_@idx" class="form-control" onchange="saveAbsensi(@idx,@a.employeeID)">
+                                <option value="">- Select -</option>
+                                @foreach (var z in ViewBag.ddlTypeAbsensi as SelectList)
+                                {
+                                    if (z.Value == a.typeAbsensiId.ToString())
+                                    {
+                                        <option value="@z.Value" selected="selected">@z.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@z.Value">@z.Text</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            @Html.TextBox("remarks_" + idx, a.remarks, new { @class = "form-control", onchange = "saveAbsensi(" + idx + "," + a.employeeID + ")" })
+                        </td>
+                        <td>
+                            <img src="~/img/delete.png" width="20px" onclick="deleteAbsensi(@idx,@a.employeeID)" />&nbsp;
+                            <img src="~/img/save.png" width="20px" id="imgSave_@idx" style="display:none" />
+                        </td>
+                    </tr>
+                                idx++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        @*<input type="submit" value="Save" class="btn btn-primary" />*@
+    </div>
+</div>

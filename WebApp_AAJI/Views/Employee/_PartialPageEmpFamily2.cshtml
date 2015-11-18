@@ -1,0 +1,172 @@
+﻿
+
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li style="padding-top: 0.6%;">
+            <input type="button" id="btnFamily" value="[+]" onclick="onClickAddRowChild()" style="display:none" />&nbsp;&nbsp;&nbsp;
+        </li>
+        <li class="active">
+        <a data-toggle="tab" href="#sectionMateFamily" onclick="document.getElementById('btnFamily').style.display = 'none'"><b>Mate</b></a></li>
+        <li><a data-toggle="tab" href="#sectionChildFamily" onclick="document.getElementById('btnFamily').style.display = ''"><b>Child</b></a></li>
+        @*<li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="tab" href="#dropdown1">Dropdown1</a></li>
+                    <li><a data-toggle="tab" href="#dropdown2">Dropdown2</a></li>
+                </ul>
+            </li>*@
+    </ul>
+    <div class="tab-content">
+        <div id="sectionMateFamily" class="tab-pane fade in active">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Tempat Lahir</th>
+                        <th>Pendidikan Terakhir</th>
+                        <th>Tempat tinggal</th>
+                        <th>Status</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.detailMate != null)
+                    {
+                        foreach (var a in ViewBag.detailMate as IEnumerable<WebApp_AAJI.Models.employee.employeeMate>)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBox("coupleName_", a.coupleName, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    <select id="mateGender_" name="mateGender_" class="form-control" disabled="disabled">
+                                        @foreach (var z in ViewBag.genderList as SelectList)
+                                        {
+                                            if (a.gender != null)
+                                            {
+                                                if (z.Value == a.gender.ToString())
+                                                {
+                                                    <option value="@z.Value" selected="selected">@z.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@z.Value">@z.Text</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleBirthDate_", a.coupleBirthDate, "{0:dd-MMM-yyyy}", new { @class = "tanggal", style = " width: 130px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleBirthPlace_", a.coupleBirthPlace, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleLastEducation_", a.lastEducation, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("coupleOccupation_", a.occupation, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    <select id="mateStatus_" name="mateStatus_" class="form-control" disabled="disabled">
+                                        @foreach (var z in ViewBag.MateStatusList as SelectList)
+                                        {
+                                            if (z.Value == a.status.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionChildFamily" class="tab-pane fade">
+            <table id="tblDetailChild">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Tempat Lahir</th>
+                        <th>Pendidikan Terakhir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idxChild = 0;
+                        int seqId = 0;
+                    }
+                    @if (ViewBag.detailChild != null)
+                    {
+                        foreach (var a in ViewBag.detailChild as IEnumerable<WebApp_AAJI.Models.employee.employeeChild>)
+                        {
+                            //Session["idx"] = idx;
+                            <tr>
+                                <td>                                    
+                                    @Html.Hidden("seqId_" + idxChild, a.sId)
+                                    @Html.TextBox("childName_" + idxChild, a.childName, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    <select id="childGender_@idxChild" name="childGender_@idxChild" class="form-control" disabled="disabled">
+                                        @foreach (var z in ViewBag.genderList as SelectList)
+                                        {
+                                            if (a.gender != null)
+                                            {
+                                                if (z.Value == a.gender.ToString())
+                                                {
+                                                    <option value="@z.Value" selected="selected">@z.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@z.Value">@z.Text</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </td>
+                                <td>
+                                    @Html.TextBox("childBirthDate_" + idxChild, a.childBirthDate, "{0:dd-MMM-yyyy}", new { @class = "tanggal", style = " width: 130px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("childBirthPlace_" + idxChild, a.childBirthPlace, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("childLastEducation_" + idxChild, a.lastEducation, new { style = " width: 150px;", disabled = "disabled" })
+                                </td>
+                               
+                            </tr>
+                            idxChild++;
+                            seqId = a.sId;
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+

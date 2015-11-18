@@ -1,0 +1,338 @@
+﻿<script src="~/Scripts/commonFunction.js"></script>
+<script>
+    var stringDataDetail = "";
+    var validateErr = 0;
+
+    function checkBank(fromChk) {
+        document.getElementById('bankName').style.display = "none";
+        document.getElementById('ddlBank').style.display = "none";
+        if (fromChk.checked == false)//not existing
+        {
+            document.getElementById('bankName').style.display = ""
+        }
+        else //existing
+        {
+            document.getElementById('ddlBank').style.display = ""
+            document.getElementById('bankName').value = ""
+        }
+    }
+
+    function onClickDeleteRow(idx) {
+        var tblLength = document.getElementById('tblDetail').rows.length;
+
+        //alert(tbl.rows.length);
+        if (tblLength > 2) {
+            document.getElementById("tbDetail").deleteRow(idx);
+            indexDelete = idx;
+            var y = collectDataDetail();
+            //alert(y);
+            $("#dvDetail").load('@(Url.Action("LoadDetailEmployee", "Employee", null, Request.Url.Scheme))?dataDetail=' + y );
+        }
+        else {
+            alert("Cannot Delete This Row, Detail Required.");
+        }
+
+        indexDelete = 0;
+    }
+
+    function onClickAddRow()
+    {
+        //alert(validateDetail("add"));
+        if (validateDetail("add") == true)
+            if (stringDataDetail != "" && validateErr == 0)
+            {
+                stringDataDetail += getDate() + ";0;0;" + escape("") + ";0;0;" + getDate() + ";"+ escape("") +"|";
+                $("#dvDetail").load('@(Url.Action("LoadDetailEmployee", "Employee", null, Request.Url.Scheme))?dataDetail=' + stringDataDetail);
+            }
+    }
+
+    function collectDataDetail() {
+        var tbl = document.getElementById("tbDetail");
+        var validateError = 0;
+        var stringDataDetail = "";
+
+        var rowsCount = tbl.rows.length;
+        //alert(rowsCount);
+        var seqRows = 1;
+        for (i = 0; i < (rowsCount - 1) ; i++) {
+            if (indexDelete == i && indexDelete != 0) {
+                rowsCount++;
+                i++;
+            }
+
+            var posDate = document.getElementById('posDate_' + i).value;
+            var posDept = document.getElementById('posDept_' + i).value;
+            var posDiv = document.getElementById('posDiv_' + i).value;
+            var posTitle = document.getElementById('posTitle_' + i).value;
+            var posLevel = document.getElementById('posLevel_' + i).value;
+            var posStatus = document.getElementById('posStatus_' + i).value;
+
+            var resDate = document.getElementById('resDate_' + i).value;
+            var resRemark = document.getElementById('resRemark_' + i).value;
+
+            stringDataDetail += seqRows + ";" + invoiceNoVal + ";" + invoiceDateVal + ";" + escape(supplierVal) + ";" + debtVal + ";" + remainsVal + ";" + payVal + "|";
+            seqRows++;
+            //alert(stringDataDetail);
+        }
+
+        return stringDataDetail.substring(0, stringDataDetail.length - 1);
+    }
+
+    function validateDetail(triggerFrom)
+    {
+        var tblLength = document.getElementById('tblDetail').rows.length - 1;
+        stringDataDetail = "";
+        validateErr = 0;
+
+        //alert(tblLength);
+        for (i = 0; i < tblLength; i++) {
+            var posDate = document.getElementById('posDate_' + i).value;
+            var posDept = document.getElementById('posDept_' + i).value;
+            var posDiv = document.getElementById('posDiv_' + i).value;
+            var posTitle = document.getElementById('posTitle_' + i).value;
+            var posLevel = document.getElementById('posLevel_' + i).value;
+            var posStatus = document.getElementById('posStatus_' + i).value;
+
+            var resDate = document.getElementById('resDate_' + i).value;
+            var resRemark = document.getElementById('resRemark_' + i).value;
+
+            if (triggerFrom == "save" && posDate != "" && posDept != "" && posDiv != "" /*&& posTitle != ""*/ && posLevel != "" && posStatus != "")
+            {
+                stringDataDetail += posDate + ";" + posDept + ";" + posDiv + ";" + escape(posTitle) + ";" + posLevel + ";" + posStatus + ";" + resDate + ";" + escape(resRemark) + "|";
+            }
+            else if(posDate != "" && posDept != "" && posDiv != "" && /*posTitle != "" &&*/ posLevel != "" && posStatus != "" && resDate != "" && resRemark != "") {
+                stringDataDetail += posDate + ";" + posDept + ";" + posDiv + ";" + escape(posTitle) + ";" + posLevel + ";" + posStatus + ";" + resDate + ";" + escape(resRemark) + "|";
+            }
+            else {
+                validateErr++;
+                alert("Please Complete Detail");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function save() {
+        var chkExistingBank = document.getElementById('existingBank').checked;
+        var ddlbank = document.getElementById('ddlBank').value;
+
+        if(validateDetail("save") == true)
+            if (chkExistingBank == true) {
+                if (ddlbank == "")
+                    alert("Bank Required");
+                else
+                    document.forms[0].submit();
+            }
+    }
+
+    function changeDiv(idx)
+    {
+        //alert(idx);
+        var divId = document.getElementById('hdnDivId_' + idx).value;
+        var deptId = document.getElementById('posDept_'+idx).value;
+        $("#ddlDiv_" + idx).load('@(Url.Action("LoadDetailDDLDivision", "Employee", null, Request.Url.Scheme))?deptId=' + deptId + '&divId=' + divId+'&idx='+idx);
+    }
+</script>
+
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li style="padding-top: 0.6%;">
+            <input type="button" value="[+]" onclick="onClickAddRow()" />&nbsp;&nbsp;&nbsp;
+        </li>
+        <li class="active"><a data-toggle="tab" href="#sectionA"><b>Position</b></a></li>
+        <li><a data-toggle="tab" href="#sectionB"><b>Resign</b></a></li>
+        @*<li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a data-toggle="tab" href="#dropdown1">Dropdown1</a></li>
+                <li><a data-toggle="tab" href="#dropdown2">Dropdown2</a></li>
+            </ul>
+        </li>*@
+    </ul>
+    <div class="tab-content">
+        <div id="sectionA" class="tab-pane fade in active">
+            <table id="tblDetail">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Division</th>
+                        <th>Department</th>
+                        <th style="display:none">Job Title</th>
+                        <th>Level</th>
+                        <th>Status</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idx = 0;
+                        DateTime posDate = DateTime.Now;
+                    }
+                    @if(ViewBag.detailPosition != null)
+                    {
+                        foreach(var a in ViewBag.detailPosition as IEnumerable<WebApp_AAJI.Models.employee.employeePosition>)
+                        {
+                            Session["idx"] = idx;
+                            <tr>
+                                <td>
+                                    @Html.TextBox("posDate_"+idx, a.positionDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    <select id="posDept_@idx" name="posDept_@idx" class="form-control" onchange="changeDiv(@idx)">
+                                        @foreach (var z in ViewBag.DeptList as SelectList)
+                                        {
+                                            if (z.Value == a.deptID.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="hidden" id="hdnDivId_@idx" value="@a.divisiID" />
+                                    <div id="ddlDiv_@idx">                                        
+                                        @{
+                                            Session["divId"] = a.divisiID;
+                                            @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+                                            <script>
+                                                document.write(changeDiv(@idx));
+                                            </script>
+                                        }
+                                        @*@Html.Partial("_PartialPageDDLDivision1")*@
+                                    </div>
+                                </td>
+                                <td style="display: none">
+                                    @Html.TextBox("posTitle_" + idx, a.jobTitle, new { style = " width: 230px; " })
+                                </td>
+                                <td>
+                                    <select id="posLevel_@idx" name="posLevel_@idx" class="form-control">
+                                        @foreach (var z in ViewBag.LevelList as SelectList)
+                                        {
+                                            if (z.Value == a.levelID.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="posStatus_@idx" name="posStatus_@idx" class="form-control">
+                                        @foreach (var z in ViewBag.StatusList as SelectList)
+                                        {
+                                            if (z.Value == a.employeeStatus.ToString())
+                                            {
+                                                <option value="@z.Value" selected="selected">@z.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@z.Value">@z.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            idx++;
+                         }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.TextBox("posDate_" + idx, posDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                            </td>
+                            <td>                                
+                                @Html.DropDownList("posDept_" + idx, ViewBag.DeptList as SelectList, "- Select -", new { @class = "form-control", onchange = "changeDiv("+idx+")" })
+                            </td>
+                            <td>
+                                <input type="hidden" id="hdnDivId_@idx" value="" />
+                                <div id="ddlDiv_@idx">                                    
+                                    @Html.Partial("_PartialPageDDLDivision1")
+                                </div>
+                            </td>
+                            <td style="display: none;">
+                                @Html.TextBox("posTitle_" + idx, @ViewBag.posTitle as string, new { style = " width: 230px;" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("posLevel_" + idx, ViewBag.LevelList as SelectList, "- Select -", new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("posStatus_" + idx, ViewBag.StatusList as SelectList, "- Select -", new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @if(idx > 0)
+                                {
+                                    <input type="button" onclick="onClickDeleteRow(@idx)" value="Delete" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Remark</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idxRes = 0;
+                        DateTime resDate = DateTime.Now;
+                    }
+                    @if(ViewBag.detailResign != null)
+                    {
+                        foreach (var a in ViewBag.detailResign as IEnumerable<WebApp_AAJI.Models.employee.employeeResign>)
+                        {
+                            <tr>
+                                <td>
+                                     @Html.TextBox("resDate_" + idxRes, a.resignDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("resRemark_" + idxRes, a.remarks, new { style = " width: 500px;" })
+                                </td>
+                            </tr>
+                            idxRes++;
+                        }
+                        if(idxRes < idx)
+                        { 
+                            <tr>
+                                <td>
+                                    @Html.TextBox("resDate_" + idxRes, resDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                                </td>
+                                <td>
+                                    @Html.TextBox("resRemark_" + idxRes, "" as string, new { style = " width: 500px;" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.TextBox("resDate_" + idxRes, resDate, "{0:yyyy-MM-dd}", new { type = "date", style = " width: 130px;" })
+                            </td>
+                            <td>
+                                @Html.TextBox("resRemark_" + idxRes, "" as string, new { style = " width: 500px;" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
